@@ -1,0 +1,10 @@
+/build*/
+/prefix/
+/.qt/
+/.vscode/
+CMakeUserPresets.json
+*.user
+*.qsb
+.env
+.env.*
+.DS_Store

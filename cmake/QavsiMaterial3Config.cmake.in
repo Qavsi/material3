@@ -1,0 +1,12 @@
+@PACKAGE_INIT@
+include(CMakeFindDependencyMacro)
+find_dependency(Qt6 6.12 COMPONENTS Quick LabsStyleKit)
+set_and_check(QavsiMaterial3_QML_IMPORT_DIR "@PACKAGE_qml_install_dir@")
+include("${CMAKE_CURRENT_LIST_DIR}/QavsiMaterial3Targets.cmake")
+# Generated qmldir linktargets also serve Qt's installed QML import scanner.
+foreach(module IN ITEMS Theme Style)
+    if(NOT TARGET QavsiMaterial3${module}Plugin)
+        add_library(QavsiMaterial3${module}Plugin ALIAS QavsiMaterial3::${module}Plugin)
+    endif()
+endforeach()
+check_required_components(QavsiMaterial3)

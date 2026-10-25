@@ -1,0 +1,154 @@
+{
+  "date": "2026-10-25",
+  "repository": "https://github.com/Qavsi/material3",
+  "license": "MIT",
+  "environment": {
+    "qt": "6.12.0",
+    "os": "macOS 26.5.2 arm64",
+    "compiler": "AppleClang 21.0.0.21000101",
+    "cmake": "4.4.3",
+    "generator": "Ninja",
+    "configuration": "Debug"
+  },
+  "results": [
+    {
+      "scenario": "source-software",
+      "assertions": 118,
+      "failures": 0,
+      "graphicsApi": "Software"
+    },
+    {
+      "scenario": "installed-software",
+      "assertions": 118,
+      "failures": 0,
+      "graphicsApi": "Software"
+    },
+    {
+      "scenario": "source-metal",
+      "assertions": 122,
+      "failures": 0,
+      "graphicsApi": "Metal"
+    },
+    {
+      "scenario": "installed-metal",
+      "assertions": 122,
+      "failures": 0,
+      "graphicsApi": "Metal"
+    },
+    {
+      "scenario": "installed-cocoa-software",
+      "assertions": 120,
+      "failures": 0,
+      "graphicsApi": "Software"
+    }
+  ],
+  "strict_qmllint": {
+    "max_warnings": 0,
+    "source": [
+      "Theme",
+      "Style",
+      "example"
+    ],
+    "installed": [
+      "example"
+    ],
+    "result": "PASS"
+  },
+  "independence": {
+    "implementation_files_byte_identical": 20,
+    "installed_consumer_outside_kit_source": true,
+    "prefix_relocated_before_consumer_configure": true,
+    "mercedeps_in_exports": false,
+    "source_or_build_paths_in_exports": false,
+    "installed_consumer_finds_shadertools": false,
+    "runtime_import_environment_workaround": false,
+    "license_and_notices_installed": true
+  },
+  "implementation_files": [
+    {
+      "path": "cmake/InstallQmlModule.cmake",
+      "sha256": "8369a1b8d4bc166c3b34cb570bc84ee0e0f511c0f013814f2e4cd0f56515ac2b"
+    },
+    {
+      "path": "cmake/QavsiMaterial3Config.cmake.in",
+      "sha256": "32bcacc85d9528677fe2468688796878c6a3591df325cfce69a6fe2835cdfe20"
+    },
+    {
+      "path": "examples/small-button/Benchmark.qml",
+      "sha256": "2ee071370fb6de122912ca877cf2fe26b362468e7ae891b3716530fd4d406561"
+    },
+    {
+      "path": "examples/small-button/CMakeLists.txt",
+      "sha256": "295d8e63dd7adc81412e434e8714cbc2437b8b23e9a49ea929a7b7cfb8f5624e"
+    },
+    {
+      "path": "examples/small-button/Main.qml",
+      "sha256": "7254c80f9913fdb2324d5136d30f466adb0345c1af28e4c0c7648771fc9293b0"
+    },
+    {
+      "path": "examples/small-button/SmallButtonPage.qml",
+      "sha256": "fa248a3afcead547ee74c428dd5d137a0c0e3a509218621e8982bf99ac4b8810"
+    },
+    {
+      "path": "examples/small-button/benchmark.cpp",
+      "sha256": "9d7b942bb3f85f7f9c4648e64f9312eda9ae4d2960485580a366746869cf236e"
+    },
+    {
+      "path": "examples/small-button/checks.cpp",
+      "sha256": "67efa8282e8a83e5338d2f327433be6cdf1e38cc759b36724c91e3a9e638844e"
+    },
+    {
+      "path": "examples/small-button/main.cpp",
+      "sha256": "6d83ca98ce933c7c5738264be97a6fbe7965b9192393e5db308a472cebb2d2c0"
+    },
+    {
+      "path": "src/Qavsi/Material3/Style/CMakeLists.txt",
+      "sha256": "4005d7a6d9b0443a722eae3aa9e32a04dcd399608e1c70d08603b5b2b97ca089"
+    },
+    {
+      "path": "src/Qavsi/Material3/Style/Material3Style.qml",
+      "sha256": "3ac9cd826dcf38982693fe64693c2e27669affd7ceea6ed6a910422ce81374c8"
+    },
+    {
+      "path": "src/Qavsi/Material3/Style/SmallButtonBackground.qml",
+      "sha256": "b069d4ffad8bf29603df3202d315dc5e4f6e41def2ab10228ccdd32aac62aef3"
+    },
+    {
+      "path": "src/Qavsi/Material3/Style/SmallButtonDelegate.qml",
+      "sha256": "125c717a819a97715ab1c737bad6230874c924363f34a9c34194ee12a64dd3dc"
+    },
+    {
+      "path": "src/Qavsi/Material3/Style/SmallButtonParameters.qml",
+      "sha256": "951175116601710cfd9e07e9a55074673f814d5f649036e5aeafa8883bd4f7d2"
+    },
+    {
+      "path": "src/Qavsi/Material3/Style/SmallButtonTheme.qml",
+      "sha256": "d129fca114e840a308b848bdbb89e94e2c4f5ce80f19bbb07dbd63d4908a1517"
+    },
+    {
+      "path": "src/Qavsi/Material3/Style/materialbuttonfeedback.cpp",
+      "sha256": "cf6a1567ff797dc1f9c2bc70581afa5fa4905ab177ced1f9ecd340aafffb856d"
+    },
+    {
+      "path": "src/Qavsi/Material3/Style/materialbuttonfeedback.h",
+      "sha256": "b879b1879e7225f1efa3e92f811f50aa207476fe1ae4faf7764bc8c641a4a495"
+    },
+    {
+      "path": "src/Qavsi/Material3/Style/shaders/smallbuttonfeedback.frag",
+      "sha256": "a5aa45b50a9dfcd6318b4bcfceb8e8e5c7c286e2ebd74feb1a4a0075d747b0cb"
+    },
+    {
+      "path": "src/Qavsi/Material3/Theme/CMakeLists.txt",
+      "sha256": "bae1accb34a33f3a6396d3b03a5ff88af8a31abd7e2792cd64245699be30eacb"
+    },
+    {
+      "path": "src/Qavsi/Material3/Theme/Material3Theme.qml",
+      "sha256": "eb3cbda27928ed06842ce70f2f71a6e2766fad7209a58e3f4a11f7006a2a8927"
+    }
+  ],
+  "limits": [
+    "Only Small Filled button slice, not stable SDK/full Material3 kit.",
+    "Linux/Windows/WASM/static Qt and production deployment not exercised.",
+    "Performance retained from pre-extraction measurements; not remeasured during publication."
+  ]
+}
