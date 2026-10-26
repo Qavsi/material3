@@ -1,0 +1,283 @@
+{
+  "date": "2026-10-26",
+  "qt": "6.12.0",
+  "platform": "macOS / Apple M4 / Metal + software",
+  "sourceBaseCommit": "b0778e251f195f14a97c3d1f4b21bbeb4a877b21",
+  "commitOrPushPerformed": false,
+  "sdkChanged": false,
+  "merceChanged": false,
+  "core": "Qavsi.Icons / QavsiIcons::Core",
+  "optionalProvider": "Qavsi.Icons.Material / QavsiIcons::Material",
+  "materialFont": {
+    "upstream": "https://github.com/google/material-design-icons",
+    "revision": "10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7",
+    "upstreamFont": "variablefont/MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf",
+    "upstreamCatalog": "variablefont/MaterialSymbolsRounded[FILL,GRAD,opsz,wght].codepoints",
+    "license": "Apache-2.0",
+    "files": {
+      "MaterialSymbolsRounded.ttf": "7e74e36533ccee12c2b81e75bfcf3ccf123d3bb7e7e46d65d94445f23db0c97c",
+      "MaterialSymbolsRounded.codepoints": "a7404d9e5a1b63f496cf05ace45d386075886b5a7f123fba9f29527cb6006fde",
+      "LICENSE": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    "fontVersion": "2.978",
+    "names": 4304,
+    "uniqueCodepoints": 4004,
+    "verifiedCmapCoverage": 4304,
+    "axes": {
+      "FILL": [
+        0,
+        0,
+        1
+      ],
+      "GRAD": [
+        -50,
+        0,
+        200
+      ],
+      "opsz": [
+        20,
+        24,
+        48
+      ],
+      "wght": [
+        100,
+        400,
+        700
+      ]
+    }
+  },
+  "checks": {
+    "sourceIconsSoftwareDpr1": {
+      "assertions": 89,
+      "failures": 0
+    },
+    "sourceIconsSoftwareDpr2": {
+      "assertions": 89,
+      "failures": 0
+    },
+    "sourceCoreOnlyDpr1": {
+      "assertions": 56,
+      "failures": 0
+    },
+    "sourceCoreOnlyDpr2": {
+      "assertions": 56,
+      "failures": 0
+    },
+    "sourceIconsMetal": {
+      "assertions": 89,
+      "failures": 0
+    },
+    "installedIconsSoftwareDpr1": {
+      "assertions": 89,
+      "failures": 0
+    },
+    "installedIconsSoftwareDpr2": {
+      "assertions": 89,
+      "failures": 0
+    },
+    "installedIconsMetal": {
+      "assertions": 89,
+      "failures": 0
+    },
+    "sourceMaterial3Software": {
+      "assertions": 538,
+      "failures": 0
+    },
+    "sourceMaterial3Metal": {
+      "assertions": 538,
+      "failures": 0
+    },
+    "installedMaterial3Software": {
+      "assertions": 538,
+      "failures": 0
+    },
+    "installedMaterial3Metal": {
+      "assertions": 538,
+      "failures": 0
+    },
+    "installedMaterial3CocoaSoftware": {
+      "assertions": 538,
+      "failures": 0
+    },
+    "sourceTextButton": {
+      "assertions": 121,
+      "failures": 0
+    },
+    "installedTextButton": {
+      "assertions": 121,
+      "failures": 0
+    },
+    "sourceThemeColors": {
+      "assertions": 291,
+      "failures": 0
+    },
+    "sourceMcuUtility": {
+      "assertions": 4,
+      "failures": 0
+    },
+    "sourceLint": "PASS",
+    "installedConsumerLint": "PASS",
+    "mixedSourceKitInstalledCoreBuildAndLint": "PASS",
+    "independentReview": "No blockers"
+  },
+  "packaging": {
+    "relocatedPrefix": "/private/tmp/qavsi-icon-gates-20261026/relocated",
+    "originalPrefixAbsent": true,
+    "comparisonConsumerCopiedOutsideSource": true,
+    "coreOnlyContainsMaterial": false,
+    "textConsumerLinksMaterialProvider": false,
+    "qmlDependencies": "URI IMPORTS plus real CMake targets; build IMPORT_PATH metadata, no manual runtime engine import path"
+  },
+  "qmlPreview": {
+    "mcpStarted": true,
+    "executable": "/private/tmp/qavsi-migration-source/examples/qmlmaterial-comparison/qavsi-material3-comparison.app/Contents/MacOS/qavsi-material3-comparison",
+    "monitor": "left / VA2419 Series",
+    "liveVisualCheck": "PASS: CUA observed and interacted with both live apps after unlock",
+    "visualScenarios": {
+      "appearances": [
+        "Standard",
+        "Filled",
+        "FilledTonal",
+        "Outlined"
+      ],
+      "lightFilledAndOutline": "PASS",
+      "darkFilledAndOutline": "PASS",
+      "lightToDarkPreservesSelectedStates": "PASS",
+      "darkToLightPreservesEmptyStates": "PASS",
+      "disabledGlyphsRemainMuted": "PASS",
+      "finalState": "Both Light; appearance2/4 selected,1/3 unselected",
+      "comparison": "QCM visual endpoints, not a quantitative pixel diff",
+      "implementationChanges": false,
+      "commitPerformed": false
+    }
+  },
+  "notChecked": [
+    "Linux/Windows/WASM/static Qt",
+    "SF/FontAwesome migration",
+    "animated FILL morph",
+    "performance benchmark"
+  ],
+  "sha256": {
+    "material3/src/Qavsi/Material3/Style/ButtonSizeVariation.qml": "94dbb40e460a645b024c1569a93751ac76a0552fb390d2e7bface258590c9a6e",
+    "material3/src/Qavsi/Material3/Style/ButtonVariation.qml": "d04deb8fc0c15ca9215c5dcdb906515146553332b0d4c3139e382feaec553da2",
+    "material3/src/Qavsi/Material3/Style/ButtonVariations.qml": "244c1ac169f913ee9a8a75f96a35ee2b6a5f999d2441be6587ab5a4fe21550ff",
+    "material3/src/Qavsi/Material3/Style/CMakeLists.txt": "c042e57f3e7c597f5cdf2a2727bc3b02cbb0e803f417be256f5c5587183921e0",
+    "material3/src/Qavsi/Material3/Style/IconButtonSizeVariation.qml": "ceac011be833b15656953e1e7396aeb2146ec1e24f2eeeb861c3056eec4ce82f",
+    "material3/src/Qavsi/Material3/Style/IconButtonVariation.qml": "c6a9678d97dd36f686b4da7efcd7248b953f1ddf1280632578ba04e2af8e2091",
+    "material3/src/Qavsi/Material3/Style/Material3ButtonContent.qml": "de1bbf3c349b615258929d5741ccb74407d7c301473048cc58beae44e5b0529f",
+    "material3/src/Qavsi/Material3/Style/Material3Style.qml": "04470662c85981fe2ce6a7cc98e213a4b0bd9bed9cb809924b357fb1b40dac26",
+    "material3/src/Qavsi/Material3/Style/SmallButtonBackground.qml": "f58eca7b79740173ff51b5e3922fa82da4688ee22f65ca233bca4ca4e53dc4f8",
+    "material3/src/Qavsi/Material3/Style/SmallButtonDelegate.qml": "125c717a819a97715ab1c737bad6230874c924363f34a9c34194ee12a64dd3dc",
+    "material3/src/Qavsi/Material3/Style/SmallButtonParameters.qml": "a9a208ac068b174c1d01a4a373be47eb1e1e549fe5bc02acedac52a12b3dc967",
+    "material3/src/Qavsi/Material3/Style/SmallButtonTheme.qml": "b455abd476977f1276ee725583afcf6f08a369e6d99dd60f36523266cf481d35",
+    "material3/src/Qavsi/Material3/Style/internal/actions/advanced/Material3AdvancedButtonParameters.qml": "33bc9c8e7e2cb013f12ce8e98f37f64a38f61d06b817df890dc099249564c0cd",
+    "material3/src/Qavsi/Material3/Style/internal/actions/advanced/Material3AdvancedButtonVariations.qml": "2bbe5a0ab3b8fcd972be2a759b432ff981d082804d68fa866947a8077d08207a",
+    "material3/src/Qavsi/Material3/Style/internal/actions/advanced/Material3ConnectedButtonVariation.qml": "442ccefa96f47434d5b187352fbe12bf620ab549b37923d49b3c6689726b4f28",
+    "material3/src/Qavsi/Material3/Style/internal/actions/advanced/Material3FabVariation.qml": "e949888e5cdd2226f50449327f0aa090937e17f3d8d87885848da204379cf964",
+    "material3/src/Qavsi/Material3/Style/internal/actions/advanced/Material3JoinedButtonBackground.qml": "7cf4fad837d83c32090e03b377e2760b00c86404c2eb2f160886f143e1d1e430",
+    "material3/src/Qavsi/Material3/Style/internal/actions/advanced/Material3JoinedButtonDelegate.qml": "6ccfd0c9ecfd1830d557229c23c0b5e77848707fd8e121eefdd29b2bf13a0328",
+    "material3/src/Qavsi/Material3/Style/internal/actions/advanced/Material3JoinedButtonVariation.qml": "6650b88d90bd9a6914e085312b5a0e4932f1b069db8c9119e1a533712cabbd2a",
+    "material3/src/Qavsi/Material3/Style/internal/actions/advanced/Material3SegmentedButtonVariation.qml": "c2a6f42cb7382140e5e945cacfab07f9241c3dc5cb2431bd77f8aedfe92b328d",
+    "material3/src/Qavsi/Material3/Style/internal/actions/advanced/Material3SplitButtonVariation.qml": "ebfea47ec19c9cfe4339454ee0e99b3f364f9264483565fa1944dcf159bf4519",
+    "material3/src/Qavsi/Material3/Style/internal/actions/advanced/README.md": "8341f1790c596fb43b908d149dde90d14e4e517d589e36187354b1768f09be68",
+    "material3/src/Qavsi/Material3/Style/internal/recipes/Material3BadgeRecipe.js": "642cfdfec47e5c0495b0eb24fe55c8863be081698851331bbdf8eb4a3f75377f",
+    "material3/src/Qavsi/Material3/Style/internal/recipes/Material3ButtonRecipe.js": "9fabbb8d520ad7b4e13fd8ca0c13de2fd4de7eef360a551b880359fc9ed04fc3",
+    "material3/src/Qavsi/Material3/Style/internal/recipes/Material3ConnectedButtonRecipe.js": "d845c2c7655896267c41969a28c2922c80a57209399b26bd4e3ddc211973dd68",
+    "material3/src/Qavsi/Material3/Style/internal/recipes/Material3FabRecipe.js": "d56f3ac3e4b4dfdf7db1b58ebaa20100717b5cf8dfdc5478e6dbd44586f81591",
+    "material3/src/Qavsi/Material3/Style/internal/recipes/Material3IconButtonRecipe.js": "1361182587e919d898d21b557dae845d66d55450f9497860356613c0961f5cf8",
+    "material3/src/Qavsi/Material3/Style/internal/recipes/Material3JoinedRecipe.js": "66992553ebb66fae5856ec39fd4a7afcac71cb4fa8c7021c77cb0189e043819b",
+    "material3/src/Qavsi/Material3/Style/internal/recipes/Material3NavigationRecipe.js": "c8848aacb1b07cb300066188c00e8c51b9e67da60f5b2756bd6b5ef45045a562",
+    "material3/src/Qavsi/Material3/Style/internal/recipes/Material3SegmentedButtonRecipe.js": "e862d1b9d1c6edd5caf88ecb4ebdc93a07394d4fa39bc437e8e6577f159bc0f7",
+    "material3/src/Qavsi/Material3/Style/internal/recipes/Material3SliderRecipe.js": "8e302572e9a0de729edc907f4005604bdbc533569e6696e598f1438a0d859116",
+    "material3/src/Qavsi/Material3/Style/internal/recipes/Material3SplitButtonRecipe.js": "3e264d10fbacf881ad0bc6df6a5ebd6d5330e54b2ce97a3b1c6f405e287b394c",
+    "material3/src/Qavsi/Material3/Style/internal/recipes/Material3SwitchRecipe.js": "48a784ff4f05cbbee56004966aaebc1b32973d88fdfd68c06f822047ae3ccfa5",
+    "material3/src/Qavsi/Material3/Style/internal/recipes/Material3TabRecipe.js": "ffb818b29304c3087cf2e4152751bcd6fb6e62aa4049a7f177cffa35dcc0072c",
+    "material3/src/Qavsi/Material3/Style/materialbuttonfeedback.cpp": "e24f9ec511e0fc402522ea0536e7eab909fda49bb679c02bf817b2334b6c0b6d",
+    "material3/src/Qavsi/Material3/Style/materialbuttonfeedback.h": "8089e1d61c95db57f34ab68c64c0c4868d64b4408e2805912cb577e31b37161c",
+    "material3/src/Qavsi/Material3/Style/shaders/smallbuttonfeedback.frag": "a534e7ba94d4e60c00cae78a670a87d4709dcbb19325eb77a90e09311f08b396",
+    "material3/src/Qavsi/Material3/Theme/CMakeLists.txt": "05cb9adb19488aea0d3cd726f9159d2587ec5a32b8253439597a03a423a0b8a5",
+    "material3/src/Qavsi/Material3/Theme/Material3Theme.qml": "293eb25206f7b4bc140fe477371f4e8c7734ad4e12382e8f84ea046d10714b45",
+    "material3/src/Qavsi/Material3/Theme/materialcolorscheme.cpp": "a56ae0e42f83d8fe4b080839114fdb14ec09156091ac36e7703bcabdfa870a06",
+    "material3/src/Qavsi/Material3/Theme/materialcolorscheme.h": "9cff729f0d3e02a17b13aee323945e138e1c959dd6400af3001125c8d17abfeb",
+    "material3/cmake/InstallQmlModule.cmake": "8369a1b8d4bc166c3b34cb570bc84ee0e0f511c0f013814f2e4cd0f56515ac2b",
+    "material3/cmake/QavsiMaterial3Config.cmake.in": "d661b004e9b926432d3d276a49cbc32efb9299ac5390c0136461aaba0964aac8",
+    "material3/examples/qmlmaterial-comparison/ActionsGallery.qml": "954711964a93dfe1176dcd52db144d7be8553454c37e4a637c46f77843f989f7",
+    "material3/examples/qmlmaterial-comparison/CMakeLists.txt": "87036909f98c25715fabbe4595e280656019b0cccff6e9bfadbfcc3c9f44d74f",
+    "material3/examples/qmlmaterial-comparison/ComparisonMetrics.qml": "b328117f2a73778988135d8889259c028c01b1949b8dc929d5ccc7ecf8fdff71",
+    "material3/examples/qmlmaterial-comparison/ComparisonPage.qml": "e906aac3785c4cd6b0fd6b037bbb5acaab35bd2b386ff7f89211449fd8c5ea58",
+    "material3/examples/qmlmaterial-comparison/DemoCard.qml": "0b371e11b3cc0f2c1084415beb5ae44c9b3457889479d42108fbf4c6cde692ff",
+    "material3/examples/qmlmaterial-comparison/FabMenuExamples.qml": "b12861e7d2c44c07f14cae3e150c9b1c77b8b55c3a71eaf81bdaa60e4bf86a9b",
+    "material3/examples/qmlmaterial-comparison/Main.qml": "220dbf71d64e59bccb93d55f8eeeb887bf2b0ea2ed88b942db01da282ce49e00",
+    "material3/examples/qmlmaterial-comparison/QMLMATERIAL-LICENSE.txt": "82518c9dac40bcfa5953574f79beb77175e9d5ad3c5e2c66ad52358ca3f406ca",
+    "material3/examples/qmlmaterial-comparison/checks.cpp": "371a70e3058d58cfdf7c7aa477563bc05fc203e1a4239a65daa19bfdd80419d0",
+    "material3/examples/qmlmaterial-comparison/icons/LICENSE-Apache-2.0.txt": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+    "material3/examples/qmlmaterial-comparison/icons/README.md": "4cf554d362aca90409f28d259dfb1ad4689f3093e7789beb1d8463482ae7ff33",
+    "material3/examples/qmlmaterial-comparison/icons/add.svg": "747fe04ec3eb546a96f514a5d2df9e81be53397818b83f05630519ab008bb6e9",
+    "material3/examples/qmlmaterial-comparison/icons/alarm.svg": "6c1ee984885650fa982c0b0da9ed94ca1a25df6af0e40188ce08de049631c086",
+    "material3/examples/qmlmaterial-comparison/icons/bluetooth.svg": "3736a6c4fb26629b36b2ca6e2f28e5a61a72a4419c1ad18bfcf66bac4490e2de",
+    "material3/examples/qmlmaterial-comparison/icons/check.svg": "51e706757e18de60cb7ade1cf0ae272708932d36e417365f14977ee039cd85b8",
+    "material3/examples/qmlmaterial-comparison/icons/close.svg": "fabc7e16160e93ed11d6d72b87f5c67092d04abfcc1fc2410fab1abe075cd8fc",
+    "material3/examples/qmlmaterial-comparison/icons/delete.svg": "cd90ebd4c5aa36ef2332e2511ed6dcb051a32e5c99effd60494060473f27b9f9",
+    "material3/examples/qmlmaterial-comparison/icons/edit.svg": "65d2e92a5a2d761c82125ecd95aa6fd8a389b6153a631ccc260c9aa658f65ef6",
+    "material3/examples/qmlmaterial-comparison/icons/expand_more.svg": "be3caefbe027b3fd65e88c363b86cc7af9f4bc71fa7c5187fcb02b0e40988a3d",
+    "material3/examples/qmlmaterial-comparison/icons/link.svg": "9c56fecf20eadbb91ff1cde7d8bf45030fc598d7c12824cfa67d5fd98d87fa9d",
+    "material3/examples/qmlmaterial-comparison/icons/manifest.json": "b71eb7db2d06627f10724d336b73459064b79de3f0b726efb96fa1e54216a292",
+    "material3/examples/qmlmaterial-comparison/icons/settings-filled.svg": "349d48c9515c5cc92bfd22fc5cab61a6d9b90e680825edfa5f77e15f4b2265ef",
+    "material3/examples/qmlmaterial-comparison/icons/settings.svg": "6cd47de90647ece6b00922f497f8c4ea9c1649548cf15828d1df9d78d5bdf30d",
+    "material3/examples/qmlmaterial-comparison/icons/star-filled.svg": "513a0f450ac62c6bdc6c6cb8701896ea4ac7a82121b9e19cc52596fd7ce3b5fc",
+    "material3/examples/qmlmaterial-comparison/icons/star.svg": "c0bfa8bb656fa17290b2292100b07e1d9ff12fe7a6dbee8bac4b8e84ed08384c",
+    "material3/examples/qmlmaterial-comparison/icons/stars.svg": "37fa599918daa68344d8ce23c6a9228ebf2465d8cc0fc447099d85a9ff7c3e00",
+    "material3/examples/qmlmaterial-comparison/icons/wifi.svg": "f7c825d97360b22a97e7b5636fbf68ef08fab3de679811553d3eb07590163488",
+    "material3/examples/qmlmaterial-comparison/main.cpp": "da62096359533bbb99b6f3cf21909804eb450b8103d72914ed90e2d1b6755463",
+    "material3/tests/material-colors/CMakeLists.txt": "c3b08963f2a4224feb7c78961a25581d0dbf608048b39d4c85542fd83a3b7caf",
+    "material3/tests/material-colors/checks.cpp": "0433f3e4ad04e6b4c25e6ec5abddcba2d5a8b10fa54c252d4dcc7e73a371335c",
+    "material3/tests/material-colors/utils-check.cpp": "d009fa023f6c67fce7240e6e45ecd66091313be28b66713cf182edea9223791d",
+    "material3/CMakeLists.txt": "8d2e92be8aa0187a3769e5d86251bfcb12e867d50a24b79c99543a25ce2271b7",
+    "material3/README.md": "e788a6615860a4dd4434fc0ca389eccef4f6f096155d0f753a341ff1e362e634",
+    "material3/DESIGN.md": "b5c32a708eb7ebe3a55a234d61b4560d09bdf2ab8b34665df538f58f429b9873",
+    "material3/CHANGELOG.md": "8b1844914c72cf4132f4890d95501615fe93d9856dcbf82f4490b9389ca8f6bf",
+    "material3/THIRD_PARTY_NOTICES.md": "1cc4b23047417dc99199f12c6973ca7cb79f8def45bfdb2b8e01610de6637fc0",
+    "icons/src/Qavsi/Icons/AppIcon.qml": "fa476982821942a4f3c8474ce771357662251c1c9847361279c7225a539c2030",
+    "icons/src/Qavsi/Icons/CMakeLists.txt": "dc2767933f4868a60f215c41e9f66817616bb4673c4cda1f8a4e97e9a2ad8278",
+    "icons/src/Qavsi/Icons/IconGlyph.qml": "cf52a8e2fd475ea45a0b994287641055d816e8b0b538bd7b7feea4521fdb170c",
+    "icons/src/Qavsi/Icons/Material/CMakeLists.txt": "cddc2111060c50f320515085ce98d4eedf922cedd5583ec0feb5cb3c6cee9cf1",
+    "icons/src/Qavsi/Icons/Material/MaterialGlyph.qml": "1e6cdb016acbbd24e84ededd229d78a89fe7b6fe0b83afd545257527f56debef",
+    "icons/src/Qavsi/Icons/Material/fonts/LICENSE": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+    "icons/src/Qavsi/Icons/Material/fonts/MaterialSymbolsRounded.codepoints": "a7404d9e5a1b63f496cf05ace45d386075886b5a7f123fba9f29527cb6006fde",
+    "icons/src/Qavsi/Icons/Material/fonts/MaterialSymbolsRounded.ttf": "7e74e36533ccee12c2b81e75bfcf3ccf123d3bb7e7e46d65d94445f23db0c97c",
+    "icons/src/Qavsi/Icons/Material/fonts/provenance.json": "523797ed8cf589b4b1cbbcc157836fe77150bcd2cc9e9e832eaa10952db3176f",
+    "icons/src/Qavsi/Icons/Material/fonts/verification.json": "1d5564587531526e9f233c3275adc72123adaf719d9afced5ee7b72348207998",
+    "icons/src/Qavsi/Icons/Material/materialplugin.cpp": "b3fed7d220f05a33c8760d9c6107ffec7d257f1afbb540679a3e0988bd999a0f",
+    "icons/src/Qavsi/Icons/Material/materialsymbols.cpp": "1101bf9f658d1cb3a6916bc9e7f3095f64e1d797d23a759613cb70e45ba0c299",
+    "icons/src/Qavsi/Icons/Material/materialsymbols.h": "04bde5f4fe67e4ee17d13f7402e978e0e8af1ae5f4956e0c5039fe9a4314407b",
+    "icons/src/Qavsi/Icons/iconregistry.cpp": "4e9c35461f93eca1a21c783d896f31b428bdc47cceee28667af570a05124e882",
+    "icons/src/Qavsi/Icons/iconregistry.h": "99944854346d5d6c382c82b873ccd3fa95bf4aee9ac6bb3c97da2572730ae653",
+    "icons/src/Qavsi/Icons/nativeiconimage.cpp": "7081f54498803e67a44b100732fc20bc13799a0310e3284577c25a1843d9a6fb",
+    "icons/src/Qavsi/Icons/nativeiconimage.h": "7388a7cc006f3d60162850428304f6f1809f9792c7b3f55b9b2469b7ee74ff60",
+    "icons/cmake/InstallQmlModule.cmake": "950afbd880f878e1d5b0f6424d5db9f66899d3a8e608d3f3199b6ff18fc25ed1",
+    "icons/cmake/QavsiIconsConfig.cmake.in": "8865238532b09979dd6e086830004b4bca1413a73e906db842a788def9abd3b0",
+    "icons/tests/CMakeLists.txt": "38364bf5d104807a8f6eb2fcf491ea96114c3a2fb58dd08bbc0cd273d5e1f6bf",
+    "icons/tests/TestGlyph.qml": "8785490e604fa7059c489dd1a324a01c6eaf613fefce01cc5f4d37fc73b6dc91",
+    "icons/tests/checks.cpp": "131201beb517efd8e936947a78354548d36b59f481bd07cb84dc2667dfcd603f",
+    "icons/CMakeLists.txt": "0d953e42bbc2eb90d2f99ddb8e2c1c4a67569e5afc8b169fc916039fe7f2cca9",
+    "icons/README.md": "75552c09458dfd13648171507064627f0c15e7bbb8387da0cb3801b5b921fca5",
+    "icons/DESIGN.md": "ec8375b67d62ad5ff482d2dab5651e2bf88b6f09934f768f714fd4bf969f9df3",
+    "icons/LICENSE": "89729f2dd98d0e236ad3fa3635de546d7de28b66ff2fd9c25e10ca8dc56fe530",
+    "icons/THIRD_PARTY_NOTICES.md": "5165a5db67c30b7693a525fae2ae1ceca2f5c11d419ead888b437a6031e88187"
+  },
+  "logs": [
+    "logs/icons/comparison-installed-cocoa-software.log",
+    "logs/icons/comparison-installed-metal.log",
+    "logs/icons/icons-installed-metal.log",
+    "logs/icons/icons-source-metal.log",
+    "logs/icons/installed-icons.log",
+    "logs/icons/installed-material3.log",
+    "logs/icons/installed-text.log",
+    "logs/icons/mixed-build.log",
+    "logs/icons/mixed-lint.log",
+    "logs/icons/source-core-only.log",
+    "logs/icons/source-final-build.log",
+    "logs/icons/source-icons.log",
+    "logs/icons/source-material3.log"
+  ]
+}

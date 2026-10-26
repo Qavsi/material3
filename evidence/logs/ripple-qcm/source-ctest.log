@@ -1,0 +1,80 @@
+Start testing: Oct 26 09:52 +03
+----------------------------------------------------------
+1/4 Testing: small-button-software
+1/4 Test: small-button-software
+Command: "/private/tmp/qavsi-migration-source/examples/small-button/qavsi-small-button.app/Contents/MacOS/qavsi-small-button" "--check"
+Directory: /private/tmp/qavsi-migration-source/examples/small-button
+"small-button-software" start time: Oct 26 09:52 +03
+Output:
+----------------------------------------------------------
+QML debugging is enabled. Only use this in a safe environment.
+qt.qpa.fonts: Populating font family aliases took 81 ms. Replace uses of missing font family "Sans Serif" with one that exists to avoid this cost. 
+Preview screen: "" QRect(0,0 800x800) window: QRect(90,180 620x440)
+Resolved label font: QFont(Sans Serif,-1,14,5,500,0,0,0,0,0,0,1,0.09375,0,0,1,,0,0) tracking: 0.09375
+Qt 6.12.0 backend "software" graphicsApi 1 assertions 159 failures 0
+<end of output>
+Test time =   7.37 sec
+----------------------------------------------------------
+Test Passed.
+"small-button-software" end time: Oct 26 09:52 +03
+"small-button-software" time elapsed: 00:00:07
+----------------------------------------------------------
+
+2/4 Testing: comparison-software
+2/4 Test: comparison-software
+Command: "/private/tmp/qavsi-migration-source/examples/qmlmaterial-comparison/qavsi-material3-comparison.app/Contents/MacOS/qavsi-material3-comparison" "--check"
+Directory: /private/tmp/qavsi-migration-source/examples/qmlmaterial-comparison
+"comparison-software" start time: Oct 26 09:52 +03
+Output:
+----------------------------------------------------------
+QML debugging is enabled. Only use this in a safe environment.
+qt.qpa.fonts: Populating font family aliases took 70 ms. Replace uses of missing font family "Sans Serif" with one that exists to avoid this cost. 
+Preview screen: "" QRect(0,0 800x800) window: QRect(8,16 384x768)
+Dynamic StyleKit font initialization before QFont(Sans Serif,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0) resolved px 12 after native state update QVariant(QFont, QFont(Sans Serif,-1,14,5,500,0,0,0,0,0,0,1,0.09375,0,0,1,,0,0))
+Qt 6.12.0 comparison assertions 538 failures 0
+<end of output>
+Test time =   3.85 sec
+----------------------------------------------------------
+Test Passed.
+"comparison-software" end time: Oct 26 09:52 +03
+"comparison-software" time elapsed: 00:00:03
+----------------------------------------------------------
+
+3/4 Testing: material-colors
+3/4 Test: material-colors
+Command: "/private/tmp/qavsi-migration-source/tests/material-colors/qavsi-material-colors-check"
+Directory: /private/tmp/qavsi-migration-source/tests/material-colors
+"material-colors" start time: Oct 26 09:52 +03
+Output:
+----------------------------------------------------------
+MaterialColorScheme: invalid seed color ignored
+MaterialColorScheme: unsupported scheme ignored
+MaterialColorScheme: non-finite contrast level ignored
+MaterialColorScheme: non-finite contrast level ignored
+qt.qpa.fonts: Populating font family aliases took 71 ms. Replace uses of missing font family "Sans Serif" with one that exists to avoid this cost. 
+Material colors: assertions 291 failures 0
+<end of output>
+Test time =   0.19 sec
+----------------------------------------------------------
+Test Passed.
+"material-colors" end time: Oct 26 09:52 +03
+"material-colors" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/4 Testing: material-color-utils
+4/4 Test: material-color-utils
+Command: "/private/tmp/qavsi-migration-source/tests/material-colors/qavsi-material-color-utils-check"
+Directory: /private/tmp/qavsi-migration-source/tests/material-colors
+"material-color-utils" start time: Oct 26 09:52 +03
+Output:
+----------------------------------------------------------
+MCU hex conversion: assertions 4 failures 0
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"material-color-utils" end time: Oct 26 09:52 +03
+"material-color-utils" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 26 09:52 +03

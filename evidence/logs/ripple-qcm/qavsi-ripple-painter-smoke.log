@@ -1,0 +1,4 @@
+QML debugging is enabled. Only use this in a safe environment.
+Preview screen: "" QRect(0,0 800x800) window: QRect(-418,-98 1640x1000)
+This plugin does not support raise()
+Renderer comparison requires actual Metal; got 1

@@ -1,0 +1,5 @@
+ctest: 4/4 passed (11.43 sec)
+slowest:
+  small-button-software 7.37 sec
+  comparison-software 3.85 sec
+  material-colors 0.19 sec

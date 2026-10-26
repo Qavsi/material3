@@ -1,0 +1,85 @@
+{
+  "date": "2026-10-26",
+  "qt": "6.12.0",
+  "qcmRevision": "229bc3e64ff71f1ac88cf73e976637ffbcf7e33c",
+  "commitPerformed": false,
+  "sdkChanged": false,
+  "skiaRuntimeDependency": false,
+  "behavior": {
+    "pressMs": 450,
+    "holdProgress": 0.4,
+    "releaseMs": 350,
+    "stateFadeMs": 150,
+    "waveFadeMs": 150,
+    "baseOpacity": 0.12,
+    "waveOpacity": 0.12,
+    "noisePeriodMs": 7000,
+    "noisePhase": 32.71028037383178,
+    "repress": "continue current progress",
+    "reducedMotion": "static base only; no wave/noise",
+    "software": "soft gradient wave, no sparkle noise"
+  },
+  "checks": {
+    "sourceSoftware": {
+      "assertions": 159,
+      "failures": 0
+    },
+    "sourceMetal": {
+      "assertions": 163,
+      "failures": 0
+    },
+    "comparisonSoftwareAndMetal": {
+      "assertions": 538,
+      "failures": 0
+    },
+    "colors": {
+      "assertions": 291,
+      "failures": 0
+    },
+    "mcuUtility": {
+      "assertions": 4,
+      "failures": 0
+    },
+    "qmlLint": "PASS",
+    "review": "No blockers"
+  },
+  "installedChecks": {
+    "software": {
+      "assertions": 159,
+      "failures": 0
+    },
+    "metal": {
+      "assertions": 163,
+      "failures": 0
+    },
+    "sourceIndependentConsumer": true,
+    "licensesInstalled": true
+  },
+  "livePreview": "QML Preview MCP restarted; CUA observed the running left-display comparison and clicked Filled with180ms hold; rendered release feedback observed. No quantitative live QCM pixel diff.",
+  "performance": "No new comparison result: native benchmark focus precondition unavailable; offscreen software rejected by Metal-only comparison harness",
+  "sha256": {
+    "src/Qavsi/Material3/Style/SmallButtonBackground.qml": "a5e03069141dbaa9e00da18986a48e908928cb61366295a3b9f380c1f94ee140",
+    "src/Qavsi/Material3/Style/shaders/smallbuttonfeedback.frag": "15dcb4d399d52216b73cdf685864516be84a57bdee16546f641b1695e990d19b",
+    "src/Qavsi/Material3/Style/materialbuttonfeedback.cpp": "24801d72fe34d6c00841d00118f2d64c127841a2ac69b8650b2e66d42b22bdfe",
+    "src/Qavsi/Material3/Style/materialbuttonfeedback.h": "0bdca04cf1b51fe91e020ca5c7dab5a08012be82286e631a358a054b0cf4d6f7",
+    "src/Qavsi/Material3/Theme/Material3Theme.qml": "3b66cd5f0cf69e8733ca44ee50915e6f8593065399d03eb7ce5c94e3ed5016f1",
+    "examples/small-button/checks.cpp": "bb0911c3eb8639e11a0318bb069054055a6de18a9bef9b667e3a462c9f94b15d",
+    "examples/small-button/Benchmark.qml": "c446780834d1573295f991d4427cce5c62b9e34ad7ac3089bbcadb6d264b56aa",
+    "examples/small-button/benchmark.cpp": "15b7a2910548997252b13d24df330f09bee76d63a1e0bbc59f5ee0ead9688e55",
+    "CMakeLists.txt": "c41abd1fb4ef008fd5751fe8c4176155e000c0574f61ceb204d3c1d54a7e93cd",
+    "DESIGN.md": "50525425d9c39c667238fc8fe29655ac55ba33fb13c42b4ce541a2f54029ea43",
+    "README.md": "91e8151cf461f869c92d519d90ddcabdb044d142b20430f839fabf2d94c6cd8a",
+    "THIRD_PARTY_NOTICES.md": "2f92520fcac36b3fd2658dc03fdd51b9d143ae56b36f6addd1a0f2ebbbb5e556"
+  },
+  "licenses": "third_party/ripple-reference/provenance.json",
+  "logs": [
+    "logs/ripple-qcm/qavsi-ripple-gates.log",
+    "logs/ripple-qcm/qavsi-ripple-metal-sample.log",
+    "logs/ripple-qcm/qavsi-ripple-comparison-metal.log",
+    "logs/ripple-qcm/qavsi-ripple-installed-metal.log",
+    "logs/ripple-qcm/qavsi-ripple-installed-software.log",
+    "logs/ripple-qcm/qavsi-ripple-final-lint.log",
+    "logs/ripple-qcm/qavsi-ripple-shader-smoke.log",
+    "logs/ripple-qcm/qavsi-ripple-painter-smoke.log"
+  ]
+}

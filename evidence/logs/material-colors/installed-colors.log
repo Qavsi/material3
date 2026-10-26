@@ -1,0 +1,24 @@
+Start testing: Oct 26 00:07 +03
+----------------------------------------------------------
+1/1 Testing: material-colors
+1/1 Test: material-colors
+Command: "/private/tmp/qavsi-mcu-installed-colors/qavsi-material-colors-check"
+Directory: /private/tmp/qavsi-mcu-installed-colors
+"material-colors" start time: Oct 26 00:07 +03
+Output:
+----------------------------------------------------------
+MaterialColorScheme: invalid seed color ignored
+MaterialColorScheme: unsupported scheme ignored
+MaterialColorScheme: non-finite contrast level ignored
+MaterialColorScheme: non-finite contrast level ignored
+qt.qpa.fonts: Populating font family aliases took 32 ms. Replace uses of missing font family "Sans Serif" with one that exists to avoid this cost. 
+Material colors: assertions 291 failures 0
+<end of output>
+Test time =   1.51 sec
+----------------------------------------------------------
+Test Passed.
+"material-colors" end time: Oct 26 00:07 +03
+"material-colors" time elapsed: 00:00:01
+----------------------------------------------------------
+
+End testing: Oct 26 00:07 +03

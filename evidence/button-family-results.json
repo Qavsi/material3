@@ -1,0 +1,444 @@
+{
+  "date": "2026-10-25",
+  "qt": "6.12.0",
+  "configuration": "Debug",
+  "sourceBaseCommit": "b0778e251f195f14a97c3d1f4b21bbeb4a877b21",
+  "uncommittedWorktree": true,
+  "commitOrPushPerformed": false,
+  "matrix": [
+    {
+      "consumer": "source Small",
+      "platform": "offscreen",
+      "renderer": "software",
+      "assertions": 121,
+      "failures": 0
+    },
+    {
+      "consumer": "installed Small",
+      "platform": "offscreen",
+      "renderer": "software",
+      "assertions": 121,
+      "failures": 0
+    },
+    {
+      "consumer": "source Small",
+      "platform": "Cocoa",
+      "renderer": "Metal",
+      "assertions": 125,
+      "failures": 0
+    },
+    {
+      "consumer": "source comparison",
+      "platform": "offscreen",
+      "renderer": "software",
+      "assertions": 513,
+      "failures": 0
+    },
+    {
+      "consumer": "installed comparison",
+      "platform": "offscreen",
+      "renderer": "software",
+      "assertions": 513,
+      "failures": 0
+    },
+    {
+      "consumer": "source comparison",
+      "platform": "Cocoa",
+      "renderer": "Metal",
+      "assertions": 513,
+      "failures": 0
+    },
+    {
+      "consumer": "installed comparison",
+      "platform": "Cocoa",
+      "renderer": "Metal",
+      "assertions": 513,
+      "failures": 0
+    },
+    {
+      "consumer": "installed comparison",
+      "platform": "Cocoa",
+      "renderer": "software",
+      "assertions": 513,
+      "failures": 0
+    }
+  ],
+  "qmlLint": {
+    "maxWarnings": 0,
+    "sourceTheme": "pass",
+    "sourceStyle": "pass",
+    "sourceComparison": "pass",
+    "installedComparison": "pass"
+  },
+  "recipes": {
+    "generated": 12,
+    "staleOutputCheck": "pass",
+    "numericAndGeometryValidation": "pass",
+    "aliasAndInvalidSourceChecks": "pass",
+    "nodeRequiredForBuildOrRuntime": false
+  },
+  "packaging": {
+    "separateConsumerOutsideKit": true,
+    "prefixRelocated": true,
+    "originalPrefixAbsent": true,
+    "installedConsumerSourceOptionAbsent": true,
+    "installedShaderToolsAbsent": true,
+    "libraryOnlyExamplesOff": true,
+    "merceOrRuntimeDependency": false
+  },
+  "feedbackBenchmarkSmoke": {
+    "renderer": "Metal shader",
+    "items": 1,
+    "compiledShaders": 1,
+    "pixelVerifiedCells": 1,
+    "configuration": "Debug",
+    "notAPerformanceComparison": true,
+    "historicalBeforeGeometryCalibration": true
+  },
+  "googleColorValidation": {
+    "commit": "84c0e6d6d493fcf176d2099683245b78afbeb78d",
+    "url": "https://raw.githubusercontent.com/material-components/material-components-android/84c0e6d6d493fcf176d2099683245b78afbeb78d/lib/java/com/google/android/material/color/res/values/tokens.xml",
+    "sha256": "1e015a03bfb2605b735e576b0827a1110721914922f81244d5413f330547ca7b",
+    "rolePairs": 17,
+    "colorValues": 34,
+    "mismatches": 0,
+    "algorithm": "Resolve XML @color aliases recursively; normalize opaque Android alpha; compare typed light/dark Theme values."
+  },
+  "qmlMaterialBaseline": "229bc3e64ff71f1ac88cf73e976637ffbcf7e33c",
+  "referenceBuild": "pass; local macOS platform selection and public Qt fallback; no XDP/DBus on macOS; native UI opened",
+  "finalVisualReview": "QML Preview on left: generated neutral blue-gray Light profile observed in common and icon/FAB sections; QCM open alongside; actual color equality in12x20 role tests; no full pixel/surface/ripple parity claim",
+  "notChecked": [
+    "Linux",
+    "Windows",
+    "WebAssembly",
+    "static Qt",
+    "standalone deployment",
+    "full Material3 compliance",
+    "full control-family performance",
+    "pixel-identical visual comparison"
+  ],
+  "sha256": {
+    "CHANGELOG.md": "63ddd8dd1b3cc725134a45b1aaa0469fde535ac9a15ff83c2c8eb4cb19ad119b",
+    "CMakeLists.txt": "29d4f540758d3edccf4567b5608d1e032eff1669482fc77c0e2b5377fb5baab2",
+    "DESIGN.md": "b0d25072402c0f1dc51d04f17a4fc2871616bae698f2a6a5a6960858060d7b32",
+    "README.md": "53320d2a20f20233cb10670e8169e9015d05f690d35130e8a39db25f769fe1de",
+    "docs/migration/README.md": "b2ebdd4f4450728e66d1d63e8e7db3f351b28fe6ed9fa8ad65ac7760ffb3f6c5",
+    "docs/migration/button-family-visual-review.md": "768c48ffef8726d3345404f58ec151039ef80629d411efdf3ab99ea0d33e6ec7",
+    "evidence/BUTTON-FAMILY.md": "661b3ce1e1abb41a27390ce1a2b86d365c315c3385e2cdd8cfb3e9cff945ac77",
+    "evidence/MATERIAL-COLORS.md": "e21b9f038db4d83d48dd1dbdcb22609c1d9adb4f3e9d7f8bc92a5a01ebbea7b2",
+    "evidence/material-color-reference.json": "65df446b77d0a2eb7144d44bb83315381e6062348f35b0157d84d04860308fca",
+    "evidence/reference-material-colors/CMakeLists.txt": "1ca2eb50b3f83888c4709821f8508248f9fb734f80c6904b2c55d84065b09ac2",
+    "evidence/reference-material-colors/README.md": "beda1bbfb4caf7b9095aad250b5439d885a5abba65a46a944bfbb3ef94d22d8a",
+    "evidence/reference-material-colors/main.cpp": "579897c0a6c54c04eee03fa4425c5e6f19c29bb2e66cce342403382ca5c2af41",
+    "examples/qmlmaterial-comparison/ActionsGallery.qml": "4cb6c86a338e5349142f387d9c4a79ec360bc89089dd7771a39c7390ad22e129",
+    "examples/qmlmaterial-comparison/CMakeLists.txt": "3a1fb907b6712070011d9c657ff6001f66584ad2d42826b26dda52a7e8d425ab",
+    "examples/qmlmaterial-comparison/ComparisonMetrics.qml": "b328117f2a73778988135d8889259c028c01b1949b8dc929d5ccc7ecf8fdff71",
+    "examples/qmlmaterial-comparison/ComparisonPage.qml": "e906aac3785c4cd6b0fd6b037bbb5acaab35bd2b386ff7f89211449fd8c5ea58",
+    "examples/qmlmaterial-comparison/DemoCard.qml": "0b371e11b3cc0f2c1084415beb5ae44c9b3457889479d42108fbf4c6cde692ff",
+    "examples/qmlmaterial-comparison/FabMenuExamples.qml": "501ead4bb9003bc722354ad9152c97b42b4234ecc79d802703602ebc655ebc73",
+    "examples/qmlmaterial-comparison/Main.qml": "220dbf71d64e59bccb93d55f8eeeb887bf2b0ea2ed88b942db01da282ce49e00",
+    "examples/qmlmaterial-comparison/checks.cpp": "e2ed6cb2bf24de76c7bd17eb614cee33b39817686fa67e070553036f4ac594b2",
+    "examples/qmlmaterial-comparison/icons/README.md": "4cf554d362aca90409f28d259dfb1ad4689f3093e7789beb1d8463482ae7ff33",
+    "examples/qmlmaterial-comparison/icons/add.svg": "747fe04ec3eb546a96f514a5d2df9e81be53397818b83f05630519ab008bb6e9",
+    "examples/qmlmaterial-comparison/icons/alarm.svg": "6c1ee984885650fa982c0b0da9ed94ca1a25df6af0e40188ce08de049631c086",
+    "examples/qmlmaterial-comparison/icons/bluetooth.svg": "3736a6c4fb26629b36b2ca6e2f28e5a61a72a4419c1ad18bfcf66bac4490e2de",
+    "examples/qmlmaterial-comparison/icons/check.svg": "51e706757e18de60cb7ade1cf0ae272708932d36e417365f14977ee039cd85b8",
+    "examples/qmlmaterial-comparison/icons/close.svg": "fabc7e16160e93ed11d6d72b87f5c67092d04abfcc1fc2410fab1abe075cd8fc",
+    "examples/qmlmaterial-comparison/icons/delete.svg": "cd90ebd4c5aa36ef2332e2511ed6dcb051a32e5c99effd60494060473f27b9f9",
+    "examples/qmlmaterial-comparison/icons/edit.svg": "65d2e92a5a2d761c82125ecd95aa6fd8a389b6153a631ccc260c9aa658f65ef6",
+    "examples/qmlmaterial-comparison/icons/expand_more.svg": "be3caefbe027b3fd65e88c363b86cc7af9f4bc71fa7c5187fcb02b0e40988a3d",
+    "examples/qmlmaterial-comparison/icons/link.svg": "9c56fecf20eadbb91ff1cde7d8bf45030fc598d7c12824cfa67d5fd98d87fa9d",
+    "examples/qmlmaterial-comparison/icons/manifest.json": "b71eb7db2d06627f10724d336b73459064b79de3f0b726efb96fa1e54216a292",
+    "examples/qmlmaterial-comparison/icons/settings-filled.svg": "349d48c9515c5cc92bfd22fc5cab61a6d9b90e680825edfa5f77e15f4b2265ef",
+    "examples/qmlmaterial-comparison/icons/settings.svg": "6cd47de90647ece6b00922f497f8c4ea9c1649548cf15828d1df9d78d5bdf30d",
+    "examples/qmlmaterial-comparison/icons/star-filled.svg": "513a0f450ac62c6bdc6c6cb8701896ea4ac7a82121b9e19cc52596fd7ce3b5fc",
+    "examples/qmlmaterial-comparison/icons/star.svg": "c0bfa8bb656fa17290b2292100b07e1d9ff12fe7a6dbee8bac4b8e84ed08384c",
+    "examples/qmlmaterial-comparison/icons/stars.svg": "37fa599918daa68344d8ce23c6a9228ebf2465d8cc0fc447099d85a9ff7c3e00",
+    "examples/qmlmaterial-comparison/icons/wifi.svg": "f7c825d97360b22a97e7b5636fbf68ef08fab3de679811553d3eb07590163488",
+    "examples/qmlmaterial-comparison/main.cpp": "da62096359533bbb99b6f3cf21909804eb450b8103d72914ed90e2d1b6755463",
+    "examples/small-button/Benchmark.qml": "58c3d3d772f5921acdfb368446fc3ab61d86b4f8041bc09ad3e67fcdb1e306fd",
+    "examples/small-button/CMakeLists.txt": "295d8e63dd7adc81412e434e8714cbc2437b8b23e9a49ea929a7b7cfb8f5624e",
+    "examples/small-button/Main.qml": "7254c80f9913fdb2324d5136d30f466adb0345c1af28e4c0c7648771fc9293b0",
+    "examples/small-button/SmallButtonPage.qml": "fa248a3afcead547ee74c428dd5d137a0c0e3a509218621e8982bf99ac4b8810",
+    "examples/small-button/benchmark.cpp": "9d7b942bb3f85f7f9c4648e64f9312eda9ae4d2960485580a366746869cf236e",
+    "examples/small-button/checks.cpp": "1ffa339abbc9d00bfc8a809918f8d259c445b7674881bed8af8d921b48686646",
+    "examples/small-button/main.cpp": "6d83ca98ce933c7c5738264be97a6fbe7965b9192393e5db308a472cebb2d2c0",
+    "src/Qavsi/Material3/Style/ButtonSizeVariation.qml": "94dbb40e460a645b024c1569a93751ac76a0552fb390d2e7bface258590c9a6e",
+    "src/Qavsi/Material3/Style/ButtonVariation.qml": "d04deb8fc0c15ca9215c5dcdb906515146553332b0d4c3139e382feaec553da2",
+    "src/Qavsi/Material3/Style/ButtonVariations.qml": "244c1ac169f913ee9a8a75f96a35ee2b6a5f999d2441be6587ab5a4fe21550ff",
+    "src/Qavsi/Material3/Style/CMakeLists.txt": "96f85005efbc154ec61296b3c279f30372973bbe61e32638ba89a5d9c9f8cfd6",
+    "src/Qavsi/Material3/Style/IconButtonSizeVariation.qml": "6e9a7885eb4caadc66623978e8091506ecd094bda7173afd464c8a54aa045e4f",
+    "src/Qavsi/Material3/Style/IconButtonVariation.qml": "bb8645476e864205ee94de996ad0cc10444ace742e3dcf8015e068baeffc2e10",
+    "src/Qavsi/Material3/Style/Material3ButtonContent.qml": "385045a9df9f2c8fc77031cc5d5388ff01b430d35f1df41fe0ba961181e15c18",
+    "src/Qavsi/Material3/Style/Material3Style.qml": "04470662c85981fe2ce6a7cc98e213a4b0bd9bed9cb809924b357fb1b40dac26",
+    "src/Qavsi/Material3/Style/SmallButtonBackground.qml": "f58eca7b79740173ff51b5e3922fa82da4688ee22f65ca233bca4ca4e53dc4f8",
+    "src/Qavsi/Material3/Style/SmallButtonDelegate.qml": "125c717a819a97715ab1c737bad6230874c924363f34a9c34194ee12a64dd3dc",
+    "src/Qavsi/Material3/Style/SmallButtonParameters.qml": "becd7696f98f961dadaa4860437425a18adc549d1ab23f91302477f4d703d162",
+    "src/Qavsi/Material3/Style/SmallButtonTheme.qml": "b455abd476977f1276ee725583afcf6f08a369e6d99dd60f36523266cf481d35",
+    "src/Qavsi/Material3/Style/internal/actions/advanced/Material3AdvancedButtonParameters.qml": "33bc9c8e7e2cb013f12ce8e98f37f64a38f61d06b817df890dc099249564c0cd",
+    "src/Qavsi/Material3/Style/internal/actions/advanced/Material3AdvancedButtonVariations.qml": "2bbe5a0ab3b8fcd972be2a759b432ff981d082804d68fa866947a8077d08207a",
+    "src/Qavsi/Material3/Style/internal/actions/advanced/Material3ConnectedButtonVariation.qml": "c907401f9ac41a79988bb679e0b9f3947afe366e735221330297e642ab9fabcf",
+    "src/Qavsi/Material3/Style/internal/actions/advanced/Material3FabVariation.qml": "e949888e5cdd2226f50449327f0aa090937e17f3d8d87885848da204379cf964",
+    "src/Qavsi/Material3/Style/internal/actions/advanced/Material3JoinedButtonBackground.qml": "7cf4fad837d83c32090e03b377e2760b00c86404c2eb2f160886f143e1d1e430",
+    "src/Qavsi/Material3/Style/internal/actions/advanced/Material3JoinedButtonDelegate.qml": "6ccfd0c9ecfd1830d557229c23c0b5e77848707fd8e121eefdd29b2bf13a0328",
+    "src/Qavsi/Material3/Style/internal/actions/advanced/Material3JoinedButtonVariation.qml": "a760c65076c8fbb3e5a9caf0705c6c5a575e18dc7105b71adf50d90a08d26ee5",
+    "src/Qavsi/Material3/Style/internal/actions/advanced/Material3SegmentedButtonVariation.qml": "c2a6f42cb7382140e5e945cacfab07f9241c3dc5cb2431bd77f8aedfe92b328d",
+    "src/Qavsi/Material3/Style/internal/actions/advanced/Material3SplitButtonVariation.qml": "ebfea47ec19c9cfe4339454ee0e99b3f364f9264483565fa1944dcf159bf4519",
+    "src/Qavsi/Material3/Style/internal/recipes/Material3BadgeRecipe.js": "642cfdfec47e5c0495b0eb24fe55c8863be081698851331bbdf8eb4a3f75377f",
+    "src/Qavsi/Material3/Style/internal/recipes/Material3ButtonRecipe.js": "9fabbb8d520ad7b4e13fd8ca0c13de2fd4de7eef360a551b880359fc9ed04fc3",
+    "src/Qavsi/Material3/Style/internal/recipes/Material3ConnectedButtonRecipe.js": "d845c2c7655896267c41969a28c2922c80a57209399b26bd4e3ddc211973dd68",
+    "src/Qavsi/Material3/Style/internal/recipes/Material3FabRecipe.js": "d56f3ac3e4b4dfdf7db1b58ebaa20100717b5cf8dfdc5478e6dbd44586f81591",
+    "src/Qavsi/Material3/Style/internal/recipes/Material3IconButtonRecipe.js": "1361182587e919d898d21b557dae845d66d55450f9497860356613c0961f5cf8",
+    "src/Qavsi/Material3/Style/internal/recipes/Material3JoinedRecipe.js": "66992553ebb66fae5856ec39fd4a7afcac71cb4fa8c7021c77cb0189e043819b",
+    "src/Qavsi/Material3/Style/internal/recipes/Material3NavigationRecipe.js": "c8848aacb1b07cb300066188c00e8c51b9e67da60f5b2756bd6b5ef45045a562",
+    "src/Qavsi/Material3/Style/internal/recipes/Material3SegmentedButtonRecipe.js": "e862d1b9d1c6edd5caf88ecb4ebdc93a07394d4fa39bc437e8e6577f159bc0f7",
+    "src/Qavsi/Material3/Style/internal/recipes/Material3SliderRecipe.js": "8e302572e9a0de729edc907f4005604bdbc533569e6696e598f1438a0d859116",
+    "src/Qavsi/Material3/Style/internal/recipes/Material3SplitButtonRecipe.js": "3e264d10fbacf881ad0bc6df6a5ebd6d5330e54b2ce97a3b1c6f405e287b394c",
+    "src/Qavsi/Material3/Style/internal/recipes/Material3SwitchRecipe.js": "48a784ff4f05cbbee56004966aaebc1b32973d88fdfd68c06f822047ae3ccfa5",
+    "src/Qavsi/Material3/Style/internal/recipes/Material3TabRecipe.js": "ffb818b29304c3087cf2e4152751bcd6fb6e62aa4049a7f177cffa35dcc0072c",
+    "src/Qavsi/Material3/Style/materialbuttonfeedback.cpp": "e24f9ec511e0fc402522ea0536e7eab909fda49bb679c02bf817b2334b6c0b6d",
+    "src/Qavsi/Material3/Style/materialbuttonfeedback.h": "8089e1d61c95db57f34ab68c64c0c4868d64b4408e2805912cb577e31b37161c",
+    "src/Qavsi/Material3/Style/shaders/smallbuttonfeedback.frag": "a534e7ba94d4e60c00cae78a670a87d4709dcbb19325eb77a90e09311f08b396",
+    "src/Qavsi/Material3/Theme/CMakeLists.txt": "05cb9adb19488aea0d3cd726f9159d2587ec5a32b8253439597a03a423a0b8a5",
+    "src/Qavsi/Material3/Theme/Material3Theme.qml": "c9ec1e784cad9f1e586041bf102aa9a0e3ec37acfd6af3bb2b3dea716436da0b",
+    "src/Qavsi/Material3/Theme/materialcolorscheme.cpp": "a56ae0e42f83d8fe4b080839114fdb14ec09156091ac36e7703bcabdfa870a06",
+    "src/Qavsi/Material3/Theme/materialcolorscheme.h": "9cff729f0d3e02a17b13aee323945e138e1c959dd6400af3001125c8d17abfeb",
+    "tests/material-colors/CMakeLists.txt": "c3b08963f2a4224feb7c78961a25581d0dbf608048b39d4c85542fd83a3b7caf",
+    "tests/material-colors/checks.cpp": "0433f3e4ad04e6b4c25e6ec5abddcba2d5a8b10fa54c252d4dcc7e73a371335c",
+    "tests/material-colors/utils-check.cpp": "d009fa023f6c67fce7240e6e45ecd66091313be28b66713cf182edea9223791d",
+    "third_party/material-color-utilities/CMakeLists.txt": "7895d4b399528ca594548583fff8ce9224ac138735203eb97cf46031d38ca058",
+    "third_party/material-color-utilities/LICENSE": "e662e6c2fc7ba7bc613c7e4ddf852d4ad3fcc05faead7cbe16b1dac67b55f426",
+    "third_party/material-color-utilities/README.md": "e949d742203a517f99c4c562838fc7e4be1a5385afb1e1c559e88724c1296f6f",
+    "third_party/material-color-utilities/cpp/cam/cam.cc": "a120f09dbe64512178905c73c1f3098e457ec6e6467f4b44aee4de38d7ec14df",
+    "third_party/material-color-utilities/cpp/cam/cam.h": "d35b503dbf6dd49a5052f6b0df774a801d0cf73a8204af90165e827e1aca294d",
+    "third_party/material-color-utilities/cpp/cam/hct.cc": "22efdc3d6310332f670dd2239b8564fc460a3eedcc165e2f5561d571daf3e81a",
+    "third_party/material-color-utilities/cpp/cam/hct.h": "3d00d51f52779ad53980384f490b1ca26f7d3b03632d7b61c1528c10d37086da",
+    "third_party/material-color-utilities/cpp/cam/hct_solver.cc": "1aa801959eb0f0925bced40b0b41774354e52745b7bc8f9ddf52d67693480af1",
+    "third_party/material-color-utilities/cpp/cam/hct_solver.h": "a5c893925ac5c2a3ced3e5cd3280bcf4ee0acf89f7a79c7d62b11040086a6461",
+    "third_party/material-color-utilities/cpp/cam/viewing_conditions.cc": "1074e89fe9f263c92649956d642c5b5ed04ee4d68680f598c7da0c09792748d9",
+    "third_party/material-color-utilities/cpp/cam/viewing_conditions.h": "c278369735ac87649b8decd23c9939fda17f29b499a43f3dc4b820014b7d304b",
+    "third_party/material-color-utilities/cpp/contrast/contrast.cc": "be8e1590b9fc954687e8cfe5c13c798561892ab3ba97d16a8ef1928c45cdd464",
+    "third_party/material-color-utilities/cpp/contrast/contrast.h": "67dfecb31bc68c7febf0b828991741cad9f5655e759ca1561f3e6e78e50966e6",
+    "third_party/material-color-utilities/cpp/dislike/dislike.cc": "91a97494edd3e050d1a43350b886ecc2d67bae56840e26d1ee26e876cd528991",
+    "third_party/material-color-utilities/cpp/dislike/dislike.h": "ee48e74fb68b2b4eb9e62f5931335302a0db26532e44bc32e2be691c3a924851",
+    "third_party/material-color-utilities/cpp/dynamiccolor/contrast_curve.h": "de70c32a9fba7dd73d3e82765952368773b46943a70bbd4eae5ee512cbba5c77",
+    "third_party/material-color-utilities/cpp/dynamiccolor/dynamic_color.cc": "c9c82831c8f9b0aa0df055fb30f52cea1008e059c89f76207b07354918eee152",
+    "third_party/material-color-utilities/cpp/dynamiccolor/dynamic_color.h": "781edbbf85eb557c3d3959f77760257f7627ffa76dc795d103c004945a9f1421",
+    "third_party/material-color-utilities/cpp/dynamiccolor/dynamic_scheme.cc": "3058a377dbdc271854ab4aa2736a8f2f02536fec9814d8b45acd235cd61cd9e2",
+    "third_party/material-color-utilities/cpp/dynamiccolor/dynamic_scheme.h": "60d7b54a0dc2ee0ebd671988f86f3b1d85549da73d46754410839d0b92103552",
+    "third_party/material-color-utilities/cpp/dynamiccolor/material_dynamic_colors.cc": "15a27e79e06d9806ab4574fe5866bcd6efb192e18ac4974567331e9226fc5ecc",
+    "third_party/material-color-utilities/cpp/dynamiccolor/material_dynamic_colors.h": "cc5cee5ba5f6c39d5a366bb717710a0ed1f6d564ea3ebd679ffcdcaeead4efcc",
+    "third_party/material-color-utilities/cpp/dynamiccolor/tone_delta_pair.h": "85fdda1526d4722b19c5bf92a74a18fbcd05b955e2f8d89452cb762ebb7ba9da",
+    "third_party/material-color-utilities/cpp/dynamiccolor/variant.h": "01b4da5e079e79409e06469099d066158e54746c78efe979e5b3914e2518b0ed",
+    "third_party/material-color-utilities/cpp/palettes/tones.cc": "25bc2365553961989b8bb4638144416a1f30dff1afe32d639708a9795f508d7e",
+    "third_party/material-color-utilities/cpp/palettes/tones.h": "710d877fc2d84987bb45e2a1d9ec51aec7e9138fb9b47baed157ed98073567a0",
+    "third_party/material-color-utilities/cpp/scheme/scheme_neutral.cc": "2096bab85bfbfa11aba689988d27851c6c0b91bb3bba1b3f39ffb260b91fbc41",
+    "third_party/material-color-utilities/cpp/scheme/scheme_neutral.h": "8aab018a590e2deaa5228db4fcb75e665720d9f5bcdf826a0149ce3f8629c32a",
+    "third_party/material-color-utilities/cpp/scheme/scheme_tonal_spot.cc": "c2e0b6ce706441bfde3cc9bf0c06523b097f63cdfc3238c2b21d644f0ced6e88",
+    "third_party/material-color-utilities/cpp/scheme/scheme_tonal_spot.h": "c2b62f305fbbd482a9ff78a4d6de53d1092aaa8637c5353128515c11132513d6",
+    "third_party/material-color-utilities/cpp/utils/utils.cc": "9449b3ed01eba8b74bb7ce11c0c1281a1b4dd083262df911a8ac3eaced1be6b1",
+    "third_party/material-color-utilities/cpp/utils/utils.h": "7f16dc796049837d4efd0889a377383e359ce5a39d503be6ae88e9fdb00b0cb8",
+    "third_party/material-color-utilities/provenance.json": "55a3869793d7151ed94090031027d57166a7715045ba6029b49bf768a4a764ac",
+    "tokens/material3.json": "8c67d2ae85e905077b50f5478773f0fdb3fad668c3b19da8ef250c3a8defcd05",
+    "tools/README.md": "e5cc0ace231e8a4498875465703f2b8c842ca69147d3615ac7d5fc3c1716635d",
+    "tools/recipes/generate.mjs": "b0427ed75104918788c908c934664b4dfc73f07b1496a215e76efc3f6206dbda",
+    "tools/recipes/generation.test.mjs": "beba82671af83415ba944c2dee155c4abd3574f2a6db7d5668682ce64759f3f6",
+    "tools/recipes/material3-format.mjs": "2723e63f32cf743ec0a234edbe1ee31da5fd16a6f68ebd25bb5362ba2294fe58",
+    "tools/recipes/material3-format.test.mjs": "722ab1b65b56421cb10df5417a0bb08f89c8024f64ee319548bf9c42b198e3ca",
+    "tools/recipes/token-value-utils.mjs": "8506883347b75491adabdc66e087b18860b0f4803a8b4ba7378baa90208f2f2e"
+  },
+  "qmlPreview": {
+    "active": true,
+    "hotReloadProof": "temporary Main.qml title observed in live window without rebuild; original source restored",
+    "visualInspection": "native UI tool; distinct from the hot reload transport",
+    "currentSession": "Restarted through run_qmlPreview after final build and native focus checks; inspected with native UI tools on left display"
+  },
+  "visualReviewDocument": "docs/migration/button-family-visual-review.md",
+  "geometryCalibration": {
+    "reference": "229bc3e64ff71f1ac88cf73e976637ffbcf7e33c",
+    "buttonPaintHeights": [
+      32,
+      40,
+      48,
+      56,
+      72
+    ],
+    "buttonHorizontalPadding": [
+      16,
+      24,
+      24,
+      32,
+      32
+    ],
+    "buttonContentSpacing": [
+      8,
+      8,
+      8,
+      12,
+      12
+    ],
+    "defaultSmallPressedRadius": 8,
+    "fabPaintHeights": [
+      40,
+      56,
+      96
+    ],
+    "fabCornerRadii": [
+      4,
+      16,
+      28
+    ],
+    "extendedFab": {
+      "height": 56,
+      "radius": 16,
+      "leadingIconInset": 16,
+      "leadingTextOnlyInset": 20,
+      "trailingInset": 20,
+      "spacing": 12,
+      "collapsedWidth": 56,
+      "nativePadding": 0,
+      "contentOwnsVisualInsets": true,
+      "nativeDisplayChangesWithoutVariationMutation": true
+    },
+    "fontFamily": "Empty input resolves through Application.font.family; explicit empty QFont family no longer overrides application inheritance",
+    "fabMenus": {
+      "composition": "native SK.Button and inline Flickable, matching reference; no separate popup window",
+      "actionCounts": [
+        2,
+        6
+      ],
+      "areaHeight": 280,
+      "longContentHeight": 356,
+      "longViewportHeight": 200,
+      "sequenceSpatialEffectDurations": [
+        400,
+        200,
+        100
+      ],
+      "keyboardFocusAndReducedMotion": "pass",
+      "consumerTitleMediumFontBinding": "Qt 6.12 variations do not expose fonts"
+    },
+    "zeroPaintArea": "Feedback renderer unloaded below a device pixel; transparent controls suppress feedback; loader status is null-safe"
+  },
+  "nativeFocusExecution": "Native cases run sequentially; final native software run with Preview closed to avoid focus competition. Preview restarted afterwards.",
+  "rawLogs": [
+    "evidence/logs/icon-buttons/source-offscreen.log",
+    "evidence/logs/icon-buttons/installed-offscreen.log",
+    "evidence/logs/icon-buttons/source-metal.log",
+    "evidence/logs/icon-buttons/installed-metal.log",
+    "evidence/logs/icon-buttons/installed-software.log"
+  ],
+  "previousGeometryLogs": [
+    "evidence/logs/button-geometry/source-offscreen.log",
+    "evidence/logs/button-geometry/installed-small-offscreen.log",
+    "evidence/logs/button-geometry/installed-comparison-offscreen.log",
+    "evidence/logs/button-geometry/source-small-metal.log",
+    "evidence/logs/button-geometry/source-comparison-metal.log",
+    "evidence/logs/button-geometry/installed-comparison-metal.log",
+    "evidence/logs/button-geometry/installed-comparison-software.log"
+  ],
+  "referenceGalleryAlignment": {
+    "reference": "229bc3e64ff71f1ac88cf73e976637ffbcf7e33c",
+    "commonVisible": [
+      "XS",
+      "S",
+      "M"
+    ],
+    "iconVisible": [
+      "XS",
+      "S",
+      "M",
+      "L"
+    ],
+    "widthModesVisible": [
+      "Narrow",
+      "Default",
+      "Wide"
+    ],
+    "librarySizesPreserved": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "libraryCoverage": "C++ test-only native SK.Button fixtures; no hidden demo controls or UI verification flags",
+    "appearanceCount": {
+      "enabled": 4,
+      "disabled": 4
+    },
+    "iconPlateSizes": [
+      30,
+      40,
+      56,
+      96,
+      136
+    ],
+    "iconNativeTargets": [
+      40,
+      48,
+      64,
+      104,
+      144
+    ],
+    "iconNativeInsets": [
+      5,
+      4,
+      4,
+      4,
+      4
+    ],
+    "xsAdaptation": "Qavsi keeps minimum target40; reference target38, optical30 in both",
+    "nativeMapping": "StyleKit background margins map to native insets; padding maps to native four edges; implicit dimensions and caller bindings stay native",
+    "selectedStandard": "transparent container, primary ink",
+    "uncheckedFilledAndTonalToggle": "surfaceContainerHighest",
+    "selectedTonal": "secondaryContainer / secondaryContainerForeground",
+    "selectedOutlinedBorder": 1,
+    "mediumCheckedPressedRadii": [
+      16,
+      12
+    ],
+    "comparisonOnlyMetrics": {
+      "iconAppearanceSpacing": 36,
+      "commonSizeSpacing": 12
+    },
+    "badges": "separate unported family; no fake replacement added"
+  },
+  "sdkLateReaderFontInitialization": {
+    "status": "known SDK limit; not fixed in production or SDK",
+    "cause": "updateControl returns before reader completion; componentComplete only marks completed, cached font is not rebuilt until a state update",
+    "fixturePreparation": "local enabled false-to-true cycle; no explicit font14 assignment or global font/style mutation",
+    "source": "https://github.com/qt/qtdeclarative/blob/6.12/src/labs/stylekit/qqstylekitreader.cpp#L447"
+  },
+  "materialColorIntegration": {
+    "dynamicDefault": false,
+    "comparisonProfile": {
+      "seedColor": "#bee7fd",
+      "scheme": "Neutral",
+      "contrastLevel": 0
+    },
+    "independentQcmCaseCount": 12,
+    "comparedRoleCount": 20,
+    "exactArgbComparisons": 240,
+    "mismatches": 0,
+    "focusedSourceAssertions": 291,
+    "focusedInstalledAssertions": 291,
+    "sourceUtilitiesAssertions": 4,
+    "failures": 0,
+    "sourceSuite": "4/4 PASS: Small121, Comparison513, Colors291, Utils4",
+    "installedSuite": "Color291 and Comparison513 PASS; relocated prefix; no kit/MCU source",
+    "nativeComparison": "source+installed Metal513/0; installed Cocoa software513/0",
+    "packaging": "private PIC hidden OBJECTs in Theme; no exported MCU names/includes/target/runtime; Apache license installed",
+    "scope": "20 existing semantic roles; Neutral/TonalSpot; contrast0 QCM equivalence; legacy mode/overrides/StyleKit/fallback preserved",
+    "ui": "QML Preview MCP observed on left alongside QCM; Light neutral palette; user interaction respected",
+    "report": "evidence/MATERIAL-COLORS.md",
+    "logs": [
+      "evidence/logs/material-colors/source-ctest.log",
+      "evidence/logs/material-colors/installed-colors.log",
+      "evidence/logs/material-colors/installed-comparison.log",
+      "evidence/logs/material-colors/source-metal.log",
+      "evidence/logs/material-colors/installed-metal.log",
+      "evidence/logs/material-colors/installed-software.log"
+    ]
+  }
+}

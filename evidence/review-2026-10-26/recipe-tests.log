@@ -1,0 +1,25 @@
+Material3 generation, stale-output, invalid-source and alias checks passed.
+✔ tools/recipes/generation.test.mjs (80.618625ms)
+Material3 slider recipe validation checks passed.
+Material3 tab recipe validation checks passed.
+Material3 switch recipe validation checks passed.
+Material3 navigation recipe validation checks passed.
+Material3 navigation scrim validation checks passed.
+Material3 navigation label fade phase validation checks passed.
+Material3 FAB recipe validation checks passed.
+Material3 joined recipe validation checks passed.
+Material3 common button recipe validation checks passed.
+Material3 icon-button size/width recipe validation checks passed.
+Material3 notification badge recipe validation checks passed.
+Material3 segmented button recipe validation checks passed.
+Material3 split recipe validation checks passed.
+Material3 connected composed recipe and optical-bias validation checks passed.
+✔ tools/recipes/material3-format.test.mjs (317.925333ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 324.914875

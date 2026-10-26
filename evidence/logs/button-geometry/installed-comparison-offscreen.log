@@ -1,0 +1,22 @@
+Start testing: Oct 25 22:11 +03
+----------------------------------------------------------
+1/1 Testing: comparison-software
+1/1 Test: comparison-software
+Command: "/Volumes/Mac/SCS/dev/Qavsi/build/material3-installed-comparison/qavsi-material3-comparison.app/Contents/MacOS/qavsi-material3-comparison" "--check"
+Directory: /Volumes/Mac/SCS/dev/Qavsi/build/material3-installed-comparison
+"comparison-software" start time: Oct 25 22:11 +03
+Output:
+----------------------------------------------------------
+QML debugging is enabled. Only use this in a safe environment.
+qt.qpa.fonts: Populating font family aliases took 178 ms. Replace uses of missing font family "Sans Serif" with one that exists to avoid this cost. 
+Preview screen: "" QRect(0,0 800x800) window: QRect(8,16 384x768)
+Qt 6.12.0 comparison assertions 369 failures 0
+<end of output>
+Test time =   5.41 sec
+----------------------------------------------------------
+Test Passed.
+"comparison-software" end time: Oct 25 22:11 +03
+"comparison-software" time elapsed: 00:00:05
+----------------------------------------------------------
+
+End testing: Oct 25 22:11 +03

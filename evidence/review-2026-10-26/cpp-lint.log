@@ -1,0 +1,56 @@
+/Volumes/Mac/SCS/dev/Qavsi/icons/src/Qavsi/Icons/nativeiconimage.h:21 ENM-2 Unscoped enum without explicit underlying type — add type to prevent BiC
+/Volumes/Mac/SCS/dev/Qavsi/icons/tests/checks.cpp:263 ERR-1 QFile::open() return not checked — silent failure if file cannot open
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:239 ENM-9 Two or more bool parameters — boolean trap; use named enums (f(x, LogRule::DontLog))
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:364 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:372 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:433 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:543 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:550 ENM-9 Non-intuitive bool literal arguments — confusing at call site; use named enums
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:757 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:758 ENM-9 Non-intuitive bool literal arguments — confusing at call site; use named enums
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:778 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/benchmark.cpp:123 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/benchmark.cpp:124 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/benchmark.cpp:198 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/benchmark.cpp:200 VAR-3 Direct brace initialization — prefer copy-init (var = {...}) for safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:130 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:144 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:173 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:174 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:186 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:200 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:203 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:206 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:213 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:217 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:221 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:235 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:240 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:247 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:260 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:270 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:287 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:293 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:313 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:329 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:331 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:344 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:357 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:367 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:371 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:382 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:386 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:391 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:402 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:433 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:438 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:494 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:502 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/small-button/checks.cpp:508 ENM-9 Non-intuitive bool literal arguments — confusing at call site; use named enums
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/materialbuttonfeedback.cpp:42 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/materialbuttonfeedback.cpp:71 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/materialbuttonfeedback.cpp:81 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/materialbuttonfeedback.cpp:82 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/materialbuttonfeedback.cpp:86 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Theme/materialcolorscheme.h:20 ENM-2 Unscoped enum without explicit underlying type — add type to prevent BiC
+/Volumes/Mac/SCS/dev/Qavsi/material3/tests/material-colors/checks.cpp:75 ERR-1 QFile::open() return not checked — silent failure if file cannot open
