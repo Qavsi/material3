@@ -1,11 +1,15 @@
 cmake_minimum_required(VERSION 3.30)
 project(QavsiMaterial3 VERSION 0.1.0 LANGUAGES CXX)
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 find_package(Qt6 6.12 REQUIRED COMPONENTS Quick LabsStyleKit ShaderTools)
 qt_standard_project_setup(REQUIRES 6.12)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
+add_subdirectory(third_party/material-color-utilities)
 add_subdirectory(src/Qavsi/Material3/Theme)
 add_subdirectory(src/Qavsi/Material3/Style)
 
@@ -26,6 +30,8 @@ install(FILES "${CMAKE_CURRENT_BINARY_DIR}/QavsiMaterial3Config.cmake"
 install(EXPORT QavsiMaterial3Targets NAMESPACE QavsiMaterial3::
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/QavsiMaterial3")
 
+install(FILES third_party/material-color-utilities/LICENSE
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/licenses/QavsiMaterial3/material-color-utilities")
 install(FILES LICENSE THIRD_PARTY_NOTICES.md
     DESTINATION "${CMAKE_INSTALL_DATADIR}/licenses/QavsiMaterial3")
 
@@ -33,4 +39,10 @@ option(QAVSI_MATERIAL3_BUILD_EXAMPLE "Build the Small Button consumer" ${PROJECT
 if(QAVSI_MATERIAL3_BUILD_EXAMPLE)
     enable_testing()
     add_subdirectory(examples/small-button)
+endif()
+
+option(QAVSI_MATERIAL3_BUILD_TESTS "Build focused kit contract tests" ${QAVSI_MATERIAL3_BUILD_EXAMPLE})
+if(QAVSI_MATERIAL3_BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(tests/material-colors)
 endif()

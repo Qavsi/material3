@@ -177,3 +177,11 @@ doğrulaması [EXTRACTION.md](evidence/EXTRACTION.md) altında kaydedilir; eski 
 yeni çalıştırma diye sunulmaz.
 
 [Görsel sözleşme](DESIGN.md) · [Bağımsız repo doğrulaması](evidence/EXTRACTION.md) · [Tarihsel renderer kanıtı](evidence/VERIFICATION.md)
+
+## Seed color generation
+
+Material3Theme.dynamicColors is opt-in. When true, seedColor, scheme
+(MaterialColorScheme.Neutral or TonalSpot), contrastLevel and dark generate
+20 semantic roles through private Google Material Color Utilities C++.
+Static defaults and caller role bindings are preserved. No MCU target/header
+is exported to installed consumers. See evidence/MATERIAL-COLORS.md.

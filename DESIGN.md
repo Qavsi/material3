@@ -124,3 +124,44 @@ elevated/tonal/outlined/text ve diğer kontrol family'leri henüz desteklenmez.
 Qt'nin diğer kontroller için verdiği fallback görünümü Material3 coverage sayılmaz.
 
 Kabul kanıtı: [evidence/VERIFICATION.md](evidence/VERIFICATION.md).
+
+## Material Color Utilities
+
+`Material3Theme.dynamicColors` varsayılan `false` olarak mevcut MDC-Android
+light/dark rol değerlerini korur. `true` olduğunda mevcut 20 semantik renk rolü,
+kit içindeki Google Material Color Utilities C++ hesaplayıcısına bağlanır.
+Geometri, typografi, disabled alpha, ripple/focus ve software painter sözleşmesi
+değişmez. Her rol normal QML binding'idir: caller'ın açık renk veya canlı binding
+override'ı seed/mode değişimi sırasında imperatif atamayla silinmez.
+
+Girdiler: `seedColor` (varsayılan `#6750a4`), `scheme`
+(`MaterialColorScheme.TonalSpot` varsayılan; ayrıca `Neutral`), `contrastLevel`
+(varsayılan0) ve mevcut `dark`. Seed/scheme/contrast, Theme'in instance-owned
+`colorScheme` hesaplayıcısına alias'tır. Geçersiz seed/enum ve non-finite contrast
+son geçerli değeri koruyarak diagnostic üretir; seed alpha opaque'a normalize
+edilir, finite contrast[-1,1] aralığına kırpılır. Bunlar OS erişilebilirlik
+ayarlarına otomatik bağlantı iddiası değildir.
+
+MCU kaynağı `material-foundation/material-color-utilities`
+`ca894db8b6aebb2833f1805ae61573c92e3f1660` revizyonuna sabittir. QCM'nin aynı
+renk algoritmasıyla eşleşen Neutral/TonalSpot seed-only closure'ı kullanılır:
+29 upstream dosya,13 C++ translation unit. Image quantization, score, Abseil,
+QCM control/window/global Theme altyapısı alınmaz. C++20 aggregate/pi/header
+taşınabilirlik düzeltmeleri ve HexFromArgb'ın `std::to_chars` karşılığı dışında
+renk algoritması değiştirilmez. Değiştirilen dosyalar ve upstream/local hash'ler
+[provenance](third_party/material-color-utilities/provenance.json) içinde kayıtlıdır.
+
+Hesaplayıcı değişen girdilerde cache'i invalidate eder; bütün roller ilk okumada
+birlikte üretilir ve instance içinde tutulur. Static mod generation okumaz;
+frame başına renk hesaplanmaz. Renk üretimi renderer'dan bağımsızdır; Metal ile
+software aynı ARGB çıktıyı kullanır. Private PIC/hidden OBJECT target Theme SHARED
+library'sine gömülür; installed consumer'a MCU target/header/runtime kitaplığı
+veya build sırasında ağ erişimi gerekmez. Apache-2.0 bildirimi kurulur.
+
+Karşılaştırma kompozisyonunda lightTokens ve darkTokens ayrı ayrı dynamicColors
+açar; seed `#bee7fd`, scheme `Neutral`, contrast0 ile QCM'nin varsayılanına eşitlenir.
+QCM'nin palette üretimi contrast0 sabitler; farklı contrast seviyelerinde QCM
+eşliği iddia edilmez. Bağımsız fixture, gerçek derlenmiş `MdColorMgr` üzerinden
+üç seed ×iki scheme ×light/dark12 senaryo kaydeder; her senaryoda mevcut20 rol
+ARGB düzeyinde karşılaştırılır. Ham QCM çıktısı62 rol içerir; yeni kitin eksik
+42 rolünün taşındığı anlamına gelmez. [Referans kanıtı](evidence/material-color-reference.json).

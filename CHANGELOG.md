@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Add opt-in seed-based Material Color Utilities C++ generation for Neutral
+  and TonalSpot, preserving static defaults and caller role bindings.
+- Validate generated colors against the independent QmlMaterial reference.
+
 - Bağımsız `Qavsi/material3` deposu, MIT lisansı ve kaynak/installed paketinde
   lisans bildirimleri; runtime, Theme ve kontrol API'leri korunur.
 

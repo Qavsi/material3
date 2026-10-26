@@ -1,0 +1,123 @@
+{
+  "repository": "https://github.com/material-foundation/material-color-utilities",
+  "revision": "ca894db8b6aebb2833f1805ae61573c92e3f1660",
+  "scope": "Neutral and TonalSpot seed-only transitive C++ closure; no quantization, score, image extraction or Abseil",
+  "files": {
+    "cpp/cam/cam.cc": {
+      "upstreamSha256": "a120f09dbe64512178905c73c1f3098e457ec6e6467f4b44aee4de38d7ec14df",
+      "sha256": "a120f09dbe64512178905c73c1f3098e457ec6e6467f4b44aee4de38d7ec14df"
+    },
+    "cpp/cam/cam.h": {
+      "upstreamSha256": "d35b503dbf6dd49a5052f6b0df774a801d0cf73a8204af90165e827e1aca294d",
+      "sha256": "d35b503dbf6dd49a5052f6b0df774a801d0cf73a8204af90165e827e1aca294d"
+    },
+    "cpp/cam/hct.cc": {
+      "upstreamSha256": "22efdc3d6310332f670dd2239b8564fc460a3eedcc165e2f5561d571daf3e81a",
+      "sha256": "22efdc3d6310332f670dd2239b8564fc460a3eedcc165e2f5561d571daf3e81a"
+    },
+    "cpp/cam/hct.h": {
+      "upstreamSha256": "3d00d51f52779ad53980384f490b1ca26f7d3b03632d7b61c1528c10d37086da",
+      "sha256": "3d00d51f52779ad53980384f490b1ca26f7d3b03632d7b61c1528c10d37086da"
+    },
+    "cpp/cam/hct_solver.cc": {
+      "upstreamSha256": "3c9d2464c769ce76faa935611e0e550b9567fa04e6fdbb3cadad7d04e5639e78",
+      "sha256": "1aa801959eb0f0925bced40b0b41774354e52745b7bc8f9ddf52d67693480af1"
+    },
+    "cpp/cam/hct_solver.h": {
+      "upstreamSha256": "a5c893925ac5c2a3ced3e5cd3280bcf4ee0acf89f7a79c7d62b11040086a6461",
+      "sha256": "a5c893925ac5c2a3ced3e5cd3280bcf4ee0acf89f7a79c7d62b11040086a6461"
+    },
+    "cpp/cam/viewing_conditions.cc": {
+      "upstreamSha256": "1074e89fe9f263c92649956d642c5b5ed04ee4d68680f598c7da0c09792748d9",
+      "sha256": "1074e89fe9f263c92649956d642c5b5ed04ee4d68680f598c7da0c09792748d9"
+    },
+    "cpp/cam/viewing_conditions.h": {
+      "upstreamSha256": "93d91023809794f390b25ebb07f0805e5de4e15ec344144ad0a9c924b4233b89",
+      "sha256": "c278369735ac87649b8decd23c9939fda17f29b499a43f3dc4b820014b7d304b"
+    },
+    "cpp/contrast/contrast.cc": {
+      "upstreamSha256": "be8e1590b9fc954687e8cfe5c13c798561892ab3ba97d16a8ef1928c45cdd464",
+      "sha256": "be8e1590b9fc954687e8cfe5c13c798561892ab3ba97d16a8ef1928c45cdd464"
+    },
+    "cpp/contrast/contrast.h": {
+      "upstreamSha256": "67dfecb31bc68c7febf0b828991741cad9f5655e759ca1561f3e6e78e50966e6",
+      "sha256": "67dfecb31bc68c7febf0b828991741cad9f5655e759ca1561f3e6e78e50966e6"
+    },
+    "cpp/dislike/dislike.cc": {
+      "upstreamSha256": "91a97494edd3e050d1a43350b886ecc2d67bae56840e26d1ee26e876cd528991",
+      "sha256": "91a97494edd3e050d1a43350b886ecc2d67bae56840e26d1ee26e876cd528991"
+    },
+    "cpp/dislike/dislike.h": {
+      "upstreamSha256": "ee48e74fb68b2b4eb9e62f5931335302a0db26532e44bc32e2be691c3a924851",
+      "sha256": "ee48e74fb68b2b4eb9e62f5931335302a0db26532e44bc32e2be691c3a924851"
+    },
+    "cpp/dynamiccolor/contrast_curve.h": {
+      "upstreamSha256": "de70c32a9fba7dd73d3e82765952368773b46943a70bbd4eae5ee512cbba5c77",
+      "sha256": "de70c32a9fba7dd73d3e82765952368773b46943a70bbd4eae5ee512cbba5c77"
+    },
+    "cpp/dynamiccolor/dynamic_color.cc": {
+      "upstreamSha256": "c9c82831c8f9b0aa0df055fb30f52cea1008e059c89f76207b07354918eee152",
+      "sha256": "c9c82831c8f9b0aa0df055fb30f52cea1008e059c89f76207b07354918eee152"
+    },
+    "cpp/dynamiccolor/dynamic_color.h": {
+      "upstreamSha256": "781edbbf85eb557c3d3959f77760257f7627ffa76dc795d103c004945a9f1421",
+      "sha256": "781edbbf85eb557c3d3959f77760257f7627ffa76dc795d103c004945a9f1421"
+    },
+    "cpp/dynamiccolor/dynamic_scheme.cc": {
+      "upstreamSha256": "3058a377dbdc271854ab4aa2736a8f2f02536fec9814d8b45acd235cd61cd9e2",
+      "sha256": "3058a377dbdc271854ab4aa2736a8f2f02536fec9814d8b45acd235cd61cd9e2"
+    },
+    "cpp/dynamiccolor/dynamic_scheme.h": {
+      "upstreamSha256": "60d7b54a0dc2ee0ebd671988f86f3b1d85549da73d46754410839d0b92103552",
+      "sha256": "60d7b54a0dc2ee0ebd671988f86f3b1d85549da73d46754410839d0b92103552"
+    },
+    "cpp/dynamiccolor/material_dynamic_colors.cc": {
+      "upstreamSha256": "26a44015934c4908d9c0a6cf9c0a283b487abc66af53f2e4777324a5101fc804",
+      "sha256": "15a27e79e06d9806ab4574fe5866bcd6efb192e18ac4974567331e9226fc5ecc"
+    },
+    "cpp/dynamiccolor/material_dynamic_colors.h": {
+      "upstreamSha256": "cc5cee5ba5f6c39d5a366bb717710a0ed1f6d564ea3ebd679ffcdcaeead4efcc",
+      "sha256": "cc5cee5ba5f6c39d5a366bb717710a0ed1f6d564ea3ebd679ffcdcaeead4efcc"
+    },
+    "cpp/dynamiccolor/tone_delta_pair.h": {
+      "upstreamSha256": "85fdda1526d4722b19c5bf92a74a18fbcd05b955e2f8d89452cb762ebb7ba9da",
+      "sha256": "85fdda1526d4722b19c5bf92a74a18fbcd05b955e2f8d89452cb762ebb7ba9da"
+    },
+    "cpp/dynamiccolor/variant.h": {
+      "upstreamSha256": "01b4da5e079e79409e06469099d066158e54746c78efe979e5b3914e2518b0ed",
+      "sha256": "01b4da5e079e79409e06469099d066158e54746c78efe979e5b3914e2518b0ed"
+    },
+    "cpp/palettes/tones.cc": {
+      "upstreamSha256": "25bc2365553961989b8bb4638144416a1f30dff1afe32d639708a9795f508d7e",
+      "sha256": "25bc2365553961989b8bb4638144416a1f30dff1afe32d639708a9795f508d7e"
+    },
+    "cpp/palettes/tones.h": {
+      "upstreamSha256": "710d877fc2d84987bb45e2a1d9ec51aec7e9138fb9b47baed157ed98073567a0",
+      "sha256": "710d877fc2d84987bb45e2a1d9ec51aec7e9138fb9b47baed157ed98073567a0"
+    },
+    "cpp/scheme/scheme_neutral.cc": {
+      "upstreamSha256": "2096bab85bfbfa11aba689988d27851c6c0b91bb3bba1b3f39ffb260b91fbc41",
+      "sha256": "2096bab85bfbfa11aba689988d27851c6c0b91bb3bba1b3f39ffb260b91fbc41"
+    },
+    "cpp/scheme/scheme_neutral.h": {
+      "upstreamSha256": "8aab018a590e2deaa5228db4fcb75e665720d9f5bcdf826a0149ce3f8629c32a",
+      "sha256": "8aab018a590e2deaa5228db4fcb75e665720d9f5bcdf826a0149ce3f8629c32a"
+    },
+    "cpp/scheme/scheme_tonal_spot.cc": {
+      "upstreamSha256": "c2e0b6ce706441bfde3cc9bf0c06523b097f63cdfc3238c2b21d644f0ced6e88",
+      "sha256": "c2e0b6ce706441bfde3cc9bf0c06523b097f63cdfc3238c2b21d644f0ced6e88"
+    },
+    "cpp/scheme/scheme_tonal_spot.h": {
+      "upstreamSha256": "c2b62f305fbbd482a9ff78a4d6de53d1092aaa8637c5353128515c11132513d6",
+      "sha256": "c2b62f305fbbd482a9ff78a4d6de53d1092aaa8637c5353128515c11132513d6"
+    },
+    "cpp/utils/utils.cc": {
+      "upstreamSha256": "f85c6065d68c8b45220da9715167907bf0c298471ed848771d7974ef0e426c9a",
+      "sha256": "9449b3ed01eba8b74bb7ce11c0c1281a1b4dd083262df911a8ac3eaced1be6b1"
+    },
+    "cpp/utils/utils.h": {
+      "upstreamSha256": "7f16dc796049837d4efd0889a377383e359ce5a39d503be6ae88e9fdb00b0cb8",
+      "sha256": "7f16dc796049837d4efd0889a377383e359ce5a39d503be6ae88e9fdb00b0cb8"
+    }
+  }
+}

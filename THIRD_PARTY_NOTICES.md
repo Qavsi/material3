@@ -32,3 +32,21 @@ No Google widget implementation, upstream source snapshot, icon or font is
 redistributed in this kit. The Qt/QML implementation is original; numeric
 reference values are not presented as a Google endorsement or full Material3
 conformance.
+
+## Google Material Color Utilities
+
+The runtime Theme library embeds a private seed-only C++ subset from
+[material-foundation/material-color-utilities](https://github.com/material-foundation/material-color-utilities),
+pinned revision `ca894db8b6aebb2833f1805ae61573c92e3f1660`.
+Copyright notices remain in the upstream files; the complete
+[Apache-2.0 license](third_party/material-color-utilities/LICENSE) is distributed
+and installed with the package. [Provenance](third_party/material-color-utilities/provenance.json)
+records every original and local SHA-256.
+
+Local modifications: standard C++ aggregate initialization, standard C++20 pi,
+explicit optional header if needed, and replacing Abseil hexadecimal formatting
+with `std::to_chars`. Modified files carry notices. The color algorithm is unchanged.
+Only Neutral/TonalSpot and their transitive dependencies are compiled; image
+quantization, image extraction and scoring are excluded. QmlMaterial is used
+only to record independent reference outputs and is not a kit dependency.
+The kit's own code remains MIT; this does not relicense Google's source files.
