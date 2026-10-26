@@ -46,6 +46,8 @@ install(FILES third_party/material-color-utilities/LICENSE
     DESTINATION "${CMAKE_INSTALL_DATADIR}/licenses/QavsiMaterial3/material-color-utilities")
 install(DIRECTORY third_party/ripple-reference/
     DESTINATION "${CMAKE_INSTALL_DATADIR}/licenses/QavsiMaterial3/ripple-reference")
+install(DIRECTORY third_party/shadow-reference/
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/licenses/QavsiMaterial3/shadow-reference")
 install(FILES LICENSE THIRD_PARTY_NOTICES.md
     DESTINATION "${CMAKE_INSTALL_DATADIR}/licenses/QavsiMaterial3")
 

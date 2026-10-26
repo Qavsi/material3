@@ -1,5 +1,5 @@
 set(module_target QavsiMaterial3Style)
-set_source_files_properties(SmallButtonTheme.qml SmallButtonBackground.qml
+set_source_files_properties(SmallButtonTheme.qml SmallButtonBackground.qml SmallButtonShadow.qml
     SmallButtonDelegate.qml SmallButtonParameters.qml
     ButtonVariation.qml ButtonSizeVariation.qml IconButtonVariation.qml
     IconButtonSizeVariation.qml ButtonVariations.qml
@@ -14,6 +14,16 @@ set_source_files_properties(
     internal/recipes/Material3SegmentedButtonRecipe.js
     internal/recipes/Material3SplitButtonRecipe.js
     PROPERTIES QT_QML_SKIP_QMLDIR_ENTRY TRUE)
+set_source_files_properties(internal/shadows/Material3Elevation.qml PROPERTIES
+    QT_RESOURCE_ALIAS Material3Elevation.qml QT_QML_INTERNAL_TYPE TRUE)
+set(material3_shadow_sources
+    internal/shadows/roundedrectshadow.h internal/shadows/roundedrectshadow.cpp
+    internal/shadows/shadowgeometry.h internal/shadows/shadowgeometry.cpp
+    internal/shadows/shadowmesh.h internal/shadows/shadowmesh.cpp
+    internal/shadows/shadowmaterial.h internal/shadows/shadowmaterial.cpp
+    internal/shadows/blurmaskshadow.h internal/shadows/blurmaskshadow.cpp
+    internal/shadows/blurmaskmaterial.h internal/shadows/blurmaskmaterial.cpp
+    internal/shadows/blurmaskmath.h internal/shadows/blurmaskmath.cpp)
 set(material3_advanced_files
     internal/actions/advanced/Material3AdvancedButtonParameters.qml
     internal/actions/advanced/Material3JoinedButtonDelegate.qml
@@ -38,9 +48,10 @@ qt_add_qml_module(${module_target} SHARED
     PLUGIN_TARGET ${module_target}Plugin
     IMPORTS TARGET QavsiMaterial3Theme Qavsi.Icons
     IMPORT_PATH "${QavsiIcons_QML_IMPORT_DIR}"
-    DEPENDENCIES QtQuick.Effects QtQuick.Controls.impl
+    DEPENDENCIES QtQuick.Controls.impl
     QML_FILES Material3ButtonContent.qml ${material3_advanced_files}
-        Material3Style.qml SmallButtonTheme.qml SmallButtonBackground.qml
+        internal/shadows/Material3Elevation.qml
+        Material3Style.qml SmallButtonTheme.qml SmallButtonBackground.qml SmallButtonShadow.qml
         SmallButtonDelegate.qml SmallButtonParameters.qml
         ButtonVariation.qml ButtonSizeVariation.qml IconButtonVariation.qml
         IconButtonSizeVariation.qml ButtonVariations.qml
@@ -51,14 +62,27 @@ qt_add_qml_module(${module_target} SHARED
         internal/recipes/Material3ConnectedButtonRecipe.js
         internal/recipes/Material3SegmentedButtonRecipe.js
         internal/recipes/Material3SplitButtonRecipe.js
-    SOURCES materialbuttonfeedback.h materialbuttonfeedback.cpp
+    SOURCES materialbuttonfeedback.h materialbuttonfeedback.cpp ${material3_shadow_sources}
     OUTPUT_TARGETS module_auxiliary_targets)
 qt_add_shaders(${module_target} "qavsi_material3_small_button_shaders"
     PREFIX "/Qavsi/Material3/Style"
     FILES shaders/smallbuttonfeedback.frag)
+set(material3_shadow_defines)
+if(QT_FEATURE_opengles2)
+    list(APPEND material3_shadow_defines GLES)
+endif()
+qt_add_shaders(${module_target} "qavsi_material3_shadow_shaders"
+    PREFIX "/Qavsi/Material3/Style"
+    BASE "${CMAKE_CURRENT_SOURCE_DIR}/internal/shadows"
+    BATCHABLE
+    GLSL 150,140,130,330,300es
+    DEFINES ${material3_shadow_defines}
+    FILES internal/shadows/shaders/shadow.vert internal/shadows/shaders/shadow.frag
+        internal/shadows/shaders/blur_mask.vert internal/shadows/shaders/blur_mask.frag)
 set_target_properties(${module_target} PROPERTIES EXPORT_NAME Style VERSION ${PROJECT_VERSION} SOVERSION 0.1)
 set_target_properties(${module_target}Plugin PROPERTIES EXPORT_NAME StylePlugin)
 target_compile_features(${module_target} PUBLIC cxx_std_20)
+target_include_directories(${module_target} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/internal/shadows")
 target_link_libraries(${module_target} PUBLIC QavsiMaterial3::Theme QavsiIcons::Core PRIVATE Qt6::Quick Qt6::LabsStyleKit)
 add_library(QavsiMaterial3::Style ALIAS ${module_target})
 include("${PROJECT_SOURCE_DIR}/cmake/InstallQmlModule.cmake")

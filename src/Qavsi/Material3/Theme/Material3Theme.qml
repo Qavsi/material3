@@ -123,9 +123,25 @@ QtObject {
     readonly property real focusRingGap: 2
     readonly property real disabledContainerOpacity: 0.12
     readonly property real disabledLabelOpacity: 0.38
-    readonly property real elevationBlur: 3
-    readonly property real elevationOffset: 1
-    readonly property real elevationOpacity: 0.30
+    // Pinned QCM elevation/lighting recipe; rendering has no Material policy.
+    readonly property real elevationLevel0: 0
+    readonly property real elevationLevel1: 1
+    readonly property real elevationLevel2: 3
+    readonly property real elevationLevel3: 6
+    readonly property real elevationLevel4: 8
+    readonly property real elevationLevel5: 12
+    readonly property int elevationDuration: 250
+    readonly property list<real> elevationEasingCurve: [0.3, 0, 0.8, 0.2, 1, 1]
+    readonly property real elevationContainerOpacity: 1
+    readonly property real shadowAmbientOpacity: 0.039
+    readonly property real shadowSpotOpacity: 0.25
+    readonly property vector3d shadowLightDirection: Qt.vector3d(0, -1, 1)
+    readonly property real shadowLightRadius: 800
+    readonly property real shadowLightHeight: 600
+    readonly property real shadowLightRadiusRatio: shadowLightRadius / shadowLightHeight
+    readonly property real shadowBlurSigmaFactor: 1.2
+    readonly property real shadowBlurMinimumSigma: 0.5
+    readonly property real shadowBlurOpacity: 0.35
     readonly property color hoveredPrimary: Qt.tint(primary,
         Qt.rgba(primaryForeground.r, primaryForeground.g, primaryForeground.b, hoverOpacity))
     readonly property color interactingPrimary: Qt.tint(primary,

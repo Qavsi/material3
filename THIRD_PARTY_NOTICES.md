@@ -7,7 +7,7 @@ or linked reference material.
 
 ## Qt
 
-Qt Core, Gui, Qml, Quick, Quick Controls, Quick Effects and LabsStyleKit are external build/runtime dependencies;
+Qt Core, Gui, Qml, Quick, Quick Controls and LabsStyleKit are external build/runtime dependencies;
 Qt ShaderTools is a kit build dependency and Qt Test is used by the example's
 checks. No Qt implementation, SDK binary or font is vendored in this repository.
 Consumers supply Qt under the license applicable to their Qt installation.
@@ -30,9 +30,10 @@ explicit Qt adaptations are recorded in [DESIGN.md](https://github.com/Qavsi/mat
 
 No Google widget implementation, upstream widget source snapshot or font is
 redistributed in the runtime kit. The optional comparison example includes the
-Google SVG assets separately identified below. The Qt/QML implementation is original; numeric
-reference values are not presented as a Google endorsement or full Material3
-conformance.
+Google SVG assets separately identified below. The kit-specific Qt/QML mapping
+is original; adapted rendering implementations and their notices are identified
+separately below. Numeric reference values are not presented as a Google
+endorsement or full Material3 conformance.
 
 ## Comparison example assets and layout reference
 
@@ -80,3 +81,14 @@ official source pins/hashes are in third_party/ripple-reference and installed
 under share/licenses/QavsiMaterial3/ripple-reference. No Skia library is linked.
 The Qt shader uses correct single premultiplication and zero-radius guards;
 the software gradient approximates the wave edge without sparkle noise.
+
+## QCM / Skia analytic shadow adaptation
+
+The internal shadow renderers adapt the rounded-rectangle ambient/spot mesh,
+Gaussian corner-cutout mask, profile textures and shaders from pinned QmlMaterial
+`229bc3e64ff71f1ac88cf73e976637ffbcf7e33c`, including its Skia-derived
+mathematics. Source pins, local adaptation notes and full upstream notices
+are preserved in `third_party/shadow-reference/` and installed under
+`share/licenses/QavsiMaterial3/shadow-reference`. The QCM library and the full
+Skia engine are not linked. Material3 lighting, opacity and motion decisions
+remain in this kit's Theme/style adapter rather than the drawing primitive.

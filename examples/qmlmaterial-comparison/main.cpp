@@ -3,12 +3,20 @@
 #include <QQuickWindow>
 #include <QScreen>
 #include <QStyleHints>
+#include <QSurfaceFormat>
 #include <algorithm>
 
 int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window);
 
 int main(int argc, char *argv[])
 {
+#ifdef Q_OS_MACOS
+    // macOS otherwise defaults to legacy OpenGL 2.1, below the QCM shader floor.
+    QSurfaceFormat format;
+    format.setVersion(3, 3);
+    format.setProfile(QSurfaceFormat::CoreProfile);
+    QSurfaceFormat::setDefaultFormat(format);
+#endif
     QGuiApplication app(argc, argv);
     QGuiApplication::styleHints()->setTabFocusBehavior(Qt::TabFocusAllControls);
     QQmlApplicationEngine engine;

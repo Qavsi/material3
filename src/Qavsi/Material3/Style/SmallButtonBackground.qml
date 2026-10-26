@@ -4,7 +4,6 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Templates as T
-import QtQuick.Effects
 import Qt.labs.StyleKit as SK
 import Qavsi.Material3.Theme
 
@@ -19,8 +18,6 @@ Rectangle {
     property real plateHeight: parameters.paintHeight
     property vector4d cornerRadii: Qt.vector4d(delegateStyle.topLeftRadius,
         delegateStyle.topRightRadius, delegateStyle.bottomLeftRadius, delegateStyle.bottomRightRadius)
-    readonly property bool shaderSupported: GraphicsInfo.api !== GraphicsInfo.Software
-        && GraphicsInfo.api !== GraphicsInfo.Unknown
     readonly property Material3ButtonContent styledContent: control.contentItem as Material3ButtonContent
     property bool foregroundReady: false
     readonly property color contentColor: styledContent ? styledContent.color
@@ -91,30 +88,6 @@ Rectangle {
         }
     }
 
-    Loader {
-        anchors.fill: parent
-        z: -1
-        active: root.shaderSupported && root.feedbackEnabled && root.delegateStyle.shadow.visible
-        sourceComponent: Component {
-            RectangularShadow {
-                width: root.width
-                height: root.height
-                radius: root.radius
-                topLeftRadius: root.topLeftRadius
-                topRightRadius: root.topRightRadius
-                bottomLeftRadius: root.bottomLeftRadius
-                bottomRightRadius: root.bottomRightRadius
-                color: root.delegateStyle.shadow.color
-                opacity: root.delegateStyle.shadow.opacity
-                blur: root.delegateStyle.shadow.blur
-                scale: root.delegateStyle.shadow.scale
-                offset: Qt.vector2d(root.delegateStyle.shadow.horizontalOffset,
-                    root.delegateStyle.shadow.verticalOffset)
-                Accessible.ignored: true
-            }
-        }
-    }
-
     function resetRipple(): void {
         expansion.stop()
         release.stop()
@@ -170,8 +143,9 @@ Rectangle {
             stateLayerOpacity = tokens.rippleOpacity
         }
     }
+    function finishForeground() { foregroundReady = true }
     Component.onCompleted: {
-        Qt.callLater(() => root.foregroundReady = true)
+        Qt.callLater(finishForeground)
         if (control.pressed)
             beginRipple()
     }

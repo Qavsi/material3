@@ -12,7 +12,9 @@
 #include <QQuickWindow>
 #include <QSignalSpy>
 #include <QSGRendererInterface>
+#include <QSurfaceFormat>
 #include <QTest>
+#include <QVector4D>
 
 namespace {
 int assertions = 0;
@@ -164,6 +166,448 @@ void reveal(QQuickItem *control)
         ancestor->setProperty("contentX", qBound<qreal>(0, point.x() - 10, maxX));
     }
     QTest::qWait(25);
+}
+
+QQuickItem *elevationItem(QQuickItem *control)
+{
+    return findItem(control, QStringLiteral("material3.elevation"));
+}
+
+
+void checkUnequalElevationContract(QQmlApplicationEngine &engine, QQuickWindow &window, QObject *style, bool capturePixels)
+{
+    const bool hardware = capturePixels;
+    QQmlComponent hostComponent(&engine);
+    hostComponent.setData("import QtQuick; Item { x: 16; y: 96; width: 320; height: 240; z: 10000; "
+        "property color testSurface; Rectangle { anchors.fill: parent; color: parent.testSurface } "
+        "Item { objectName: \"check.blur.opacityHost\"; x: 64; y: 48; width: 96; height: 64 } }", QUrl());
+    auto *tokens = style->property("tokens").value<QObject *>();
+    std::unique_ptr<QObject> host(hostComponent.createWithInitialProperties({
+        {"parent", QVariant::fromValue(window.contentItem())},
+        {"testSurface", tokens->property("surface")}
+    }));
+    auto *hostItem = qobject_cast<QQuickItem *>(host.get());
+    auto *opacityHost = hostItem ? findItem(hostItem, "check.blur.opacityHost") : nullptr;
+    expect(opacityHost, "isolated unequal-corner shadow host creates");
+    if (!opacityHost)
+        return;
+    QQmlComponent component(&engine, QUrl("qrc:/qt/qml/Qavsi/Material3/Style/Material3Elevation.qml"));
+    std::unique_ptr<QObject> elevation(component.createWithInitialProperties({
+        {"parent", QVariant::fromValue(opacityHost)}, {"width", 96}, {"height", 64},
+        {"tokens", QVariant::fromValue(tokens)}, {"reducedMotion", true},
+        {"color", QColor(Qt::black)}, {"cornerRadii", QVariant::fromValue(QVector4D(16, 16, 16, 16))},
+        {"targetElevation", 6}
+    }));
+    auto *adapter = qobject_cast<QQuickItem *>(elevation.get());
+    expect(adapter, "private elevation adapter loads directly without a public API or native reader");
+    if (!adapter) {
+        qCritical() << component.errors();
+        return;
+    }
+    expect(QTest::qWaitFor([&] {
+        return adapter->property("rendererName").toString() == (hardware ? "analytic" : "none");
+    }, 1000), "uniform corners select the analytic hardware path or the software no-shadow path");
+    const QVector4D unequal(3, 9, 17, 27); // TL, TR, BL, BR; all distinct and below half-height.
+    adapter->setProperty("cornerRadii", QVariant::fromValue(unequal));
+    const auto blur = [&] { return findItem(adapter, "material3.shadow.blur"); };
+    const auto ready = [&](const char *message) {
+        expect(QTest::qWaitFor([&] {
+            auto *renderer = blur();
+            return hardware ? adapter->property("rendererName").toString() == "blur" && renderer
+                    && renderer->property("cornerRadii").value<QVector4D>() == unequal
+                : adapter->property("rendererName").toString() == "none" && !renderer
+                    && !findItem(adapter, "material3.shadow");
+        }, 1000), message);
+    };
+    ready("unequal corners select BlurMask with the exact TL/TR/BL/BR order, never a GPU item in software");
+    if (hardware) {
+        auto *renderer = blur();
+        expect(renderer && qAbs(renderer->property("sigma").toReal() - 7.2) < 0.01
+                   && qAbs(renderer->property("color").value<QColor>().alphaF() - 0.35) < 0.01,
+               "unequal elevation 6 preserves the independent QCM sigma 7.2 and outer-mask alpha 0.35");
+    }
+    if (capturePixels) {
+        adapter->setProperty("targetElevation", 0);
+        expect(QTest::qWaitFor([&] { return !blur() && adapter->property("rendererName").toString() == "none"; }, 1000),
+               "zero elevation releases the BlurMask renderer");
+        const QImage clear = window.grabWindow();
+        adapter->setProperty("targetElevation", 6);
+        ready("positive elevation recreates the unequal-corner renderer");
+        const QImage opaque = window.grabWindow();
+        opacityHost->setOpacity(0.5);
+        const QImage faded = window.grabWindow();
+        expect(!clear.isNull() && clear.size() == opaque.size() && clear.size() == faded.size(),
+               "BlurMask renders measurable GPU pixels");
+        qint64 opaqueInk = 0;
+        qint64 fadedInk = 0;
+        if (!clear.isNull() && clear.size() == opaque.size() && clear.size() == faded.size()) {
+            const auto center = adapter->mapToScene(QPointF(adapter->width() / 2, adapter->height() / 2))
+                * clear.devicePixelRatio();
+            expect(opaque.pixelColor(center.toPoint()) == clear.pixelColor(center.toPoint()),
+                   "Outer BlurMask leaves the unoccluded caster interior completely clear");
+            for (int y = 1; y <= 16; ++y) {
+                for (int x = 12; x < adapter->width() - 12; ++x) {
+                    const auto point = adapter->mapToScene(QPointF(x, adapter->height() + y)) * clear.devicePixelRatio();
+                    const QPoint pixel(qRound(point.x()), qRound(point.y()));
+                    const auto background = clear.pixelColor(pixel);
+                    const auto full = opaque.pixelColor(pixel);
+                    const auto half = faded.pixelColor(pixel);
+                    const int difference = background.red() + background.green() + background.blue()
+                        - full.red() - full.green() - full.blue();
+                    if (difference >= 6) {
+                        opaqueInk += difference;
+                        fadedInk += background.red() + background.green() + background.blue()
+                            - half.red() - half.green() - half.blue();
+                    }
+                }
+            }
+        }
+        expect(opaqueInk > 0, "Outer BlurMask paints a visible shadow outside the caster");
+        const double ratio = opaqueInk > 0 ? double(fadedInk) / opaqueInk : 0;
+        expect(ratio > 0.35 && ratio < 0.65, "BlurMask preserves linear inherited opacity from its parent");
+        opacityHost->setOpacity(1);
+    }
+    adapter->setWidth(112);
+    adapter->setHeight(72);
+    ready("resizing preserves the unequal-corner renderer and corner order");
+    const QColor changedColor(64, 128, 192, 160);
+    adapter->setProperty("color", changedColor);
+    if (hardware) {
+        expect(QTest::qWaitFor([&] {
+            auto *renderer = blur();
+            const auto color = renderer ? renderer->property("color").value<QColor>() : QColor();
+            return renderer && renderer->size() == QSizeF(112, 72)
+                && color.red() == changedColor.red() && color.green() == changedColor.green()
+                && color.blue() == changedColor.blue()
+                && qAbs(color.alphaF() - changedColor.alphaF() * 0.35) < 0.01;
+        }, 1000), "BlurMask updates dimensions and caller color including alpha");
+    }
+    if (hardware)
+        adapter->setProperty("reducedMotion", false);
+    adapter->setProperty("targetElevation", 8);
+    if (hardware) {
+        expect(QTest::qWaitFor([&] { return adapter->property("animationRunning").toBool(); }, 200),
+               "unequal-corner elevation starts a normal-motion transition");
+    }
+    adapter->setProperty("reducedMotion", true);
+    expect(QTest::qWaitFor([&] {
+        return adapter->property("elevation").toReal() == 8
+            && !adapter->property("animationRunning").toBool();
+    }, 1000), "reduced motion completes the active unequal-corner elevation transition");
+    if (hardware) {
+        expect(blur() && qAbs(blur()->property("sigma").toReal() - 9.6) < 0.01,
+               "raised unequal elevation 8 updates the independent QCM sigma to 9.6");
+    }
+    adapter->setProperty("cornerRadii", QVariant::fromValue(QVector4D(16, 16, 16, 16)));
+    expect(QTest::qWaitFor([&] {
+        return !blur() && adapter->property("rendererName").toString() == (hardware ? "analytic" : "none");
+    }, 1000), "returning to uniform corners releases BlurMask and restores the analytic path");
+    adapter->setProperty("cornerRadii", QVariant::fromValue(unequal));
+    ready("live uniform-to-unequal switching recreates the correct renderer");
+    opacityHost->setVisible(false);
+    expect(QTest::qWaitFor([&] {
+        return adapter->property("rendererName").toString() == "none"
+            && !blur() && !findItem(adapter, "material3.shadow");
+    }, 1000), "hiding an ancestor releases both elevation renderers");
+}
+
+void checkElevationContract(QQmlApplicationEngine &engine, QQuickWindow &window, QObject *style, bool capturePixels)
+{
+    const bool hardware = capturePixels;
+    const QVariant originalMotion = window.property("reducedMotion");
+    const QVariant originalDark = window.property("darkMode");
+    const char *roles[] = {"elevated", "fab"};
+    std::vector<std::unique_ptr<QObject>> fixtures;
+    std::vector<std::unique_ptr<QObject>> singleShadowReferences;
+    QQmlComponent referenceComponent(&engine,
+        QUrl("qrc:/qt/qml/Qavsi/Material3/Style/Material3Elevation.qml"));
+    // Qt 6.12 lost late-created FAB metadata after Theme replacement in this fixture.
+    // Initialize both native readers first to isolate the rendering contract.
+    for (const auto *role : roles) {
+        const bool fab = QByteArray(role) == "fab";
+        QQmlComponent component(&engine);
+        component.setData("import QtQuick; import Qt.labs.StyleKit as SK; "
+            "Item { id: fixture; x: 16; y: 96; width: 320; height: 190; z: 10000; "
+            "property real requestedWidth: " + QByteArray(fab ? "56" : "96") + "; "
+            "property real requestedOpacity: 1; property bool requestedEnabled: true; "
+            "property color testSurface; Rectangle { anchors.fill: parent; color: fixture.testSurface } "
+            "SK.Button { objectName: \"check.elevation.probe\"; x: 48; y: 48; text: \"Shadow\"; "
+            "width: fixture.requestedWidth; opacity: fixture.requestedOpacity; "
+            "enabled: fixture.requestedEnabled; hoverEnabled: true; "
+            "SK.StyleVariation.variations: [\"" + QByteArray(role) + "\"] } }", QUrl());
+        auto *currentTokens = style->property("tokens").value<QObject *>();
+        fixtures.emplace_back(component.createWithInitialProperties({
+            {"parent", QVariant::fromValue(window.contentItem())},
+            {"visible", false}, {"testSurface", currentTokens->property("surface")}
+        }));
+        auto *host = qobject_cast<QQuickItem *>(fixtures.back().get());
+        auto *probe = host ? findItem(host, "check.elevation.probe") : nullptr;
+        expect(probe, "isolated native shadow probe creates without a control wrapper");
+        if (!probe) {
+            qCritical() << component.errors();
+            singleShadowReferences.emplace_back(nullptr);
+            continue;
+        }
+        singleShadowReferences.emplace_back(referenceComponent.createWithInitialProperties({
+            {"parent", QVariant::fromValue(host)}, {"visible", false}, {"width", 1}, {"height", 1},
+            {"tokens", QVariant::fromValue(currentTokens)}, {"reducedMotion", true},
+            {"color", QColor(Qt::black)}, {"cornerRadii", QVariant::fromValue(QVector4D())},
+            {"targetElevation", 0}
+        }));
+        expect(qobject_cast<QQuickItem *>(singleShadowReferences.back().get()),
+               "single-shadow reference creates independently of the native composition");
+        if (!singleShadowReferences.back())
+            qCritical() << referenceComponent.errors();
+        // Test-only preparation for Qt 6.12's late-reader font initialization.
+        host->setProperty("requestedEnabled", false);
+        host->setProperty("requestedEnabled", true);
+    }
+    for (size_t index = 0; index < fixtures.size(); ++index) {
+        auto *host = qobject_cast<QQuickItem *>(fixtures[index].get());
+        auto *probe = host ? findItem(host, "check.elevation.probe") : nullptr;
+        if (!probe)
+            continue;
+        const char *role = roles[index];
+        const bool fab = QByteArray(role) == "fab";
+        const qreal base = fab ? 6 : 1;
+        const qreal hovered = fab ? 8 : 3;
+        host->setVisible(true);
+        auto *plate = findItem(probe, "material3.small.background");
+        expect(plate, "native control retains its independent background delegate");
+        if (!plate)
+            continue;
+        const auto settle = [&](qreal expected, const char *message) {
+            const bool ready = QTest::qWaitFor([&] {
+                auto *shadow = elevationItem(probe);
+                const bool gpuChildrenAbsent = !findItem(probe, "material3.shadow")
+                    && !findItem(probe, "material3.shadow.blur");
+                if (!hardware)
+                    return gpuChildrenAbsent && (!shadow || (!shadow->isVisible()
+                        && qAbs(shadow->property("targetElevation").toReal() - expected) < 0.01));
+                return shadow && shadow->isVisible()
+                    && qAbs(shadow->property("targetElevation").toReal() - expected) < 0.01
+                    && qAbs(shadow->property("elevation").toReal() - expected) < 0.01
+                    && !shadow->property("animationRunning").toBool() && !gpuChildrenAbsent;
+            }, 1500);
+            if (!ready) {
+                auto *shadow = elevationItem(probe);
+                auto *delegate = shadow ? shadow->property("delegateStyle").value<QObject *>() : nullptr;
+                auto *shadowStyle = delegate ? delegate->property("shadow").value<QObject *>() : nullptr;
+                auto *parameters = shadow ? shadow->property("parameters").value<QObject *>() : nullptr;
+                qInfo() << "ELEVATION PROBE" << role << message
+                        << "expected" << expected << "target" << (shadow ? shadow->property("targetElevation") : QVariant())
+                        << "feedback" << (shadow ? shadow->property("feedbackEnabled") : QVariant())
+                        << "shadow.visible" << (shadowStyle ? shadowStyle->property("visible") : QVariant())
+                        << "contentRole" << (parameters ? parameters->property("contentRole") : QVariant())
+                        << "floating" << (shadow ? shadow->property("floatingSurface") : QVariant())
+                        << "controlSize" << probe->size() << "plateSize" << plate->size()
+                        << "enabled" << probe->isEnabled() << "visible" << probe->isVisible()
+                        << "hovered" << probe->property("hovered") << "down" << probe->property("down")
+                        << "window" << plate->window()
+                        << "windowVisible" << (plate->window() && plate->window()->isVisible())
+                        << "windowVisibility" << (plate->window() ? int(plate->window()->visibility()) : -1);
+            }
+            expect(ready, message);
+        };
+        QTest::mouseMove(&window, QPoint(2, 2));
+        settle(base, "FAB/Elevated idle target follows the independent QCM elevation level");
+        if (hardware) {
+            auto *shadow = elevationItem(probe);
+            expect(shadow && shadow->property("rendererName").toString() == "analytic"
+                       && findItem(shadow, "material3.shadow"),
+                   "uniform native controls instantiate the QCM-derived analytic renderer");
+        } else {
+            auto *shadow = elevationItem(probe);
+            expect((!shadow || !shadow->isVisible()) && !findItem(probe, "material3.shadow")
+                       && !findItem(probe, "material3.shadow.blur")
+                       && plate->property("feedbackRenderer").toString() == "painter",
+                   "software keeps painter feedback and no GPU shadow children even if the StyleKit wrapper remains");
+        }
+
+        if (capturePixels) {
+            auto *reference = qobject_cast<QQuickItem *>(singleShadowReferences[index].get());
+            auto *nativeShadow = elevationItem(probe);
+            expect(reference && nativeShadow, "native composition and its single-shadow reference are available");
+            if (reference && nativeShadow) {
+                probe->setFocus(false, Qt::OtherFocusReason);
+                const QRectF body = plate->mapRectToScene(plate->boundingRect());
+                reference->setPosition(plate->mapToItem(host, QPointF()));
+                reference->setSize(plate->size());
+                reference->setProperty("targetElevation", base);
+                reference->setProperty("color", nativeShadow->property("color"));
+                reference->setProperty("cornerRadii", QVariant::fromValue(QVector4D(
+                    plate->property("topLeftRadius").toReal(), plate->property("topRightRadius").toReal(),
+                    plate->property("bottomLeftRadius").toReal(), plate->property("bottomRightRadius").toReal())));
+                reference->setOpacity(nativeShadow->opacity());
+                QQmlProperty::write(reference, "tokens", nativeShadow->property("tokens"));
+                const QImage nativeImage = window.grabWindow();
+                probe->setVisible(false);
+                reference->setVisible(true);
+                expect(QTest::qWaitFor([&] {
+                    return reference->property("rendererName").toString() == "analytic"
+                        && findItem(reference, "material3.shadow");
+                }, 1000), "single-shadow reference renders without a native control or StyleKit container");
+                const QImage referenceImage = window.grabWindow();
+                int compared = 0;
+                int maxChannelDifference = 255;
+                if (!nativeImage.isNull() && nativeImage.size() == referenceImage.size()) {
+                    maxChannelDifference = 0;
+                    const qreal dpr = nativeImage.devicePixelRatio();
+                    const QRect halo = QRectF(body.topLeft() * dpr, body.size() * dpr).toAlignedRect()
+                        .adjusted(-qCeil(32 * dpr), -qCeil(32 * dpr), qCeil(32 * dpr), qCeil(32 * dpr))
+                        .intersected(nativeImage.rect());
+                    for (int y = halo.top(); y <= halo.bottom(); ++y) {
+                        for (int x = halo.left(); x <= halo.right(); ++x) {
+                            if (body.contains(QPointF((x + 0.5) / dpr, (y + 0.5) / dpr)))
+                                continue;
+                            const auto actual = nativeImage.pixelColor(x, y);
+                            const auto single = referenceImage.pixelColor(x, y);
+                            maxChannelDifference = qMax(maxChannelDifference, qMax(qAbs(actual.red() - single.red()),
+                                qMax(qAbs(actual.green() - single.green()),
+                                    qMax(qAbs(actual.blue() - single.blue()), qAbs(actual.alpha() - single.alpha())))));
+                            ++compared;
+                        }
+                    }
+                }
+                qInfo() << "NATIVE SHADOW COMPOSITION" << role << "pixels" << compared
+                        << "maxChannelDifference" << maxChannelDifference;
+                expect(compared > 0 && maxChannelDifference <= 2,
+                       "native SK.Button halo matches exactly one elevation helper, excluding a second StyleKit shadow");
+                reference->setVisible(false);
+                probe->setVisible(true);
+                settle(base, "native shadow restores after the single-layer composition capture");
+            }
+        }
+
+        host->setProperty("requestedEnabled", false);
+        expect(QTest::qWaitFor([&] {
+            auto *shadow = elevationItem(probe);
+            return !probe->isEnabled() && !findItem(probe, "material3.shadow")
+                && !findItem(probe, "material3.shadow.blur")
+                && (!shadow || (!shadow->isVisible() && shadow->property("targetElevation").toReal() == 0
+                    && !shadow->property("animationRunning").toBool()));
+        }, 1000), "disabling the native control releases both GPU shadow children and stops its target");
+        const QImage unshadowed = capturePixels ? window.grabWindow() : QImage();
+        host->setProperty("requestedEnabled", true);
+        settle(base, "native enabled binding restores the same shadow recipe");
+        if (capturePixels) {
+            const QImage opaque = window.grabWindow();
+            host->setProperty("requestedOpacity", 0.5);
+            QTest::qWait(30);
+            const QImage half = window.grabWindow();
+            expect(!opaque.isNull() && !half.isNull() && !unshadowed.isNull(),
+                   "analytic shadow exposes actual GPU pixels");
+            qint64 opaqueInk = 0;
+            qint64 halfInk = 0;
+            if (!opaque.isNull() && opaque.size() == half.size() && opaque.size() == unshadowed.size()) {
+                for (int y = 1; y <= 16; ++y) {
+                    for (int x = 4; x < probe->width() - 4; ++x) {
+                        const auto point = probe->mapToScene(QPointF(x, probe->height() + y)) * opaque.devicePixelRatio();
+                        const QPoint pixel(qRound(point.x()), qRound(point.y()));
+                        const QColor clear = unshadowed.pixelColor(pixel);
+                        const QColor full = opaque.pixelColor(pixel);
+                        const QColor faded = half.pixelColor(pixel);
+                        const int fullDifference = clear.red() + clear.green() + clear.blue()
+                            - full.red() - full.green() - full.blue();
+                        if (fullDifference >= 6) {
+                            opaqueInk += fullDifference;
+                            halfInk += clear.red() + clear.green() + clear.blue()
+                                - faded.red() - faded.green() - faded.blue();
+                        }
+                    }
+                }
+            }
+            expect(opaqueInk > 0, "enabled elevated controls paint a visible shadow outside their plate");
+            const double ratio = opaqueInk > 0 ? double(halfInk) / opaqueInk : 0;
+            expect(ratio > 0.35 && ratio < 0.65,
+                   "caller opacity halves shadow coverage linearly instead of cubing it");
+            host->setProperty("requestedOpacity", 1);
+        }
+        const auto center = probe->mapToScene(QPointF(probe->width() / 2, probe->height() / 2)).toPoint();
+        QTest::mouseMove(&window, center);
+        expect(probe->property("hovered").toBool(), "shadow probe receives native hover input");
+        settle(hovered, "FAB/Elevated hover reaches its independent QCM elevation level");
+        probe->forceActiveFocus(Qt::TabFocusReason);
+        QSignalSpy clicked(probe, SIGNAL(clicked()));
+        QTest::keyPress(&window, Qt::Key_Space);
+        expect(probe->property("pressed").toBool() && plate->property("focusVisible").toBool(),
+               "elevation keeps native keyboard press and visible focus handling");
+        settle(base, "held press takes precedence over hover and restores base elevation");
+        QTest::keyRelease(&window, Qt::Key_Space);
+        expect(clicked.count() == 1, "shadow integration preserves one native activation per key release");
+        settle(hovered, "release returns to hover elevation without changing variations");
+        QTest::mouseMove(&window, QPoint(2, 2));
+        settle(base, "pointer exit returns the native control to its base elevation");
+        if (hardware && !style->property("effectiveReducedMotion").toBool()) {
+            QTest::mouseMove(&window, center);
+            expect(QTest::qWaitFor([&] {
+                auto *shadow = elevationItem(probe);
+                return shadow && shadow->property("animationRunning").toBool();
+            }, 200), "normal motion starts the elevation transition");
+        } else {
+            QTest::mouseMove(&window, center);
+        }
+        window.setProperty("reducedMotion", true);
+        settle(hovered, "reduced motion completes an active elevation transition and leaves no running animation");
+        QTest::mouseMove(&window, QPoint(2, 2));
+        settle(base, "reduced motion applies a new elevation target immediately");
+        auto *reducedShadow = elevationItem(probe);
+        expect(!hardware || (reducedShadow && !reducedShadow->property("animationRunning").toBool()),
+               "reduced motion leaves the elevation animation stopped");
+        window.setProperty("reducedMotion", originalMotion);
+
+        for (bool dark : {true, false}) {
+            window.setProperty("darkMode", dark);
+            expect(QTest::qWaitFor([&] {
+                auto *shadow = elevationItem(probe);
+                auto *activeTokens = style->property("tokens").value<QObject *>();
+                return !hardware || (shadow && activeTokens
+                    && shadow->property("color").value<QColor>() == activeTokens->property("shadow").value<QColor>());
+            }, 1000), "elevation shadow color follows the currently selected Light/Dark Theme");
+        }
+        window.setProperty("darkMode", originalDark);
+        if (hardware && !fab) {
+            const QVariant originalLightTokens = style->property("lightTokens");
+            QQmlComponent themeComponent(&engine);
+            themeComponent.setData("import Qavsi.Material3.Theme; Material3Theme {}", QUrl());
+            std::unique_ptr<QObject> customTheme(themeComponent.createWithInitialProperties({
+                {"shadow", QColor(Qt::red)}
+            }));
+            expect(customTheme != nullptr, "caller-provided shadow Theme creates");
+            if (customTheme) {
+                window.setProperty("darkMode", false);
+                expect(QQmlProperty::write(style, "lightTokens", QVariant::fromValue(customTheme.get())),
+                       "the style accepts caller-provided Theme shadow colors");
+                expect(QTest::qWaitFor([&] {
+                    auto *shadow = elevationItem(probe);
+                    return shadow && shadow->property("color").value<QColor>() == QColor(Qt::red);
+                }, 1000), "analytic elevation does not hard-code a black shadow instead of the caller's token");
+                expect(QQmlProperty::write(style, "lightTokens", originalLightTokens),
+                       "original Light Theme is restored after the shadow override probe");
+                window.setProperty("darkMode", originalDark);
+                expect(QTest::qWaitFor([&] {
+                    auto *shadow = elevationItem(probe);
+                    auto *activeTokens = style->property("tokens").value<QObject *>();
+                    return shadow && activeTokens
+                        && shadow->property("color").value<QColor>() == activeTokens->property("shadow").value<QColor>();
+                }, 1000), "shadow bindings follow the restored Theme object");
+            }
+        }
+        host->setProperty("requestedWidth", host->property("requestedWidth").toReal() + 20);
+        expect(QTest::qWaitFor([&] {
+            return qAbs(probe->width() - host->property("requestedWidth").toReal()) < 0.01
+                && probe->isEnabled() && probe->opacity() == 1;
+        }, 1000), "caller width, opacity, and enabled bindings remain live after elevation states and theme changes");
+        host->setVisible(false);
+        expect(QTest::qWaitFor([&] {
+            auto *shadow = elevationItem(probe);
+            return !findItem(probe, "material3.shadow") && !findItem(probe, "material3.shadow.blur")
+                && (!shadow || (!shadow->isVisible() && shadow->property("targetElevation").toReal() == 0
+                    && !shadow->property("animationRunning").toBool()));
+        }, 1000), "hiding the control's ancestor releases both GPU shadow children and stops its target");
+    }
+    window.setProperty("darkMode", originalDark);
+    window.setProperty("reducedMotion", originalMotion);
 }
 }
 
@@ -341,7 +785,12 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     if (!filled || !outlined || !tonal || !text)
         return 1;
     auto *filledPlate = filled->findChild<QQuickItem *>("material3.small.background");
-    const bool metal = window.rendererInterface()->graphicsApi() == QSGRendererInterface::Metal;
+    const auto graphicsApi = window.rendererInterface()->graphicsApi();
+    const bool metal = graphicsApi == QSGRendererInterface::Metal;
+    const bool hardware = graphicsApi != QSGRendererInterface::Software && graphicsApi != QSGRendererInterface::Unknown
+        && (graphicsApi != QSGRendererInterface::OpenGL || window.format().majorVersion() >= 3);
+    checkUnequalElevationContract(engine, window, style, hardware);
+    checkElevationContract(engine, window, style, hardware);
     expect(filledPlate && filledPlate->property("feedbackRenderer").toString() == (metal ? "shader" : "painter"),
            "actual renderer selects the production shader or software painter");
     expect(filledPlate && filledPlate->property("feedbackShaderLog").toString().isEmpty(),

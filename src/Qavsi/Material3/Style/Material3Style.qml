@@ -23,15 +23,20 @@ SK.Style {
                 reduceMotion: root.effectiveReducedMotion
             }
             delegate: root.buttonDelegate.background
+            shadow.delegate: root.buttonDelegate.shadow
         }
     }
     flatButton.background.delegate: root.buttonDelegate.background
+    flatButton.background.shadow.delegate: root.buttonDelegate.shadow
     flatButton.background.data: root.button.background.data
     roundButton.background.delegate: root.buttonDelegate.background
+    roundButton.background.shadow.delegate: root.buttonDelegate.shadow
     roundButton.background.data: root.button.background.data
     delayButton.background.delegate: root.buttonDelegate.background
+    delayButton.background.shadow.delegate: root.buttonDelegate.shadow
     delayButton.background.data: root.button.background.data
     toolButton.background.delegate: root.buttonDelegate.background
+    toolButton.background.shadow.delegate: root.buttonDelegate.shadow
     toolButton.background.data: root.button.background.data
     light: SmallButtonTheme { tokens: root.lightTokens; sourceStyle: root }
     dark: SmallButtonTheme { tokens: root.darkTokens; sourceStyle: root }

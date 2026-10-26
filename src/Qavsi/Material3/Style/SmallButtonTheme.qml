@@ -35,10 +35,7 @@ SK.Theme {
             shadow {
                 visible: false
                 color: root.tokens.shadow
-                opacity: root.tokens.elevationOpacity
-                blur: root.tokens.elevationBlur
-                horizontalOffset: 0
-                verticalOffset: root.tokens.elevationOffset
+                opacity: root.tokens.elevationContainerOpacity
             }
         }
         hovered.background.color: root.tokens.primary
