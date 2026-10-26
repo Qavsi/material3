@@ -7,7 +7,7 @@ or linked reference material.
 
 ## Qt
 
-Qt Core, Gui, Qml, Quick and LabsStyleKit are external build/runtime dependencies;
+Qt Core, Gui, Qml, Quick, Quick Controls, Quick Effects and LabsStyleKit are external build/runtime dependencies;
 Qt ShaderTools is a kit build dependency and Qt Test is used by the example's
 checks. No Qt implementation, SDK binary or font is vendored in this repository.
 Consumers supply Qt under the license applicable to their Qt installation.
@@ -28,10 +28,28 @@ explicit Qt adaptations are recorded in [DESIGN.md](https://github.com/Qavsi/mat
 - [Upstream project](https://github.com/material-components/material-components-android/tree/84c0e6d6d493fcf176d2099683245b78afbeb78d)
 - [Upstream Apache-2.0 license](https://github.com/material-components/material-components-android/blob/84c0e6d6d493fcf176d2099683245b78afbeb78d/LICENSE)
 
-No Google widget implementation, upstream source snapshot, icon or font is
-redistributed in this kit. The Qt/QML implementation is original; numeric
+No Google widget implementation, upstream widget source snapshot or font is
+redistributed in the runtime kit. The optional comparison example includes the
+Google SVG assets separately identified below. The Qt/QML implementation is original; numeric
 reference values are not presented as a Google endorsement or full Material3
 conformance.
+
+## Comparison example assets and layout reference
+
+The optional `examples/qmlmaterial-comparison` consumer carries the prior
+QmlMaterial comparison layout. QmlMaterial is MIT licensed; its preserved
+[license](https://github.com/Qavsi/material3/blob/main/examples/qmlmaterial-comparison/QMLMATERIAL-LICENSE.txt) and
+[pinned provenance](https://github.com/Qavsi/material3/blob/main/docs/migration/upstream-reference.md) accompany the example.
+QmlMaterial is not a kit runtime/build dependency and is not vendored here.
+
+The example’s `icons/*.svg` are Google Material Symbols Rounded, pinned to
+material-design-icons `10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7`, under Apache-2.0.
+Their [full license](https://github.com/Qavsi/material3/blob/main/examples/qmlmaterial-comparison/icons/LICENSE-Apache-2.0.txt),
+[provenance](https://github.com/Qavsi/material3/blob/main/examples/qmlmaterial-comparison/icons/README.md) and
+[hash manifest](https://github.com/Qavsi/material3/blob/main/examples/qmlmaterial-comparison/icons/manifest.json) are retained.
+The runtime kit does not install these archived example assets or expose a font provider.
+The live gallery now selects the independent Qavsi.Icons.Material provider;
+its matching Google font/catalog and Apache-2.0 notices belong to that package.
 
 ## Google Material Color Utilities
 
@@ -50,3 +68,15 @@ Only Neutral/TonalSpot and their transitive dependencies are compiled; image
 quantization, image extraction and scoring are excluded. QmlMaterial is used
 only to record independent reference outputs and is not a kit dependency.
 The kit's own code remains MIT; this does not relicense Google's source files.
+
+## QCM / AOSP / Skia ripple adaptation
+
+The button shader mathematics and press/hold/release sequence adapt pinned
+QmlMaterial229bc3e64ff71f1ac88cf73e976637ffbcf7e33c RippleSkia.qml/ripple.frag.
+QCM is MIT; the original realistic ripple is Copyright (C) 2021 The Android
+Open Source Project (Apache-2.0); driver constants derive from Skia's
+Copyright 2023 Google LLC source (BSD-style). Their full notices/licenses and
+official source pins/hashes are in third_party/ripple-reference and installed
+under share/licenses/QavsiMaterial3/ripple-reference. No Skia library is linked.
+The Qt shader uses correct single premultiplication and zero-radius guards;
+the software gradient approximates the wave edge without sparkle noise.

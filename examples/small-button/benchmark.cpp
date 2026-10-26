@@ -74,11 +74,17 @@ int benchmarkFeedback(QQmlApplicationEngine &engine, QQuickWindow &window)
     const auto idle = window.grabWindow();
     const auto expansionMs = tokens->property("rippleExpansionDuration").toDouble();
     const auto cycleMs = window.property("cycleDuration").toDouble();
-    window.setProperty("phase", expansionMs / cycleMs);
-    const auto pressed = window.grabWindow();
+    window.setProperty("phase", 1.0);
+    const auto hovered = window.grabWindow();
+    window.setProperty("phase", expansionMs / (3 * cycleMs));
+    const auto wave = window.grabWindow();
+    const bool qcmUniforms = qAbs(window.property("pulse").toDouble() - 0.12) < 0.0001
+        && qAbs(window.property("stateLayerOpacity").toDouble() - 0.12) < 0.0001
+        && window.property("progress").toDouble() > 0
+        && window.property("progress").toDouble() < 0.4;
     animation->setProperty("paused", false);
-    if (idle.isNull() || pressed.isNull()) {
-        qCritical() << "Benchmark scene produced no snapshot";
+    if (idle.isNull() || hovered.isNull() || wave.isNull() || !qcmUniforms) {
+        qCritical() << "Benchmark scene produced no snapshot or does not drive QCM uniforms";
         return 5;
     }
     const auto pixel = [](const QImage &image, QQuickItem *cell, QPointF local) {
@@ -92,20 +98,33 @@ int benchmarkFeedback(QQmlApplicationEngine &engine, QQuickWindow &window)
     for (auto *cell : cells) {
         const auto base = cell->property("color").value<QColor>();
         const auto ink = cell->property("ink").value<QColor>();
-        const auto alpha = ink.alphaF();
+        const auto alpha = ink.alphaF() * tokens->property("hoverOpacity").toDouble();
         const QColor expected(qRound(base.red() * (1 - alpha) + ink.red() * alpha),
                               qRound(base.green() * (1 - alpha) + ink.green() * alpha),
                               qRound(base.blue() * (1 - alpha) + ink.blue() * alpha));
         const QPointF inside(8, cell->height() / 2);
         const QPointF outside(1, 1);
         if (!near(pixel(idle, cell, inside), base)
-            || !near(pixel(pressed, cell, inside), expected)
+            || !near(pixel(hovered, cell, inside), expected)
             || !near(pixel(idle, cell, outside), window.color())
-            || !near(pixel(pressed, cell, outside), window.color())) {
+            || !near(pixel(hovered, cell, outside), window.color())
+            || !near(pixel(wave, cell, outside), window.color())) {
             qCritical() << "Benchmark cell pixels failed: index" << cell->property("index")
                         << "idle" << pixel(idle, cell, inside)
-                        << "pressed" << pixel(pressed, cell, inside) << "expected" << expected
-                        << "corner" << pixel(pressed, cell, outside);
+                        << "hovered" << pixel(hovered, cell, inside) << "expected" << expected
+                        << "corner" << pixel(wave, cell, outside);
+            return 5;
+        }
+        int minimum = 1000;
+        int maximum = -1000;
+        for (int x = 8; x <= cell->width() - 8; ++x) {
+            const int delta = pixel(wave, cell, QPointF(x, 8)).red()
+                - pixel(idle, cell, QPointF(x, 8)).red();
+            minimum = qMin(minimum, delta);
+            maximum = qMax(maximum, delta);
+        }
+        if (maximum - minimum < 2) {
+            qCritical() << "Benchmark cell has no local wave above the base layer:" << cell->property("index");
             return 5;
         }
     }
@@ -210,6 +229,7 @@ int benchmarkFeedback(QQmlApplicationEngine &engine, QQuickWindow &window)
         {"frameP95Ms", percentile(0.95)},
         {"warmupMs", 2000},
         {"sampleMs", 5000},
+        {"rippleProfile", "QCM: 450 ms press / 350 ms release / two 150 ms fades; wave/base alpha 0.12; shader noise only"},
         {"measurement", "vsync-paced feedback-only scene; process CPU; frameSwapped intervals; no GPU timer"}
     };
     qInfo().noquote() << "BENCHMARK" << QJsonDocument(report).toJson(QJsonDocument::Compact);

@@ -1,0 +1,102 @@
+{
+  "commit": "229bc3e64ff71f1ac88cf73e976637ffbcf7e33c",
+  "verified_on": "2026-10-25",
+  "assets": [
+    {
+      "path": "assets/MaterialSymbolsRounded.wght_400.opsz_24.fill_0.woff2",
+      "size": 450208,
+      "sha256": "78edd47b5b770f4c14bafda458214c2ea07bbaf2add54919dbcfcfaf5d2729e5",
+      "source_url": "https://media.githubusercontent.com/media/hypengw/QmlMaterial/229bc3e64ff71f1ac88cf73e976637ffbcf7e33c/assets/MaterialSymbolsRounded.wght_400.opsz_24.fill_0.woff2"
+    },
+    {
+      "path": "assets/MaterialSymbolsRounded.wght_400.opsz_24.fill_1.woff2",
+      "size": 458356,
+      "sha256": "72d77058be3c7f5b1a729ac3470daae79efea6a47a04b3a3fd11a76a0d410f62",
+      "source_url": "https://media.githubusercontent.com/media/hypengw/QmlMaterial/229bc3e64ff71f1ac88cf73e976637ffbcf7e33c/assets/MaterialSymbolsRounded.wght_400.opsz_24.fill_1.woff2"
+    },
+    {
+      "path": "assets/MaterialSymbolsRounded.wght_400.opsz_24.woff2",
+      "size": 541764,
+      "sha256": "22663f2633246da809ba5e3b08161e774117135500c22664a17352c10eb1db34",
+      "source_url": "https://media.githubusercontent.com/media/hypengw/QmlMaterial/229bc3e64ff71f1ac88cf73e976637ffbcf7e33c/assets/MaterialSymbolsRounded.wght_400.opsz_24.woff2"
+    },
+    {
+      "path": "assets/MaterialSymbolsRounded.wght_400.opsz_24.fill_0.ttf",
+      "size": 1782540,
+      "sha256": "143e9b3d74c73e856478680149d51015e9cb37263510c6fce9e8c840166fb755",
+      "source_url": "https://media.githubusercontent.com/media/hypengw/QmlMaterial/229bc3e64ff71f1ac88cf73e976637ffbcf7e33c/assets/MaterialSymbolsRounded.wght_400.opsz_24.fill_0.ttf"
+    },
+    {
+      "path": "assets/MaterialSymbolsRounded.wght_400.opsz_24.fill_1.ttf",
+      "size": 1826012,
+      "sha256": "7ad2da5886792f7169fa73728e86bf1dc165afd88aa2741d27a4112051b64c72",
+      "source_url": "https://media.githubusercontent.com/media/hypengw/QmlMaterial/229bc3e64ff71f1ac88cf73e976637ffbcf7e33c/assets/MaterialSymbolsRounded.wght_400.opsz_24.fill_1.ttf"
+    },
+    {
+      "path": "doc/img/color-role.png",
+      "size": 147168,
+      "sha256": "44a94cb60e254882a5f2a0bc00622548350877d081f45b62c5a49e87aa68335e",
+      "source_url": "https://media.githubusercontent.com/media/hypengw/QmlMaterial/229bc3e64ff71f1ac88cf73e976637ffbcf7e33c/doc/img/color-role.png"
+    },
+    {
+      "path": "example/assets/carousel/abstract-indigo-portrait.jpg",
+      "size": 19582,
+      "sha256": "e598e7a2040d877fa55c037df4ac245e4886ba32de96484e26b872e37f4a9116",
+      "source_url": "https://media.githubusercontent.com/media/hypengw/QmlMaterial/229bc3e64ff71f1ac88cf73e976637ffbcf7e33c/example/assets/carousel/abstract-indigo-portrait.jpg"
+    },
+    {
+      "path": "example/assets/carousel/abstract-rose-medium.jpg",
+      "size": 22353,
+      "sha256": "6604d4b5df78d598b19ab530000c83714f7e7514b01c8846f9d3f29632d783ab",
+      "source_url": "https://media.githubusercontent.com/media/hypengw/QmlMaterial/229bc3e64ff71f1ac88cf73e976637ffbcf7e33c/example/assets/carousel/abstract-rose-medium.jpg"
+    },
+    {
+      "path": "example/assets/carousel/abstract-lime-diagonal.jpg",
+      "size": 20658,
+      "sha256": "3cc4bb1087156252bfab73b7c53d1e6b0a4fdb66af662136e0308ede8f0767eb",
+      "source_url": "https://media.githubusercontent.com/media/hypengw/QmlMaterial/229bc3e64ff71f1ac88cf73e976637ffbcf7e33c/example/assets/carousel/abstract-lime-diagonal.jpg"
+    },
+    {
+      "path": "example/assets/carousel/abstract-violet-portrait.jpg",
+      "size": 14901,
+      "sha256": "2ead76564fe4cdccbeec0a54899fd1c8e1e766b5dfbe7a3a6579b4e698e74f16",
+      "source_url": "https://media.githubusercontent.com/media/hypengw/QmlMaterial/229bc3e64ff71f1ac88cf73e976637ffbcf7e33c/example/assets/carousel/abstract-violet-portrait.jpg"
+    },
+    {
+      "path": "example/assets/carousel/abstract-sun-ultrawide.jpg",
+      "size": 14145,
+      "sha256": "3e07905ce238a56b4c5383ccd49ecdab2cfcd233cca95d585f13bae295c0310f",
+      "source_url": "https://media.githubusercontent.com/media/hypengw/QmlMaterial/229bc3e64ff71f1ac88cf73e976637ffbcf7e33c/example/assets/carousel/abstract-sun-ultrawide.jpg"
+    },
+    {
+      "path": "example/assets/carousel/abstract-mint-square.jpg",
+      "size": 18953,
+      "sha256": "257951dbe2976668558bb7b1d5c8278527e39fa27c9b4d7425c1cc3768de9e78",
+      "source_url": "https://media.githubusercontent.com/media/hypengw/QmlMaterial/229bc3e64ff71f1ac88cf73e976637ffbcf7e33c/example/assets/carousel/abstract-mint-square.jpg"
+    },
+    {
+      "path": "example/assets/carousel/abstract-amber-wide.jpg",
+      "size": 17303,
+      "sha256": "ddd8e53b11bd59f095467c5e436f0f16be144c735ebc5c0b66a0bd9df10fc510",
+      "source_url": "https://media.githubusercontent.com/media/hypengw/QmlMaterial/229bc3e64ff71f1ac88cf73e976637ffbcf7e33c/example/assets/carousel/abstract-amber-wide.jpg"
+    },
+    {
+      "path": "example/assets/carousel/abstract-coral-landscape.jpg",
+      "size": 15676,
+      "sha256": "bcef06945da37ea52328a4ba4a1b19fd24baa6414e9f1a6b70422b71c70a8eb4",
+      "source_url": "https://media.githubusercontent.com/media/hypengw/QmlMaterial/229bc3e64ff71f1ac88cf73e976637ffbcf7e33c/example/assets/carousel/abstract-coral-landscape.jpg"
+    },
+    {
+      "path": "example/assets/carousel/abstract-sky-small.jpg",
+      "size": 7957,
+      "sha256": "34b5b659980f62aa15ec09f19eec15ef9b44d8ce7778044fca9f50a31a8ccd0c",
+      "source_url": "https://media.githubusercontent.com/media/hypengw/QmlMaterial/229bc3e64ff71f1ac88cf73e976637ffbcf7e33c/example/assets/carousel/abstract-sky-small.jpg"
+    },
+    {
+      "path": "example/assets/carousel/abstract-teal-tall.jpg",
+      "size": 13296,
+      "sha256": "1a984c301259cc1bbbc1527a015713385357b37498346dc2fda7bd3d05d18cdd",
+      "source_url": "https://media.githubusercontent.com/media/hypengw/QmlMaterial/229bc3e64ff71f1ac88cf73e976637ffbcf7e33c/example/assets/carousel/abstract-teal-tall.jpg"
+    }
+  ]
+}

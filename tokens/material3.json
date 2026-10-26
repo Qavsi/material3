@@ -1,0 +1,636 @@
+{
+  "style": {
+    "material3": {
+      "slider": {
+        "$description": "Material3 slider paint dimensions. Semantic colors, motion, target sizing, and minimum touch targets remain owned by Material3Theme.",
+        "trackThickness": {
+          "$type": "dimension",
+          "$value": 16
+        },
+        "handleExtent": {
+          "$type": "dimension",
+          "$value": 12
+        },
+        "handleLength": {
+          "$type": "dimension",
+          "$value": 44
+        },
+        "handleWidth": {
+          "$type": "dimension",
+          "$value": 4
+        },
+        "activeHandleWidth": {
+          "$type": "dimension",
+          "$value": 2
+        },
+        "trackGap": {
+          "$type": "dimension",
+          "$value": 6
+        },
+        "trackInnerRadius": {
+          "$type": "dimension",
+          "$value": 2
+        },
+        "focusExpansion": {
+          "$type": "dimension",
+          "$value": 12
+        },
+        "focusWidth": {
+          "$type": "dimension",
+          "$value": 4
+        },
+        "valueMinimum": {
+          "$type": "dimension",
+          "$value": 32
+        },
+        "valueGap": {
+          "$type": "dimension",
+          "$value": 4
+        },
+        "stopDiameter": {
+          "$type": "dimension",
+          "$value": 4
+        },
+        "maxVisibleStops": {
+          "$type": "number",
+          "$value": 20
+        }
+      },
+      "tabs": {
+        "$description": "Primary tab indicator paint dimensions. Material3Theme owns colors, typography, motion and layout geometry.",
+        "indicatorThickness": {
+          "$type": "dimension",
+          "$value": 3
+        },
+        "minimumIndicatorWidth": {
+          "$type": "dimension",
+          "$value": 24
+        }
+      },
+      "switch": {
+        "$description": "Material3 switch paint geometry. Material3Theme owns semantic colors, motion and minimum touch targets.",
+        "trackWidth": {
+          "$type": "dimension",
+          "$value": 52
+        },
+        "trackHeight": {
+          "$type": "dimension",
+          "$value": 32
+        },
+        "thumbUncheckedDiameter": {
+          "$type": "dimension",
+          "$value": 16
+        },
+        "thumbCheckedDiameter": {
+          "$type": "dimension",
+          "$value": 24
+        },
+        "thumbPressedDiameter": {
+          "$type": "dimension",
+          "$value": 28
+        },
+        "edgeInset": {
+          "$type": "dimension",
+          "$value": 2
+        }
+      },
+      "navigation": {
+        "$description": "Navigation rail paint geometry from QmlMaterial RailItem. Material3Theme owns palette, typography, spacing, motion and minimum touch targets.",
+        "collapsedWidth": {
+          "$type": "dimension",
+          "$value": 96
+        },
+        "indicatorWidth": {
+          "$type": "dimension",
+          "$value": 56
+        },
+        "indicatorHeight": {
+          "$type": "dimension",
+          "$value": 32
+        },
+        "expandedHeight": {
+          "$type": "dimension",
+          "$value": 56
+        },
+        "scrimOpacity": {
+          "$type": "number",
+          "$value": 0.32
+        },
+        "collapsedLabelFadeEnd": {
+          "$type": "number",
+          "$value": 0.3333333333333333
+        },
+        "expandedLabelFadeStart": {
+          "$type": "number",
+          "$value": 0.2
+        },
+        "fabHeight": {
+          "$type": "dimension",
+          "$value": "{style.material3.fab.height}"
+        }
+      },
+      "fab": {
+        "smallHeight": {
+          "$type": "dimension",
+          "$value": 40
+        },
+        "height": {
+          "$type": "dimension",
+          "$value": 56
+        },
+        "largeHeight": {
+          "$type": "dimension",
+          "$value": 96
+        },
+        "minimumExpandedWidth": {
+          "$type": "dimension",
+          "$value": 80
+        },
+        "iconSize": {
+          "$type": "dimension",
+          "$value": 24
+        },
+        "largeIconSize": {
+          "$type": "dimension",
+          "$value": 36
+        },
+        "trailingInset": {
+          "$type": "dimension",
+          "$value": 20
+        },
+        "leadingInset": {
+          "$type": "dimension",
+          "$value": 16
+        },
+        "spacing": {
+          "$type": "dimension",
+          "$value": 12
+        }
+      },
+      "joined": {
+        "$description": "Joined action separation. Material3Theme owns corners, target sizing, palette and motion.",
+        "spacing": {
+          "$type": "dimension",
+          "$value": 2
+        },
+        "opticalBias": {
+          "$type": "number",
+          "$value": 0.055
+        }
+      },
+      "button": {
+        "$description": "Common-button paint heights, icon minima and minimum width from QmlMaterial ButtonSize/Button.qml. Material3Theme owns typography, padding, semantic colors, motion and minimum hit targets.",
+        "extraSmallHeight": {
+          "$type": "dimension",
+          "$value": 32
+        },
+        "smallHeight": {
+          "$type": "dimension",
+          "$value": 40
+        },
+        "mediumHeight": {
+          "$type": "dimension",
+          "$value": 48
+        },
+        "largeHeight": {
+          "$type": "dimension",
+          "$value": 56
+        },
+        "extraLargeHeight": {
+          "$type": "dimension",
+          "$value": 72
+        },
+        "extraSmallIconSize": {
+          "$type": "dimension",
+          "$value": 18
+        },
+        "smallIconSize": {
+          "$type": "dimension",
+          "$value": 18
+        },
+        "mediumIconSize": {
+          "$type": "dimension",
+          "$value": 24
+        },
+        "largeIconSize": {
+          "$type": "dimension",
+          "$value": 24
+        },
+        "extraLargeIconSize": {
+          "$type": "dimension",
+          "$value": 32
+        },
+        "minimumWidth": {
+          "$type": "dimension",
+          "$value": 64
+        }
+      },
+      "iconButton": {
+        "$description": "QmlMaterial icon-button optical size/width modes. Extra-small zero geometry uses content plus Material3Theme inset. Material3Theme owns minimum touch targets, semantic corners, palette and motion.",
+        "extraSmall": {
+          "containerHeight": {
+            "$type": "dimension",
+            "$value": 0
+          },
+          "defaultWidth": {
+            "$type": "dimension",
+            "$value": 0
+          },
+          "narrowWidth": {
+            "$type": "dimension",
+            "$value": 0
+          },
+          "wideWidth": {
+            "$type": "dimension",
+            "$value": 0
+          },
+          "iconSize": {
+            "$type": "dimension",
+            "$value": 22
+          }
+        },
+        "small": {
+          "containerHeight": {
+            "$type": "dimension",
+            "$value": 40
+          },
+          "defaultWidth": {
+            "$type": "dimension",
+            "$value": 40
+          },
+          "narrowWidth": {
+            "$type": "dimension",
+            "$value": 32
+          },
+          "wideWidth": {
+            "$type": "dimension",
+            "$value": 52
+          },
+          "iconSize": {
+            "$type": "dimension",
+            "$value": 24
+          }
+        },
+        "medium": {
+          "containerHeight": {
+            "$type": "dimension",
+            "$value": 56
+          },
+          "defaultWidth": {
+            "$type": "dimension",
+            "$value": 56
+          },
+          "narrowWidth": {
+            "$type": "dimension",
+            "$value": 48
+          },
+          "wideWidth": {
+            "$type": "dimension",
+            "$value": 72
+          },
+          "iconSize": {
+            "$type": "dimension",
+            "$value": 24
+          }
+        },
+        "large": {
+          "containerHeight": {
+            "$type": "dimension",
+            "$value": 96
+          },
+          "defaultWidth": {
+            "$type": "dimension",
+            "$value": 96
+          },
+          "narrowWidth": {
+            "$type": "dimension",
+            "$value": 64
+          },
+          "wideWidth": {
+            "$type": "dimension",
+            "$value": 128
+          },
+          "iconSize": {
+            "$type": "dimension",
+            "$value": 32
+          }
+        },
+        "extraLarge": {
+          "containerHeight": {
+            "$type": "dimension",
+            "$value": 136
+          },
+          "defaultWidth": {
+            "$type": "dimension",
+            "$value": 136
+          },
+          "narrowWidth": {
+            "$type": "dimension",
+            "$value": 104
+          },
+          "wideWidth": {
+            "$type": "dimension",
+            "$value": 184
+          },
+          "iconSize": {
+            "$type": "dimension",
+            "$value": 40
+          }
+        }
+      },
+      "badge": {
+        "$description": "QmlMaterial notification badge optical geometry and logical overlay offset; Material3Theme owns typography, intent colors and disabled states.",
+        "dotDiameter": {
+          "$type": "dimension",
+          "$value": 6
+        },
+        "labelHeight": {
+          "$type": "dimension",
+          "$value": 16
+        },
+        "labelMinimumWidth": {
+          "$type": "dimension",
+          "$value": 16
+        },
+        "labelHorizontalPadding": {
+          "$type": "dimension",
+          "$value": 4
+        },
+        "offsetX": {
+          "$type": "dimension",
+          "$value": 4
+        },
+        "offsetY": {
+          "$type": "dimension",
+          "$value": -4
+        }
+      },
+      "segmentedButton": {
+        "$description": "QmlMaterial segmented optical heights and icon minima; Material3Theme owns typography, padding, outline and minimum hit targets.",
+        "extraSmall": {
+          "containerHeight": {
+            "$type": "dimension",
+            "$value": 32
+          },
+          "iconSize": {
+            "$type": "dimension",
+            "$value": 20
+          }
+        },
+        "small": {
+          "containerHeight": {
+            "$type": "dimension",
+            "$value": 40
+          },
+          "iconSize": {
+            "$type": "dimension",
+            "$value": 20
+          }
+        },
+        "medium": {
+          "containerHeight": {
+            "$type": "dimension",
+            "$value": 56
+          },
+          "iconSize": {
+            "$type": "dimension",
+            "$value": 24
+          }
+        },
+        "large": {
+          "containerHeight": {
+            "$type": "dimension",
+            "$value": 96
+          },
+          "iconSize": {
+            "$type": "dimension",
+            "$value": 32
+          }
+        },
+        "extraLarge": {
+          "containerHeight": {
+            "$type": "dimension",
+            "$value": 136
+          },
+          "iconSize": {
+            "$type": "dimension",
+            "$value": 40
+          }
+        }
+      },
+      "splitButton": {
+        "$description": "QmlMaterial split optical geometry and inner-state corners; Material3Theme retains semantic pairs, motion, typography and minimum hit targets.",
+        "extraSmall": {
+          "containerHeight": {
+            "$type": "dimension",
+            "$value": 32
+          },
+          "leadingIconSize": {
+            "$type": "dimension",
+            "$value": 18
+          },
+          "leadingPadding": {
+            "$type": "dimension",
+            "$value": 12
+          },
+          "trailingPadding": {
+            "$type": "dimension",
+            "$value": 10
+          },
+          "trailingIconSize": {
+            "$type": "dimension",
+            "$value": 22
+          },
+          "trailingIconPadding": {
+            "$type": "dimension",
+            "$value": 13
+          },
+          "idleRadius": {
+            "$type": "dimension",
+            "$value": 4
+          },
+          "hoverRadius": {
+            "$type": "dimension",
+            "$value": 8
+          },
+          "pressedRadius": {
+            "$type": "dimension",
+            "$value": 8
+          },
+          "opticalOffset": {
+            "$type": "dimension",
+            "$value": 1
+          }
+        },
+        "small": {
+          "containerHeight": {
+            "$type": "dimension",
+            "$value": 40
+          },
+          "leadingIconSize": {
+            "$type": "dimension",
+            "$value": 18
+          },
+          "leadingPadding": {
+            "$type": "dimension",
+            "$value": 16
+          },
+          "trailingPadding": {
+            "$type": "dimension",
+            "$value": 12
+          },
+          "trailingIconSize": {
+            "$type": "dimension",
+            "$value": 22
+          },
+          "trailingIconPadding": {
+            "$type": "dimension",
+            "$value": 13
+          },
+          "idleRadius": {
+            "$type": "dimension",
+            "$value": 4
+          },
+          "hoverRadius": {
+            "$type": "dimension",
+            "$value": 12
+          },
+          "pressedRadius": {
+            "$type": "dimension",
+            "$value": 12
+          },
+          "opticalOffset": {
+            "$type": "dimension",
+            "$value": 1
+          }
+        },
+        "medium": {
+          "containerHeight": {
+            "$type": "dimension",
+            "$value": 56
+          },
+          "leadingIconSize": {
+            "$type": "dimension",
+            "$value": 24
+          },
+          "leadingPadding": {
+            "$type": "dimension",
+            "$value": 24
+          },
+          "trailingPadding": {
+            "$type": "dimension",
+            "$value": 24
+          },
+          "trailingIconSize": {
+            "$type": "dimension",
+            "$value": 26
+          },
+          "trailingIconPadding": {
+            "$type": "dimension",
+            "$value": 15
+          },
+          "idleRadius": {
+            "$type": "dimension",
+            "$value": 4
+          },
+          "hoverRadius": {
+            "$type": "dimension",
+            "$value": 12
+          },
+          "pressedRadius": {
+            "$type": "dimension",
+            "$value": 12
+          },
+          "opticalOffset": {
+            "$type": "dimension",
+            "$value": 2
+          }
+        },
+        "large": {
+          "containerHeight": {
+            "$type": "dimension",
+            "$value": 96
+          },
+          "leadingIconSize": {
+            "$type": "dimension",
+            "$value": 24
+          },
+          "leadingPadding": {
+            "$type": "dimension",
+            "$value": 48
+          },
+          "trailingPadding": {
+            "$type": "dimension",
+            "$value": 48
+          },
+          "trailingIconSize": {
+            "$type": "dimension",
+            "$value": 38
+          },
+          "trailingIconPadding": {
+            "$type": "dimension",
+            "$value": 29
+          },
+          "idleRadius": {
+            "$type": "dimension",
+            "$value": 8
+          },
+          "hoverRadius": {
+            "$type": "dimension",
+            "$value": 20
+          },
+          "pressedRadius": {
+            "$type": "dimension",
+            "$value": 20
+          },
+          "opticalOffset": {
+            "$type": "dimension",
+            "$value": 3
+          }
+        },
+        "extraLarge": {
+          "containerHeight": {
+            "$type": "dimension",
+            "$value": 136
+          },
+          "leadingIconSize": {
+            "$type": "dimension",
+            "$value": 32
+          },
+          "leadingPadding": {
+            "$type": "dimension",
+            "$value": 64
+          },
+          "trailingPadding": {
+            "$type": "dimension",
+            "$value": 64
+          },
+          "trailingIconSize": {
+            "$type": "dimension",
+            "$value": 50
+          },
+          "trailingIconPadding": {
+            "$type": "dimension",
+            "$value": 43
+          },
+          "idleRadius": {
+            "$type": "dimension",
+            "$value": 12
+          },
+          "hoverRadius": {
+            "$type": "dimension",
+            "$value": 20
+          },
+          "pressedRadius": {
+            "$type": "dimension",
+            "$value": 20
+          },
+          "opticalOffset": {
+            "$type": "dimension",
+            "$value": 6
+          }
+        }
+      }
+    }
+  }
+}

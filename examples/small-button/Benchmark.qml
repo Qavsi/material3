@@ -10,9 +10,22 @@ Window {
     required property int itemCount
     readonly property Material3Theme tokens: Material3Theme {}
     property real phase: 0
-    readonly property int cycleDuration: tokens.rippleExpansionDuration + tokens.rippleFadeDuration
-    readonly property real progress: 1 - Math.pow(1 - Math.min(1, phase * cycleDuration / tokens.rippleExpansionDuration), 3)
-    readonly property real pulse: Math.min(1, (1 - phase) * cycleDuration / tokens.rippleFadeDuration)
+    readonly property int cycleDuration: tokens.rippleExpansionDuration
+        + Math.max(tokens.rippleReleaseDuration, tokens.rippleFadeDuration * 2)
+    readonly property real elapsed: phase * cycleDuration
+    readonly property real releaseElapsed: Math.max(0, elapsed - tokens.rippleExpansionDuration)
+    readonly property real progress: elapsed <= tokens.rippleExpansionDuration
+        ? tokens.rippleHoldProgress * (1 - Math.pow(1 - elapsed / tokens.rippleExpansionDuration, 3))
+        : tokens.rippleHoldProgress + (1 - tokens.rippleHoldProgress)
+            * (1 - Math.pow(1 - Math.min(1, releaseElapsed / tokens.rippleReleaseDuration), 3))
+    readonly property real pulse: phase === 0 ? 0 : releaseElapsed <= tokens.rippleFadeDuration
+        ? tokens.rippleOpacity
+        : tokens.rippleOpacity * (1 - Math.min(1,
+            (releaseElapsed - tokens.rippleFadeDuration) / tokens.rippleFadeDuration))
+    readonly property real stateLayerOpacity: phase === 0 ? 0
+        : tokens.rippleOpacity + (tokens.hoverOpacity - tokens.rippleOpacity)
+            * Math.min(1, releaseElapsed / tokens.rippleFadeDuration)
+    readonly property real noisePhase: usePainter ? 0 : elapsed / tokens.rippleNoiseDuration * tokens.rippleNoisePhase
     width: 1640
     height: 1000
     x: previewArea.x + (previewArea.width - width) / 2
@@ -43,8 +56,7 @@ Window {
             radius: root.tokens.smallRadius
             color: root.tokens.primary
             antialiasing: true
-            readonly property color ink: Qt.alpha(root.tokens.primaryForeground,
-                root.tokens.primaryForeground.a * root.tokens.interactionOpacity)
+            readonly property color ink: root.tokens.primaryForeground
             Loader {
                 anchors.fill: parent
                 sourceComponent: root.usePainter ? painter : shader
@@ -56,8 +68,10 @@ Window {
                     cornerRadius: cell.radius
                     rippleOrigin: Qt.point(12, height / 2)
                     rippleProgress: root.progress
+                    ripplePhase: root.noisePhase
+                    sparkleColor: root.tokens.rippleSparkleColor
                     rippleOpacity: root.pulse
-                    stateOpacity: root.tokens.hoverOpacity / root.tokens.interactionOpacity
+                    stateOpacity: root.stateLayerOpacity
                     rippleColor: cell.ink
                 }
             }
@@ -67,10 +81,13 @@ Window {
                     objectName: "benchmarkShader"
                     property size size: Qt.size(width, height)
                     property real cornerRadius: cell.radius
+                    property vector4d cornerRadii: Qt.vector4d(cell.radius, cell.radius, cell.radius, cell.radius)
                     property point rippleOrigin: Qt.point(12, height / 2)
                     property real rippleProgress: root.progress
+                    property real ripplePhase: root.noisePhase
+                    property color sparkleColor: root.tokens.rippleSparkleColor
                     property real rippleOpacity: root.pulse
-                    property real stateOpacity: root.tokens.hoverOpacity / root.tokens.interactionOpacity
+                    property real stateOpacity: root.stateLayerOpacity
                     property color rippleColor: cell.ink
                     fragmentShader: "qrc:/Qavsi/Material3/Style/shaders/smallbuttonfeedback.frag.qsb"
                 }

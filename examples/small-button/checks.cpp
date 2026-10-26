@@ -1,5 +1,7 @@
 #include <QAccessibilityHints>
 #include <QFont>
+#include <QElapsedTimer>
+#include <QScreen>
 #include <QGuiApplication>
 #include <QImage>
 #include <QLineF>
@@ -35,6 +37,18 @@ QColor pixel(const QImage &image, QQuickItem *button, const QPointF &position)
         return {};
     const auto point = button->mapToScene(position) * image.devicePixelRatio();
     return image.pixelColor(qRound(point.x()), qRound(point.y()));
+}
+
+void logFeedbackState(QQuickItem *button, QQuickItem *delegate, const char *stage)
+{
+    qInfo() << stage << "pressed" << button->property("pressed")
+            << "reduceMotion" << delegate->property("reduceMotion")
+            << "running" << delegate->property("rippleRunning")
+            << "visible" << delegate->property("rippleVisible")
+            << "progress" << delegate->property("rippleProgress")
+            << "opacity" << delegate->property("rippleOpacity")
+            << "base" << delegate->property("stateLayerOpacity")
+            << "phase" << delegate->property("ripplePhase");
 }
 
 void checkFeedback(QQuickWindow &window, QQuickItem *button, QQuickItem *themeButton)
@@ -137,6 +151,10 @@ void checkFeedback(QQuickWindow &window, QQuickItem *button, QQuickItem *themeBu
         }, 300), "pointer press starts visible ripple feedback");
     }
     QTest::qWait(90);
+    if (!delegate->property("reduceMotion").toBool())
+        expect(QTest::qWaitFor([delegate] {
+            return delegate->property("rippleProgress").toReal() >= 0.13;
+        }, 1000), "animated press reaches the visible QCM wave before sampling");
     const auto duringPress = window.grabWindow();
     expect(!beforePress.isNull() && !duringPress.isNull(), "feedback renders before and during press");
     if (!beforePress.isNull() && !duringPress.isNull()) {
@@ -145,10 +163,24 @@ void checkFeedback(QQuickWindow &window, QQuickItem *button, QQuickItem *themeBu
         expect(pixel(beforePress, button, QPointF(8, button->height() / 2))
                    != pixel(duringPress, button, QPointF(8, button->height() / 2)),
                "pressed feedback changes a rendered pixel inside the capsule");
-        if (!delegate->property("reduceMotion").toBool())
-            expect(pixel(duringPress, button, QPointF(8, button->height() / 2))
-                       != pixel(duringPress, button, QPointF(button->width() - 8, button->height() / 2)),
-                   "rendered ripple expands locally instead of tinting the whole surface at once");
+        if (!delegate->property("reduceMotion").toBool()) {
+            int minimum = 1000;
+            int maximum = -1000;
+            for (int x = 8; x <= button->width() - 8; ++x) {
+                const QPointF sample(x, button->height() / 5);
+                const int delta = pixel(duringPress, button, sample).red()
+                    - pixel(beforePress, button, sample).red();
+                minimum = qMin(minimum, delta);
+                maximum = qMax(maximum, delta);
+            }
+            if (maximum - minimum < 2)
+                qWarning() << "QCM wave sample" << delegate->property("rippleProgress")
+                           << delegate->property("rippleOpacity") << delegate->property("ripplePhase")
+                           << "range" << minimum << maximum << "active" << window.isActive()
+                           << "exposed" << window.isExposed();
+            expect(maximum - minimum >= 2,
+                   "QCM wave adds local variation above the uniform pressed state layer");
+        }
     }
     QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, pressPoint);
     expect(clicked.count() == 2 && !button->property("pressed").toBool(),
@@ -197,6 +229,8 @@ void checkFeedback(QQuickWindow &window, QQuickItem *button, QQuickItem *themeBu
             return;
         expect(button->property("pressed").toBool() && background(button).isValid(),
                "theme changes preserve an active native press and valid styling");
+        expect(qAbs(delegate->property("stateLayerOpacity").toReal() - 0.12) < 0.0001,
+               "theme changes retain the QCM held base layer");
         QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, pressPoint);
         expect(clicked.count() == clickCount + 1, "theme switch during press does not duplicate activation");
         settle();
@@ -259,6 +293,156 @@ void checkFeedback(QQuickWindow &window, QQuickItem *button, QQuickItem *themeBu
     expect(clicked.count() == burstClickCount + 8, "repeated feedback preserves one activation per click");
     expect(button->findChildren<QObject *>().size() == descendantCount,
            "completed clicks do not accumulate per-click objects");
+
+    auto *tokens = delegate->property("tokens").value<QObject *>();
+    expect(tokens && tokens->property("rippleExpansionDuration").toInt() == 450
+               && tokens->property("rippleReleaseDuration").toInt() == 350
+               && tokens->property("rippleFadeDuration").toInt() == 150,
+           "QCM press/release/two-stage fade durations are 450/350/150 ms");
+    expect(tokens && qAbs(tokens->property("rippleHoldProgress").toReal() - 0.4) < 0.0001
+               && qAbs(tokens->property("rippleOpacity").toReal() - 0.12) < 0.0001
+               && tokens->property("rippleNoiseDuration").toInt() == 7000,
+           "QCM hold, opacity and noise constants are preserved");
+    const auto progress = [&] { return delegate->property("rippleProgress").toReal(); };
+    const auto opacity = [&] { return delegate->property("rippleOpacity").toReal(); };
+    const auto phase = [&] { return delegate->property("ripplePhase").toReal(); };
+    const auto base = [&] { return delegate->property("stateLayerOpacity").toReal(); };
+    const auto continuousProgress = [&](qreal before, qreal elapsedMs, bool repress) {
+        const qreal frameMs = 1000 / qMax<qreal>(1, window.screen()->refreshRate());
+        // QTest processes events during input dispatch; allow one display frame plus measured call time.
+        const qreal rate = qMax(3 * 0.4 / 450, 3 * (1 - before) / 350);
+        const qreal allowedChange = rate * (elapsedMs + frameMs + 1);
+        const bool continuous = progress() > 0 && progress() < 1
+            && (repress ? progress() >= 0.4 : progress() >= before - 0.0001)
+            && qAbs(progress() - before) <= allowedChange;
+        if (!continuous)
+            qInfo() << "Continuity failure: before" << before << "after" << progress()
+                    << "event ms" << elapsedMs << "one-frame bound" << allowedChange;
+        return continuous;
+    };
+    const auto hold = [&] {
+        expect(QTest::qWaitFor([&] { return qAbs(progress() - 0.4) < 0.0001; }, 1000),
+               "a held QCM wave reaches progress 0.4");
+    };
+
+    if (!delegate->property("reduceMotion").toBool()) {
+        auto count = clicked.count();
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, pressPoint);
+        expect(button->property("pressed").toBool() && clicked.count() == count
+                   && qAbs(opacity() - 0.12) < 0.0001 && qAbs(base() - 0.12) < 0.0001,
+               "QCM press starts base and wave at 0.12 without an early native click");
+        hold();
+        const auto heldPhase = phase();
+        QTest::qWait(70);
+        expect(qAbs(progress() - 0.4) < 0.0001 && qAbs(opacity() - 0.12) < 0.0001
+                   && button->property("pressed").toBool(),
+               "long press holds the wave at 0.4 until release");
+        expect(metal ? phase() != heldPhase && delegate->property("rippleRunning").toBool()
+                     : phase() == heldPhase && !delegate->property("rippleRunning").toBool(),
+               "Metal animates sparkle phase during hold; software does not spend CPU on omitted noise");
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, pressPoint);
+        expect(clicked.count() == count + 1 && !button->property("pressed").toBool()
+                   && progress() >= 0.4 && delegate->property("rippleVisible").toBool(),
+               "held release continues from 0.4 with one native activation");
+        expect(QTest::qWaitFor([&] { return base() < 0.119 && opacity() > 0.119; }, 250),
+               "release first fades the state layer while preserving wave opacity");
+        expect(QTest::qWaitFor([&] { return opacity() > 0 && opacity() < 0.119; }, 400),
+               "the second fade stage removes wave opacity");
+        settle();
+        const auto stoppedPhase = phase();
+        QTest::qWait(60);
+        expect(phase() == stoppedPhase && opacity() == 0,
+               "released feedback stops noise animation and leaves no wave");
+
+        count = clicked.count();
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, pressPoint);
+        QTest::qWait(50);
+        const auto earlyProgress = progress();
+        expect(earlyProgress > 0 && earlyProgress < 0.4,
+               "short press is still inside the QCM expansion");
+        QElapsedTimer releaseEvent;
+        releaseEvent.start();
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, pressPoint);
+        expect(continuousProgress(earlyProgress, releaseEvent.nsecsElapsed() / 1e6, false)
+                   && clicked.count() == count + 1,
+               "early release keeps current progress instead of restarting the wave");
+        settle();
+
+        count = clicked.count();
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, pressPoint);
+        hold();
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, pressPoint);
+        expect(QTest::qWaitFor([&] { return progress() > 0.6 && opacity() > 0; }, 200),
+               "release tail advances beyond the held progress");
+        const auto tailProgress = progress();
+        QElapsedTimer repressEvent;
+        repressEvent.start();
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, pressPoint);
+        expect(continuousProgress(tailProgress, repressEvent.nsecsElapsed() / 1e6, true)
+                   && clicked.count() == count + 1,
+               "repress preserves QCM tail progress and emits no extra activation");
+        hold();
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, pressPoint);
+        expect(clicked.count() == count + 2, "repress and release still activate once per completed click");
+        settle();
+    }
+
+    for (const auto *property : {"enabled", "visible"}) {
+        const auto count = clicked.count();
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, pressPoint);
+        QTest::qWait(40);
+        expect(button->property("pressed").toBool(), "hide/disable scenario begins with a real native press");
+        button->setProperty(property, false);
+        expect(settled(), "hide and disable clear active wave synchronously");
+        const auto clearedPhase = phase();
+        QTest::qWait(60);
+        expect(phase() == clearedPhase, "hide and disable stop sparkle phase updates");
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, pressPoint);
+        button->setProperty(property, true);
+        expect(clicked.count() == count, "cancelled hidden or disabled presses do not activate");
+        // Visibility restoration changes the enclosing layout before the next input event.
+        QTest::qWait(30);
+    }
+
+    const auto reducedPressPoint = scenePoint(pressLocal);
+    QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, reducedPressPoint);
+    expect(button->property("pressed").toBool(), "reduced-motion scenario starts with a real native press");
+    QTest::qWait(40);
+    window.setProperty("reducedMotion", true);
+    const auto reducedPressIsStatic = [&] {
+        return delegate->property("reduceMotion").toBool() && button->property("pressed").toBool()
+            && !delegate->property("rippleRunning").toBool()
+            && opacity() == 0 && qAbs(base() - 0.12) < 0.0001;
+    };
+    if (!reducedPressIsStatic())
+        logFeedbackState(button, delegate, "Before reduced-motion binding propagation:");
+    const bool reducedPressSettled = QTest::qWaitFor(reducedPressIsStatic, 300);
+    if (!reducedPressSettled)
+        logFeedbackState(button, delegate, "Reduced-motion propagation failed:");
+    expect(reducedPressSettled,
+           "mid-press reduced motion retains only the static 0.12 layer and native press");
+    const auto reducedPhase = phase();
+    QTest::qWait(60);
+    expect(phase() == reducedPhase, "reduced motion does not animate sparkle phase");
+    window.setProperty("reducedMotion", false);
+    QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, reducedPressPoint);
+    settle();
+    expect(base() <= 0.1001, "leaving reduced motion during press cannot leave the pressed layer stuck after release");
+
+    if (!delegate->property("reduceMotion").toBool()) {
+        const auto count = clicked.count();
+        QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, pressPoint);
+        QTest::qWait(40);
+        QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, pressPoint);
+        window.setProperty("reducedMotion", true);
+        expect(settled() && opacity() == 0 && clicked.count() == count + 1,
+               "mid-release reduced motion clears the tail without duplicating the native click");
+        const auto phaseAfterPreference = phase();
+        QTest::qWait(60);
+        expect(phase() == phaseAfterPreference, "mid-release preference change stops noise");
+        window.setProperty("reducedMotion", false);
+    }
+
 }
 }
 
@@ -286,10 +470,17 @@ int checkSmallButton(QQmlApplicationEngine &engine, QQuickWindow &window)
     QSignalSpy clicked(button, SIGNAL(clicked()));
     expect(window.isVisible(), "window is visible");
     expect(button->height() == 40, "Small painted height is 40 logical pixels");
-    expect(button->property("leftPadding").toReal() == 16, "Small horizontal padding is 16");
+    expect(button->property("leftPadding").toReal() == 24
+               && button->property("rightPadding").toReal() == 24,
+           "Small uses the reference 24 px leading and trailing padding");
+    expect(button->property("spacing").toReal() == 8, "Small uses the reference 8 px content gap");
+    const auto expectedWidth = qMax<qreal>(64, button->property("implicitContentWidth").toReal() + 48);
+    expect(qAbs(button->implicitWidth() - expectedWidth) < 0.01 && button->width() + 0.01 >= expectedWidth,
+           "Small intrinsic width reserves both reference text insets without a fixed label width");
     auto font = button->property("font").value<QFont>();
     qInfo() << "Resolved label font:" << font << "tracking:" << font.letterSpacing();
     expect(font.pixelSize() == 14 && font.weight() == QFont::Medium, "Label Large size and weight");
+    expect(font.family() == QGuiApplication::font().family(), "empty theme font input inherits the application family");
     expect(qAbs(font.letterSpacing() - 0.1) < 1.0 / 64.0, "Label Large tracking within QFont fixed-point precision");
     expect(background(button) == QColor("#6750a4"), "light primary role");
     auto center = button->mapToScene(QPointF(button->width() / 2, button->height() / 2)).toPoint();
@@ -340,11 +531,15 @@ int checkSmallButton(QQmlApplicationEngine &engine, QQuickWindow &window)
     expect(background(button) == QColor("#6750a4"), "light normal restored");
     window.setProperty("darkMode", true);
     button->setProperty("hoverEnabled", false);
-    if (auto *delegate = button->findChild<QQuickItem *>("material3.small.background"))
-        expect(QTest::qWaitFor([delegate] {
+    if (auto *delegate = button->findChild<QQuickItem *>("material3.small.background")) {
+        const bool feedbackSettled = QTest::qWaitFor([delegate] {
             return !delegate->property("rippleRunning").toBool()
                 && !delegate->property("rippleVisible").toBool();
-        }, 1500), "theme color measurement waits for transient feedback to settle");
+        }, 1500);
+        if (!feedbackSettled)
+            logFeedbackState(button, delegate, "Theme measurement transient did not settle:");
+        expect(feedbackSettled, "theme color measurement waits for transient feedback to settle");
+    }
     QTest::qWait(50);
     expect(background(button) == QColor("#d0bcff"), "dark primary role");
     const auto image = window.grabWindow();

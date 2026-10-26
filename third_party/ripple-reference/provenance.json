@@ -1,0 +1,98 @@
+{
+  "skiaRepository": "https://github.com/google/skia",
+  "skiaRevision": "4c7e05a0217590d5f9e97cc055437b3d2700c403",
+  "aospRepository": "https://github.com/aosp-mirror/platform_frameworks_base",
+  "aospRevision": "1cdfff555f4a21f71ccc978290e2e212e2f8b168",
+  "qcmRepository": "https://github.com/hypengw/QmlMaterial",
+  "qcmRevision": "229bc3e64ff71f1ac88cf73e976637ffbcf7e33c",
+  "licenseAssessment": "Skia RippleShader.rts has no independent copyright/license block: its two-line header explicitly credits Android Open Source Project and links RippleShader.java. The original AOSP Java file has Copyright (C) 2021 The Android Open Source Project and Apache-2.0. Preserve that origin/header and full Apache text for adapted shader math. Skia driver has Copyright 2023 Google LLC/BSD-style license; preserve Skia root BSD-3-Clause license Copyright (c) 2011 Google Inc. for adapted driver constants. QCM QML/GLSL adaptation is distributed under QCM MIT; preserve its license as well. Original Qavsi code remains MIT without replacing the upstream source notices.",
+  "verifiedFiles": [
+    {
+      "filename": "SKIA-BSD-3-Clause-LICENSE.txt",
+      "description": "Skia root license",
+      "sourceUrl": "https://github.com/google/skia/blob/4c7e05a0217590d5f9e97cc055437b3d2700c403/LICENSE",
+      "sourceGitBlobSha": "e32636d5668d51ca7a938ae6cef93c795c656d7c",
+      "sourceSha256": "5f787c1dee3c56547f09ccc2906ab5f5293c4d8dd6c8654e573216c38e908dbd",
+      "sourceBytes": 1507,
+      "savedSha256": "5f787c1dee3c56547f09ccc2906ab5f5293c4d8dd6c8654e573216c38e908dbd",
+      "savedBytes": 1507,
+      "headerOnly": false
+    },
+    {
+      "filename": "Skia-RippleShader.rts",
+      "description": "Skia shader, explicitly credited to AOSP",
+      "sourceUrl": "https://github.com/google/skia/blob/4c7e05a0217590d5f9e97cc055437b3d2700c403/resources/sksl/realistic/RippleShader.rts",
+      "sourceGitBlobSha": "8ce2b2d88d3243181d46112f4990f763fea47baa",
+      "sourceSha256": "daf00d3ddfd508dabf5fb43e2c369c12c161937e558af5cabc36e4765d41a98a",
+      "sourceBytes": 4002,
+      "savedSha256": "daf00d3ddfd508dabf5fb43e2c369c12c161937e558af5cabc36e4765d41a98a",
+      "savedBytes": 4002,
+      "headerOnly": false
+    },
+    {
+      "filename": "Skia-rippleshadergm.cpp",
+      "description": "Skia driver Copyright 2023 Google LLC",
+      "sourceUrl": "https://github.com/google/skia/blob/4c7e05a0217590d5f9e97cc055437b3d2700c403/gm/rippleshadergm.cpp",
+      "sourceGitBlobSha": "71a992cb46248d4e23ceded271ddb0621710fbc9",
+      "sourceSha256": "19875df1997401fd21b9ab42b196deda3dad67e576f9d3ffb6c62e5814f72eae",
+      "sourceBytes": 5596,
+      "savedSha256": "19875df1997401fd21b9ab42b196deda3dad67e576f9d3ffb6c62e5814f72eae",
+      "savedBytes": 5596,
+      "headerOnly": false
+    },
+    {
+      "filename": "AOSP-RippleShader.java.header.txt",
+      "description": "AOSP original Copyright (C) 2021 The Android Open Source Project",
+      "sourceUrl": "https://github.com/aosp-mirror/platform_frameworks_base/blob/1cdfff555f4a21f71ccc978290e2e212e2f8b168/graphics/java/android/graphics/drawable/RippleShader.java",
+      "sourceGitBlobSha": "c2a7a84ad8098f7253b58e1817a33a3b92d60b6d",
+      "sourceSha256": "74a48f7ff4a8de5c2e6960c68bb329afba30b4d20ef0d4da4d2712aee341b931",
+      "sourceBytes": 9613,
+      "savedSha256": "31a0109f05bfd4fec1aa9608c511f73883bb4910960afca635c3b36f193a0c5b",
+      "savedBytes": 620,
+      "headerOnly": true
+    },
+    {
+      "filename": "APACHE-2.0-LICENSE.txt",
+      "description": "Complete unmodified Apache 2.0 text from Google's official MCU repository",
+      "sourceUrl": "https://github.com/material-foundation/material-color-utilities/blob/ca894db8b6aebb2833f1805ae61573c92e3f1660/LICENSE",
+      "sourceGitBlobSha": "3879bcb2002e2b2e38a953e1149c14cef55ca555",
+      "sourceSha256": "e662e6c2fc7ba7bc613c7e4ddf852d4ad3fcc05faead7cbe16b1dac67b55f426",
+      "sourceBytes": 10756,
+      "savedSha256": "e662e6c2fc7ba7bc613c7e4ddf852d4ad3fcc05faead7cbe16b1dac67b55f426",
+      "savedBytes": 10756,
+      "headerOnly": false
+    }
+  ],
+  "qcmFiles": [
+    {
+      "path": "LICENSE",
+      "sha256": "82518c9dac40bcfa5953574f79beb77175e9d5ad3c5e2c66ad52358ca3f406ca",
+      "gitBlobSha": "03210cbe0fe718d915112861b6c70e4259ab3a07",
+      "bytes": 1100
+    },
+    {
+      "path": "qml/visual/Ripple.qml",
+      "sha256": "1ea675c03c8251c4c590b798e0a07e5c1bf98706e945244c2c6754a4a49eb11f",
+      "gitBlobSha": "5f55c1ff50fa922711ee4732415b046a89fd7c85",
+      "bytes": 467
+    },
+    {
+      "path": "qml/visual/RippleSkia.qml",
+      "sha256": "0d8a2bdafcd4082e54165b74bd986bf1d362e2b727e9421978c84e0c1a7e6fee",
+      "gitBlobSha": "8bf251d98f33b46263b0baba9ba037f2d685fda9",
+      "bytes": 8169
+    },
+    {
+      "path": "assets/shader/ripple.frag",
+      "sha256": "b0669603e037bbfa51da8317d67573d8f254f0dcae3e46fbc3f45b96863a688d",
+      "gitBlobSha": "60e24a75a9bc3d2eb577670066c9786938232715",
+      "bytes": 4487
+    },
+    {
+      "path": "assets/shader/sdf.glsl",
+      "sha256": "83e31e5ce7e4f61687fe41e9c52cf2714ca6033ace8fdf2778f67be9a32f9c62",
+      "gitBlobSha": "4302f6616cd0e60475f63ed0c4255314bb4d37c6",
+      "bytes": 1538
+    }
+  ]
+}

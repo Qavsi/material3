@@ -3,8 +3,9 @@ import QtQuick
 QtObject {
     id: root
     property bool dark: false
-    // Empty family lets QFont resolve the platform font; callers may supply Roboto.
+    // An empty input inherits the application family; Qt.font(family: "") would override it.
     property string fontFamily: ""
+    readonly property string effectiveFontFamily: fontFamily || Application.font.family
 
     property bool dynamicColors: false
     property alias seedColor: generatedScheme.seedColor
@@ -38,34 +39,97 @@ QtObject {
     property color shadow: root.dynamicColors ? root.colorScheme.colors.shadow : ("#000000")
     readonly property color transparent: Qt.rgba(0, 0, 0, 0)
 
+    readonly property real spacingUnit: 4
+    readonly property real spacingSmall: 8
+    readonly property real spacingMedium: 16
+    readonly property real spacingLarge: 24
+    readonly property real spacingExtraLarge: 32
+    readonly property real radiusExtraSmall: 4
+    readonly property real radiusSmall: 8
+    readonly property real radiusMedium: 12
+    readonly property real radiusLarge: 16
+    readonly property real radiusExtraLarge: 28
+    readonly property real radiusExtraExtraLarge: 32
+    readonly property real minimumTargetSize: 40
+    readonly property real iconButtonInset: spacingUnit
+    readonly property real iconButtonPadding: spacingSmall
+    readonly property real buttonExtraSmallPadding: 16
+    readonly property real buttonSmallPadding: 24
+    readonly property real buttonMediumPadding: 24
+    readonly property real buttonLargePadding: 32
+    readonly property real buttonExtraLargePadding: 32
+    readonly property real buttonLargeSpacing: 12
+    readonly property real buttonExtraLargeSpacing: buttonLargeSpacing
+    readonly property real fabMenuAreaHeight: 280
+    readonly property real fabMenuEdgeInset: 16
+    readonly property real fabMenuItemSpacing: 4
+    readonly property real fabMenuTriggerSpacing: 8
+    readonly property real fabMenuCloseIconSize: 20
+    readonly property int fabMenuSequenceDuration: 400
+    readonly property int fabMenuSpatialDuration: 200
+    readonly property int fabMenuEffectDuration: 100
+    readonly property real segmentedExtraSmallPadding: 8
+    readonly property real segmentedSmallPadding: 12
+    readonly property real segmentedMediumPadding: 16
+    readonly property real segmentedLargePadding: 32
+    readonly property real segmentedExtraLargePadding: 40
+    readonly property real outlineWidth: 1
     readonly property real smallHeight: 40
-    readonly property real smallHorizontalPadding: 16
+    readonly property real smallIconSize: 18
+    readonly property int iconWeight: 400
+    readonly property real iconOpticalSize: 24
+    readonly property int iconGrade: 0
+    readonly property int iconRenderType: Text.CurveRendering
+    readonly property real smallHorizontalPadding: buttonSmallPadding
     readonly property real smallVerticalPadding: 10
     readonly property real smallSpacing: 8
     readonly property real smallRadius: smallHeight / 2
     readonly property real labelLargeSize: 14
     readonly property real labelLargeTracking: 0.1
     readonly property font labelLarge: Qt.font({
-        family: root.fontFamily, pixelSize: root.labelLargeSize,
+        family: root.effectiveFontFamily, pixelSize: root.labelLargeSize,
         weight: Font.Medium, letterSpacing: root.labelLargeTracking
     })
+    readonly property font labelMedium: Qt.font({ family: root.effectiveFontFamily,
+        pixelSize: 12, weight: Font.Medium, letterSpacing: 0.5 })
+    readonly property font bodyLarge: Qt.font({ family: root.effectiveFontFamily,
+        pixelSize: 16, weight: Font.Normal, letterSpacing: 0.5 })
+    readonly property font bodyMedium: Qt.font({ family: root.effectiveFontFamily,
+        pixelSize: 14, weight: Font.Normal, letterSpacing: 0.25 })
+    readonly property font titleMedium: Qt.font({ family: root.effectiveFontFamily,
+        pixelSize: 16, weight: Font.Medium, letterSpacing: 0.15 })
+    readonly property font titleLarge: Qt.font({ family: root.effectiveFontFamily,
+        pixelSize: 22, weight: Font.Normal, letterSpacing: 0 })
+    readonly property font headlineSmall: Qt.font({ family: root.effectiveFontFamily,
+        pixelSize: 24, weight: Font.Normal, letterSpacing: 0 })
 
     readonly property real hoverOpacity: 0.08
     readonly property real interactionOpacity: 0.10
-    // Qt adaptation timings; these are not MDC-Android duration tokens.
-    readonly property int rippleExpansionDuration: 300
-    readonly property int rippleFadeDuration: 180
+    // QCM/Skia driver timings; not MDC-Android button duration tokens.
+    readonly property int rippleExpansionDuration: 450
+    readonly property int rippleReleaseDuration: 350
+    readonly property int rippleFadeDuration: 150
+    readonly property real rippleHoldProgress: 0.4
+    readonly property real rippleOpacity: 0.12
+    readonly property int rippleNoiseDuration: 7000
+    readonly property real rippleNoisePhase: rippleNoiseDuration / 214
+    readonly property color rippleSparkleColor: Qt.rgba(1, 1, 1, 0.5)
+    readonly property int shapeDuration: 150
+    readonly property int pressDuration: shapeDuration
+    readonly property int shapeEasing: Easing.OutCubic
     // Outside focus ring is a Qt keyboard-accessibility adaptation.
+    readonly property real selectionMarkStrokeWidth: 2
     readonly property real focusRingWidth: 2
     readonly property real focusRingGap: 2
     readonly property real disabledContainerOpacity: 0.12
     readonly property real disabledLabelOpacity: 0.38
+    readonly property real elevationBlur: 3
+    readonly property real elevationOffset: 1
+    readonly property real elevationOpacity: 0.30
     readonly property color hoveredPrimary: Qt.tint(primary,
         Qt.rgba(primaryForeground.r, primaryForeground.g, primaryForeground.b, hoverOpacity))
     readonly property color interactingPrimary: Qt.tint(primary,
         Qt.rgba(primaryForeground.r, primaryForeground.g, primaryForeground.b, interactionOpacity))
-    readonly property color disabledContainer: Qt.rgba(surfaceForeground.r,
-        surfaceForeground.g, surfaceForeground.b, disabledContainerOpacity)
-    readonly property color disabledLabel: Qt.rgba(surfaceForeground.r,
-        surfaceForeground.g, surfaceForeground.b, disabledLabelOpacity)
+    readonly property color disabledContainer: Qt.alpha(surfaceForeground, disabledContainerOpacity)
+    readonly property color disabledLabel: Qt.alpha(surfaceForeground, disabledLabelOpacity)
 }

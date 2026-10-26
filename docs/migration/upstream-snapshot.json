@@ -1,0 +1,32 @@
+{
+  "verified_on": "2026-10-25",
+  "repository": "https://github.com/hypengw/QmlMaterial",
+  "baseline": {
+    "sha": "229bc3e64ff71f1ac88cf73e976637ffbcf7e33c",
+    "committer_date": "2026-10-15T14:49:58Z"
+  },
+  "observed_main": {
+    "sha": "191260585a829ee4ae2c99e6232b7145b5c34474",
+    "committer_date": "2026-10-22T15:11:05Z",
+    "message": "0.6.1",
+    "html_url": "https://github.com/hypengw/QmlMaterial/commit/191260585a829ee4ae2c99e6232b7145b5c34474"
+  },
+  "fixed_comparison": {
+    "status": "ahead",
+    "ahead_by": 12,
+    "behind_by": 0,
+    "total_commits": 12,
+    "html_url": "https://github.com/hypengw/QmlMaterial/compare/229bc3e64ff71f1ac88cf73e976637ffbcf7e33c...191260585a829ee4ae2c99e6232b7145b5c34474"
+  },
+  "official_api_sources": [
+    "https://api.github.com/repos/hypengw/QmlMaterial/commits/main",
+    "https://api.github.com/repos/hypengw/QmlMaterial/compare/229bc3e64ff71f1ac88cf73e976637ffbcf7e33c...191260585a829ee4ae2c99e6232b7145b5c34474"
+  ],
+  "scope": "GitHub metadata and source review only; no new Qavsi parity, build or UI claim",
+  "local_reference": {
+    "checkout": "outside kit: Qavsi/references/QmlMaterial",
+    "head": "229bc3e64ff71f1ac88cf73e976637ffbcf7e33c",
+    "mode": "detached baseline; 16 public LFS assets hydrated with size/SHA-256 verification; three local comparison harness/build file changes; external build succeeded; UI not launched by this subtask",
+    "build_report": "reference-build.md"
+  }
+}

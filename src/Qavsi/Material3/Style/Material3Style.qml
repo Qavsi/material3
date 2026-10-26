@@ -13,6 +13,7 @@ SK.Style {
     readonly property Material3Theme tokens: themeName === "Dark" ? darkTokens : lightTokens
     readonly property SmallButtonDelegate buttonDelegate: SmallButtonDelegate { }
 
+
     themeName: "Light"
     fonts.button: tokens.labelLarge
     button {
@@ -24,6 +25,14 @@ SK.Style {
             delegate: root.buttonDelegate.background
         }
     }
-    light: SmallButtonTheme { tokens: root.lightTokens }
-    dark: SmallButtonTheme { tokens: root.darkTokens }
+    flatButton.background.delegate: root.buttonDelegate.background
+    flatButton.background.data: root.button.background.data
+    roundButton.background.delegate: root.buttonDelegate.background
+    roundButton.background.data: root.button.background.data
+    delayButton.background.delegate: root.buttonDelegate.background
+    delayButton.background.data: root.button.background.data
+    toolButton.background.delegate: root.buttonDelegate.background
+    toolButton.background.data: root.button.background.data
+    light: SmallButtonTheme { tokens: root.lightTokens; sourceStyle: root }
+    dark: SmallButtonTheme { tokens: root.darkTokens; sourceStyle: root }
 }
