@@ -1,0 +1,14 @@
+{
+  "build/shadow-benchmark.app/Contents/MacOS/shadow-benchmark": {
+    "sha256": "f90b3a7626d91fa8aa6bd75e1bf430a0c528626761d7bdc0db1c2710b33d7d59",
+    "bytes": 166336
+  },
+  "build/shadow-preview.app/Contents/MacOS/shadow-preview": {
+    "sha256": "412906cb9c23ebe085462c958a01c8142e9c1d25d232b2023e813bbdecb93671",
+    "bytes": 166496
+  },
+  "build/qcm/libqml_material.dylib": {
+    "sha256": "ad38c83c7b8bfcf2aff3c11a71f6957232eadced8ede8c74974c2414376b2ab0",
+    "bytes": 23962536
+  }
+}

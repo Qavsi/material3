@@ -1,0 +1,15 @@
+{
+  "qcmCommit": "229bc3e64ff71f1ac88cf73e976637ffbcf7e33c",
+  "qt": "6.12.0",
+  "qcmSource": "/Volumes/Mac/SCS/dev/Qavsi/references/QmlMaterial",
+  "files": {
+    "qml/visual/Elevation.qml": "581c30006a9c1bf4a9340e06b525b4cb5c9921a627da0997acef09a3c285d257",
+    "src/item/rrect_shadow.cpp": "393f0dfa921b6d684c732b7ae01253a1a918cdc8f50ad2cf8cc60e45c1130e1d",
+    "src/scenegraph/geometry.cpp": "4de69130cbbfd579fa958291db2ff383d65909e1e71cc6da84b81f9de3b02cbd",
+    "src/scenegraph/shadow_material.cpp": "360f5874a316d38299ac676b7e389ff68b2f91c3cec563818bc8ca24578da661",
+    "src/scenegraph/skia/skia_shadow.cpp": "124e2642cc1e2f823b4707b684ec97b703e750fe755635a84164fe657dae97d2",
+    "src/math/shadow_light.cpp": "bd28ba064d6dd6f1a224b2f10cfb81673af975fa9c3f51f922e1bfd99f8323e9",
+    "include/qml_material/math/shadow_light.hpp": "03f7136a37f4bcb2ef5194b06d629c787b0cef0d99292eaac008312cbd59fc90",
+    "src/scenegraph/texture_cache.cpp": "48e3c8b8c58a3b962e7053c581be6544b5a029d2c923de3385e2ea237951d302"
+  }
+}

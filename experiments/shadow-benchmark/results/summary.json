@@ -1,0 +1,1082 @@
+[
+  {
+    "items": 100,
+    "realFab": false,
+    "animated": false,
+    "mode": "none",
+    "cpuMsPerFrame": 0.8875666666666666,
+    "cpuMsPerFrameRange": [
+      0.7608958333333333,
+      1.145
+    ],
+    "gpuMeanMs": 0.13609871744560811,
+    "gpuMeanMsRange": [
+      0.08778163730418038,
+      0.4153173610878487
+    ],
+    "gpuP95Ms": 0.32245833426713943,
+    "gpuP95MsRange": [
+      0.09716663043946028,
+      1.1737500317394733
+    ],
+    "fps": 59.99409184182951,
+    "fpsRange": [
+      59.993416982347945,
+      60.230498493909515
+    ],
+    "frameP95Ms": 17.775290999999925,
+    "frameP95MsRange": [
+      17.61608299999989,
+      17.90337499999987
+    ],
+    "renderStageElapsedMeanMs": 8.626788712499998,
+    "renderStageElapsedMeanMsRange": [
+      0.19321125311203255,
+      8.818019416666715
+    ],
+    "syncStageElapsedMeanMs": 0.005779531120328275,
+    "syncStageElapsedMeanMsRange": [
+      0.004356070833351092,
+      0.007000867219884682
+    ],
+    "rssMb": 102.546875,
+    "rssMbRange": [
+      93.71875,
+      116.28125
+    ],
+    "creationMs": 22.915042,
+    "creationMsRange": [
+      14.684458,
+      36.071917
+    ],
+    "longFrames": 3,
+    "frames": 721,
+    "frameIntervals": 718
+  },
+  {
+    "items": 100,
+    "realFab": false,
+    "animated": false,
+    "mode": "qcm",
+    "cpuMsPerFrame": 1.4254624999999999,
+    "cpuMsPerFrameRange": [
+      1.3856708333333332,
+      1.7421916666666666
+    ],
+    "gpuMeanMs": 0.15220104323816486,
+    "gpuMeanMsRange": [
+      0.11068646078153203,
+      0.5512315966673972
+    ],
+    "gpuP95Ms": 0.35500002559274435,
+    "gpuP95MsRange": [
+      0.13212504563853145,
+      1.2774167116731405
+    ],
+    "fps": 59.98113094088993,
+    "fpsRange": [
+      59.98106223920028,
+      59.9835445192855
+    ],
+    "frameP95Ms": 17.607958999999937,
+    "frameP95MsRange": [
+      17.54470900000001,
+      17.710625000000164
+    ],
+    "renderStageElapsedMeanMs": 0.588249320833332,
+    "renderStageElapsedMeanMsRange": [
+      0.553057474999998,
+      0.7130107541666878
+    ],
+    "syncStageElapsedMeanMs": 0.005117408333329839,
+    "syncStageElapsedMeanMsRange": [
+      0.0050895458333172884,
+      0.005972387499969045
+    ],
+    "rssMb": 109.421875,
+    "rssMbRange": [
+      108.640625,
+      120.4375
+    ],
+    "creationMs": 47.683583,
+    "creationMsRange": [
+      47.134792,
+      47.857708
+    ],
+    "longFrames": 0,
+    "frames": 720,
+    "frameIntervals": 717
+  },
+  {
+    "items": 100,
+    "realFab": false,
+    "animated": false,
+    "mode": "rectangular1",
+    "cpuMsPerFrame": 1.757625,
+    "cpuMsPerFrameRange": [
+      1.1874375000000001,
+      1.815275
+    ],
+    "gpuMeanMs": 0.2010562500800006,
+    "gpuMeanMsRange": [
+      0.12748854011685276,
+      0.29466180664409575
+    ],
+    "gpuP95Ms": 0.8960000122897327,
+    "gpuP95MsRange": [
+      0.1812499831430614,
+      1.1542916763573885
+    ],
+    "fps": 59.980353315310865,
+    "fpsRange": [
+      59.89098156920548,
+      59.99302705546012
+    ],
+    "frameP95Ms": 17.65608400000019,
+    "frameP95MsRange": [
+      17.597499999999854,
+      17.76341599999978
+    ],
+    "renderStageElapsedMeanMs": 9.449488179166694,
+    "renderStageElapsedMeanMsRange": [
+      0.6188895916666752,
+      16.456307125000027
+    ],
+    "syncStageElapsedMeanMs": 0.0042189374999537675,
+    "syncStageElapsedMeanMsRange": [
+      0.003992879166658744,
+      0.004746395833343324
+    ],
+    "rssMb": 105.859375,
+    "rssMbRange": [
+      104.90625,
+      111.125
+    ],
+    "creationMs": 20.516375,
+    "creationMsRange": [
+      16.408458,
+      23.674
+    ],
+    "longFrames": 1,
+    "frames": 720,
+    "frameIntervals": 717
+  },
+  {
+    "items": 100,
+    "realFab": false,
+    "animated": false,
+    "mode": "rectangular2",
+    "cpuMsPerFrame": 2.5003,
+    "cpuMsPerFrameRange": [
+      2.4954083333333332,
+      2.7928333333333333
+    ],
+    "gpuMeanMs": 0.14623246364256678,
+    "gpuMeanMsRange": [
+      0.1330090313179729,
+      0.7844845487852581
+    ],
+    "gpuP95Ms": 0.2013750490732491,
+    "gpuP95MsRange": [
+      0.167208316270262,
+      1.3279583654366434
+    ],
+    "fps": 59.97996669112517,
+    "fpsRange": [
+      59.979391455966926,
+      59.99247970269935
+    ],
+    "frameP95Ms": 17.681499999999687,
+    "frameP95MsRange": [
+      17.63995800000066,
+      17.9557920000002
+    ],
+    "renderStageElapsedMeanMs": 1.5948119625000232,
+    "renderStageElapsedMeanMsRange": [
+      1.5838286208333348,
+      1.81152898750002
+    ],
+    "syncStageElapsedMeanMs": 0.0052637291666779145,
+    "syncStageElapsedMeanMsRange": [
+      0.005061970833332907,
+      0.005489445833314714
+    ],
+    "rssMb": 114.96875,
+    "rssMbRange": [
+      113.90625,
+      125.890625
+    ],
+    "creationMs": 18.508375,
+    "creationMsRange": [
+      16.846667,
+      20.085041
+    ],
+    "longFrames": 0,
+    "frames": 720,
+    "frameIntervals": 717
+  },
+  {
+    "items": 100,
+    "realFab": false,
+    "animated": true,
+    "mode": "none",
+    "cpuMsPerFrame": 1.4686208333333333,
+    "cpuMsPerFrameRange": [
+      1.304560669456067,
+      1.4718291666666665
+    ],
+    "gpuMeanMs": 0.20930069440510124,
+    "gpuMeanMsRange": [
+      0.11516301916951004,
+      0.3240166651570083
+    ],
+    "gpuP95Ms": 0.7726249750703573,
+    "gpuP95MsRange": [
+      0.1872499706223607,
+      0.9292916511185467
+    ],
+    "fps": 59.980992278466175,
+    "fpsRange": [
+      59.70248925159911,
+      59.985279867258015
+    ],
+    "frameP95Ms": 17.657791999999972,
+    "frameP95MsRange": [
+      17.317791999999827,
+      17.781000000000404
+    ],
+    "renderStageElapsedMeanMs": 0.17312238333332838,
+    "renderStageElapsedMeanMsRange": [
+      0.17198702916664577,
+      2.5271739958158888
+    ],
+    "syncStageElapsedMeanMs": 0.005766891666689844,
+    "syncStageElapsedMeanMsRange": [
+      0.004992720833329637,
+      0.007013183333323999
+    ],
+    "rssMb": 103.25,
+    "rssMbRange": [
+      97.921875,
+      109.84375
+    ],
+    "creationMs": 13.853709,
+    "creationMsRange": [
+      12.941333,
+      15.424875
+    ],
+    "longFrames": 1,
+    "frames": 719,
+    "frameIntervals": 716
+  },
+  {
+    "items": 100,
+    "realFab": false,
+    "animated": true,
+    "mode": "qcm",
+    "cpuMsPerFrame": 2.7890041666666665,
+    "cpuMsPerFrameRange": [
+      2.6648375,
+      3.5873708333333334
+    ],
+    "gpuMeanMs": 0.1078149313495184,
+    "gpuMeanMsRange": [
+      0.09900503379564422,
+      0.22812222135447277
+    ],
+    "gpuP95Ms": 0.13895833399146795,
+    "gpuP95MsRange": [
+      0.10637502418830991,
+      0.7261249702423811
+    ],
+    "fps": 59.98105285512833,
+    "fpsRange": [
+      59.97693449037223,
+      59.98560408486848
+    ],
+    "frameP95Ms": 17.603249999999207,
+    "frameP95MsRange": [
+      17.54820800000016,
+      17.692708999999923
+    ],
+    "renderStageElapsedMeanMs": 1.1164930500000063,
+    "renderStageElapsedMeanMsRange": [
+      0.8618059458333032,
+      16.440375866666667
+    ],
+    "syncStageElapsedMeanMs": 0.14093036250000257,
+    "syncStageElapsedMeanMsRange": [
+      0.1351048500000161,
+      0.1760843708333681
+    ],
+    "rssMb": 117.671875,
+    "rssMbRange": [
+      117.03125,
+      121.21875
+    ],
+    "creationMs": 53.629667,
+    "creationMsRange": [
+      48.456792,
+      72.1785
+    ],
+    "longFrames": 1,
+    "frames": 720,
+    "frameIntervals": 717
+  },
+  {
+    "items": 100,
+    "realFab": false,
+    "animated": true,
+    "mode": "rectangular1",
+    "cpuMsPerFrame": 2.1741416666666664,
+    "cpuMsPerFrameRange": [
+      2.016004166666667,
+      2.3032583333333334
+    ],
+    "gpuMeanMs": 0.11785138849518262,
+    "gpuMeanMsRange": [
+      0.09101736019753541,
+      0.12576493099913932
+    ],
+    "gpuP95Ms": 0.2282499917782843,
+    "gpuP95MsRange": [
+      0.1000832999125123,
+      0.3174999728798866
+    ],
+    "fps": 59.967432691759605,
+    "fpsRange": [
+      59.953925408323705,
+      59.978009317790175
+    ],
+    "frameP95Ms": 17.783832999999504,
+    "frameP95MsRange": [
+      17.631709,
+      17.820666999999958
+    ],
+    "renderStageElapsedMeanMs": 0.9111379875000012,
+    "renderStageElapsedMeanMsRange": [
+      0.8859630250000057,
+      1.014708141666651
+    ],
+    "syncStageElapsedMeanMs": 0.0049141916666381276,
+    "syncStageElapsedMeanMsRange": [
+      0.004653487499998239,
+      0.005047395833341284
+    ],
+    "rssMb": 110.984375,
+    "rssMbRange": [
+      110.0625,
+      116.921875
+    ],
+    "creationMs": 17.546042,
+    "creationMsRange": [
+      16.973333,
+      19.093209
+    ],
+    "longFrames": 0,
+    "frames": 720,
+    "frameIntervals": 717
+  },
+  {
+    "items": 100,
+    "realFab": false,
+    "animated": true,
+    "mode": "rectangular2",
+    "cpuMsPerFrame": 4.9644747899159665,
+    "cpuMsPerFrameRange": [
+      4.288359832635983,
+      6.780333333333333
+    ],
+    "gpuMeanMs": 0.17104444535410343,
+    "gpuMeanMsRange": [
+      0.1343905184881676,
+      0.1914353985945937
+    ],
+    "gpuP95Ms": 0.3555833245627582,
+    "gpuP95MsRange": [
+      0.15187502140179276,
+      0.4282916779629886
+    ],
+    "fps": 59.668765331820595,
+    "fpsRange": [
+      59.48172114812773,
+      59.98038392527051
+    ],
+    "frameP95Ms": 17.899875000000065,
+    "frameP95MsRange": [
+      17.638374999999996,
+      18.22375000000011
+    ],
+    "renderStageElapsedMeanMs": 2.027934366666658,
+    "renderStageElapsedMeanMsRange": [
+      1.2316774184100285,
+      5.7973767478991896
+    ],
+    "syncStageElapsedMeanMs": 0.3866407310924202,
+    "syncStageElapsedMeanMsRange": [
+      0.31227644769875024,
+      0.6200104083333163
+    ],
+    "rssMb": 120.5625,
+    "rssMbRange": [
+      120.328125,
+      139.1875
+    ],
+    "creationMs": 17.983542,
+    "creationMsRange": [
+      16.68975,
+      60.640416
+    ],
+    "longFrames": 2,
+    "frames": 717,
+    "frameIntervals": 714
+  },
+  {
+    "items": 100,
+    "realFab": true,
+    "animated": false,
+    "mode": "qcm",
+    "cpuMsPerFrame": 1.5374,
+    "cpuMsPerFrameRange": [
+      1.2890251046025105,
+      1.6570749999999999
+    ],
+    "gpuMeanMs": 0.13851718928587312,
+    "gpuMeanMsRange": [
+      0.12211684055121926,
+      0.15166492739808746
+    ],
+    "gpuP95Ms": 0.21270831348374486,
+    "gpuP95MsRange": [
+      0.1963333343155682,
+      0.29420829378068447
+    ],
+    "fps": 59.97503787944675,
+    "fpsRange": [
+      59.73669925055749,
+      59.982907360692856
+    ],
+    "frameP95Ms": 17.575542000000496,
+    "frameP95MsRange": [
+      17.44404200000008,
+      17.920208000000002
+    ],
+    "renderStageElapsedMeanMs": 0.6814890625000136,
+    "renderStageElapsedMeanMsRange": [
+      0.6591375041666746,
+      6.615426945606691
+    ],
+    "syncStageElapsedMeanMs": 0.005569024999989362,
+    "syncStageElapsedMeanMsRange": [
+      0.005014541666641511,
+      0.005995333333335869
+    ],
+    "rssMb": 124.78125,
+    "rssMbRange": [
+      103.078125,
+      124.984375
+    ],
+    "creationMs": 50.15,
+    "creationMsRange": [
+      49.789,
+      53.420833
+    ],
+    "longFrames": 2,
+    "frames": 719,
+    "frameIntervals": 716
+  },
+  {
+    "items": 100,
+    "realFab": true,
+    "animated": false,
+    "mode": "rectangular2",
+    "cpuMsPerFrame": 2.220539419087137,
+    "cpuMsPerFrameRange": [
+      1.7632458333333332,
+      2.596204166666667
+    ],
+    "gpuMeanMs": 0.15763658257317245,
+    "gpuMeanMsRange": [
+      0.15668888687893437,
+      0.16425919966422953
+    ],
+    "gpuP95Ms": 0.16600004164502025,
+    "gpuP95MsRange": [
+      0.16370834782719612,
+      0.22325001191347837
+    ],
+    "fps": 59.98101600843333,
+    "fpsRange": [
+      59.94973027773305,
+      60.23059007498479
+    ],
+    "frameP95Ms": 17.81116699999984,
+    "frameP95MsRange": [
+      17.630208999999923,
+      17.81399999999985
+    ],
+    "renderStageElapsedMeanMs": 1.343725954356834,
+    "renderStageElapsedMeanMsRange": [
+      1.0692199958333353,
+      1.6025060916666747
+    ],
+    "syncStageElapsedMeanMs": 0.004333522821577438,
+    "syncStageElapsedMeanMsRange": [
+      0.003934870833332601,
+      0.005110587500021779
+    ],
+    "rssMb": 113.6875,
+    "rssMbRange": [
+      113.4375,
+      115.6875
+    ],
+    "creationMs": 21.308,
+    "creationMsRange": [
+      17.304041,
+      63.664333
+    ],
+    "longFrames": 1,
+    "frames": 721,
+    "frameIntervals": 718
+  },
+  {
+    "items": 100,
+    "realFab": true,
+    "animated": true,
+    "mode": "qcm",
+    "cpuMsPerFrame": 2.9001535269709544,
+    "cpuMsPerFrameRange": [
+      2.217908713692946,
+      3.2199291666666667
+    ],
+    "gpuMeanMs": 0.19083819449103126,
+    "gpuMeanMsRange": [
+      0.12323871730283524,
+      0.19913437354261987
+    ],
+    "gpuP95Ms": 0.3931666724383831,
+    "gpuP95MsRange": [
+      0.22883334895595908,
+      0.39424997521564364
+    ],
+    "fps": 60.22640254265376,
+    "fpsRange": [
+      59.956155187889,
+      60.22977159029231
+    ],
+    "frameP95Ms": 17.707666999999674,
+    "frameP95MsRange": [
+      17.472332999999708,
+      18.069916999999805
+    ],
+    "renderStageElapsedMeanMs": 9.503584717842315,
+    "renderStageElapsedMeanMsRange": [
+      1.1296939333333247,
+      9.869158867219909
+    ],
+    "syncStageElapsedMeanMs": 0.14954794166665691,
+    "syncStageElapsedMeanMsRange": [
+      0.12902379999998648,
+      0.1738712000000059
+    ],
+    "rssMb": 119.9375,
+    "rssMbRange": [
+      116.96875,
+      132.5625
+    ],
+    "creationMs": 50.683584,
+    "creationMsRange": [
+      48.061417,
+      77.883041
+    ],
+    "longFrames": 0,
+    "frames": 722,
+    "frameIntervals": 719
+  },
+  {
+    "items": 100,
+    "realFab": true,
+    "animated": true,
+    "mode": "rectangular2",
+    "cpuMsPerFrame": 5.7803375,
+    "cpuMsPerFrameRange": [
+      5.325374999999999,
+      7.00865
+    ],
+    "gpuMeanMs": 0.1878060761858554,
+    "gpuMeanMsRange": [
+      0.16451944514604597,
+      0.24825277941999957
+    ],
+    "gpuP95Ms": 0.3101250040344894,
+    "gpuP95MsRange": [
+      0.16433338169008493,
+      0.834624981507659
+    ],
+    "fps": 59.98446402381783,
+    "fpsRange": [
+      59.94978519065243,
+      59.98454523685404
+    ],
+    "frameP95Ms": 18.261625000000095,
+    "frameP95MsRange": [
+      17.591457999999875,
+      18.318874999999935
+    ],
+    "renderStageElapsedMeanMs": 1.7508607916666885,
+    "renderStageElapsedMeanMsRange": [
+      1.5820932541666337,
+      2.1297874833333377
+    ],
+    "syncStageElapsedMeanMs": 0.4796222291666453,
+    "syncStageElapsedMeanMsRange": [
+      0.4248215541666525,
+      0.5552482833333358
+    ],
+    "rssMb": 136.859375,
+    "rssMbRange": [
+      123.328125,
+      138.984375
+    ],
+    "creationMs": 18.554666,
+    "creationMsRange": [
+      18.235375,
+      23.292125
+    ],
+    "longFrames": 0,
+    "frames": 720,
+    "frameIntervals": 717
+  },
+  {
+    "items": 1000,
+    "realFab": false,
+    "animated": false,
+    "mode": "none",
+    "cpuMsPerFrame": 1.1207291666666668,
+    "cpuMsPerFrameRange": [
+      0.8481541666666667,
+      1.2143485477178424
+    ],
+    "gpuMeanMs": 0.23751892149448395,
+    "gpuMeanMsRange": [
+      0.16972465115638138,
+      0.39448011864587296
+    ],
+    "gpuP95Ms": 0.4576250212267041,
+    "gpuP95MsRange": [
+      0.173708307556808,
+      0.8634167024865746
+    ],
+    "fps": 59.98344770256924,
+    "fpsRange": [
+      59.979347101484834,
+      60.000916201542076
+    ],
+    "frameP95Ms": 17.542249999999967,
+    "frameP95MsRange": [
+      17.468249999999898,
+      17.7153330000001
+    ],
+    "renderStageElapsedMeanMs": 0.22512870954358796,
+    "renderStageElapsedMeanMsRange": [
+      0.20786404166666728,
+      0.2730928583333404
+    ],
+    "syncStageElapsedMeanMs": 0.0046588713692706065,
+    "syncStageElapsedMeanMsRange": [
+      0.004456441666652229,
+      0.005613012499992465
+    ],
+    "rssMb": 121.5625,
+    "rssMbRange": [
+      120.125,
+      135.453125
+    ],
+    "creationMs": 26.370958,
+    "creationMsRange": [
+      25.587583,
+      31.530792
+    ],
+    "longFrames": 0,
+    "frames": 721,
+    "frameIntervals": 718
+  },
+  {
+    "items": 1000,
+    "realFab": false,
+    "animated": false,
+    "mode": "qcm",
+    "cpuMsPerFrame": 4.2815375,
+    "cpuMsPerFrameRange": [
+      4.197928571428571,
+      5.4622625
+    ],
+    "gpuMeanMs": 0.37678888911614195,
+    "gpuMeanMsRange": [
+      0.3749344477948253,
+      0.49821597179591964
+    ],
+    "gpuP95Ms": 0.4458333714865148,
+    "gpuP95MsRange": [
+      0.3987500094808638,
+      1.19291665032506
+    ],
+    "fps": 59.9794720256992,
+    "fpsRange": [
+      59.466745705201,
+      59.982398300179206
+    ],
+    "frameP95Ms": 18.227750000000015,
+    "frameP95MsRange": [
+      18.04774999999995,
+      18.383207999999286
+    ],
+    "renderStageElapsedMeanMs": 5.686526941176476,
+    "renderStageElapsedMeanMsRange": [
+      3.4215591958333342,
+      12.567962687499989
+    ],
+    "syncStageElapsedMeanMs": 0.0043819833333486715,
+    "syncStageElapsedMeanMsRange": [
+      0.00413370292887814,
+      0.005099174999993276
+    ],
+    "rssMb": 170.546875,
+    "rssMbRange": [
+      139.34375,
+      183.78125
+    ],
+    "creationMs": 79.3805,
+    "creationMsRange": [
+      71.66325,
+      107.371917
+    ],
+    "longFrames": 1,
+    "frames": 718,
+    "frameIntervals": 715
+  },
+  {
+    "items": 1000,
+    "realFab": false,
+    "animated": false,
+    "mode": "rectangular1",
+    "cpuMsPerFrame": 4.1090333333333335,
+    "cpuMsPerFrameRange": [
+      4.019053941908713,
+      4.640320833333333
+    ],
+    "gpuMeanMs": 0.2963062504325838,
+    "gpuMeanMsRange": [
+      0.29421386311866377,
+      0.32460503692467074
+    ],
+    "gpuP95Ms": 0.30141667230054736,
+    "gpuP95MsRange": [
+      0.30120834708213806,
+      0.35379163455218077
+    ],
+    "fps": 59.98168871509195,
+    "fpsRange": [
+      59.79428903752966,
+      59.987067792967224
+    ],
+    "frameP95Ms": 18.31775000000016,
+    "frameP95MsRange": [
+      18.039749999999913,
+      18.9375
+    ],
+    "renderStageElapsedMeanMs": 4.085369987499974,
+    "renderStageElapsedMeanMsRange": [
+      3.6464984666666833,
+      16.667072979253078
+    ],
+    "syncStageElapsedMeanMs": 0.0034330249999745396,
+    "syncStageElapsedMeanMsRange": [
+      0.002178912863033829,
+      0.0035059333333066433
+    ],
+    "rssMb": 177.359375,
+    "rssMbRange": [
+      176.515625,
+      185.53125
+    ],
+    "creationMs": 47.636667,
+    "creationMsRange": [
+      47.004375,
+      49.073083
+    ],
+    "longFrames": 1,
+    "frames": 721,
+    "frameIntervals": 718
+  },
+  {
+    "items": 1000,
+    "realFab": false,
+    "animated": false,
+    "mode": "rectangular2",
+    "cpuMsPerFrame": 6.9407625,
+    "cpuMsPerFrameRange": [
+      6.841341666666667,
+      7.698112970711297
+    ],
+    "gpuMeanMs": 0.7279508657423625,
+    "gpuMeanMsRange": [
+      0.71955034485048,
+      0.7775910020899417
+    ],
+    "gpuP95Ms": 0.761541654355824,
+    "gpuP95MsRange": [
+      0.7401250186376274,
+      1.0897499741986394
+    ],
+    "fps": 59.982247743931076,
+    "fpsRange": [
+      59.73140921112998,
+      59.99663331891962
+    ],
+    "frameP95Ms": 17.87058399999978,
+    "frameP95MsRange": [
+      17.833624999999756,
+      18.74720900000011
+    ],
+    "renderStageElapsedMeanMs": 5.92049944166667,
+    "renderStageElapsedMeanMsRange": [
+      5.74539754583334,
+      11.393737644351456
+    ],
+    "syncStageElapsedMeanMs": 0.0029225916667002137,
+    "syncStageElapsedMeanMsRange": [
+      0.002801895833334811,
+      0.0034253807531262146
+    ],
+    "rssMb": 227.765625,
+    "rssMbRange": [
+      177.640625,
+      234.46875
+    ],
+    "creationMs": 68.579875,
+    "creationMsRange": [
+      63.364875,
+      69.554042
+    ],
+    "longFrames": 2,
+    "frames": 719,
+    "frameIntervals": 716
+  },
+  {
+    "items": 1000,
+    "realFab": false,
+    "animated": true,
+    "mode": "none",
+    "cpuMsPerFrame": 3.9180374999999996,
+    "cpuMsPerFrameRange": [
+      3.7374875,
+      4.558347280334727
+    ],
+    "gpuMeanMs": 0.1813163204739491,
+    "gpuMeanMsRange": [
+      0.17160208250667588,
+      0.18144246930194138
+    ],
+    "gpuP95Ms": 0.2065416774712503,
+    "gpuP95MsRange": [
+      0.1992083271034062,
+      0.26741664623841643
+    ],
+    "fps": 59.94988751433997,
+    "fpsRange": [
+      59.73481678347442,
+      59.99490104835863
+    ],
+    "frameP95Ms": 17.451125000000502,
+    "frameP95MsRange": [
+      17.33920799999987,
+      17.735957999999755
+    ],
+    "renderStageElapsedMeanMs": 0.2756403305439233,
+    "renderStageElapsedMeanMsRange": [
+      0.2224200958333275,
+      0.29804358750000687
+    ],
+    "syncStageElapsedMeanMs": 0.005387029288691132,
+    "syncStageElapsedMeanMsRange": [
+      0.00449757083333111,
+      0.006326029166617294
+    ],
+    "rssMb": 120.140625,
+    "rssMbRange": [
+      118.875,
+      133.234375
+    ],
+    "creationMs": 26.103375,
+    "creationMsRange": [
+      25.936666,
+      29.649125
+    ],
+    "longFrames": 1,
+    "frames": 719,
+    "frameIntervals": 716
+  },
+  {
+    "items": 1000,
+    "realFab": false,
+    "animated": true,
+    "mode": "qcm",
+    "cpuMsPerFrame": 8.426279166666667,
+    "cpuMsPerFrameRange": [
+      8.408354166666667,
+      9.382845833333333
+    ],
+    "gpuMeanMs": 0.38350955098091316,
+    "gpuMeanMsRange": [
+      0.38234010426094756,
+      0.39410364818953286
+    ],
+    "gpuP95Ms": 0.4108333378098905,
+    "gpuP95MsRange": [
+      0.40912500116974115,
+      0.4218749818392098
+    ],
+    "fps": 59.98221089576801,
+    "fpsRange": [
+      59.821969191555254,
+      59.98281679745055
+    ],
+    "frameP95Ms": 17.83020800000031,
+    "frameP95MsRange": [
+      17.47162500000013,
+      18.31275000000005
+    ],
+    "renderStageElapsedMeanMs": 9.713219795833332,
+    "renderStageElapsedMeanMsRange": [
+      4.45071233333332,
+      10.754687316666683
+    ],
+    "syncStageElapsedMeanMs": 0.4203282749999744,
+    "syncStageElapsedMeanMsRange": [
+      0.342834224999991,
+      0.6085980874999838
+    ],
+    "rssMb": 200.046875,
+    "rssMbRange": [
+      193.40625,
+      209.765625
+    ],
+    "creationMs": 71.038583,
+    "creationMsRange": [
+      69.363042,
+      97.486708
+    ],
+    "longFrames": 3,
+    "frames": 720,
+    "frameIntervals": 717
+  },
+  {
+    "items": 1000,
+    "realFab": false,
+    "animated": true,
+    "mode": "rectangular1",
+    "cpuMsPerFrame": 6.320354166666666,
+    "cpuMsPerFrameRange": [
+      6.1496,
+      6.913420833333333
+    ],
+    "gpuMeanMs": 0.31908350671680336,
+    "gpuMeanMsRange": [
+      0.29892621726806584,
+      0.41059913152518374
+    ],
+    "gpuP95Ms": 0.4081666702404618,
+    "gpuP95MsRange": [
+      0.31650002347305417,
+      1.0122499661520123
+    ],
+    "fps": 59.98150570740534,
+    "fpsRange": [
+      59.97990860498947,
+      59.98173617614716
+    ],
+    "frameP95Ms": 18.918166000000156,
+    "frameP95MsRange": [
+      18.90154199999961,
+      19.267166999999972
+    ],
+    "renderStageElapsedMeanMs": 4.111686133333323,
+    "renderStageElapsedMeanMsRange": [
+      3.682609375000001,
+      4.225481804166658
+    ],
+    "syncStageElapsedMeanMs": 0.003289591666669859,
+    "syncStageElapsedMeanMsRange": [
+      0.002897245833340397,
+      0.003906558333340134
+    ],
+    "rssMb": 192.703125,
+    "rssMbRange": [
+      155.546875,
+      196.375
+    ],
+    "creationMs": 51.527709,
+    "creationMsRange": [
+      47.551834,
+      52.595667
+    ],
+    "longFrames": 1,
+    "frames": 720,
+    "frameIntervals": 717
+  },
+  {
+    "items": 1000,
+    "realFab": false,
+    "animated": true,
+    "mode": "rectangular2",
+    "cpuMsPerFrame": 26.818724999999997,
+    "cpuMsPerFrameRange": [
+      25.283365145228217,
+      27.65644117647059
+    ],
+    "gpuMeanMs": 0.8065244811101971,
+    "gpuMeanMsRange": [
+      0.761547595677531,
+      0.9592043395969085
+    ],
+    "gpuP95Ms": 1.4855416375212371,
+    "gpuP95MsRange": [
+      0.8347500115633011,
+      1.5581249608658254
+    ],
+    "fps": 59.98936064693182,
+    "fpsRange": [
+      59.48817920801389,
+      60.23160489141863
+    ],
+    "frameP95Ms": 23.529999999999745,
+    "frameP95MsRange": [
+      21.625583000000006,
+      23.70349999999962
+    ],
+    "renderStageElapsedMeanMs": 11.624913360995835,
+    "renderStageElapsedMeanMsRange": [
+      10.891362675000014,
+      12.088439058823514
+    ],
+    "syncStageElapsedMeanMs": 2.0501027291666514,
+    "syncStageElapsedMeanMsRange": [
+      1.8878300209204788,
+      2.056353454166657
+    ],
+    "rssMb": 247.359375,
+    "rssMbRange": [
+      244.109375,
+      260.953125
+    ],
+    "creationMs": 65.115417,
+    "creationMsRange": [
+      60.487333,
+      74.016334
+    ],
+    "longFrames": 18,
+    "frames": 719,
+    "frameIntervals": 716
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "range_events_total_ms": 0.0,
+  "total_events": 168,
+  "by_type": [],
+  "hotspots": [],
+  "wall_ms_est": 2842.0,
+  "animations": {
+    "frame_count": 168,
+    "frame_ms_p50": 17.24,
+    "frame_ms_p95": 17.24,
+    "frame_ms_p99": 27.03,
+    "frames_ge_p95": 108,
+    "frames_ge_p99": 3,
+    "distinct_frame_ms": 7,
+    "frame_ms_max": 43.48,
+    "frames_over_25ms": 3,
+    "frames_over_33ms": 2,
+    "frames_over_50ms": 0,
+    "avg_framerate": 59.1,
+    "min_framerate": 23,
+    "max_framerate": 71
+  }
+}

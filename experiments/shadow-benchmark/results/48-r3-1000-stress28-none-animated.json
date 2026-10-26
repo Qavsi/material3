@@ -1,0 +1,85 @@
+{
+    "animated": true,
+    "animationPolicy": "renderer-only shared250ms OutCubic elevation; QCM internal Behavior disabled; rectangular1 intentionally fixed current-shadow baseline",
+    "backend": "Metal",
+    "baseElevation": 6,
+    "build": "Release",
+    "casterSize": [
+        28,
+        28
+    ],
+    "cpuArchitecture": "arm64",
+    "cpuMs": 1089.445,
+    "cpuMsPerFrame": 4.558347280334727,
+    "cpuPercentOneCore": 27.22920396262439,
+    "creationMs": 25.936666,
+    "disabledQcmBehaviors": 0,
+    "dpr": 1,
+    "elevationPixelsChanged": false,
+    "endElevation": 8,
+    "fps": 59.73481678347442,
+    "frameIntervals": {
+        "maxMs": 42.8462499999996,
+        "meanMs": 16.736307945378147,
+        "p50Ms": 16.67099999999982,
+        "p95Ms": 17.33920799999987,
+        "p99Ms": 22.548124999999345,
+        "samples": 238
+    },
+    "frames": 239,
+    "framesOver1_5RefreshBudget": 1,
+    "gpuDevice": "Apple M4",
+    "gpuElapsed": {
+        "maxMs": 0.4417083691805601,
+        "meanMs": 0.18144246930194138,
+        "p50Ms": 0.167916645295918,
+        "p95Ms": 0.26741664623841643,
+        "p99Ms": 0.40187500417232513,
+        "samples": 239
+    },
+    "gpuTimestampsSupported": true,
+    "gpuTiming": "QRhi lastCompletedGpuTime; asynchronous previous completed frames, not current-frame paired",
+    "items": 1000,
+    "mode": "none",
+    "os": "macOS Tahoe (26.5.2)",
+    "pixelVerifiedShadows": 0,
+    "qmlWarningCount": 0,
+    "qt": "6.12.0",
+    "radius": 6,
+    "realFab": false,
+    "refreshHz": 60,
+    "renderRecordingCpu": {
+        "maxMs": 2.1560419999996157,
+        "meanMs": 0.2756403305439233,
+        "p50Ms": 0.25283300000000963,
+        "p95Ms": 0.363709000000199,
+        "p99Ms": 1.276207999999997,
+        "samples": 239
+    },
+    "rssMb": 118.875,
+    "sampleMs": 4000,
+    "screen": "VA2419 Series",
+    "screenGeometry": [
+        -1920,
+        0,
+        1920,
+        1080
+    ],
+    "shadowRendererCount": 0,
+    "staticPolicy": "2x2 heartbeat forces complete Metal scene repaint; idle power not measured",
+    "syncCpu": {
+        "maxMs": 0.09120900000016263,
+        "meanMs": 0.005387029288691132,
+        "p50Ms": 0.004707999999936874,
+        "p95Ms": 0.007332999999562162,
+        "p99Ms": 0.013540999999804626,
+        "samples": 239
+    },
+    "verifiedVisibleCasters": 1000,
+    "wallMs": 4001.016708,
+    "warmupMs": 1500,
+    "windowSize": [
+        1800,
+        950
+    ]
+}
