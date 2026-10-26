@@ -1,0 +1,36 @@
+{
+  "qml": {
+    "findings": [
+      {
+        "file": "src/Qavsi/Material3/Style/Material3Style.qml",
+        "line": 92,
+        "rule": "ORD-1",
+        "message": "property assignment appears after child object -- expected order: id, properties, signals, assignments, attached, states, transitions, handlers, children, functions"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/menus/Material3MenuDelegate.qml",
+        "line": 4,
+        "rule": "STY-1",
+        "message": "Top-level component should have id: root (enables qualified lookup, future-proofs for QML 3)"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/menus/Material3MenuParameters.qml",
+        "line": 4,
+        "rule": "STY-1",
+        "message": "Top-level component should have id: root (enables qualified lookup, future-proofs for QML 3)"
+      }
+    ],
+    "unchangedExcluded": 27
+  },
+  "cpp": {
+    "findings": [
+      {
+        "file": "examples/qmlmaterial-comparison/checks.cpp",
+        "line": 307,
+        "rule": "DEP-7",
+        "message": "qMin/qMax/qBound \u2014 use (std::min)()/(std::max)()/std::clamp()"
+      }
+    ],
+    "unchangedExcluded": 14
+  }
+}

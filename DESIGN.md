@@ -483,3 +483,36 @@ remain in `third_party/shadow-reference` and install with the kit.
 The earlier sixty-run renderer benchmark and twelve-run analytic-port check
 retain their original scope. They do not measure the new unequal-corner path
 or complete StyleKit controls.
+
+## QCM 0.6.1 menu and FAB comparison
+
+The current comparison reference is QmlMaterial v0.6.1,
+`191260585a829ee4ae2c99e6232b7145b5c34474`. Earlier benchmark results keep their
+original `229bc3e` source pin; the updated reference is a separate checkout.
+
+Native `SK.Menu` and `SK.MenuItem` remain the public controls. Material3Style
+maps their surface, LabelLarge font, state colors and geometry; no new menu
+control or QCM input router is introduced. The system font fallback is
+LabelLarge; the explicit button font and caller font ownership are preserved.
+Menu shadow is a private StyleKit shadow delegate over Material3Elevation:
+level2=3, reduced-motion aware, with no GPU child on software.
+
+| Menu input | QCM reference |
+|---|---|
+| Surface | surfaceContainer / surfaceForeground |
+| Minimum background | 200 by 48 logical px |
+| Corners / vertical padding |4 / 8 logical px |
+| Rows |48 logical px; 16 px horizontal padding and spacing |
+| Typography |LabelLarge 14/500/tracking 0.1 |
+
+The comparison uses the same surfaceContainer role for ComponentCard, rather
+than surfaceContainerLow. Dynamic color generation exposes Google's
+GetSurfaceContainer() directly; fixed colors stay in Material3Theme.
+Pointer opening has no initial selected row. Native menu routing owns keyboard
+navigation, activation, dismissal and focus; the consumer requests modal input
+without dimming, matching QCM. MenuItem uses StyleKit state layers; QCM's custom ripple and enter/exit
+animations are not part of this mapping or a port of its MenuBase router.
+
+The actual `fabMenuToggle` receives FAB elevation 6/8, matching both pinned and
+current QCM. Action-stack rows remain flat. No shadow alpha or renderer
+mathematics is changed to compensate for the previous disabled trigger shadow.

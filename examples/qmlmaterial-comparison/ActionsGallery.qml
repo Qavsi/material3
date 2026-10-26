@@ -325,11 +325,14 @@ Column {
                             id: menu
                             // Compare against QmlMaterial's in-scene menu rather than platform tracking.
                             popupType: SK.Popup.Item
+                            modal: true
+                            dim: false
+                            focus: true
                             objectName: splitRow.objectName + ".menu"
                             parent: splitRow
-                            closePolicy: SK.Popup.CloseOnEscape | SK.Popup.CloseOnPressOutsideParent
+                            closePolicy: SK.Popup.CloseOnEscape | SK.Popup.CloseOnPressOutside
                             x: menu.mirrored ? splitRow.width - menu.width : 0
-                            y: splitRow.height
+                            y: splitRow.height + root.tokens.spacingUnit
                             Repeater {
                                 model: splitRow.modelData.actions
                                 SK.MenuItem {

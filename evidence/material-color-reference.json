@@ -982,6 +982,7 @@
     "inverseSurfaceForeground": "inverse_on_surface",
     "outline": "outline",
     "outlineVariant": "outline_variant",
-    "shadow": "shadow"
+    "shadow": "shadow",
+    "surfaceContainer": "surface_container"
   }
 }

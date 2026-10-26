@@ -80,10 +80,10 @@ int main(int argc, char **argv)
     const auto evidence = document.object();
     const auto cases = evidence.value(QStringLiteral("cases")).toArray();
     const auto roles = evidence.value(QStringLiteral("currentQavsiRoleMapping")).toObject();
-    expect(cases.size() == 12 && roles.size() == 20,
-           QStringLiteral("reference covers three seeds, two schemes, light/dark and 20 existing semantic roles"));
+    expect(cases.size() == 12 && roles.size() == 21,
+           QStringLiteral("reference covers three seeds, two schemes, light/dark and 21 semantic roles including surfaceContainer"));
     auto theme = create(engine, themeSource());
-    if (!theme || cases.size() != 12 || roles.size() != 20)
+    if (!theme || cases.size() != 12 || roles.size() != 21)
         return 2;
 
     expect(!theme->property("dynamicColors").toBool(), QStringLiteral("legacy palette remains the default"));
@@ -107,7 +107,7 @@ int main(int argc, char **argv)
                QStringLiteral("dynamic inputs update the same Theme instance"));
         const auto expected = test.value(QStringLiteral("roles")).toObject();
         const auto computed = generated(theme.get());
-        expect(computed.size() == roles.size(), QStringLiteral("MCU adapter exports the exact existing color contract"));
+        expect(computed.size() == roles.size(), QStringLiteral("MCU adapter exports the exact semantic color contract"));
         for (auto role = roles.begin(); role != roles.end(); ++role) {
             const auto name = role.key().toUtf8();
             const auto target = QColor(expected.value(role.value().toString()).toString());

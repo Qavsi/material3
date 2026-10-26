@@ -22,7 +22,7 @@ Column {
         width: parent.width
         height: samplesViewport.implicitHeight + root.tokens.spacingMedium * 2
         radius: root.tokens.radiusMedium
-        color: root.tokens.surfaceContainerLow
+        color: root.tokens.surfaceContainer
         Flickable {
             anchors.fill: parent
             anchors.margins: root.tokens.spacingMedium

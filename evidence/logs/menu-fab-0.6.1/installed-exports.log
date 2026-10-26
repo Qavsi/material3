@@ -1,0 +1,34 @@
+Installed consumer validation: PASS
+Qt: /Users/techalp/Qt/6.12.0/macos
+Configuration: Debug
+CMAKE_PREFIX_PATH=/private/tmp/qavsi-menu-fab-validation/relocated;/Users/techalp/Qt/6.12.0/macos
+QAVSI_MATERIAL3_SOURCE: not passed; absent from consumer caches
+Origin directory exists: False
+
+Verified export/config: relocated/lib/cmake/QavsiIcons/QavsiIconsConfig.cmake
+Verified export/config: relocated/lib/cmake/QavsiIcons/QavsiIconsConfigVersion.cmake
+Verified export/config: relocated/lib/cmake/QavsiIcons/QavsiIconsCoreTargets-debug.cmake
+Verified export/config: relocated/lib/cmake/QavsiIcons/QavsiIconsCoreTargets.cmake
+Verified export/config: relocated/lib/cmake/QavsiIcons/QavsiIconsMaterialTargets-debug.cmake
+Verified export/config: relocated/lib/cmake/QavsiIcons/QavsiIconsMaterialTargets.cmake
+Verified export/config: relocated/lib/cmake/QavsiMaterial3/QavsiMaterial3Config.cmake
+Verified export/config: relocated/lib/cmake/QavsiMaterial3/QavsiMaterial3ConfigVersion.cmake
+Verified export/config: relocated/lib/cmake/QavsiMaterial3/QavsiMaterial3Targets-debug.cmake
+Verified export/config: relocated/lib/cmake/QavsiMaterial3/QavsiMaterial3Targets.cmake
+
+comparison: configure PASS; build PASS; qmllint PASS (0 warnings)
+Compile units: 14
+CMAKE_OSX_DEPLOYMENT_TARGET:STRING=14.4
+QavsiIcons_DIR:PATH=/private/tmp/qavsi-menu-fab-validation/relocated/lib/cmake/QavsiIcons
+QavsiMaterial3_DIR:PATH=/private/tmp/qavsi-menu-fab-validation/relocated/lib/cmake/QavsiMaterial3
+Qt6_DIR:PATH=/Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6
+
+small: configure PASS; build PASS; qmllint PASS (0 warnings)
+Compile units: 11
+CMAKE_OSX_DEPLOYMENT_TARGET:STRING=14.4
+QavsiIcons_DIR:PATH=/private/tmp/qavsi-menu-fab-validation/relocated/lib/cmake/QavsiIcons
+QavsiMaterial3_DIR:PATH=/private/tmp/qavsi-menu-fab-validation/relocated/lib/cmake/QavsiMaterial3
+Qt6_DIR:PATH=/Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6
+
+Build warnings retained: existing optional Qt6TaskTree SDK package missing; consumer macOS14.4 vs installed dylib26.0 deployment mismatch.
+No tests, GUI/native UI, SDK changes, repo source edits, or git mutations performed.

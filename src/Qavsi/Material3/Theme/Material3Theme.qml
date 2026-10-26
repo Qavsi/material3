@@ -29,6 +29,7 @@ QtObject {
     property color surfaceForeground: root.dynamicColors ? root.colorScheme.colors.surfaceForeground : (dark ? "#e6e0e9" : "#1d1b20")
     property color surfaceVariant: root.dynamicColors ? root.colorScheme.colors.surfaceVariant : (dark ? "#49454f" : "#e7e0ec")
     property color surfaceVariantForeground: root.dynamicColors ? root.colorScheme.colors.surfaceVariantForeground : (dark ? "#cac4d0" : "#49454f")
+    property color surfaceContainer: root.dynamicColors ? root.colorScheme.colors.surfaceContainer : (dark ? "#211f26" : "#f3edf7")
     property color surfaceContainerLow: root.dynamicColors ? root.colorScheme.colors.surfaceContainerLow : (dark ? "#1d1b20" : "#f7f2fa")
     property color surfaceContainerHigh: root.dynamicColors ? root.colorScheme.colors.surfaceContainerHigh : (dark ? "#2b2930" : "#ece6f0")
     property color surfaceContainerHighest: root.dynamicColors ? root.colorScheme.colors.surfaceContainerHighest : (dark ? "#36343b" : "#e6e0e9")
@@ -60,6 +61,13 @@ QtObject {
     readonly property real buttonExtraLargePadding: 32
     readonly property real buttonLargeSpacing: 12
     readonly property real buttonExtraLargeSpacing: buttonLargeSpacing
+    readonly property real menuMinimumWidth: 200
+    readonly property real menuMinimumHeight: 48
+    readonly property real menuItemHeight: 48
+    readonly property real menuCornerRadius: radiusExtraSmall
+    readonly property real menuVerticalPadding: spacingSmall
+    readonly property real menuItemHorizontalPadding: spacingMedium
+    readonly property real menuItemSpacing: spacingMedium
     readonly property real fabMenuAreaHeight: 280
     readonly property real fabMenuEdgeInset: 16
     readonly property real fabMenuItemSpacing: 4

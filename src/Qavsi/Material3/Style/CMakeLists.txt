@@ -24,6 +24,15 @@ set(material3_shadow_sources
     internal/shadows/blurmaskshadow.h internal/shadows/blurmaskshadow.cpp
     internal/shadows/blurmaskmaterial.h internal/shadows/blurmaskmaterial.cpp
     internal/shadows/blurmaskmath.h internal/shadows/blurmaskmath.cpp)
+set(material3_menu_files
+    internal/menus/Material3MenuDelegate.qml
+    internal/menus/Material3MenuParameters.qml
+    internal/menus/Material3MenuShadow.qml)
+foreach(menu_file IN LISTS material3_menu_files)
+    get_filename_component(logical_name "${menu_file}" NAME)
+    set_source_files_properties("${menu_file}" PROPERTIES
+        QT_RESOURCE_ALIAS "${logical_name}" QT_QML_INTERNAL_TYPE TRUE)
+endforeach()
 set(material3_advanced_files
     internal/actions/advanced/Material3AdvancedButtonParameters.qml
     internal/actions/advanced/Material3JoinedButtonDelegate.qml
@@ -49,7 +58,7 @@ qt_add_qml_module(${module_target} SHARED
     IMPORTS TARGET QavsiMaterial3Theme Qavsi.Icons
     IMPORT_PATH "${QavsiIcons_QML_IMPORT_DIR}"
     DEPENDENCIES QtQuick.Controls.impl
-    QML_FILES Material3ButtonContent.qml ${material3_advanced_files}
+    QML_FILES Material3ButtonContent.qml ${material3_advanced_files} ${material3_menu_files}
         internal/shadows/Material3Elevation.qml
         Material3Style.qml SmallButtonTheme.qml SmallButtonBackground.qml SmallButtonShadow.qml
         SmallButtonDelegate.qml SmallButtonParameters.qml

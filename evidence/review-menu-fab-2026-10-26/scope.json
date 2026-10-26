@@ -1,0 +1,41 @@
+{
+  "qml": [
+    "examples/qmlmaterial-comparison/ActionsGallery.qml",
+    "examples/qmlmaterial-comparison/DemoCard.qml",
+    "src/Qavsi/Material3/Style/Material3Style.qml",
+    "src/Qavsi/Material3/Style/internal/actions/advanced/Material3AdvancedButtonVariations.qml",
+    "src/Qavsi/Material3/Style/internal/menus/Material3MenuDelegate.qml",
+    "src/Qavsi/Material3/Style/internal/menus/Material3MenuParameters.qml",
+    "src/Qavsi/Material3/Style/internal/menus/Material3MenuShadow.qml",
+    "src/Qavsi/Material3/Theme/Material3Theme.qml"
+  ],
+  "cpp": [
+    "examples/qmlmaterial-comparison/checks.cpp",
+    "src/Qavsi/Material3/Theme/materialcolorscheme.cpp",
+    "tests/material-colors/checks.cpp"
+  ],
+  "files": [
+    "DESIGN.md",
+    "README.md",
+    "evidence/MENU-FAB-0.6.1.md",
+    "evidence/logs/menu-fab-0.6.1/installed-comparison.log",
+    "evidence/logs/menu-fab-0.6.1/installed-exports.log",
+    "evidence/logs/menu-fab-0.6.1/installed-small.log",
+    "evidence/logs/menu-fab-0.6.1/menu-qmllint.log",
+    "evidence/logs/menu-fab-0.6.1/metal.log",
+    "evidence/logs/menu-fab-0.6.1/source-ctest.log",
+    "evidence/material-color-reference.json",
+    "examples/qmlmaterial-comparison/ActionsGallery.qml",
+    "examples/qmlmaterial-comparison/DemoCard.qml",
+    "examples/qmlmaterial-comparison/checks.cpp",
+    "src/Qavsi/Material3/Style/CMakeLists.txt",
+    "src/Qavsi/Material3/Style/Material3Style.qml",
+    "src/Qavsi/Material3/Style/internal/actions/advanced/Material3AdvancedButtonVariations.qml",
+    "src/Qavsi/Material3/Style/internal/menus/Material3MenuDelegate.qml",
+    "src/Qavsi/Material3/Style/internal/menus/Material3MenuParameters.qml",
+    "src/Qavsi/Material3/Style/internal/menus/Material3MenuShadow.qml",
+    "src/Qavsi/Material3/Theme/Material3Theme.qml",
+    "src/Qavsi/Material3/Theme/materialcolorscheme.cpp",
+    "tests/material-colors/checks.cpp"
+  ]
+}

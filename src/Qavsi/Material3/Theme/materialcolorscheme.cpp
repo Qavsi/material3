@@ -84,6 +84,7 @@ QVariantMap MaterialColorScheme::colors() const
         { QStringLiteral("surfaceForeground"), QColor::fromRgba(generated.GetOnSurface()) },
         { QStringLiteral("surfaceVariant"), QColor::fromRgba(generated.GetSurfaceVariant()) },
         { QStringLiteral("surfaceVariantForeground"), QColor::fromRgba(generated.GetOnSurfaceVariant()) },
+        { QStringLiteral("surfaceContainer"), QColor::fromRgba(generated.GetSurfaceContainer()) },
         { QStringLiteral("surfaceContainerLow"), QColor::fromRgba(generated.GetSurfaceContainerLow()) },
         { QStringLiteral("surfaceContainerHigh"), QColor::fromRgba(generated.GetSurfaceContainerHigh()) },
         { QStringLiteral("surfaceContainerHighest"), QColor::fromRgba(generated.GetSurfaceContainerHighest()) },

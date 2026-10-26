@@ -101,7 +101,7 @@ QtObject {
         Material3FabVariation {
             name: "fabMenuToggle"
             sourceStyle: registrations.sourceStyle
-            elevated: false
+            elevated: true
             button {
                 checked {
                     text.color: registrations.sourceStyle.tokens.primaryForeground

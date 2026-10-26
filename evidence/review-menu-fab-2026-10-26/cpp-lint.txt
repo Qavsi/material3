@@ -1,0 +1,15 @@
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:307 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:755 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:756 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:757 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:827 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:985 ENM-9 Two or more bool parameters — boolean trap; use named enums (f(x, LogRule::DontLog))
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:1115 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:1123 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:1184 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:1294 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:1301 ENM-9 Non-intuitive bool literal arguments — confusing at call site; use named enums
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:1508 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:1509 ENM-9 Non-intuitive bool literal arguments — confusing at call site; use named enums
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:1529 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/tests/material-colors/checks.cpp:75 ERR-1 QFile::open() return not checked — silent failure if file cannot open

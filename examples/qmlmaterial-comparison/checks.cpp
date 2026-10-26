@@ -6,14 +6,17 @@
 #include <QQmlApplicationEngine>
 #include <QQmlProperty>
 #include <QQmlComponent>
+#include <QQmlContext>
 #include <memory>
 #include <vector>
 #include <QQuickItem>
 #include <QQuickWindow>
 #include <QSignalSpy>
+#include <QStringList>
 #include <QSGRendererInterface>
 #include <QSurfaceFormat>
 #include <QTest>
+#include <QTimer>
 #include <QVector4D>
 
 namespace {
@@ -173,6 +176,293 @@ QQuickItem *elevationItem(QQuickItem *control)
     return findItem(control, QStringLiteral("material3.elevation"));
 }
 
+
+void checkGalleryFabShadows(QQuickWindow &window, bool hardware)
+{
+    auto *small = findItem(window.contentItem(), QStringLiteral("comparison.fab.small"));
+    expect(small, "the real gallery Small FAB exists before any Theme replacement");
+    if (!small)
+        return;
+    const QVariant originalDark = window.property("darkMode");
+    const QVariant originalMotion = window.property("reducedMotion");
+    struct ScrollPosition { QQuickItem *item; QPointF position; };
+    std::vector<ScrollPosition> scrollPositions;
+    for (auto *ancestor = small->parentItem(); ancestor; ancestor = ancestor->parentItem()) {
+        if (ancestor->property("contentY").isValid())
+            scrollPositions.push_back({ancestor, QPointF(ancestor->property("contentX").toReal(),
+                ancestor->property("contentY").toReal())});
+    }
+    const auto inspect = [&](QQuickItem *button, const QString &name, bool checkPixels) {
+        if (!button)
+            return;
+        // Offscreen defaults to no hover. Opt these existing native controls in for
+        // the pointer probe, then RESET restores their inherited platform policy.
+        QQmlProperty hoverProperty(button, QStringLiteral("hoverEnabled"));
+        const bool originalHover = hoverProperty.read().toBool();
+        if (!originalHover)
+            expect(hoverProperty.write(true), qPrintable(name + " test enables native hover delivery"));
+        reveal(button);
+        QTest::mouseMove(&window, QPoint(2, 2));
+        const auto settle = [&](qreal level, const char *state) {
+            const bool ready = QTest::qWaitFor([&] {
+                window.update();
+                auto *shadow = elevationItem(button);
+                if (!hardware)
+                    return !findItem(button, "material3.shadow") && !findItem(button, "material3.shadow.blur")
+                        && (!shadow || (shadow->property("rendererName").toString() == "none"
+                            && qAbs(shadow->property("targetElevation").toReal() - level) < 0.01));
+                return shadow && shadow->property("rendererName").toString() == "analytic"
+                    && qAbs(shadow->property("targetElevation").toReal() - level) < 0.01
+                    && qAbs(shadow->property("elevation").toReal() - level) < 0.01
+                    && !shadow->property("animationRunning").toBool()
+                    && findItem(shadow, "material3.shadow");
+            }, 5000);
+            if (!ready) {
+                auto *shadow = elevationItem(button);
+                auto *owner = shadow ? shadow->property("control").value<QObject *>() : nullptr;
+                qInfo() << "GALLERY ELEVATION FAILURE" << name << state
+                        << "hovered" << button->property("hovered") << "down" << button->property("down")
+                        << "owner" << (owner ? owner->objectName() : QString())
+                        << "target" << (shadow ? shadow->property("targetElevation") : QVariant())
+                        << "elevation" << (shadow ? shadow->property("elevation") : QVariant())
+                        << "animation" << (shadow ? shadow->property("animationRunning") : QVariant())
+                        << "renderer" << (shadow ? shadow->property("rendererName") : QVariant());
+            }
+            expect(ready, qPrintable(name + " real gallery " + QLatin1String(state)
+                + (hardware ? QStringLiteral(" reaches the QCM elevation")
+                            : QStringLiteral(" keeps the software no-shadow path"))));
+            return ready;
+        };
+        const bool idleReady = settle(6, "idle");
+        auto *shadow = elevationItem(button);
+        auto *resolved = backgroundStyle(button);
+        auto *shadowStyle = resolved ? resolved->property("shadow").value<QObject *>() : nullptr;
+        auto *parameters = shadow ? shadow->property("parameters").value<QObject *>()
+            : resolved ? resolved->property("data").value<QObject *>() : nullptr;
+        auto *plate = findItem(button, QStringLiteral("material3.small.background"));
+        expect(parameters && parameters->property("contentRole").toString() == "fab",
+               qPrintable(name + " preserves FAB metadata in the real precreated reader"));
+        expect(shadowStyle && shadowStyle->property("visible").toBool(),
+               qPrintable(name + " resolved native shadow slot is enabled"));
+        if (shadow && plate && hardware) {
+            const auto body = plate->mapRectToScene(plate->boundingRect());
+            const auto haloCaster = shadow->mapRectToScene(shadow->boundingRect());
+            expect(qAbs(body.x() - haloCaster.x()) < 0.01 && qAbs(body.y() - haloCaster.y()) < 0.01
+                       && qAbs(body.width() - haloCaster.width()) < 0.01
+                       && qAbs(body.height() - haloCaster.height()) < 0.01,
+                   qPrintable(name + " real shadow and painted caster share geometry"));
+        }
+        qreal inheritedOpacity = 1;
+        QStringList clips;
+        QColor surface;
+        for (auto *ancestor = button; ancestor; ancestor = ancestor->parentItem()) {
+            inheritedOpacity *= ancestor->opacity();
+            if (ancestor->clip())
+                clips.append(QString::fromLatin1(ancestor->metaObject()->className()));
+            if (ancestor != button && !surface.isValid()) {
+                const auto candidate = ancestor->property("color");
+                if (candidate.isValid() && candidate.canConvert<QColor>())
+                    surface = candidate.value<QColor>();
+            }
+        }
+        qInfo() << "GALLERY FAB SHADOW" << name << "hardware" << hardware << "idleReady" << idleReady
+                << "role" << (parameters ? parameters->property("contentRole") : QVariant())
+                << "floatingSurface" << (shadow ? shadow->property("floatingSurface") : QVariant())
+                << "target" << (shadow ? shadow->property("targetElevation") : QVariant())
+                << "elevation" << (shadow ? shadow->property("elevation") : QVariant())
+                << "renderer" << (shadow ? shadow->property("rendererName") : QVariant())
+                << "feedback" << (shadow ? shadow->property("feedbackEnabled") : QVariant())
+                << "shadowColor" << (shadowStyle ? shadowStyle->property("color") : QVariant())
+                << "shadowOpacity" << (shadowStyle ? shadowStyle->property("opacity") : QVariant())
+                << "delegateOpacity" << (resolved ? resolved->property("opacity") : QVariant())
+                << "inheritedOpacity" << inheritedOpacity << "clipAncestors" << clips << "surface" << surface;
+
+        // Small FAB and menu-trigger lower halos are clear of neighboring controls.
+        // Inspect real frames without hiding controls or replacing their bindings.
+        if (checkPixels && hardware && idleReady && plate && surface.isValid()) {
+            const QImage image = window.grabWindow();
+            int sampled = 0, darkened = 0, clipped = 0;
+            int maximumDarkening = 0;
+            if (!image.isNull()) {
+                for (int y = 1; y <= 12; ++y) {
+                    for (int x = 6; x < plate->width() - 6; ++x) {
+                        const QPointF local(x, plate->height() + y);
+                        bool insideClips = true;
+                        for (auto *ancestor = plate->parentItem(); ancestor; ancestor = ancestor->parentItem()) {
+                            if (ancestor->clip() && !ancestor->boundingRect().contains(plate->mapToItem(ancestor, local))) {
+                                insideClips = false;
+                                break;
+                            }
+                        }
+                        if (!insideClips) {
+                            ++clipped;
+                            continue;
+                        }
+                        const QPoint pixel = (plate->mapToScene(local) * image.devicePixelRatio()).toPoint();
+                        if (!image.rect().contains(pixel))
+                            continue;
+                        const QColor actual = image.pixelColor(pixel);
+                        const int difference = surface.red() + surface.green() + surface.blue()
+                            - actual.red() - actual.green() - actual.blue();
+                        maximumDarkening = qMax(maximumDarkening, difference);
+                        darkened += difference >= 3;
+                        ++sampled;
+                    }
+                }
+            }
+            qInfo() << "GALLERY FAB HALO" << name << "samples" << sampled << "darkened" << darkened
+                    << "maxRgbDarkening" << maximumDarkening << "clipped" << clipped << "surface" << surface;
+            expect(!image.isNull() && sampled > 0 && clipped == 0,
+                   qPrintable(name + " lower halo is on-screen and survives ancestor clipping"));
+            expect(darkened > 0, qPrintable(name + " paints actual shadow pixels against its card surface"));
+        }
+        const QPoint center = button->mapToScene(QPointF(button->width() / 2, button->height() / 2)).toPoint();
+        QTest::mouseMove(&window, center);
+        const bool receivesHover = QTest::qWaitFor([&] { return button->property("hovered").toBool(); }, 1000);
+        if (!receivesHover)
+            qInfo() << "GALLERY FAB HOVER" << name << "hoverEnabled" << hoverProperty.read()
+                    << "center" << center << "window" << window.size() << "control" << button->size()
+                    << "visible" << button->isVisible() << "enabled" << button->isEnabled();
+        expect(receivesHover, qPrintable(name + " real control receives hover"));
+        settle(8, "hover");
+        QTest::mouseMove(&window, QPoint(2, 2));
+        expect(QTest::qWaitFor([&] { return !button->property("hovered").toBool(); }, 1000),
+               "gallery FAB hover leaves after pointer exit");
+        settle(6, "pointer exit");
+        if (!originalHover)
+            expect(hoverProperty.reset() && hoverProperty.read().toBool() == originalHover,
+                   qPrintable(name + " test restores the inherited native hover policy"));
+    };
+    for (const auto &geometry : fabGeometries) {
+        const QString name = QStringLiteral("comparison.fab.") + QLatin1String(geometry.name);
+        auto *button = findItem(window.contentItem(), name);
+        expect(button, qPrintable(name + " real gallery control exists"));
+        inspect(button, name, button == small);
+    }
+    struct Trigger { QQuickItem *button; bool checked; QString name; };
+    std::vector<Trigger> triggers;
+    for (const auto *key : {"short", "long"}) {
+        const auto name = QStringLiteral("comparison.fabmenu.") + QLatin1String(key) + QStringLiteral(".trigger");
+        auto *button = findItem(window.contentItem(), name);
+        expect(button, qPrintable(name + " real menu trigger exists"));
+        if (button)
+            triggers.push_back({button, button->property("checked").toBool(), name});
+    }
+    const auto setExpanded = [&](const Trigger &trigger, bool expanded) {
+        if (trigger.button->property("checked").toBool() == expanded)
+            return;
+        reveal(trigger.button);
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier,
+            trigger.button->mapToScene(QPointF(trigger.button->width() / 2, trigger.button->height() / 2)).toPoint());
+        expect(QTest::qWaitFor([&] { return trigger.button->property("checked").toBool() == expanded; }, 1000),
+               qPrintable(trigger.name + " native click changes its expanded state"));
+    };
+    for (bool dark : {false, true}) {
+        window.setProperty("darkMode", dark);
+        for (bool reduced : {false, true}) {
+            window.setProperty("reducedMotion", reduced);
+            for (const auto &trigger : triggers) {
+                for (bool expanded : {false, true}) {
+                    setExpanded(trigger, expanded);
+                    const auto scenario = trigger.name + (dark ? " dark" : " light")
+                        + (reduced ? " reduced" : " full") + (expanded ? " expanded" : " collapsed");
+                    inspect(trigger.button, scenario, true);
+                }
+                setExpanded(trigger, trigger.checked);
+            }
+        }
+    }
+    window.setProperty("darkMode", originalDark);
+    window.setProperty("reducedMotion", originalMotion);
+    for (const auto &trigger : triggers)
+        setExpanded(trigger, trigger.checked);
+    for (const auto &scroll : scrollPositions) {
+        scroll.item->setProperty("contentX", scroll.position.x());
+        scroll.item->setProperty("contentY", scroll.position.y());
+    }
+    QTest::qWait(25);
+}
+
+void checkSplitMenus(QQuickWindow &window, bool hardware)
+{
+    auto *trigger = item(window, "comparison.split.filled.menuButton");
+    auto *menu = trigger && qmlContext(trigger) ? qmlContext(trigger)->objectForName("menu") : nullptr;
+    auto *style = window.property("materialStyle").value<QObject *>();
+    expect(menu && trigger && style, "real split menu and native trigger exist");
+    if (!menu || !trigger || !style)
+        return;
+    const bool oldDark = window.property("darkMode").toBool();
+    const bool oldMotion = window.property("reducedMotion").toBool();
+    for (bool dark : {false, true}) {
+        window.setProperty("darkMode", dark);
+        for (bool reduced : {true, false}) {
+            window.setProperty("reducedMotion", reduced);
+            reveal(trigger);
+            QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier,
+                             trigger->mapToScene(QPointF(trigger->width() / 2, trigger->height() / 2)).toPoint());
+            expect(QTest::qWaitFor([&] { return menu->property("visible").toBool(); }, 1000),
+                   "split arrow opens the native menu by pointer");
+            auto *tokens = style->property("tokens").value<QObject *>();
+            auto *background = menu->property("background").value<QQuickItem *>();
+            auto *data = background ? background->property("backgroundStyle").value<QObject *>() : nullptr;
+            expect(tokens && data && data->property("color").value<QColor>() == tokens->property("surfaceContainer").value<QColor>(),
+                   "menu surface follows the selected QCM surfaceContainer role");
+            expect(QTest::qWaitFor([&] { return data && data->property("radius").toReal() == 4
+                   && menu->property("width").toReal() == 200
+                   && menu->property("height").toReal() == 112
+                   && menu->property("topPadding").toReal() == 8
+                   && menu->property("bottomPadding").toReal() == 8; }, 1000),
+                   "menu preserves independent QCM 200x112 geometry, 4px corners and 8px vertical padding");
+            expect(menu->property("modal").toBool() && !menu->property("dim").toBool()
+                   && menu->property("currentIndex").toInt() == -1,
+                   "pointer-open menu blocks background input without dimming or selecting a row");
+            QQuickItem *rows[2]{};
+            for (int index = 0; index < 2; ++index) {
+                expect(QMetaObject::invokeMethod(menu, "itemAt", Q_RETURN_ARG(QQuickItem *, rows[index]), Q_ARG(int, index)),
+                       "native Menu.itemAt resolves each real entry");
+                auto *row = rows[index];
+                expect(QTest::qWaitFor([&] { return row && row->height() == 48 && row->width() == menu->property("availableWidth").toReal()
+                       && row->property("leftPadding").toReal() == 16 && row->property("rightPadding").toReal() == 16; }, 1000),
+                       "first and last row fill the popup width with QCM 48px height and 16px text insets");
+                const auto font = row ? row->property("font").value<QFont>() : QFont();
+                expect(row && font.pixelSize() == 14 && font.weight() == QFont::Medium
+                       && qAbs(font.letterSpacing() - 0.1) < 0.02 && contentInk(row) == tokens->property("surfaceForeground").value<QColor>(),
+                       "menu rows use LabelLarge typography and theme-correct onSurface ink");
+            }
+            if (background) {
+                expect(QTest::qWaitFor([&] {
+                    auto *shadow = elevationItem(background);
+                    return shadow && shadow->property("targetElevation").toReal() == 3
+                        && (!hardware || shadow->property("elevation").toReal() == 3);
+                }, 1000), "menu shadow uses QCM elevation level2=3");
+                auto *shadow = elevationItem(background);
+                expect(shadow && (!reduced || !shadow->property("animationRunning").toBool())
+                       && (hardware || (!findItem(background, "material3.shadow") && !findItem(background, "material3.shadow.blur"))),
+                       "menu shadow respects reduced motion and software creates no GPU renderer");
+            }
+            QTest::keyClick(&window, Qt::Key_Down);
+            expect(QTest::qWaitFor([&] { return menu->property("currentIndex").toInt() == 0; }, 1000),
+                   "Down highlights the first menu row");
+            if (rows[0]) {
+                QSignalSpy triggered(rows[0], SIGNAL(triggered()));
+                QTest::keyClick(&window, Qt::Key_Return);
+                expect(QTest::qWaitFor([&] { return !menu->property("visible").toBool(); }, 1000)
+                       && triggered.size() == 1, "Enter activates the highlighted action once and closes the menu");
+            }
+            QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier,
+                             trigger->mapToScene(QPointF(trigger->width() / 2, trigger->height() / 2)).toPoint());
+            expect(QTest::qWaitFor([&] { return menu->property("visible").toBool(); }, 1000), "menu reopens after activation");
+            QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier,
+                             trigger->mapToScene(QPointF(trigger->width() / 2, trigger->height() / 2)).toPoint());
+            expect(QTest::qWaitFor([&] { return !menu->property("visible").toBool(); }, 1000), "clicking the split arrow again dismisses its menu");
+            QMetaObject::invokeMethod(menu, "open");
+            QTest::keyClick(&window, Qt::Key_Escape);
+            expect(QTest::qWaitFor([&] { return !menu->property("visible").toBool(); }, 1000), "Escape dismisses the menu");
+        }
+    }
+    window.setProperty("darkMode", oldDark);
+    window.setProperty("reducedMotion", oldMotion);
+}
 
 void checkUnequalElevationContract(QQmlApplicationEngine &engine, QQuickWindow &window, QObject *style, bool capturePixels)
 {
@@ -622,6 +912,18 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     expect(tokens, "independent Material3 tokens exist");
     if (!tokens)
         return 1;
+    const auto galleryApi = window.rendererInterface()->graphicsApi();
+    const bool galleryHardware = galleryApi != QSGRendererInterface::Software
+        && galleryApi != QSGRendererInterface::Unknown
+        && (galleryApi != QSGRendererInterface::OpenGL || window.format().majorVersion() >= 3);
+    // Keep frame-driven animations advancing when the desktop comparison loses activation.
+    QTimer framePump;
+    framePump.setInterval(16);
+    QObject::connect(&framePump, &QTimer::timeout, &window, [&] { window.update(); });
+    if (galleryHardware)
+        framePump.start();
+    checkGalleryFabShadows(window, galleryHardware);
+    checkSplitMenus(window, galleryHardware);
 
     std::vector<std::unique_ptr<QObject>> nativeCases;
     for (const auto &appearance : {"filled", "filledTonal", "outline", "ghost"}) {

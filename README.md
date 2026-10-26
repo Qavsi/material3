@@ -25,6 +25,7 @@ src/Qavsi/Material3/Style/   Material3Style.qml — composition root
                            SmallButtonBackground.qml — ripple/focus background
                            materialbuttonfeedback.* — internal Qt painter
                            shaders/ — Metal ripple için build-time .qsb
+                           internal/menus/ — native Menu için gölge factory/data
 examples/small-button/     aynı source/installed tüketici ve contract check'leri
 cmake/                     relocatable paket ve QML export'ları
 evidence/                  gerçek çalıştırma kanıtları
@@ -102,6 +103,7 @@ enabled, checked, text, icon ve display sahipliği native `SK.Button`’da kalı
 | Split | `splitLeading`, `splitTrailing`; iki native hedef, tüketicinin native Menu’sü |
 | FAB | `fabSmall`, `fab`, `fabLarge`, `fabExtended` |
 | Inline FAB menu | `fabMenuToggle`, `fabMenuAction`; tüketicide native button/Flickable bileşimi |
+| Menu | native `SK.Menu` / `SK.MenuItem`; Material3 renk/ölçü ve tek gölge eşlemesi |
 
 Güncel Qt geometri baseline'ı pinned QmlMaterial'dır: common XS/S/M/L/XL paint
 32/40/48/56/72 px, yatay padding 16/24/24/32/32 ve içerik aralığı 8/8/8/12/12.
@@ -183,9 +185,10 @@ Aynı örnek installed tüketimde `QAVSI_MATERIAL3_SOURCE` verilmeden kurulu
 `build-comparison/qavsi-material3-comparison.app/Contents/MacOS/qavsi-material3-comparison`
 verilir. Native pencere sol ekranın sol yarısında açılır.
 
-Karşılaştırma baseline’ı **QmlMaterial `229bc3e64ff7`** olarak korunur; güncel
-upstream ile sessizce değiştirilmez. Referans bağımsız checkout/build olarak
-kullanılır, kitin dependency’si veya alt modülü olmaz. Örnek ikonları bağımsız Qavsi.Icons.Material sağlayıcısından gelir.
+Güncel canlı karşılaştırma **QmlMaterial v0.6.1 (`191260585a82`)** üzerinden
+yapılır. Önceki benchmark ve piksel ölçümleri kendi **`229bc3e64ff7`** kaynak
+pinlerini korur. Güncel referans ayrı checkout/build olarak kullanılır;
+kitin dependency’si veya alt modülü olmaz. Örnek ikonları bağımsız Qavsi.Icons.Material sağlayıcısından gelir.
 Galeride paketli isimler sabittir; selected FILL kararını stilin parameters
 politikası belirler. Font ve katalog Icons sağlayıcısına aittir.
 
@@ -420,3 +423,11 @@ GLES-targeted builds retain QCM's GLES shader guard.
 [Shadow verification](evidence/ANALYTIC-SHADOW.md) records source/installed tests,
 Metal/OpenGL pixel parity, Qt alpha adaptations and measured performance scope.
 Adapted source pins and licenses install with the kit.
+
+
+Menü yüzeyi `surfaceContainer`, satırlar LabelLarge kullanır. Menü minimumu
+200 px, satır yüksekliği 48 px, köşeler 4 px ve dikey iç boşluk 8 px'dir;
+bütün değerler Theme token'larından gelir. Klavye, seçim ve kapanış native
+`SK.Menu`'de kalır. Inline FAB menüsünün `+ / ×` tetikleyicisi 6/8 elevation
+alır; eylem satırları düz kalır. QCM'nin özel menu ripple ve giriş/çıkış
+animasyonları bu görsel eşlemeye dahil değildir.
