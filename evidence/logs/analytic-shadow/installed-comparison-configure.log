@@ -1,0 +1,53 @@
+-- The CXX compiler identification is AppleClang 21.0.0.21000101
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE
+-- Found OpenGL: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework
+-- Found WrapOpenGL: TRUE
+-- Could NOT find Qt6TaskTree (missing: Qt6TaskTree_DIR)
+CMake Warning at /opt/homebrew/share/cmake/Modules/CMakeFindDependencyMacro.cmake:93 (find_package):
+  Found package configuration file:
+
+    /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6QmlAssetDownloaderPrivate/Qt6QmlAssetDownloaderPrivateConfig.cmake
+
+  but it set Qt6QmlAssetDownloaderPrivate_FOUND to FALSE so package
+  "Qt6QmlAssetDownloaderPrivate" is considered to be NOT FOUND.  Reason given
+  by package:
+
+  Qt6QmlAssetDownloaderPrivate could not be found because dependency
+  Qt6TaskTree could not be found.
+
+  Configuring with --debug-find-pkg=Qt6TaskTree might reveal details why the
+  package was not found.
+
+  Configuring with -DQT_DEBUG_FIND_PACKAGE=ON will print the values of some
+  of the path variables that find_package uses to try and find the package.
+
+Call Stack (most recent call first):
+  /opt/homebrew/share/cmake/Modules/CMakeFindDependencyMacro.cmake:125 (__find_dependency_common)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:142 (find_dependency)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginDependencies.cmake:22 (_qt_internal_find_qt_dependencies)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginConfig.cmake:40 (include)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6/QtPublicPluginHelpers.cmake:638 (include)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6Qml/Qt6QmlPlugins.cmake:6 (__qt_internal_include_qml_plugin_packages)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6Qml/Qt6QmlConfig.cmake:199 (include)
+  /opt/homebrew/share/cmake/Modules/CMakeFindDependencyMacro.cmake:93 (find_package)
+  /opt/homebrew/share/cmake/Modules/CMakeFindDependencyMacro.cmake:125 (__find_dependency_common)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:142 (find_dependency)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6Quick/Qt6QuickDependencies.cmake:51 (_qt_internal_find_qt_dependencies)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6Quick/Qt6QuickConfig.cmake:40 (include)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6/Qt6Config.cmake:257 (find_package)
+  CMakeLists.txt:3 (find_package)
+
+
+-- Configuring done (2.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: /private/tmp/qavsi-shadow-consumption/comparison-build

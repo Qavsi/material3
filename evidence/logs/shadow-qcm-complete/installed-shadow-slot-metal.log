@@ -1,0 +1,6 @@
+QML debugging is enabled. Only use this in a safe environment.
+Preview screen: "VA2419 Series" QRect(-1920,30 1920x1050) window: QRect(-1912,62 900x940)
+Dynamic StyleKit font initialization before QFont(.AppleSystemUIFont,13,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0) resolved px 13 after native state update QVariant(QFont, QFont(.AppleSystemUIFont,-1,14,5,500,0,0,0,0,0,0,1,0.09375,0,0,1,,0,0))
+NATIVE SHADOW COMPOSITION elevated pixels 12800 maxChannelDifference 0
+NATIVE SHADOW COMPOSITION fab pixels 11264 maxChannelDifference 0
+Qt 6.12.0 comparison assertions 620 failures 0

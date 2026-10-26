@@ -1,0 +1,162 @@
+[0/2] Re-checking globbed directories...
+[1/2] Re-running CMake...
+-- Could NOT find Qt6TaskTree (missing: Qt6TaskTree_DIR)
+CMake Warning at /opt/homebrew/share/cmake/Modules/CMakeFindDependencyMacro.cmake:93 (find_package):
+  Found package configuration file:
+
+    /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6QmlAssetDownloaderPrivate/Qt6QmlAssetDownloaderPrivateConfig.cmake
+
+  but it set Qt6QmlAssetDownloaderPrivate_FOUND to FALSE so package
+  "Qt6QmlAssetDownloaderPrivate" is considered to be NOT FOUND.  Reason given
+  by package:
+
+  Qt6QmlAssetDownloaderPrivate could not be found because dependency
+  Qt6TaskTree could not be found.
+
+  Configuring with --debug-find-pkg=Qt6TaskTree might reveal details why the
+  package was not found.
+
+  Configuring with -DQT_DEBUG_FIND_PACKAGE=ON will print the values of some
+  of the path variables that find_package uses to try and find the package.
+
+Call Stack (most recent call first):
+  /opt/homebrew/share/cmake/Modules/CMakeFindDependencyMacro.cmake:125 (__find_dependency_common)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:142 (find_dependency)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginDependencies.cmake:22 (_qt_internal_find_qt_dependencies)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6Qml/QmlPlugins/Qt6QmlAssetDownloaderPrivatepluginConfig.cmake:40 (include)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6/QtPublicPluginHelpers.cmake:638 (include)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6Qml/Qt6QmlPlugins.cmake:6 (__qt_internal_include_qml_plugin_packages)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6Qml/Qt6QmlConfig.cmake:199 (include)
+  /opt/homebrew/share/cmake/Modules/CMakeFindDependencyMacro.cmake:93 (find_package)
+  /opt/homebrew/share/cmake/Modules/CMakeFindDependencyMacro.cmake:125 (__find_dependency_common)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:142 (find_dependency)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6Quick/Qt6QuickDependencies.cmake:51 (_qt_internal_find_qt_dependencies)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6Quick/Qt6QuickConfig.cmake:40 (include)
+  /Users/techalp/Qt/6.12.0/macos/lib/cmake/Qt6/Qt6Config.cmake:257 (find_package)
+  CMakeLists.txt:7 (find_package)
+
+
+-- Configuring done (1.4s)
+-- Generating done (0.3s)
+-- Build files have been written to: /private/tmp/qavsi-migration-source
+[0/4] Re-checking globbed directories...
+[1/131] Copying QavsiMaterial3Theme qml sources into build dir
+[2/131] Copying QavsiMaterial3Style qml sources into build dir
+[3/131] Automatic MOC and UIC for target qavsi-material-color-utils-check
+[4/129] Running rcc for resource QavsiMaterial3Theme_raw_qml_0
+[5/129] Generating .rcc/qmlcache/QavsiMaterial3Theme_Material3Theme_qml.cpp, .rcc/qmlcache/QavsiMaterial3Theme_Material3Theme_qml.cpp.aotstats
+[6/129] Building CXX object src/Qavsi/Material3/Theme/CMakeFiles/QavsiMaterial3Theme.dir/.qt/rcc/qrc_QavsiMaterial3Theme_raw_qml_0.cpp.o
+[7/129] Building CXX object src/Qavsi/Material3/Theme/CMakeFiles/QavsiMaterial3Theme.dir/.rcc/qmlcache/QavsiMaterial3Theme_Material3Theme_qml.cpp.o
+[8/129] Linking CXX shared library src/Qavsi/Material3/Theme/libQavsiMaterial3Theme.0.1.0.dylib
+[9/129] Creating library symlink src/Qavsi/Material3/Theme/libQavsiMaterial3Theme.0.1.dylib src/Qavsi/Material3/Theme/libQavsiMaterial3Theme.dylib
+[10/129] Linking CXX shared module src/Qavsi/Material3/Theme/libQavsiMaterial3ThemePlugin.dylib
+[11/129] Automatic MOC and UIC for target QavsiMaterial3Style
+[12/129] Running AUTOMOC file extraction for target QavsiMaterial3Style
+[13/129] Running moc --collect-json for target QavsiMaterial3Style
+[14/129] Running rcc for resource qmake_Qavsi_Material3_Style
+[15/129] Generating .rcc/qmlcache/QavsiMaterial3Style_qmlcache_loader.cpp
+[16/129] Running rcc for resource QavsiMaterial3Style_raw_qml_0
+[17/129] Generating .qsb/shaders/blur_mask.frag.qsb
+[18/129] Generating .qsb/shaders/blur_mask.vert.qsb
+[19/129] Automatic QML type registration for target QavsiMaterial3Style
+[20/129] Running rcc for resource qavsi_material3_shadow_shaders
+[21/129] Generating .rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3AdvancedButtonParameters_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3AdvancedButtonParameters_qml.cpp.aotstats
+[22/129] Generating .rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3JoinedButtonDelegate_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3JoinedButtonDelegate_qml.cpp.aotstats
+[23/129] Generating .rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3JoinedButtonVariation_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3JoinedButtonVariation_qml.cpp.aotstats
+[24/129] Generating .rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3JoinedButtonBackground_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3JoinedButtonBackground_qml.cpp.aotstats
+[25/129] Generating .rcc/qmlcache/QavsiMaterial3Style_Material3ButtonContent_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_Material3ButtonContent_qml.cpp.aotstats
+[26/129] Generating .rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3ConnectedButtonVariation_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3ConnectedButtonVariation_qml.cpp.aotstats
+[27/129] Generating .rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3SplitButtonVariation_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3SplitButtonVariation_qml.cpp.aotstats
+[28/129] Generating .rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3SegmentedButtonVariation_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3SegmentedButtonVariation_qml.cpp.aotstats
+[29/129] Generating .rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3FabVariation_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3FabVariation_qml.cpp.aotstats
+[30/129] Generating .rcc/qmlcache/QavsiMaterial3Style_internal_shadows_Material3Elevation_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_internal_shadows_Material3Elevation_qml.cpp.aotstats
+[31/129] Generating .rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3AdvancedButtonVariations_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3AdvancedButtonVariations_qml.cpp.aotstats
+[32/129] Generating .rcc/qmlcache/QavsiMaterial3Style_SmallButtonDelegate_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_SmallButtonDelegate_qml.cpp.aotstats
+[33/129] Generating .rcc/qmlcache/QavsiMaterial3Style_SmallButtonParameters_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_SmallButtonParameters_qml.cpp.aotstats
+[34/129] Generating .rcc/qmlcache/QavsiMaterial3Style_Material3Style_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_Material3Style_qml.cpp.aotstats
+[35/129] Generating .rcc/qmlcache/QavsiMaterial3Style_SmallButtonBackground_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_SmallButtonBackground_qml.cpp.aotstats
+[36/129] Generating .rcc/qmlcache/QavsiMaterial3Style_SmallButtonTheme_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_SmallButtonTheme_qml.cpp.aotstats
+[37/129] Generating .rcc/qmlcache/QavsiMaterial3Style_ButtonVariation_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_ButtonVariation_qml.cpp.aotstats
+[38/129] Generating .rcc/qmlcache/QavsiMaterial3Style_internal_recipes_Material3ButtonRecipe_js.cpp
+[39/129] Generating .rcc/qmlcache/QavsiMaterial3Style_ButtonSizeVariation_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_ButtonSizeVariation_qml.cpp.aotstats
+[40/129] Generating .rcc/qmlcache/QavsiMaterial3Style_internal_recipes_Material3IconButtonRecipe_js.cpp
+[41/129] Generating .rcc/qmlcache/QavsiMaterial3Style_IconButtonSizeVariation_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_IconButtonSizeVariation_qml.cpp.aotstats
+[42/129] Generating .rcc/qmlcache/QavsiMaterial3Style_IconButtonVariation_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_IconButtonVariation_qml.cpp.aotstats
+[43/129] Generating .rcc/qmlcache/QavsiMaterial3Style_ButtonVariations_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_ButtonVariations_qml.cpp.aotstats
+[44/129] Generating .rcc/qmlcache/QavsiMaterial3Style_internal_recipes_Material3FabRecipe_js.cpp
+[45/129] Generating .rcc/qmlcache/QavsiMaterial3Style_internal_recipes_Material3JoinedRecipe_js.cpp
+[46/129] Generating .rcc/qmlcache/QavsiMaterial3Style_internal_recipes_Material3SegmentedButtonRecipe_js.cpp
+[47/129] Generating .rcc/qmlcache/QavsiMaterial3Style_internal_recipes_Material3SplitButtonRecipe_js.cpp
+[48/129] Generating .rcc/qmlcache/QavsiMaterial3Style_internal_recipes_Material3ConnectedButtonRecipe_js.cpp
+[49/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.qt/rcc/qrc_qmake_Qavsi_Material3_Style.cpp.o
+[50/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/internal/shadows/blurmaskmath.cpp.o
+[51/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_qmlcache_loader.cpp.o
+[52/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/qavsimaterial3style_qmltyperegistrations.cpp.o
+[53/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/QavsiMaterial3Style_autogen/mocs_compilation.cpp.o
+[54/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/internal/shadows/blurmaskshadow.cpp.o
+[55/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/internal/shadows/blurmaskmaterial.cpp.o
+[56/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_Material3ButtonContent_qml.cpp.o
+[57/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3JoinedButtonDelegate_qml.cpp.o
+[58/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3AdvancedButtonParameters_qml.cpp.o
+[59/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3ConnectedButtonVariation_qml.cpp.o
+[60/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3JoinedButtonVariation_qml.cpp.o
+[61/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3JoinedButtonBackground_qml.cpp.o
+[62/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3SegmentedButtonVariation_qml.cpp.o
+[63/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3SplitButtonVariation_qml.cpp.o
+[64/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3FabVariation_qml.cpp.o
+[65/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_internal_actions_advanced_Material3AdvancedButtonVariations_qml.cpp.o
+[66/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_internal_shadows_Material3Elevation_qml.cpp.o
+[67/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_Material3Style_qml.cpp.o
+[68/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_SmallButtonTheme_qml.cpp.o
+[69/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_SmallButtonDelegate_qml.cpp.o
+[70/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_SmallButtonParameters_qml.cpp.o
+[71/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_SmallButtonBackground_qml.cpp.o
+[72/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_ButtonVariation_qml.cpp.o
+[73/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_ButtonSizeVariation_qml.cpp.o
+[74/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_IconButtonVariation_qml.cpp.o
+[75/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_IconButtonSizeVariation_qml.cpp.o
+[76/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_internal_recipes_Material3ButtonRecipe_js.cpp.o
+[77/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_ButtonVariations_qml.cpp.o
+[78/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_internal_recipes_Material3IconButtonRecipe_js.cpp.o
+[79/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.qt/rcc/qrc_QavsiMaterial3Style_raw_qml_0.cpp.o
+[80/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_internal_recipes_Material3FabRecipe_js.cpp.o
+[81/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.qt/rcc/qrc_qavsi_material3_shadow_shaders.cpp.o
+[82/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_internal_recipes_Material3JoinedRecipe_js.cpp.o
+[83/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_internal_recipes_Material3ConnectedButtonRecipe_js.cpp.o
+[84/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_internal_recipes_Material3SegmentedButtonRecipe_js.cpp.o
+[85/129] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_internal_recipes_Material3SplitButtonRecipe_js.cpp.o
+[86/129] Linking CXX shared library src/Qavsi/Material3/Style/libQavsiMaterial3Style.0.1.0.dylib
+[87/129] Creating library symlink src/Qavsi/Material3/Style/libQavsiMaterial3Style.0.1.dylib src/Qavsi/Material3/Style/libQavsiMaterial3Style.dylib
+[88/129] Automatic MOC and UIC for target qavsi-small-button
+[89/128] Automatic MOC and UIC for target qavsi-material-colors-check
+[90/127] Automatic MOC and UIC for target qavsi-material3-comparison
+[91/126] Automatic MOC and UIC for target QavsiMaterial3StylePlugin
+[92/125] Running AUTOMOC file extraction for target qavsi-small-button
+[93/124] Running AUTOMOC file extraction for target qavsi-material3-comparison
+[94/123] Linking CXX executable tests/material-colors/qavsi-material-colors-check
+[95/123] Linking CXX shared module src/Qavsi/Material3/Style/libQavsiMaterial3StylePlugin.dylib
+[96/123] Automatic QML type registration for target qavsi-small-button
+[97/123] Automatic QML type registration for target qavsi-material3-comparison
+[98/123] Generating .rcc/qmlcache/qavsi-small-button_Benchmark_qml.cpp, .rcc/qmlcache/qavsi-small-button_Benchmark_qml.cpp.aotstats
+[99/123] Generating .rcc/qmlcache/qavsi-small-button_SmallButtonPage_qml.cpp, .rcc/qmlcache/qavsi-small-button_SmallButtonPage_qml.cpp.aotstats
+[100/123] Generating .rcc/qmlcache/qavsi-material3-comparison_ComparisonPage_qml.cpp, .rcc/qmlcache/qavsi-material3-comparison_ComparisonPage_qml.cpp.aotstats
+[101/123] Generating .rcc/qmlcache/qavsi-small-button_Main_qml.cpp, .rcc/qmlcache/qavsi-small-button_Main_qml.cpp.aotstats
+[102/123] Generating .rcc/qmlcache/qavsi-material3-comparison_ActionsGallery_qml.cpp, .rcc/qmlcache/qavsi-material3-comparison_ActionsGallery_qml.cpp.aotstats
+[103/123] Generating .rcc/qmlcache/qavsi-material3-comparison_Main_qml.cpp, .rcc/qmlcache/qavsi-material3-comparison_Main_qml.cpp.aotstats
+[104/123] Generating .rcc/qmlcache/qavsi-material3-comparison_ComparisonMetrics_qml.cpp, .rcc/qmlcache/qavsi-material3-comparison_ComparisonMetrics_qml.cpp.aotstats
+[105/123] Generating .rcc/qmlcache/qavsi-material3-comparison_DemoCard_qml.cpp, .rcc/qmlcache/qavsi-material3-comparison_DemoCard_qml.cpp.aotstats
+[106/123] Generating .rcc/qmlcache/qavsi-material3-comparison_FabMenuExamples_qml.cpp, .rcc/qmlcache/qavsi-material3-comparison_FabMenuExamples_qml.cpp.aotstats
+[107/123] Building CXX object examples/small-button/CMakeFiles/qavsi-small-button.dir/qavsi-small-button_qmltyperegistrations.cpp.o
+[108/123] Building CXX object examples/qmlmaterial-comparison/CMakeFiles/qavsi-material3-comparison.dir/qavsi-material3-comparison_qmltyperegistrations.cpp.o
+[109/123] Building CXX object examples/small-button/CMakeFiles/qavsi-small-button.dir/.rcc/qmlcache/qavsi-small-button_Main_qml.cpp.o
+[110/123] Building CXX object examples/small-button/CMakeFiles/qavsi-small-button.dir/.rcc/qmlcache/qavsi-small-button_SmallButtonPage_qml.cpp.o
+[111/123] Building CXX object examples/small-button/CMakeFiles/qavsi-small-button.dir/.rcc/qmlcache/qavsi-small-button_Benchmark_qml.cpp.o
+[112/123] Building CXX object examples/qmlmaterial-comparison/CMakeFiles/qavsi-material3-comparison.dir/.rcc/qmlcache/qavsi-material3-comparison_Main_qml.cpp.o
+[113/123] Building CXX object examples/qmlmaterial-comparison/CMakeFiles/qavsi-material3-comparison.dir/checks.cpp.o
+[114/123] Building CXX object examples/qmlmaterial-comparison/CMakeFiles/qavsi-material3-comparison.dir/.rcc/qmlcache/qavsi-material3-comparison_ComparisonPage_qml.cpp.o
+[115/123] Linking CXX executable examples/small-button/qavsi-small-button.app/Contents/MacOS/qavsi-small-button
+[116/123] Building CXX object examples/qmlmaterial-comparison/CMakeFiles/qavsi-material3-comparison.dir/.rcc/qmlcache/qavsi-material3-comparison_DemoCard_qml.cpp.o
+[117/123] Building CXX object examples/qmlmaterial-comparison/CMakeFiles/qavsi-material3-comparison.dir/.rcc/qmlcache/qavsi-material3-comparison_FabMenuExamples_qml.cpp.o
+[118/123] Building CXX object examples/qmlmaterial-comparison/CMakeFiles/qavsi-material3-comparison.dir/.rcc/qmlcache/qavsi-material3-comparison_ActionsGallery_qml.cpp.o
+[119/123] Building CXX object examples/qmlmaterial-comparison/CMakeFiles/qavsi-material3-comparison.dir/.rcc/qmlcache/qavsi-material3-comparison_ComparisonMetrics_qml.cpp.o
+[120/123] Linking CXX executable examples/qmlmaterial-comparison/qavsi-material3-comparison.app/Contents/MacOS/qavsi-material3-comparison

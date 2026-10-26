@@ -1,0 +1,12 @@
+[0/2] Re-checking globbed directories...
+[1/12] Copying QavsiMaterial3Style qml sources into build dir
+[2/12] Running rcc for resource QavsiMaterial3Style_raw_qml_0
+[3/12] Generating .rcc/qmlcache/QavsiMaterial3Style_SmallButtonBackground_qml.cpp, .rcc/qmlcache/QavsiMaterial3Style_SmallButtonBackground_qml.cpp.aotstats
+[4/12] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.qt/rcc/qrc_QavsiMaterial3Style_raw_qml_0.cpp.o
+[5/12] Building CXX object src/Qavsi/Material3/Style/CMakeFiles/QavsiMaterial3Style.dir/.rcc/qmlcache/QavsiMaterial3Style_SmallButtonBackground_qml.cpp.o
+[6/12] Linking CXX shared library src/Qavsi/Material3/Style/libQavsiMaterial3Style.0.1.0.dylib
+[7/12] Creating library symlink src/Qavsi/Material3/Style/libQavsiMaterial3Style.0.1.dylib src/Qavsi/Material3/Style/libQavsiMaterial3Style.dylib
+[8/12] Linking CXX executable tests/material-colors/qavsi-material-colors-check
+[9/12] Linking CXX executable examples/small-button/qavsi-small-button.app/Contents/MacOS/qavsi-small-button
+[10/12] Linking CXX shared module src/Qavsi/Material3/Style/libQavsiMaterial3StylePlugin.dylib
+[11/12] Linking CXX executable examples/qmlmaterial-comparison/qavsi-material3-comparison.app/Contents/MacOS/qavsi-material3-comparison

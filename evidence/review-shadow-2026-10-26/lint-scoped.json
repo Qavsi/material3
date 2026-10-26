@@ -1,0 +1,330 @@
+{
+  "qml": {
+    "scopedFindings": [
+      {
+        "file": "experiments/shadow-benchmark/ShadowCell.qml",
+        "line": 6,
+        "rule": "STY-1",
+        "message": "Top-level component should have id: root (enables qualified lookup, future-proofs for QML 3)"
+      },
+      {
+        "file": "experiments/shadow-benchmark/ShadowCell.qml",
+        "line": 9,
+        "rule": "ORD-1",
+        "message": "property declaration appears after property assignment -- expected order: id, properties, signals, assignments, attached, states, transitions, handlers, children, functions"
+      },
+      {
+        "file": "experiments/shadow-port-validation/ShadowCell.qml",
+        "line": 7,
+        "rule": "STY-1",
+        "message": "Top-level component should have id: root (enables qualified lookup, future-proofs for QML 3)"
+      },
+      {
+        "file": "experiments/shadow-port-validation/ShadowCell.qml",
+        "line": 10,
+        "rule": "ORD-1",
+        "message": "property declaration appears after property assignment -- expected order: id, properties, signals, assignments, attached, states, transitions, handlers, children, functions"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/Material3Elevation.qml",
+        "line": 8,
+        "rule": "ORD-1",
+        "message": "property declaration appears after property assignment -- expected order: id, properties, signals, assignments, attached, states, transitions, handlers, children, functions"
+      },
+      {
+        "file": "src/Qavsi/Material3/Theme/Material3Theme.qml",
+        "line": 134,
+        "rule": "BND-5",
+        "message": "list<> property has no granular change signals -- add/move/remove won't notify; consider a ListModel or notify manually"
+      }
+    ],
+    "unchangedLineFindingsExcluded": 20,
+    "counts": {
+      "STY-1": 2,
+      "ORD-1": 3,
+      "BND-5": 1
+    }
+  },
+  "cpp": {
+    "scopedFindings": [
+      {
+        "file": "examples/qmlmaterial-comparison/checks.cpp",
+        "line": 465,
+        "rule": "DEP-7",
+        "message": "qMin/qMax/qBound \u2014 use (std::min)()/(std::max)()/std::clamp()"
+      },
+      {
+        "file": "examples/qmlmaterial-comparison/checks.cpp",
+        "line": 466,
+        "rule": "DEP-7",
+        "message": "qMin/qMax/qBound \u2014 use (std::min)()/(std::max)()/std::clamp()"
+      },
+      {
+        "file": "examples/qmlmaterial-comparison/checks.cpp",
+        "line": 467,
+        "rule": "DEP-7",
+        "message": "qMin/qMax/qBound \u2014 use (std::min)()/(std::max)()/std::clamp()"
+      },
+      {
+        "file": "examples/qmlmaterial-comparison/checks.cpp",
+        "line": 537,
+        "rule": "DEP-10",
+        "message": ".count()/.length() \u2014 prefer .size() for std consistency"
+      },
+      {
+        "file": "experiments/shadow-benchmark/main.cpp",
+        "line": 33,
+        "rule": "VAR-3",
+        "message": "Direct brace initialization \u2014 prefer copy-init (var = {...}) for safety"
+      },
+      {
+        "file": "experiments/shadow-benchmark/main.cpp",
+        "line": 168,
+        "rule": "VAR-3",
+        "message": "Direct brace initialization \u2014 prefer copy-init (var = {...}) for safety"
+      },
+      {
+        "file": "experiments/shadow-benchmark/main.cpp",
+        "line": 347,
+        "rule": "VAR-3",
+        "message": "Direct brace initialization \u2014 prefer copy-init (var = {...}) for safety"
+      },
+      {
+        "file": "experiments/shadow-parity/main.cpp",
+        "line": 46,
+        "rule": "VAR-3",
+        "message": "Direct brace initialization \u2014 prefer copy-init (var = {...}) for safety"
+      },
+      {
+        "file": "experiments/shadow-parity/main.cpp",
+        "line": 50,
+        "rule": "VAR-3",
+        "message": "Direct brace initialization \u2014 prefer copy-init (var = {...}) for safety"
+      },
+      {
+        "file": "experiments/shadow-parity/main.cpp",
+        "line": 51,
+        "rule": "VAR-3",
+        "message": "Direct brace initialization \u2014 prefer copy-init (var = {...}) for safety"
+      },
+      {
+        "file": "experiments/shadow-parity/main.cpp",
+        "line": 93,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "experiments/shadow-parity/main.cpp",
+        "line": 95,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "experiments/shadow-parity/main.cpp",
+        "line": 102,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "experiments/shadow-parity/main.cpp",
+        "line": 105,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "experiments/shadow-parity/main.cpp",
+        "line": 122,
+        "rule": "VAR-3",
+        "message": "Direct brace initialization \u2014 prefer copy-init (var = {...}) for safety"
+      },
+      {
+        "file": "experiments/shadow-parity/main.cpp",
+        "line": 152,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "experiments/shadow-parity/main.cpp",
+        "line": 169,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "experiments/shadow-parity/main.cpp",
+        "line": 170,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "experiments/shadow-parity/main.cpp",
+        "line": 296,
+        "rule": "VAR-3",
+        "message": "Direct brace initialization \u2014 prefer copy-init (var = {...}) for safety"
+      },
+      {
+        "file": "experiments/shadow-parity/main.cpp",
+        "line": 332,
+        "rule": "VAR-3",
+        "message": "Direct brace initialization \u2014 prefer copy-init (var = {...}) for safety"
+      },
+      {
+        "file": "experiments/shadow-port-validation/main.cpp",
+        "line": 33,
+        "rule": "VAR-3",
+        "message": "Direct brace initialization \u2014 prefer copy-init (var = {...}) for safety"
+      },
+      {
+        "file": "experiments/shadow-port-validation/main.cpp",
+        "line": 169,
+        "rule": "VAR-3",
+        "message": "Direct brace initialization \u2014 prefer copy-init (var = {...}) for safety"
+      },
+      {
+        "file": "experiments/shadow-port-validation/main.cpp",
+        "line": 349,
+        "rule": "VAR-3",
+        "message": "Direct brace initialization \u2014 prefer copy-init (var = {...}) for safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/blurmaskmaterial.cpp",
+        "line": 217,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/blurmaskmath.cpp",
+        "line": 29,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/blurmaskmath.cpp",
+        "line": 35,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/blurmaskmath.cpp",
+        "line": 42,
+        "rule": "PAT-12",
+        "message": "Non-const range-for reference \u2014 may trigger COW detach; use const auto& if read-only"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/blurmaskmath.cpp",
+        "line": 54,
+        "rule": "PAT-12",
+        "message": "Non-const range-for reference \u2014 may trigger COW detach; use const auto& if read-only"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/blurmaskmath.cpp",
+        "line": 95,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/blurmaskmath.cpp",
+        "line": 106,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/blurmaskshadow.cpp",
+        "line": 32,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/blurmaskshadow.cpp",
+        "line": 34,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/blurmaskshadow.cpp",
+        "line": 120,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/roundedrectshadow.cpp",
+        "line": 63,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/shadowgeometry.cpp",
+        "line": 43,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/shadowgeometry.cpp",
+        "line": 48,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/shadowgeometry.cpp",
+        "line": 65,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/shadowgeometry.cpp",
+        "line": 66,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/shadowmesh.cpp",
+        "line": 229,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/shadowmesh.cpp",
+        "line": 231,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/shadowmesh.cpp",
+        "line": 232,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/shadowmesh.cpp",
+        "line": 233,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/shadowmesh.cpp",
+        "line": 317,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/shadowmesh.cpp",
+        "line": 320,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      },
+      {
+        "file": "src/Qavsi/Material3/Style/internal/shadows/shadowmesh.cpp",
+        "line": 324,
+        "rule": "HDR-3",
+        "message": "Unprotected std::min/max \u2014 use (std::min)(a,b) for Windows macro safety"
+      }
+    ],
+    "unchangedLineFindingsExcluded": 9,
+    "counts": {
+      "DEP-7": 3,
+      "DEP-10": 1,
+      "VAR-3": 12,
+      "HDR-3": 27,
+      "PAT-12": 2
+    }
+  }
+}

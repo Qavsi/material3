@@ -1,0 +1,36 @@
+[0/2] Re-checking globbed directories...
+[1/36] Copying qavsi-material3-comparison qml sources into build dir
+[2/36] Copying qavsi-material3-comparison qml resources into build dir
+[3/36] Populating .qmlls.build.ini file at /private/tmp/qavsi-shadow-complete/comparison-build/.qt/.qmlls.build.ini
+[4/36] Running qmlimportscanner for qavsi-material3-comparison
+[5/36] Generating qt.conf part for qavsi-material3-comparison
+[6/36] Generating qt.conf file
+[7/36] Automatic MOC and UIC for target qavsi-material3-comparison
+[8/36] Running AUTOMOC file extraction for target qavsi-material3-comparison
+[9/36] Running moc --collect-json for target qavsi-material3-comparison
+[10/36] Running rcc for resource qmake_Qavsi_Material3_Comparison
+[11/36] Generating .rcc/qmlcache/qavsi-material3-comparison_qmlcache_loader.cpp
+[12/36] Running rcc for resource qavsi-material3-comparison_raw_qml_0
+[13/36] Automatic QML type registration for target qavsi-material3-comparison
+[14/36] Running rcc for resource qavsi-material3-comparison_raw_res_0
+[15/36] Generating .rcc/qmlcache/qavsi-material3-comparison_ComparisonPage_qml.cpp, .rcc/qmlcache/qavsi-material3-comparison_ComparisonPage_qml.cpp.aotstats
+[16/36] Generating .rcc/qmlcache/qavsi-material3-comparison_ActionsGallery_qml.cpp, .rcc/qmlcache/qavsi-material3-comparison_ActionsGallery_qml.cpp.aotstats
+[17/36] Generating .rcc/qmlcache/qavsi-material3-comparison_DemoCard_qml.cpp, .rcc/qmlcache/qavsi-material3-comparison_DemoCard_qml.cpp.aotstats
+[18/36] Generating .rcc/qmlcache/qavsi-material3-comparison_Main_qml.cpp, .rcc/qmlcache/qavsi-material3-comparison_Main_qml.cpp.aotstats
+[19/36] Generating .rcc/qmlcache/qavsi-material3-comparison_ComparisonMetrics_qml.cpp, .rcc/qmlcache/qavsi-material3-comparison_ComparisonMetrics_qml.cpp.aotstats
+[20/36] Generating .rcc/qmlcache/qavsi-material3-comparison_FabMenuExamples_qml.cpp, .rcc/qmlcache/qavsi-material3-comparison_FabMenuExamples_qml.cpp.aotstats
+[21/36] Building CXX object CMakeFiles/qavsi-material3-comparison.dir/qavsi-material3-comparison_autogen/mocs_compilation.cpp.o
+[22/36] Building CXX object CMakeFiles/qavsi-material3-comparison.dir/.qt/rcc/qrc_qmake_Qavsi_Material3_Comparison.cpp.o
+[23/36] Building CXX object CMakeFiles/qavsi-material3-comparison.dir/qavsi-material3-comparison_qmltyperegistrations.cpp.o
+[24/36] Building CXX object CMakeFiles/qavsi-material3-comparison.dir/.rcc/qmlcache/qavsi-material3-comparison_qmlcache_loader.cpp.o
+[25/36] Building CXX object CMakeFiles/qavsi-material3-comparison.dir/main.cpp.o
+[26/36] Building CXX object CMakeFiles/qavsi-material3-comparison.dir/checks.cpp.o
+[27/36] Building CXX object CMakeFiles/qavsi-material3-comparison.dir/.rcc/qmlcache/qavsi-material3-comparison_Main_qml.cpp.o
+[28/36] Building CXX object CMakeFiles/qavsi-material3-comparison.dir/.rcc/qmlcache/qavsi-material3-comparison_ComparisonPage_qml.cpp.o
+[29/36] Building CXX object CMakeFiles/qavsi-material3-comparison.dir/.rcc/qmlcache/qavsi-material3-comparison_ActionsGallery_qml.cpp.o
+[30/36] Building CXX object CMakeFiles/qavsi-material3-comparison.dir/.qt/rcc/qrc_qavsi-material3-comparison_raw_qml_0.cpp.o
+[31/36] Building CXX object CMakeFiles/qavsi-material3-comparison.dir/.qt/rcc/qrc_qavsi-material3-comparison_raw_res_0.cpp.o
+[32/36] Building CXX object CMakeFiles/qavsi-material3-comparison.dir/.rcc/qmlcache/qavsi-material3-comparison_DemoCard_qml.cpp.o
+[33/36] Building CXX object CMakeFiles/qavsi-material3-comparison.dir/.rcc/qmlcache/qavsi-material3-comparison_ComparisonMetrics_qml.cpp.o
+[34/36] Building CXX object CMakeFiles/qavsi-material3-comparison.dir/.rcc/qmlcache/qavsi-material3-comparison_FabMenuExamples_qml.cpp.o
+[35/36] Linking CXX executable qavsi-material3-comparison.app/Contents/MacOS/qavsi-material3-comparison

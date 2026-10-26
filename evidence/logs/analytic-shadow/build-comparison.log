@@ -1,0 +1,5 @@
+[0/2] Re-checking globbed directories...
+[1/21] Automatic MOC and UIC for target qavsi-material3-comparison
+[2/20] Running AUTOMOC file extraction for target qavsi-material3-comparison
+[3/5] Building CXX object examples/qmlmaterial-comparison/CMakeFiles/qavsi-material3-comparison.dir/checks.cpp.o
+[4/5] Linking CXX executable examples/qmlmaterial-comparison/qavsi-material3-comparison.app/Contents/MacOS/qavsi-material3-comparison

@@ -1,0 +1,28 @@
+[1/28] Copying qavsi-small-button qml resources into build dir
+[2/28] Copying qavsi-small-button qml sources into build dir
+[3/28] Running qmlimportscanner for qavsi-small-button
+[4/28] Generating qt.conf part for qavsi-small-button
+[5/28] Populating .qmlls.build.ini file at /private/tmp/qavsi-shadow-consumption/small-build/.qt/.qmlls.build.ini
+[6/28] Generating qt.conf file
+[7/28] Automatic MOC and UIC for target qavsi-small-button
+[8/28] Running AUTOMOC file extraction for target qavsi-small-button
+[9/28] Running moc --collect-json for target qavsi-small-button
+[10/28] Generating .rcc/qmlcache/qavsi-small-button_qmlcache_loader.cpp
+[11/28] Running rcc for resource qavsi-small-button_raw_qml_0
+[12/28] Running rcc for resource qmake_Qavsi_Material3_SmallButton
+[13/28] Automatic QML type registration for target qavsi-small-button
+[14/28] Generating .rcc/qmlcache/qavsi-small-button_Benchmark_qml.cpp, .rcc/qmlcache/qavsi-small-button_Benchmark_qml.cpp.aotstats
+[15/28] Generating .rcc/qmlcache/qavsi-small-button_SmallButtonPage_qml.cpp, .rcc/qmlcache/qavsi-small-button_SmallButtonPage_qml.cpp.aotstats
+[16/28] Generating .rcc/qmlcache/qavsi-small-button_Main_qml.cpp, .rcc/qmlcache/qavsi-small-button_Main_qml.cpp.aotstats
+[17/28] Building CXX object CMakeFiles/qavsi-small-button.dir/qavsi-small-button_autogen/mocs_compilation.cpp.o
+[18/28] Building CXX object CMakeFiles/qavsi-small-button.dir/qavsi-small-button_qmltyperegistrations.cpp.o
+[19/28] Building CXX object CMakeFiles/qavsi-small-button.dir/.qt/rcc/qrc_qmake_Qavsi_Material3_SmallButton.cpp.o
+[20/28] Building CXX object CMakeFiles/qavsi-small-button.dir/main.cpp.o
+[21/28] Building CXX object CMakeFiles/qavsi-small-button.dir/checks.cpp.o
+[22/28] Building CXX object CMakeFiles/qavsi-small-button.dir/benchmark.cpp.o
+[23/28] Building CXX object CMakeFiles/qavsi-small-button.dir/.rcc/qmlcache/qavsi-small-button_qmlcache_loader.cpp.o
+[24/28] Building CXX object CMakeFiles/qavsi-small-button.dir/.qt/rcc/qrc_qavsi-small-button_raw_qml_0.cpp.o
+[25/28] Building CXX object CMakeFiles/qavsi-small-button.dir/.rcc/qmlcache/qavsi-small-button_Main_qml.cpp.o
+[26/28] Building CXX object CMakeFiles/qavsi-small-button.dir/.rcc/qmlcache/qavsi-small-button_SmallButtonPage_qml.cpp.o
+[27/28] Building CXX object CMakeFiles/qavsi-small-button.dir/.rcc/qmlcache/qavsi-small-button_Benchmark_qml.cpp.o
+[28/28] Linking CXX executable qavsi-small-button.app/Contents/MacOS/qavsi-small-button

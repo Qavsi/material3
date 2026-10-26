@@ -1,0 +1,23 @@
+Start testing: Oct 26 19:26 +03
+----------------------------------------------------------
+1/1 Testing: small-button-software
+1/1 Test: small-button-software
+Command: "/private/tmp/qavsi-shadow-complete/small-build/qavsi-small-button.app/Contents/MacOS/qavsi-small-button" "--check"
+Directory: /private/tmp/qavsi-shadow-complete/small-build
+"small-button-software" start time: Oct 26 19:26 +03
+Output:
+----------------------------------------------------------
+QML debugging is enabled. Only use this in a safe environment.
+qt.qpa.fonts: Populating font family aliases took 34 ms. Replace uses of missing font family "Sans Serif" with one that exists to avoid this cost. 
+Preview screen: "" QRect(0,0 800x800) window: QRect(90,180 620x440)
+Resolved label font: QFont(Sans Serif,-1,14,5,500,0,0,0,0,0,0,1,0.09375,0,0,1,,0,0) tracking: 0.09375
+Qt 6.12.0 backend "software" graphicsApi 1 assertions 159 failures 0
+<end of output>
+Test time =   7.84 sec
+----------------------------------------------------------
+Test Passed.
+"small-button-software" end time: Oct 26 19:26 +03
+"small-button-software" time elapsed: 00:00:07
+----------------------------------------------------------
+
+End testing: Oct 26 19:26 +03

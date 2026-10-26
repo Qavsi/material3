@@ -1,0 +1,8 @@
+{
+  "originalPath": "/private/tmp/qavsi-shadow-complete-source-opengl.log",
+  "sha256": "ea3e2c03cccabccc7c11dbe4a25dc51545e6ec65b81ec14a20c7bfeb06efdb4b",
+  "bytes": 2543223,
+  "lines": 5128,
+  "status": "failed legacy GL2.1 graphics pipeline; assertions alone were not a valid graphics pass",
+  "glslMissingLines": 3843
+}

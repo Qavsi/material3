@@ -1,0 +1,100 @@
+{
+  "seed": 20261026,
+  "repetitions": 3,
+  "items": 1000,
+  "warmupMs": 1500,
+  "sampleMs": 4000,
+  "jobs": [
+    [
+      1,
+      false,
+      "ported"
+    ],
+    [
+      1,
+      true,
+      "qcm"
+    ],
+    [
+      1,
+      true,
+      "ported"
+    ],
+    [
+      1,
+      false,
+      "qcm"
+    ],
+    [
+      2,
+      true,
+      "qcm"
+    ],
+    [
+      2,
+      false,
+      "qcm"
+    ],
+    [
+      2,
+      false,
+      "ported"
+    ],
+    [
+      2,
+      true,
+      "ported"
+    ],
+    [
+      3,
+      true,
+      "ported"
+    ],
+    [
+      3,
+      true,
+      "qcm"
+    ],
+    [
+      3,
+      false,
+      "ported"
+    ],
+    [
+      3,
+      false,
+      "qcm"
+    ]
+  ],
+  "execution": "serial native left-display Metal; no profiler or QML debug service",
+  "geometry": "28x28 radius6; all1000 casters and shadow extents visible",
+  "animation": "shared250ms elevation 6-to8-and-back; QCM internal Behavior disabled",
+  "fixtureSources": {
+    "main.cpp": "7caf0531e953f83eb317bd99525b4885d616428e8ba1d4d35ff1f8371aced365",
+    "Scene.qml": "aeca96369c3676d518fa2ea60121543b52d0d954a1ce6edb0da5069911221dbf",
+    "ShadowCell.qml": "bd92482d0113ce1f5375672552d886cb97402d24ecd063530b5d784cfb837c0b",
+    "CMakeLists.txt": "992056e0a6368dee8edc792313fcb8f5227b3598b1aaa0279e50aeb861f4b41c",
+    "run.py": "ce8facd0ad1cea2d729f9539d9fe0641f865250d3c8edee449677455d608597c"
+  },
+  "productionSources": {
+    "src/Qavsi/Material3/Style/internal/shadows/Material3Elevation.qml": "8c453c6c84e988be8bdc856484ed1e951a3349621caa89ce31d529122f4b31f3",
+    "src/Qavsi/Material3/Style/internal/shadows/roundedrectshadow.cpp": "6069723566f1ea834585878d345da50a0a44c6a736b901b43f3176e6abd23a0f",
+    "src/Qavsi/Material3/Style/internal/shadows/roundedrectshadow.h": "fbf1d514c3118a9bfe2e6c2b033dce09063921e7c3167ba642d89b70fb93794c",
+    "src/Qavsi/Material3/Style/internal/shadows/shaders/shadow.frag": "3b5d74b3635ce09b0fc79bcf742f47613b74c811720820979a51af96c09ee2e0",
+    "src/Qavsi/Material3/Style/internal/shadows/shaders/shadow.vert": "2a4264a3bf25a132c87f98025d67ec55aefcd4a1fcbb1c16c30eb0074eaff65d",
+    "src/Qavsi/Material3/Style/internal/shadows/shadowgeometry.cpp": "294a161f282a19e3ebc3295f000ef586b94244a890587823bdb6772f36bc96aa",
+    "src/Qavsi/Material3/Style/internal/shadows/shadowgeometry.h": "5e06b60e5927601672f4de186b1f3cf0a22f8e9f97b80f2aaf7de89e71c47a5e",
+    "src/Qavsi/Material3/Style/internal/shadows/shadowmaterial.cpp": "e6c90ce87c3bf1d8a72130fb0520fe022931aa508f7568678975e85e4c1219ab",
+    "src/Qavsi/Material3/Style/internal/shadows/shadowmaterial.h": "3b023b1c3c40ffc30ed9e9c416ce9b5d20beab667cd06daacc82a5b4b021abfd",
+    "src/Qavsi/Material3/Style/internal/shadows/shadowmesh.cpp": "a4f427ff667d68b9d521a2ec829f88861a04ba29392711687e444bf94f8897a6",
+    "src/Qavsi/Material3/Style/internal/shadows/shadowmesh.h": "c5f5bf426d33a5265320d5da2b5648ec85fe68a1f7cbde17b3ae094a3ea0c734"
+  },
+  "binaries": {
+    "/private/tmp/qavsi-shadow-port-benchmark/build/shadow-port-benchmark.app/Contents/MacOS/shadow-port-benchmark": "268771d6eb5bfaa1da1cc35b6789f7249c3dc21c9ecb09c6c6f2a9762abe7b0d",
+    "/private/tmp/qavsi-shadow-benchmark/build/qcm/libqml_material.dylib": "ad38c83c7b8bfcf2aff3c11a71f6957232eadced8ede8c74974c2414376b2ab0",
+    "/private/tmp/qavsi-shadow-port-benchmark/build/qml_modules/Qavsi/Material3/Style/libQavsiMaterial3StylePlugin.dylib": "107f9985040321e594f0b2edb833a26629517a78f4fdb9199177f408e970542b",
+    "/private/tmp/qavsi-shadow-port-benchmark/build/material3/src/Qavsi/Material3/Style/libQavsiMaterial3Style.0.1.0.dylib": "5ae435b2a59864605607d581b2caa45e5ba2a1afca98eb95764d6ed42fa215c8",
+    "/private/tmp/qavsi-shadow-port-benchmark/build/material3/src/Qavsi/Material3/Style/libQavsiMaterial3Style.0.1.dylib": "5ae435b2a59864605607d581b2caa45e5ba2a1afca98eb95764d6ed42fa215c8",
+    "/private/tmp/qavsi-shadow-port-benchmark/build/material3/src/Qavsi/Material3/Style/libQavsiMaterial3Style.dylib": "5ae435b2a59864605607d581b2caa45e5ba2a1afca98eb95764d6ed42fa215c8"
+  }
+}

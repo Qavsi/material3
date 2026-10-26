@@ -1,0 +1,133 @@
+{
+  "date": "2026-10-26",
+  "qt": "6.12.0",
+  "platform": "macOS 26.5.2 arm64 / Apple M4",
+  "source": {
+    "ctestPassed": 4,
+    "comparisonSoftwareAssertions": 589,
+    "comparisonMetalAssertions": 620,
+    "comparisonOpenGLCoreAssertions": 620,
+    "failures": 0
+  },
+  "relocatedInstalled": {
+    "comparisonSoftwareAssertions": 589,
+    "smallSoftwareAssertions": 159,
+    "comparisonMetalAssertions": 620,
+    "failures": 0,
+    "originalPrefixAbsent": true,
+    "noticesInstalled": true
+  },
+  "lint": {
+    "source": true,
+    "installedComparison": true
+  },
+  "pixelParity": {
+    "metal": {
+      "cases": 24,
+      "strictRawCases": 18,
+      "diagnosticQtAlphaCases": 6,
+      "boundaryChecks": 9,
+      "failures": 0,
+      "paths": {
+        "analytic": {
+          "strictCases": 9,
+          "maxChannelError8bit": 1,
+          "maxMeanChannelError8bit": 0.013463718820861678
+        },
+        "blur": {
+          "strictCases": 9,
+          "maxChannelError8bit": 0,
+          "maxMeanChannelError8bit": 0
+        }
+      }
+    },
+    "opengl": {
+      "cases": 24,
+      "strictRawCases": 18,
+      "diagnosticQtAlphaCases": 6,
+      "boundaryChecks": 9,
+      "failures": 0,
+      "paths": {
+        "analytic": {
+          "strictCases": 9,
+          "maxChannelError8bit": 1,
+          "maxMeanChannelError8bit": 0.013463718820861678
+        },
+        "blur": {
+          "strictCases": 9,
+          "maxChannelError8bit": 0,
+          "maxMeanChannelError8bit": 0
+        }
+      }
+    }
+  },
+  "qtOpacity": "linear inherited opacity, alpha retained, RGB premultiplied; upstream analytic opacity cube/color-alpha discard/straight-RGB defects not copied",
+  "qmlPreviewMcp": {
+    "started": true,
+    "visualVerified": true,
+    "observations": [
+      "Cua observed light Elevated after shadow-slot fix",
+      "Cua observed dark FAB after shadow-slot fix, QCM reference on left display"
+    ],
+    "lastRecheck": "Mac relocked after successful visual observations; no UI source changed between observations and final test completion"
+  },
+  "sourceSha256": {
+    "CMakeLists.txt": "3032468fbdebedd851173a4e49eeb2da81573a065690b84799171347247e88c1",
+    "src/Qavsi/Material3/Style/CMakeLists.txt": "962c9c371164c861b51c24b6e1733290c81e62b537a44fc2a51a026563d9f0e1",
+    "src/Qavsi/Material3/Style/SmallButtonBackground.qml": "8b373c6d78418b003ba6fa763a3bbafb95a0367b46e7748f0cf1fe2611690120",
+    "src/Qavsi/Material3/Style/SmallButtonTheme.qml": "e00bdcfa2ab8879e1fae49d62d147e2b527a6a5689b84978eccc2d7c456e6191",
+    "src/Qavsi/Material3/Theme/Material3Theme.qml": "83d9c0ceed96e3a37a02afe1f2b427460b26485171a6ed61967aea8f3faca8cd",
+    "examples/qmlmaterial-comparison/main.cpp": "d3450e33aa44d4a7284f541a0a2948e7edb256b400933828a5309c0ecb380542",
+    "examples/qmlmaterial-comparison/checks.cpp": "c3c464266efcf8647a33924b59907bd43e63f99008543613225825f52d24ac68",
+    "src/Qavsi/Material3/Style/internal/shadows/Material3Elevation.qml": "f3e418dcb186e7039d4b8cac6c8e70452e323621a476775941a433da20824aae",
+    "src/Qavsi/Material3/Style/internal/shadows/blurmaskmaterial.cpp": "5a40dc15f600c70f51c101d31fa606a667f8cdaae6ba911b0694d216ba5399c4",
+    "src/Qavsi/Material3/Style/internal/shadows/blurmaskmaterial.h": "1a9aad4f99952c6bc3a90533e95e1a5ec7622a4494eb8ed3d2b25d01dd268452",
+    "src/Qavsi/Material3/Style/internal/shadows/blurmaskmath.cpp": "2d3461ae004cf5a798a0e0b9d0b2bcee590a792b6a50eb573c1daa557f8dcf05",
+    "src/Qavsi/Material3/Style/internal/shadows/blurmaskmath.h": "562d687e655590420510cdc6a1f426371b75acc5ea54280ed91d944e80f6d7cb",
+    "src/Qavsi/Material3/Style/internal/shadows/blurmaskshadow.cpp": "f60a752536698dd2a6daae3756bceacfe00b293ac6eef5cc4b84f068ae3dc221",
+    "src/Qavsi/Material3/Style/internal/shadows/blurmaskshadow.h": "d4d6be5931a98c6e999b2ed8511ecd2102766079ee88f54c5a7ea589a3ec04a9",
+    "src/Qavsi/Material3/Style/internal/shadows/roundedrectshadow.cpp": "6069723566f1ea834585878d345da50a0a44c6a736b901b43f3176e6abd23a0f",
+    "src/Qavsi/Material3/Style/internal/shadows/roundedrectshadow.h": "fbf1d514c3118a9bfe2e6c2b033dce09063921e7c3167ba642d89b70fb93794c",
+    "src/Qavsi/Material3/Style/internal/shadows/shaders/blur_mask.frag": "dd032d8d7e808d25e9f48698cbcf98574b6a867e4021a0cf28e6d60b36f1c1c8",
+    "src/Qavsi/Material3/Style/internal/shadows/shaders/blur_mask.vert": "56517981128dde7a5067e2c6a540e0af8e85cb0f1ba2db2e782a5d023edb64ec",
+    "src/Qavsi/Material3/Style/internal/shadows/shaders/shadow.frag": "d0008b0f7ed9d219419b28d48dd0aef59d4fb16819256ddf19dda8bf1a6aa7ca",
+    "src/Qavsi/Material3/Style/internal/shadows/shaders/shadow.vert": "2a4264a3bf25a132c87f98025d67ec55aefcd4a1fcbb1c16c30eb0074eaff65d",
+    "src/Qavsi/Material3/Style/internal/shadows/shadowgeometry.cpp": "294a161f282a19e3ebc3295f000ef586b94244a890587823bdb6772f36bc96aa",
+    "src/Qavsi/Material3/Style/internal/shadows/shadowgeometry.h": "5e06b60e5927601672f4de186b1f3cf0a22f8e9f97b80f2aaf7de89e71c47a5e",
+    "src/Qavsi/Material3/Style/internal/shadows/shadowmaterial.cpp": "e6c90ce87c3bf1d8a72130fb0520fe022931aa508f7568678975e85e4c1219ab",
+    "src/Qavsi/Material3/Style/internal/shadows/shadowmaterial.h": "3b023b1c3c40ffc30ed9e9c416ce9b5d20beab667cd06daacc82a5b4b021abfd",
+    "src/Qavsi/Material3/Style/internal/shadows/shadowmesh.cpp": "a4f427ff667d68b9d521a2ec829f88861a04ba29392711687e444bf94f8897a6",
+    "src/Qavsi/Material3/Style/internal/shadows/shadowmesh.h": "c5f5bf426d33a5265320d5da2b5648ec85fe68a1f7cbde17b3ae094a3ea0c734",
+    "src/Qavsi/Material3/Style/SmallButtonDelegate.qml": "d5f204f3864781871585ac7d5426e0b57828d2665167174061e1f4ddf05b10a2",
+    "src/Qavsi/Material3/Style/SmallButtonShadow.qml": "d0cbff3c3380fb04c73c2ec42908b593de015f67695e218ad1dc37b7582e3ba4",
+    "src/Qavsi/Material3/Style/Material3Style.qml": "011d421f5f295b722ab0ddef10d8c15eac6c29327add6d9c3f928f69e80db19d"
+  },
+  "fixtureSha256": {
+    "CMakeLists.txt": "be1883b3a01640001aae5604d2f82844bb1f3a18e47bf7fed99d9a9f2dba302d",
+    "main.cpp": "92f98195fb4e62ec1cd0bf257e00769cccd54102cc54d19c6f2a0ca7d4ec30dc",
+    "Scene.qml": "115324bf779e757a20092a2befc1d49364785568f187745c3166751fa7a269cb"
+  },
+  "limits": [
+    "Only Outer mask is required/ported for elevation",
+    "Legacy OpenGL below3 suppresses GPU shadows; software retains painter feedback without shadows",
+    "Vulkan/Direct3D/GLES runtime and unequal-corner 1000-item performance not measured",
+    "Previous Qt6.12 late-reader-after-Theme-replacement fixture limitation remains separate"
+  ],
+  "nativeComposition": {
+    "ownership": "StyleKit background.shadow.delegate -> SmallButtonShadow -> Material3Elevation",
+    "elevatedHaloMaxChannelError8bit": 0,
+    "fabHaloMaxChannelError8bit": 0,
+    "backends": [
+      "Metal",
+      "OpenGL Core"
+    ],
+    "installedMetalPassed": true,
+    "fix": "Removed nested background shadow; StyleKit no longer adds a default RectangularShadow beside it"
+  },
+  "postReviewNormalization": {
+    "report": "review-shadow-2026-10-26/shader-normalization.json",
+    "change": "Terminal blank-line removal only; all compiled QSB assets remain byte-identical to the native/parity-tested assets.",
+    "sourceBuild": "passed",
+    "sourceCtest": "4/4 passed"
+  }
+}

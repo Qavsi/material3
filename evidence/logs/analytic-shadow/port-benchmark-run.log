@@ -1,0 +1,13 @@
+01/12 01-r1-1000-ported-static: CPU 3.880ms/frame; GPU 0.377ms; FPS 52.0
+02/12 02-r1-1000-qcm-animated: CPU 10.932ms/frame; GPU 0.789ms; FPS 60.0
+03/12 03-r1-1000-ported-animated: CPU 9.922ms/frame; GPU 0.412ms; FPS 60.0
+04/12 04-r1-1000-qcm-static: CPU 3.150ms/frame; GPU 0.405ms; FPS 60.1
+05/12 05-r2-1000-qcm-animated: CPU 12.188ms/frame; GPU 0.412ms; FPS 58.4
+06/12 06-r2-1000-qcm-static: CPU 3.358ms/frame; GPU 0.364ms; FPS 60.0
+07/12 07-r2-1000-ported-static: CPU 3.279ms/frame; GPU 0.533ms; FPS 60.0
+08/12 08-r2-1000-ported-animated: CPU 10.758ms/frame; GPU 0.418ms; FPS 60.2
+09/12 09-r3-1000-ported-animated: CPU 8.499ms/frame; GPU 0.397ms; FPS 60.0
+10/12 10-r3-1000-qcm-animated: CPU 10.503ms/frame; GPU 0.409ms; FPS 60.0
+11/12 11-r3-1000-ported-static: CPU 3.665ms/frame; GPU 0.406ms; FPS 60.0
+12/12 12-r3-1000-qcm-static: CPU 3.533ms/frame; GPU 0.405ms; FPS 60.0
+Completed 12/12 valid native sanity runs

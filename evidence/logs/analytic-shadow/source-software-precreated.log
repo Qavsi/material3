@@ -1,0 +1,5 @@
+QML debugging is enabled. Only use this in a safe environment.
+qt.qpa.fonts: Populating font family aliases took 31 ms. Replace uses of missing font family "Sans Serif" with one that exists to avoid this cost. 
+Preview screen: "" QRect(0,0 800x800) window: QRect(8,16 384x768)
+Dynamic StyleKit font initialization before QFont(Sans Serif,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0) resolved px 12 after native state update QVariant(QFont, QFont(Sans Serif,-1,14,5,500,0,0,0,0,0,0,1,0.09375,0,0,1,,0,0))
+Qt 6.12.0 comparison assertions 578 failures 0

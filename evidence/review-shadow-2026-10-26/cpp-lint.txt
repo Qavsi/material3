@@ -1,0 +1,54 @@
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:465 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:466 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:467 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:537 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:683 ENM-9 Two or more bool parameters — boolean trap; use named enums (f(x, LogRule::DontLog))
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:813 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:821 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:882 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:992 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:999 ENM-9 Non-intuitive bool literal arguments — confusing at call site; use named enums
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:1206 DEP-10 .count()/.length() — prefer .size() for std consistency
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:1207 ENM-9 Non-intuitive bool literal arguments — confusing at call site; use named enums
+/Volumes/Mac/SCS/dev/Qavsi/material3/examples/qmlmaterial-comparison/checks.cpp:1227 DEP-7 qMin/qMax/qBound — use (std::min)()/(std::max)()/std::clamp()
+/Volumes/Mac/SCS/dev/Qavsi/material3/experiments/shadow-benchmark/main.cpp:33 VAR-3 Direct brace initialization — prefer copy-init (var = {...}) for safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/experiments/shadow-benchmark/main.cpp:168 VAR-3 Direct brace initialization — prefer copy-init (var = {...}) for safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/experiments/shadow-benchmark/main.cpp:347 VAR-3 Direct brace initialization — prefer copy-init (var = {...}) for safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/experiments/shadow-parity/main.cpp:46 VAR-3 Direct brace initialization — prefer copy-init (var = {...}) for safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/experiments/shadow-parity/main.cpp:50 VAR-3 Direct brace initialization — prefer copy-init (var = {...}) for safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/experiments/shadow-parity/main.cpp:51 VAR-3 Direct brace initialization — prefer copy-init (var = {...}) for safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/experiments/shadow-parity/main.cpp:93 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/experiments/shadow-parity/main.cpp:95 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/experiments/shadow-parity/main.cpp:102 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/experiments/shadow-parity/main.cpp:105 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/experiments/shadow-parity/main.cpp:122 VAR-3 Direct brace initialization — prefer copy-init (var = {...}) for safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/experiments/shadow-parity/main.cpp:152 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/experiments/shadow-parity/main.cpp:169 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/experiments/shadow-parity/main.cpp:170 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/experiments/shadow-parity/main.cpp:296 VAR-3 Direct brace initialization — prefer copy-init (var = {...}) for safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/experiments/shadow-parity/main.cpp:332 VAR-3 Direct brace initialization — prefer copy-init (var = {...}) for safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/experiments/shadow-port-validation/main.cpp:33 VAR-3 Direct brace initialization — prefer copy-init (var = {...}) for safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/experiments/shadow-port-validation/main.cpp:169 VAR-3 Direct brace initialization — prefer copy-init (var = {...}) for safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/experiments/shadow-port-validation/main.cpp:349 VAR-3 Direct brace initialization — prefer copy-init (var = {...}) for safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/blurmaskmaterial.cpp:217 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/blurmaskmath.cpp:29 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/blurmaskmath.cpp:35 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/blurmaskmath.cpp:42 PAT-12 Non-const range-for reference — may trigger COW detach; use const auto& if read-only
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/blurmaskmath.cpp:54 PAT-12 Non-const range-for reference — may trigger COW detach; use const auto& if read-only
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/blurmaskmath.cpp:95 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/blurmaskmath.cpp:106 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/blurmaskshadow.cpp:32 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/blurmaskshadow.cpp:34 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/blurmaskshadow.cpp:120 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/roundedrectshadow.cpp:63 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/shadowgeometry.cpp:43 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/shadowgeometry.cpp:48 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/shadowgeometry.cpp:65 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/shadowgeometry.cpp:66 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/shadowmesh.cpp:229 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/shadowmesh.cpp:231 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/shadowmesh.cpp:232 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/shadowmesh.cpp:233 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/shadowmesh.cpp:317 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/shadowmesh.cpp:320 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety
+/Volumes/Mac/SCS/dev/Qavsi/material3/src/Qavsi/Material3/Style/internal/shadows/shadowmesh.cpp:324 HDR-3 Unprotected std::min/max — use (std::min)(a,b) for Windows macro safety

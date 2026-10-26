@@ -403,3 +403,20 @@ doğrudan uyarlar. Software painter aynı yumuşak dalga ve input zamanlamasın�
 korur; sparkle noise çizmez. Hold sırasında yalnız Metal noise phase animasyonu
 çalışır. Reduced motion statik %12 base kullanır. Skia/QCM kitaplığı bağlanmaz;
 kaynak/lisans kayıtları third_party/ripple-reference altında kuruluma dahildir.
+
+
+### QCM button elevation
+
+Elevated buttons and FABs use the pinned QCM/Skia-derived shadow paths internally:
+analytic ambient/spot for equal corners and Gaussian Outer BlurMask for unequal
+corners. The renderer uses StyleKit's native `background.shadow.delegate` slot,
+so there is exactly one shadow. Material3 owns levels, lighting, blur recipe and reduced motion;
+applications keep native `SK.Button` and existing variations. Skia/QCM are not
+kit build or runtime dependencies. Software retains painter feedback and omits
+GPU shadows. OpenGL needs version 3 or newer; the macOS comparison bootstrap
+requests a 3.3 core context, and legacy contexts suppress unsupported shadows.
+GLES-targeted builds retain QCM's GLES shader guard.
+
+[Shadow verification](evidence/ANALYTIC-SHADOW.md) records source/installed tests,
+Metal/OpenGL pixel parity, Qt alpha adaptations and measured performance scope.
+Adapted source pins and licenses install with the kit.

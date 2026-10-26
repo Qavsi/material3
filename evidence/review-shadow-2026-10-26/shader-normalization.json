@@ -1,0 +1,32 @@
+{
+  "reason": "Remove terminal blank lines only; compare compiled QSB hashes before and after rebuilding.",
+  "source": {
+    "src/Qavsi/Material3/Style/internal/shadows/shaders/blur_mask.frag": {
+      "before": "70421d4a916e7bf456374b4986001427337974541abdf8090dec053a134b3188",
+      "after": "dd032d8d7e808d25e9f48698cbcf98574b6a867e4021a0cf28e6d60b36f1c1c8"
+    },
+    "src/Qavsi/Material3/Style/internal/shadows/shaders/blur_mask.vert": {
+      "before": "e25f04fe62765b4502ec1b227cbfcab80d95dd8a9edc296a4de4a862d788d02d",
+      "after": "56517981128dde7a5067e2c6a540e0af8e85cb0f1ba2db2e782a5d023edb64ec"
+    },
+    "src/Qavsi/Material3/Style/internal/shadows/shaders/shadow.frag": {
+      "before": "3b5d74b3635ce09b0fc79bcf742f47613b74c811720820979a51af96c09ee2e0",
+      "after": "d0008b0f7ed9d219419b28d48dd0aef59d4fb16819256ddf19dda8bf1a6aa7ca"
+    }
+  },
+  "qsbBefore": {
+    "shadow.frag.qsb": "d5d8ddf59f35d426aa3b9f78ef3036fc32d81d0b7fd6d23f4cc74cc19ad37167",
+    "blur_mask.vert.qsb": "65984374c325bd338de73fa2cea415edefcdb7e6bdf2ddd3d4bb0daa435ce7b0",
+    "smallbuttonfeedback.frag.qsb": "b984b866b55ad43338055742560b3ce42e2d67e967e80d05bb0329d0d8ce3962",
+    "blur_mask.frag.qsb": "42fd87c273aae1b1851cc4e31a86784c7dc828277b48608d18d5f2e5724d0013",
+    "shadow.vert.qsb": "ee3e04e4bb45e6f576c1a27ece84c6364878c634b5480a9f58c67b821f0fcb19"
+  },
+  "qsbAfter": {
+    "shadow.frag.qsb": "d5d8ddf59f35d426aa3b9f78ef3036fc32d81d0b7fd6d23f4cc74cc19ad37167",
+    "blur_mask.vert.qsb": "65984374c325bd338de73fa2cea415edefcdb7e6bdf2ddd3d4bb0daa435ce7b0",
+    "smallbuttonfeedback.frag.qsb": "b984b866b55ad43338055742560b3ce42e2d67e967e80d05bb0329d0d8ce3962",
+    "blur_mask.frag.qsb": "42fd87c273aae1b1851cc4e31a86784c7dc828277b48608d18d5f2e5724d0013",
+    "shadow.vert.qsb": "ee3e04e4bb45e6f576c1a27ece84c6364878c634b5480a9f58c67b821f0fcb19"
+  },
+  "compiledAssetsUnchanged": true
+}

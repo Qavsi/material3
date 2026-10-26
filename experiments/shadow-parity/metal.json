@@ -1,0 +1,534 @@
+{
+    "backend": "metal",
+    "cases": [
+        {
+            "case": "uniform-black-e1",
+            "differentShadowPixels": 0,
+            "expectedDifference": "none",
+            "geometry": {
+                "finiteVertices": 48,
+                "generated": true,
+                "indices": 144,
+                "path": "analytic",
+                "vertices": 48
+            },
+            "maxChannelError8bit": 0,
+            "meanChannelErrorOnShadowPixels8bit": 0,
+            "passed": true,
+            "path": "analytic",
+            "portedInkPixels": 422,
+            "referenceInkPixels": 422,
+            "shadowPixels": 428,
+            "strictRawParity": true
+        },
+        {
+            "case": "uniform-black-e3",
+            "differentShadowPixels": 64,
+            "expectedDifference": "none",
+            "geometry": {
+                "finiteVertices": 48,
+                "generated": true,
+                "indices": 144,
+                "path": "analytic",
+                "vertices": 48
+            },
+            "maxChannelError8bit": 1,
+            "meanChannelErrorOnShadowPixels8bit": 0.008928571428571428,
+            "passed": true,
+            "path": "analytic",
+            "portedInkPixels": 1498,
+            "referenceInkPixels": 1498,
+            "shadowPixels": 1792,
+            "strictRawParity": true
+        },
+        {
+            "case": "uniform-black-e6",
+            "differentShadowPixels": 64,
+            "expectedDifference": "none",
+            "geometry": {
+                "finiteVertices": 48,
+                "generated": true,
+                "indices": 144,
+                "path": "analytic",
+                "vertices": 48
+            },
+            "maxChannelError8bit": 1,
+            "meanChannelErrorOnShadowPixels8bit": 0.013463718820861678,
+            "passed": true,
+            "path": "analytic",
+            "portedInkPixels": 3158,
+            "referenceInkPixels": 3158,
+            "shadowPixels": 3528,
+            "strictRawParity": true
+        },
+        {
+            "case": "uniform-black-e8",
+            "differentShadowPixels": 0,
+            "expectedDifference": "none",
+            "geometry": {
+                "finiteVertices": 48,
+                "generated": true,
+                "indices": 144,
+                "path": "analytic",
+                "vertices": 48
+            },
+            "maxChannelError8bit": 0,
+            "meanChannelErrorOnShadowPixels8bit": 0,
+            "passed": true,
+            "path": "analytic",
+            "portedInkPixels": 4364,
+            "referenceInkPixels": 4364,
+            "shadowPixels": 5034,
+            "strictRawParity": true
+        },
+        {
+            "case": "uniform-black-e12",
+            "differentShadowPixels": 0,
+            "expectedDifference": "none",
+            "geometry": {
+                "finiteVertices": 48,
+                "generated": true,
+                "indices": 144,
+                "path": "analytic",
+                "vertices": 48
+            },
+            "maxChannelError8bit": 0,
+            "meanChannelErrorOnShadowPixels8bit": 0,
+            "passed": true,
+            "path": "analytic",
+            "portedInkPixels": 6704,
+            "referenceInkPixels": 6704,
+            "shadowPixels": 7676,
+            "strictRawParity": true
+        },
+        {
+            "case": "uniform-circle",
+            "differentShadowPixels": 0,
+            "expectedDifference": "none",
+            "geometry": {
+                "finiteVertices": 32,
+                "generated": true,
+                "indices": 96,
+                "path": "analytic",
+                "vertices": 32
+            },
+            "maxChannelError8bit": 0,
+            "meanChannelErrorOnShadowPixels8bit": 0,
+            "passed": true,
+            "path": "analytic",
+            "portedInkPixels": 1016,
+            "referenceInkPixels": 1016,
+            "shadowPixels": 1210,
+            "strictRawParity": true
+        },
+        {
+            "case": "uniform-pill",
+            "differentShadowPixels": 0,
+            "expectedDifference": "none",
+            "geometry": {
+                "finiteVertices": 48,
+                "generated": true,
+                "indices": 144,
+                "path": "analytic",
+                "vertices": 48
+            },
+            "maxChannelError8bit": 0,
+            "meanChannelErrorOnShadowPixels8bit": 0,
+            "passed": true,
+            "path": "analytic",
+            "portedInkPixels": 2250,
+            "referenceInkPixels": 2250,
+            "shadowPixels": 2514,
+            "strictRawParity": true
+        },
+        {
+            "case": "uniform-square",
+            "differentShadowPixels": 0,
+            "expectedDifference": "none",
+            "geometry": {
+                "finiteVertices": 48,
+                "generated": true,
+                "indices": 144,
+                "path": "analytic",
+                "vertices": 48
+            },
+            "maxChannelError8bit": 0,
+            "meanChannelErrorOnShadowPixels8bit": 0,
+            "passed": true,
+            "path": "analytic",
+            "portedInkPixels": 3510,
+            "referenceInkPixels": 3510,
+            "shadowPixels": 3896,
+            "strictRawParity": true
+        },
+        {
+            "case": "unequal-black-e1",
+            "differentShadowPixels": 0,
+            "expectedDifference": "none",
+            "geometry": {
+                "analyticProbeApplicable": false,
+                "path": "blur"
+            },
+            "maxChannelError8bit": 0,
+            "meanChannelErrorOnShadowPixels8bit": 0,
+            "passed": true,
+            "path": "blur",
+            "portedInkPixels": 936,
+            "referenceInkPixels": 936,
+            "shadowPixels": 1457,
+            "strictRawParity": true
+        },
+        {
+            "case": "unequal-black-e6",
+            "differentShadowPixels": 0,
+            "expectedDifference": "none",
+            "geometry": {
+                "analyticProbeApplicable": false,
+                "path": "blur"
+            },
+            "maxChannelError8bit": 0,
+            "meanChannelErrorOnShadowPixels8bit": 0,
+            "passed": true,
+            "path": "blur",
+            "portedInkPixels": 7712,
+            "referenceInkPixels": 7712,
+            "shadowPixels": 9511,
+            "strictRawParity": true
+        },
+        {
+            "case": "unequal-black-e8",
+            "differentShadowPixels": 0,
+            "expectedDifference": "none",
+            "geometry": {
+                "analyticProbeApplicable": false,
+                "path": "blur"
+            },
+            "maxChannelError8bit": 0,
+            "meanChannelErrorOnShadowPixels8bit": 0,
+            "passed": true,
+            "path": "blur",
+            "portedInkPixels": 10593,
+            "referenceInkPixels": 10593,
+            "shadowPixels": 13130,
+            "strictRawParity": true
+        },
+        {
+            "case": "unequal-black-e12",
+            "differentShadowPixels": 0,
+            "expectedDifference": "none",
+            "geometry": {
+                "analyticProbeApplicable": false,
+                "path": "blur"
+            },
+            "maxChannelError8bit": 0,
+            "meanChannelErrorOnShadowPixels8bit": 0,
+            "passed": true,
+            "path": "blur",
+            "portedInkPixels": 16987,
+            "referenceInkPixels": 16987,
+            "shadowPixels": 21370,
+            "strictRawParity": true
+        },
+        {
+            "case": "unequal-fractional",
+            "differentShadowPixels": 0,
+            "expectedDifference": "none",
+            "geometry": {
+                "analyticProbeApplicable": false,
+                "path": "blur"
+            },
+            "maxChannelError8bit": 0,
+            "meanChannelErrorOnShadowPixels8bit": 0,
+            "passed": true,
+            "path": "blur",
+            "portedInkPixels": 7691,
+            "referenceInkPixels": 7691,
+            "shadowPixels": 9489,
+            "strictRawParity": true
+        },
+        {
+            "case": "unequal-zero-corner",
+            "differentShadowPixels": 0,
+            "expectedDifference": "none",
+            "geometry": {
+                "analyticProbeApplicable": false,
+                "path": "blur"
+            },
+            "maxChannelError8bit": 0,
+            "meanChannelErrorOnShadowPixels8bit": 0,
+            "passed": true,
+            "path": "blur",
+            "portedInkPixels": 7725,
+            "referenceInkPixels": 7725,
+            "shadowPixels": 9511,
+            "strictRawParity": true
+        },
+        {
+            "case": "uniform-dark-background",
+            "differentShadowPixels": 2,
+            "expectedDifference": "none",
+            "geometry": {
+                "finiteVertices": 48,
+                "generated": true,
+                "indices": 144,
+                "path": "analytic",
+                "vertices": 48
+            },
+            "maxChannelError8bit": 1,
+            "meanChannelErrorOnShadowPixels8bit": 0.0002168256721595837,
+            "passed": true,
+            "path": "analytic",
+            "portedInkPixels": 1196,
+            "referenceInkPixels": 1196,
+            "shadowPixels": 2306,
+            "strictRawParity": true
+        },
+        {
+            "case": "uniform-colored",
+            "differentShadowPixels": 3684,
+            "expectedDifference": "QCM straight RGB / dropped analytic color alpha / cubed analytic scene opacity; port uses Qt premultiplied color and linear opacity",
+            "geometry": {
+                "finiteVertices": 48,
+                "generated": true,
+                "indices": 144,
+                "path": "analytic",
+                "vertices": 48
+            },
+            "maxChannelError8bit": 43,
+            "meanChannelErrorOnShadowPixels8bit": 7.795602605863192,
+            "passed": true,
+            "path": "analytic",
+            "portedInkPixels": 3138,
+            "referenceInkPixels": 3632,
+            "shadowPixels": 3684,
+            "strictRawParity": false
+        },
+        {
+            "case": "uniform-color-alpha-half",
+            "differentShadowPixels": 3430,
+            "expectedDifference": "QCM straight RGB / dropped analytic color alpha / cubed analytic scene opacity; port uses Qt premultiplied color and linear opacity",
+            "geometry": {
+                "finiteVertices": 48,
+                "generated": true,
+                "indices": 144,
+                "path": "analytic",
+                "vertices": 48
+            },
+            "maxChannelError8bit": 31,
+            "meanChannelErrorOnShadowPixels8bit": 6.196712018140589,
+            "passed": true,
+            "path": "analytic",
+            "portedInkPixels": 2794,
+            "referenceInkPixels": 3158,
+            "shadowPixels": 3528,
+            "strictRawParity": false
+        },
+        {
+            "case": "uniform-opacity-half",
+            "differentShadowPixels": 3256,
+            "expectedDifference": "QCM straight RGB / dropped analytic color alpha / cubed analytic scene opacity; port uses Qt premultiplied color and linear opacity",
+            "geometry": {
+                "finiteVertices": 48,
+                "generated": true,
+                "indices": 144,
+                "path": "analytic",
+                "vertices": 48
+            },
+            "maxChannelError8bit": 24,
+            "meanChannelErrorOnShadowPixels8bit": 5.142659705159705,
+            "passed": true,
+            "path": "analytic",
+            "portedInkPixels": 2794,
+            "referenceInkPixels": 1502,
+            "shadowPixels": 3256,
+            "strictRawParity": false
+        },
+        {
+            "case": "uniform-colored-alpha-opacity-half",
+            "differentShadowPixels": 3250,
+            "expectedDifference": "QCM straight RGB / dropped analytic color alpha / cubed analytic scene opacity; port uses Qt premultiplied color and linear opacity",
+            "geometry": {
+                "finiteVertices": 48,
+                "generated": true,
+                "indices": 144,
+                "path": "analytic",
+                "vertices": 48
+            },
+            "maxChannelError8bit": 15,
+            "meanChannelErrorOnShadowPixels8bit": 2.9324615384615385,
+            "passed": true,
+            "path": "analytic",
+            "portedInkPixels": 1990,
+            "referenceInkPixels": 2154,
+            "shadowPixels": 3250,
+            "strictRawParity": false
+        },
+        {
+            "case": "unequal-dark-background",
+            "differentShadowPixels": 0,
+            "expectedDifference": "none",
+            "geometry": {
+                "analyticProbeApplicable": false,
+                "path": "blur"
+            },
+            "maxChannelError8bit": 0,
+            "meanChannelErrorOnShadowPixels8bit": 0,
+            "passed": true,
+            "path": "blur",
+            "portedInkPixels": 2820,
+            "referenceInkPixels": 2820,
+            "shadowPixels": 5443,
+            "strictRawParity": true
+        },
+        {
+            "case": "unequal-colored",
+            "differentShadowPixels": 9427,
+            "expectedDifference": "QCM straight RGB / dropped analytic color alpha / cubed analytic scene opacity; port uses Qt premultiplied color and linear opacity",
+            "geometry": {
+                "analyticProbeApplicable": false,
+                "path": "blur"
+            },
+            "maxChannelError8bit": 27,
+            "meanChannelErrorOnShadowPixels8bit": 4.395884162511933,
+            "passed": true,
+            "path": "blur",
+            "portedInkPixels": 7224,
+            "referenceInkPixels": 7218,
+            "shadowPixels": 9427,
+            "strictRawParity": false
+        },
+        {
+            "case": "unequal-color-alpha-half",
+            "differentShadowPixels": 0,
+            "expectedDifference": "none",
+            "geometry": {
+                "analyticProbeApplicable": false,
+                "path": "blur"
+            },
+            "maxChannelError8bit": 0,
+            "meanChannelErrorOnShadowPixels8bit": 0,
+            "passed": true,
+            "path": "blur",
+            "portedInkPixels": 6539,
+            "referenceInkPixels": 6539,
+            "shadowPixels": 8349,
+            "strictRawParity": true
+        },
+        {
+            "case": "unequal-opacity-half",
+            "differentShadowPixels": 0,
+            "expectedDifference": "none",
+            "geometry": {
+                "analyticProbeApplicable": false,
+                "path": "blur"
+            },
+            "maxChannelError8bit": 0,
+            "meanChannelErrorOnShadowPixels8bit": 0,
+            "passed": true,
+            "path": "blur",
+            "portedInkPixels": 6533,
+            "referenceInkPixels": 6533,
+            "shadowPixels": 8341,
+            "strictRawParity": true
+        },
+        {
+            "case": "unequal-colored-alpha-opacity-half",
+            "differentShadowPixels": 8894,
+            "expectedDifference": "QCM straight RGB / dropped analytic color alpha / cubed analytic scene opacity; port uses Qt premultiplied color and linear opacity",
+            "geometry": {
+                "analyticProbeApplicable": false,
+                "path": "blur"
+            },
+            "maxChannelError8bit": 11,
+            "meanChannelErrorOnShadowPixels8bit": 2.4547728805936586,
+            "passed": true,
+            "path": "blur",
+            "portedInkPixels": 4869,
+            "referenceInkPixels": 7110,
+            "shadowPixels": 8894,
+            "strictRawParity": false
+        }
+    ],
+    "dpr": 1,
+    "failures": 0,
+    "note": "Raw colored cases are diagnostic; no reference normalization. ROI excludes opaque caster AABB, keeps complete80px halo.",
+    "qt": "6.12.0",
+    "qtOpacityInvariants": [
+        {
+            "colorAlphaMaxError8bit": 1,
+            "linearOpacityMaxError8bit": 1,
+            "passed": true,
+            "path": "analytic",
+            "premultipliedSourceOverBoundsMaxError8bit": 0,
+            "transparentColorMaxError8bit": 0
+        },
+        {
+            "colorAlphaMaxError8bit": 1,
+            "linearOpacityMaxError8bit": 1,
+            "passed": true,
+            "path": "blur",
+            "premultipliedSourceOverBoundsMaxError8bit": 0,
+            "transparentColorMaxError8bit": 0
+        }
+    ],
+    "safeCutoutBoundaryChecks": [
+        {
+            "actualSafe": true,
+            "case": "material3-elevation6-radius20",
+            "expectedSafe": true,
+            "passed": true
+        },
+        {
+            "actualSafe": true,
+            "case": "zero-no-cutout",
+            "expectedSafe": true,
+            "passed": true
+        },
+        {
+            "actualSafe": true,
+            "case": "subthreshold-radius-no-cutout",
+            "expectedSafe": true,
+            "passed": true
+        },
+        {
+            "actualSafe": false,
+            "case": "negative-sigma",
+            "expectedSafe": false,
+            "passed": true
+        },
+        {
+            "actualSafe": false,
+            "case": "negative-radius",
+            "expectedSafe": false,
+            "passed": true
+        },
+        {
+            "actualSafe": false,
+            "case": "nan-sigma",
+            "expectedSafe": false,
+            "passed": true
+        },
+        {
+            "actualSafe": false,
+            "case": "infinite-radius",
+            "expectedSafe": false,
+            "passed": true
+        },
+        {
+            "actualSafe": false,
+            "case": "finite-huge-sigma",
+            "expectedSafe": false,
+            "passed": true
+        },
+        {
+            "actualSafe": false,
+            "case": "finite-huge-radius",
+            "expectedSafe": false,
+            "passed": true
+        }
+    ],
+    "screen": "VA2419 Series",
+    "source": "same-process QCM229bc3e6 / current Qavsi native patches, same frame, integer-aligned DPR1",
+    "warnings": [
+    ]
+}

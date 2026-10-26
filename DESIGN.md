@@ -430,3 +430,56 @@ public QPainter radial gradient kullanır; sparkle noise yoktur. Cubic kenar
 Yeni Skia/QCM runtime bağımlılığı yoktur. QCM MIT, AOSP Apache-2.0 ve Skia driver
 BSD bildirimleri third_party/ripple-reference içinde tutulur ve kuruluma girer.
 SDK, kontrol API'si ve mevcut tema renk algoritması değiştirilmez.
+
+
+## QCM elevation integration
+
+The shadow recipe belongs to this kit. No generic Runtime or Qavsi.Shadows
+module is introduced. Native `SK.Button` and existing variation usage remain
+unchanged. `SmallButtonBackground` resolves Elevated/FAB using existing
+`shadow.visible` and typed `contentRole`; appearance does not replace size data.
+
+| Appearance | Idle / focus / pressed | Hover | Disabled / hidden |
+|---|---:|---:|---:|
+| Elevated | level1 = 1 | level2 = 3 | 0 |
+| FAB / Extended FAB | level3 = 6 | level4 = 8 | 0 |
+| Filled / Tonal / Outlined / Text | 0 | 0 | 0 |
+
+Theme owns the pinned QCM inputs: 250 ms emphasized-accelerate cubic
+(0.3,0,0.8,0.2), ambient alpha 0.039, spot alpha 0.25, light direction (0,-1,1),
+and light radius/height 800/600. Unequal corners use the QCM Outer mask recipe:
+`sigma=max(elevation*shadowBlurSigmaFactor,shadowBlurMinimumSigma)` with 1.2/0.5,
+and caller shadow alpha multiplied by `shadowBlurOpacity` 0.35. These are kit
+inputs, not mandatory shared tokens for other design systems. The superseded
+Qt blur/offset/opacity recipe and RectangularShadow adapter are removed.
+
+The QCM renderer occupies native `background.shadow.delegate` through private
+`SmallButtonShadow`; the background never draws a second shadow. The delegate
+maps native button state and paint geometry, preserving background/shadow opacity.
+Internal `Material3Elevation` owns transitions and reduced motion. An active
+transition completes immediately when reduced motion is enabled. Equal corners
+select the QCM analytic mesh; unequal corners select QCM Gaussian BlurMask.
+The primitives own geometry, shader and render-thread textures, with no Theme,
+control or animation policy. Software preserves painter ripple/fill/focus and
+creates no GPU shadow. OpenGL below 3 is likewise suppressed; other RHI paths
+use packaged shaders. Metal and desktop OpenGL Core are verified; Vulkan,
+Direct3D and GLES runtime parity are not established by these runs.
+
+The BlurMask implementation preserves 128-sample CDF, half-pixel sigma/radius
+quantization, 4x4 subpixel cutouts, separable Gaussian convolution, four corner
+textures, local-coordinate matrix handling, and Outer-mask alpha. Gaussian
+allocation/work bounds and a bounded render-thread cache protect invalid or
+excessive inputs; normal Material3 geometry is unchanged. Only Outer is needed
+for elevation; this is not a new public general-purpose blur component.
+
+Qt inherited opacity and correctly premultiplied color are preserved. This
+intentionally corrects QCM's analytic opacity cubing/input-alpha discard and
+straight-RGB blending. Raw colored/partial-opacity QCM equality is not claimed.
+Opaque black reference equality, Qt alpha invariants, software, source/installed
+consumption and actual runtime changes are recorded in
+[shadow verification](evidence/ANALYTIC-SHADOW.md). Upstream source pins/notices
+remain in `third_party/shadow-reference` and install with the kit.
+
+The earlier sixty-run renderer benchmark and twelve-run analytic-port check
+retain their original scope. They do not measure the new unequal-corner path
+or complete StyleKit controls.
