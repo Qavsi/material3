@@ -1,0 +1,27 @@
+--- production/blurmaskmaterial.cpp
++++ frozen-measurement/blurmaskmaterial.cpp
+@@ -13,6 +13,12 @@
+ #include <mutex>
+ #include <span>
+ #include <vector>
++
++#include <atomic>
++#include <chrono>
++static std::atomic<quint64> studyMisses{0}, studyConvolutionNs{0};
++extern "C" Q_DECL_EXPORT quint64 study_cache_misses() { return studyMisses.load(); }
++extern "C" Q_DECL_EXPORT quint64 study_convolution_ns() { return studyConvolutionNs.load(); }
+ 
+ namespace qavsi::shadow::blur {
+ 
+@@ -75,7 +81,11 @@
+     if (image.isNull())
+         return {};
+     std::vector<std::uint8_t> pixels(std::size_t(extent) * extent);
++    const auto studyStart = std::chrono::steady_clock::now();
+     fill_rrect_corner_cutout(pixels, sigma, radius);
++    studyConvolutionNs.fetch_add(std::chrono::duration_cast<std::chrono::nanoseconds>(
++        std::chrono::steady_clock::now() - studyStart).count());
++    studyMisses.fetch_add(1);
+     for (int y = 0; y < extent; ++y)
+         std::memcpy(image.scanLine(y), pixels.data() + std::size_t(y) * extent, extent);
+     auto result = std::make_shared<CornerTexture>();

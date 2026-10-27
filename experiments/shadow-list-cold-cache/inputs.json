@@ -1,0 +1,35 @@
+{
+  "material3Revision": "d8aced24fecc2edbbd2c28f1e9ae0f4277093bf7",
+  "shadowSourceSha256": {
+    "src/Qavsi/Material3/Style/internal/shadows/blurmaskshadow.h": "d4d6be5931a98c6e999b2ed8511ecd2102766079ee88f54c5a7ea589a3ec04a9",
+    "src/Qavsi/Material3/Style/internal/shadows/blurmaskshadow.cpp": "f60a752536698dd2a6daae3756bceacfe00b293ac6eef5cc4b84f068ae3dc221",
+    "src/Qavsi/Material3/Style/internal/shadows/shadowgeometry.h": "5e06b60e5927601672f4de186b1f3cf0a22f8e9f97b80f2aaf7de89e71c47a5e",
+    "src/Qavsi/Material3/Style/internal/shadows/shadowmesh.cpp": "a4f427ff667d68b9d521a2ec829f88861a04ba29392711687e444bf94f8897a6",
+    "src/Qavsi/Material3/Style/internal/shadows/blurmaskmath.h": "562d687e655590420510cdc6a1f426371b75acc5ea54280ed91d944e80f6d7cb",
+    "src/Qavsi/Material3/Style/internal/shadows/shadowmaterial.cpp": "e6c90ce87c3bf1d8a72130fb0520fe022931aa508f7568678975e85e4c1219ab",
+    "src/Qavsi/Material3/Style/internal/shadows/Material3Elevation.qml": "f3e418dcb186e7039d4b8cac6c8e70452e323621a476775941a433da20824aae",
+    "src/Qavsi/Material3/Style/internal/shadows/roundedrectshadow.h": "fbf1d514c3118a9bfe2e6c2b033dce09063921e7c3167ba642d89b70fb93794c",
+    "src/Qavsi/Material3/Style/internal/shadows/blurmaskmaterial.h": "1a9aad4f99952c6bc3a90533e95e1a5ec7622a4494eb8ed3d2b25d01dd268452",
+    "src/Qavsi/Material3/Style/internal/shadows/shadowmesh.h": "c5f5bf426d33a5265320d5da2b5648ec85fe68a1f7cbde17b3ae094a3ea0c734",
+    "src/Qavsi/Material3/Style/internal/shadows/roundedrectshadow.cpp": "6069723566f1ea834585878d345da50a0a44c6a736b901b43f3176e6abd23a0f",
+    "src/Qavsi/Material3/Style/internal/shadows/shadowgeometry.cpp": "294a161f282a19e3ebc3295f000ef586b94244a890587823bdb6772f36bc96aa",
+    "src/Qavsi/Material3/Style/internal/shadows/blurmaskmaterial.cpp": "5a40dc15f600c70f51c101d31fa606a667f8cdaae6ba911b0694d216ba5399c4",
+    "src/Qavsi/Material3/Style/internal/shadows/blurmaskmath.cpp": "2d3461ae004cf5a798a0e0b9d0b2bcee590a792b6a50eb573c1daa557f8dcf05",
+    "src/Qavsi/Material3/Style/internal/shadows/shadowmaterial.h": "3b023b1c3c40ffc30ed9e9c416ce9b5d20beab667cd06daacc82a5b4b021abfd",
+    "src/Qavsi/Material3/Style/internal/shadows/shaders/shadow.vert": "2a4264a3bf25a132c87f98025d67ec55aefcd4a1fcbb1c16c30eb0074eaff65d",
+    "src/Qavsi/Material3/Style/internal/shadows/shaders/blur_mask.frag": "dd032d8d7e808d25e9f48698cbcf98574b6a867e4021a0cf28e6d60b36f1c1c8",
+    "src/Qavsi/Material3/Style/internal/shadows/shaders/blur_mask.vert": "56517981128dde7a5067e2c6a540e0af8e85cb0f1ba2db2e782a5d023edb64ec",
+    "src/Qavsi/Material3/Style/internal/shadows/shaders/shadow.frag": "d0008b0f7ed9d219419b28d48dd0aef59d4fb16819256ddf19dda8bf1a6aa7ca"
+  },
+  "snapshot": "/private/tmp/qavsi-shadow-list-study-20261027",
+  "productionFilesModified": false,
+  "iconsRevision": "c99b7d3be274933ce2271e7f90bb9ec8e369573e",
+  "harnessSha256": {
+    "CMakeLists.txt": "91b9528970c3403a06c605d7895bc6b8bd460940740e0c41bc6600178585c389",
+    "Elevation.qml": "6f8c56fe219f267b3d6b411e4e8c79d8f988eba926ebc207c41d7c2db98c4e25",
+    "Scene.qml": "21fa77c1d6ca092584d798def57fc2131a6a61c9380d3536f3f6f580ce5eb322",
+    "drawcounter.cpp": "b199216031b9f2f35950ab7edbe7075d4973e110d2a0f6ab2958a931a60ed048",
+    "main.cpp": "3e809a15b6f766aec4aeecc8f04014e4fc30d6ec5d63b1b2808049211a925a5a"
+  },
+  "drawCounterSha256": "86b8732b3435eebeda48369e5054fc15357fd73aefdf938f78d20f5904dc744d"
+}

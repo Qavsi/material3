@@ -1,0 +1,77 @@
+{
+    "backend": "opengl",
+    "build": "Release",
+    "cacheProbe": "Frozen copy only: atomic miss counter + steady_clock around convolution; production unchanged",
+    "count": 50,
+    "dpr": 1,
+    "drawCallDiagnostic": false,
+    "gpu": "Apple Apple M4 4.1 Metal - 90.5",
+    "gpuTimestampsSupported": true,
+    "gpuTiming": "asynchronous completed-frame QRhi times; not paired to current CPU frame",
+    "nativeControls": 50,
+    "os": "macOS Tahoe (26.5.2)",
+    "phases": [
+        {
+            "convolutionMs": 0,
+            "cornerCacheMisses": 0,
+            "cpuMs": 469.551,
+            "cpuMsPerFrame": 1.9646485355648535,
+            "drawCalls": {
+                "samples": 0
+            },
+            "firstFrameQueuedMs": 16.601708000000144,
+            "frameMs": {
+                "max": 33.90504099999998,
+                "mean": 16.748689600840336,
+                "over25": 2,
+                "over33": 1,
+                "over50": 0,
+                "p50": 16.654375000000073,
+                "p95": 21.651458999999704,
+                "p99": 24.77404200000001,
+                "samples": 238
+            },
+            "frames": 239,
+            "gpuMs": {
+                "samples": 0
+            },
+            "phase": "steady",
+            "renderElapsedMs": {
+                "max": 0.5391669999999067,
+                "mean": 0.2135057364016908,
+                "over25": 0,
+                "over33": 0,
+                "over50": 0,
+                "p50": 0.17866600000002109,
+                "p95": 0.4495830000000751,
+                "p99": 0.5365000000001601,
+                "samples": 239
+            },
+            "syncElapsedMs": {
+                "max": 0.012875000000349246,
+                "mean": 0.005112610878676183,
+                "over25": 0,
+                "over33": 0,
+                "over50": 0,
+                "p50": 0.004249999999956344,
+                "p95": 0.011167000000114058,
+                "p99": 0.012208000000100583,
+                "samples": 239
+            },
+            "wallMs": 4003.077834
+        }
+    ],
+    "qmlWarnings": 0,
+    "qt": "6.12.0",
+    "refreshHz": 60,
+    "scene": "controls",
+    "screen": "VA2419 Series",
+    "shadowPixelCount": 50,
+    "warmPolicy": "All sigma buckets preloaded; 0.012dp start retains cache ownership; zero misses required",
+    "window": [
+        -1860,
+        80,
+        1800,
+        950
+    ]
+}
