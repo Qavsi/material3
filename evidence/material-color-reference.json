@@ -964,6 +964,7 @@
   },
   "currentQavsiRoleMapping": {
     "primary": "primary",
+    "error": "error",
     "primaryForeground": "on_primary",
     "primaryContainer": "primary_container",
     "primaryContainerForeground": "on_primary_container",

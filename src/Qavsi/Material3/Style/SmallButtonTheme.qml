@@ -1,13 +1,9 @@
 pragma ComponentBehavior: Bound
 import QtQuick
-import Qt.labs.StyleKit as SK
-import Qavsi.Material3.Theme
 import "Material3ButtonRecipe.js" as Recipe
 
-SK.Theme {
+Material3TextFieldTheme {
     id: root
-    required property Material3Theme tokens
-    required property Material3Style sourceStyle
     // Theme-local variations outrank the direct Theme button mapping in Qt 6.12.
     readonly property QtObject buttonVariations: ButtonVariations { sourceStyle: root.sourceStyle }
     readonly property QtObject advancedButtonVariations: Material3AdvancedButtonVariations { sourceStyle: root.sourceStyle }

@@ -8,6 +8,7 @@ Column {
     required property Material3Theme tokens
     required property string title
     property string gapNote: ""
+    property real contentPadding: tokens.spacingMedium
     property real minimumContentWidth: 0
     default property alias samples: samplesColumn.data
     spacing: root.tokens.spacingSmall
@@ -20,12 +21,12 @@ Column {
     }
     Rectangle {
         width: parent.width
-        height: samplesViewport.implicitHeight + root.tokens.spacingMedium * 2
+        height: samplesViewport.implicitHeight + root.contentPadding * 2
         radius: root.tokens.radiusMedium
         color: root.tokens.surfaceContainer
         Flickable {
             anchors.fill: parent
-            anchors.margins: root.tokens.spacingMedium
+            anchors.margins: root.contentPadding
             id: samplesViewport
             objectName: "comparison.card.samplesViewport"
             readonly property real focusMargin: root.minimumContentWidth > 0

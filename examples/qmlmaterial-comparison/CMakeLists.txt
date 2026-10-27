@@ -27,7 +27,7 @@ set_target_properties(qavsi-material3-comparison PROPERTIES
 file(GLOB comparison_icons CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "icons/*.svg")
 qt_add_qml_module(qavsi-material3-comparison URI Qavsi.Material3.Comparison
     IMPORTS Qavsi.Icons.Material
-    QML_FILES Main.qml ComparisonPage.qml ActionsGallery.qml DemoCard.qml FabMenuExamples.qml ComparisonMetrics.qml
+    QML_FILES Main.qml ComparisonPage.qml FieldsGallery.qml ActionsGallery.qml DemoCard.qml FabMenuExamples.qml ComparisonMetrics.qml
     RESOURCES ${comparison_icons}
     IMPORT_PATH "${QavsiMaterial3_QML_IMPORT_DIR}")
 target_compile_features(qavsi-material3-comparison PRIVATE cxx_std_20)

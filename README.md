@@ -436,3 +436,65 @@ için `enter: Material3MenuEnterTransition { control: menu }` ve
 `exit: Material3MenuExitTransition { control: menu }` açıkça bağlanır. Süre/easing
 Theme'den gelir; kontrol `SK.Menu` kalır. Public Qt API sınırları ve mid-motion
 reduced davranışı [DESIGN.md](DESIGN.md) içinde açıklanır.
+
+
+## Native text fields
+
+```qml
+SK.TextField {
+    placeholderText: qsTr("Name") // outlined; floats on focus or a value
+}
+SK.TextField {
+    placeholderText: qsTr("Email")
+    SK.StyleVariation.variations: ["textFieldFilled"]
+}
+```
+
+The Material3 style is selected once at the window. Native text, validator,
+readOnly, enabled, font and padding APIs remain available; no MTextField is
+required. An initial nondefault placeholderTextColor keeps the native placeholder
+instead of the floating caption. Use the Theme's semantic roles for its color.
+The comparison app includes editable outlined/filled and invalid/disabled/read-only
+examples. [DESIGN.md](DESIGN.md) defines the recipe; [BACKLOG.md](BACKLOG.md) lists
+remaining button work. XS–XL appearance/size recipes are available:
+
+```qml
+SK.TextField {
+    placeholderText: qsTr("Filled · XS")
+    SK.StyleVariation.variations: ["textFieldFilledExtraSmall"]
+}
+```
+
+TextField recipe names combine `textFieldFilled` or `textFieldOutlined` with
+`ExtraSmall/Small/Medium/Large/ExtraLarge`. Defaults are medium. Set the complete recipe at creation;
+Qt 6.12's dynamic variation limitation still applies. These recipes supply the
+QCM font size/tracking and geometry while retaining native editing APIs.
+
+### Prefix, suffix, icons and messages
+
+```qml
+import Qavsi.Icons.Material
+
+SK.TextField {
+    placeholderText: qsTr("Amount")
+    validator: DoubleValidator { bottom: 0; decimals: 2 }
+    TextFieldSupport.prefix: "$"
+    TextFieldSupport.suffix: "USD"
+    TextFieldSupport.leadingIcon: "material:payments"
+    TextFieldSupport.trailingIcon: "material:info"
+    TextFieldSupport.supportingText: qsTr("Enter the amount before tax.")
+    TextFieldSupport.errorText: qsTr("Enter a valid amount.")
+}
+```
+
+`TextFieldSupport` comes from Qavsi.Material3.Style. Only the chosen icon provider
+must be imported; the style depends on Qavsi.Icons Core, not a specific font.
+Affixes never enter the native text or validator value. Icons are decorative.
+The message wraps and contributes to implicitHeight. Error follows
+`!acceptableInput`; a server error can bind TextFieldSupport.error explicitly,
+and assigning undefined restores native validation. The error message replaces
+supporting text and updates the default accessible description.
+
+Nondefault native padding/insets or an explicit accessible description keep
+caller ownership. Custom geometry must leave enough space for accessories;
+default geometry is augmented/restored automatically by the delegate.

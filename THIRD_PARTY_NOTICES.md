@@ -42,6 +42,10 @@ QmlMaterial comparison layout. QmlMaterial is MIT licensed; its preserved
 [license](https://github.com/Qavsi/material3/blob/main/examples/qmlmaterial-comparison/QMLMATERIAL-LICENSE.txt) and
 [pinned provenance](https://github.com/Qavsi/material3/blob/main/docs/migration/upstream-reference.md) accompany the example.
 QmlMaterial is not a kit runtime/build dependency and is not vendored here.
+The native TextField recipe additionally references QmlMaterial 0.6.1
+(`191260585a829ee4ae2c99e6232b7145b5c34474`), its input layout, floating
+caption and filled/outlined geometry. The adaptation uses Qt's native TextField
+and Shape APIs; no QCM control or input runtime is linked.
 
 The example’s `icons/*.svg` are Google Material Symbols Rounded, pinned to
 material-design-icons `10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7`, under Apache-2.0.

@@ -13,11 +13,22 @@ SK.Style {
     readonly property Material3Theme tokens: themeName === "Dark" ? darkTokens : lightTokens
     readonly property SmallButtonDelegate buttonDelegate: SmallButtonDelegate { }
     readonly property Material3MenuDelegate menuDelegate: Material3MenuDelegate { }
+    readonly property Material3TextFieldDelegate textFieldDelegate: Material3TextFieldDelegate { }
 
 
     themeName: "Light"
     fonts.system: root.tokens.labelLarge
     fonts.button: root.tokens.labelLarge
+    fonts.textField: root.tokens.bodyLarge
+    textField {
+        background {
+            delegate: root.textFieldDelegate.background
+            data: Material3TextFieldParameters {
+                tokens: root.tokens
+                reducedMotion: root.effectiveReducedMotion
+            }
+        }
+    }
     button {
         background {
             data: SmallButtonParameters {

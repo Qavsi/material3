@@ -5,7 +5,7 @@ behavior at these seams; they do not navigate the kit's private delegate tree.
 
 | Seam | Kept coverage | Outside the routine gate |
 |---|---|---|
-| Native SK.Button / SK.Menu consumption | Pointer/keyboard activation, disabled/cancel behavior, selection, FAB display, menu activation/dismissal, live caller bindings | Internal object names, loaders, ripple phase, shadow geometry, per-size/appearance permutations |
+| Native SK.Button / SK.Menu / SK.TextField consumption | Pointer/keyboard activation, disabled/cancel behavior, selection, FAB display, menu activation/dismissal, floating caption/native editing, accessory space/rendering, message wrapping/accessible description and live caller bindings | Internal object names, loaders, ripple phase, shadow geometry, per-size/appearance permutations |
 | Theme and reduced motion | Independent color oracle, role overrides/invalid inputs, light/dark rendered primary, OS preference, static pressed feedback, immediate menu opening | Every renderer/color/timing combination and frame parity with QCM |
 | Source / installed consumption | Real example using the exported targets/URIs; relocated find_package consumer | Rebuilding every consumer after a styling-only edit |
 
@@ -42,3 +42,7 @@ Do not reproduce implementation formulas. Refactoring belongs to review;
 removing implementation-coupled tests is not a reason to modify product behavior.
 Manual QCM comparison and optional experiments are separate from this gate.
 Historical evidence remains a record of its original revision, not current coverage.
+
+Input size coverage remains at the native consumer seam: one QCM table checks
+XS–XL TextField height, font size and tracking; explicit caller font
+assignment is retained. It does not inspect private delegate trees.

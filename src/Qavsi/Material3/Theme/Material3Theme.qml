@@ -35,6 +35,7 @@ QtObject {
     property color surfaceContainerHighest: root.dynamicColors ? root.colorScheme.colors.surfaceContainerHighest : (dark ? "#36343b" : "#e6e0e9")
     property color inverseSurface: root.dynamicColors ? root.colorScheme.colors.inverseSurface : (dark ? "#e6e0e9" : "#322f35")
     property color inverseSurfaceForeground: root.dynamicColors ? root.colorScheme.colors.inverseSurfaceForeground : (dark ? "#322f35" : "#f5eff7")
+    property color error: root.dynamicColors ? root.colorScheme.colors.error : (dark ? "#f2b8b5" : "#b3261e")
     property color outline: root.dynamicColors ? root.colorScheme.colors.outline : (dark ? "#938f99" : "#79747e")
     property color outlineVariant: root.dynamicColors ? root.colorScheme.colors.outlineVariant : (dark ? "#49454f" : "#cac4d0")
     property color shadow: root.dynamicColors ? root.colorScheme.colors.shadow : ("#000000")
@@ -61,6 +62,59 @@ QtObject {
     readonly property real buttonExtraLargePadding: 32
     readonly property real buttonLargeSpacing: 12
     readonly property real buttonExtraLargeSpacing: buttonLargeSpacing
+    component InputSize: QtObject {
+        required property real height
+        required property real horizontalPadding
+        property real verticalPadding: 0
+        required property real iconSize
+        required property real spacing
+        required property font font
+    }
+    readonly property InputSize textFieldExtraSmall: InputSize {
+        height: 40; horizontalPadding: 12; verticalPadding: 8
+        iconSize: 18; spacing: 8; font: root.bodySmall
+    }
+    readonly property InputSize textFieldSmall: InputSize {
+        height: 48; horizontalPadding: 12; verticalPadding: 12
+        iconSize: 20; spacing: 8; font: root.bodyMedium
+    }
+    readonly property InputSize textFieldMedium: InputSize {
+        height: 56; horizontalPadding: 16; verticalPadding: 16
+        iconSize: 24; spacing: 12; font: root.bodyLarge
+    }
+    readonly property InputSize textFieldLarge: InputSize {
+        height: 64; horizontalPadding: 20; verticalPadding: 20
+        iconSize: 24; spacing: 12; font: root.bodyLarge
+    }
+    readonly property InputSize textFieldExtraLarge: InputSize {
+        height: 72; horizontalPadding: 24; verticalPadding: 24
+        iconSize: 32; spacing: 16; font: root.bodyLarge
+    }
+    readonly property real referenceCardWidth: 400
+    readonly property real inputGalleryPadding: 12
+    readonly property real inputGallerySpacing: spacingSmall
+    readonly property real textFieldMinimumWidth: 64
+    readonly property real textFieldHeight: 56
+    readonly property real textFieldHorizontalPadding: spacingMedium
+    readonly property real textFieldVerticalPadding: spacingMedium
+    readonly property real textFieldFilledTopPadding: spacingLarge
+    readonly property real textFieldFilledBottomPadding: spacingSmall
+    readonly property real textFieldIconSize: 24
+    readonly property real textFieldIconSpacing: 12
+    readonly property real textFieldAffixSpacing: 2
+    readonly property real textFieldSupportingTopPadding: 4
+    readonly property real textFieldCornerRadius: radiusExtraSmall
+    readonly property real textFieldOutlineWidth: 1
+    readonly property real textFieldFocusedOutlineWidth: 2
+    readonly property real textFieldLabelScale: 0.8
+    readonly property real textFieldLabelTopPadding: spacingSmall
+    readonly property real textFieldLabelGapPadding: spacingUnit
+    readonly property int textFieldLabelDuration: 400
+    readonly property list<real> textFieldLabelEasingCurve: [0.05, 0, 0.133333, 0.06, 0.166666, 0.4,
+        0.208333, 0.82, 0.25, 1, 1, 1]
+    readonly property color textFieldFilledContainer: surfaceContainerHighest
+    readonly property color textFieldDisabledFilledContainer: Qt.alpha(surfaceForeground, 0.04)
+    readonly property color textFieldIndicator: surfaceVariantForeground
     readonly property real menuMinimumWidth: 200
     readonly property real menuMinimumHeight: 48
     readonly property real menuItemHeight: 48
@@ -110,6 +164,9 @@ QtObject {
         pixelSize: 12, weight: Font.Medium, letterSpacing: 0.5 })
     readonly property font bodyLarge: Qt.font({ family: root.effectiveFontFamily,
         pixelSize: 16, weight: Font.Normal, letterSpacing: 0.5 })
+    readonly property font bodySmall: Qt.font({ family: root.effectiveFontFamily,
+        pixelSize: 12, weight: Font.Normal, letterSpacing: 0.4 })
+    readonly property real bodySmallLineHeight: 16
     readonly property font bodyMedium: Qt.font({ family: root.effectiveFontFamily,
         pixelSize: 14, weight: Font.Normal, letterSpacing: 0.25 })
     readonly property font titleMedium: Qt.font({ family: root.effectiveFontFamily,

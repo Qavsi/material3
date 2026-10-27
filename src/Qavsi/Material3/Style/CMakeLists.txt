@@ -41,6 +41,20 @@ foreach(menu_file IN LISTS material3_menu_files)
     set_source_files_properties("${menu_file}" PROPERTIES
         QT_RESOURCE_ALIAS "${logical_name}" QT_QML_INTERNAL_TYPE TRUE)
 endforeach()
+set(material3_field_files
+    internal/fields/Material3TextFieldTheme.qml
+    internal/fields/Material3TextFieldVariation.qml
+    internal/fields/Material3TextFieldParameters.qml
+    internal/fields/Material3TextFieldDelegate.qml
+    internal/fields/Material3TextFieldBackground.qml
+    internal/fields/Material3TextFieldBinding.qml
+    internal/fields/Material3TextFieldDecorations.qml
+    internal/fields/Material3FieldOutline.qml)
+foreach(field_file IN LISTS material3_field_files)
+    get_filename_component(logical_name "${field_file}" NAME)
+    set_source_files_properties("${field_file}" PROPERTIES
+        QT_RESOURCE_ALIAS "${logical_name}" QT_QML_INTERNAL_TYPE TRUE)
+endforeach()
 set(material3_advanced_files
     internal/actions/advanced/Material3AdvancedButtonParameters.qml
     internal/actions/advanced/Material3JoinedButtonDelegate.qml
@@ -65,12 +79,12 @@ qt_add_qml_module(${module_target} SHARED
     PLUGIN_TARGET ${module_target}Plugin
     IMPORTS TARGET QavsiMaterial3Theme Qavsi.Icons
     IMPORT_PATH "${QavsiIcons_QML_IMPORT_DIR}"
-    DEPENDENCIES QtQuick.Controls.impl
+    DEPENDENCIES QtQuick.Controls.impl QtQuick.Shapes
     QML_FILES internal/feedback/Material3Ripple.qml
         internal/menus/Material3MenuItemBackground.qml
         internal/menus/Material3MenuEnterTransition.qml
         internal/menus/Material3MenuExitTransition.qml
-        Material3ButtonContent.qml ${material3_advanced_files} ${material3_menu_files}
+        Material3ButtonContent.qml ${material3_advanced_files} ${material3_menu_files} ${material3_field_files}
         internal/shadows/Material3Elevation.qml
         Material3Style.qml SmallButtonTheme.qml SmallButtonBackground.qml SmallButtonShadow.qml
         SmallButtonDelegate.qml SmallButtonParameters.qml
@@ -84,6 +98,7 @@ qt_add_qml_module(${module_target} SHARED
         internal/recipes/Material3SegmentedButtonRecipe.js
         internal/recipes/Material3SplitButtonRecipe.js
     SOURCES materialbuttonfeedback.h materialbuttonfeedback.cpp ${material3_shadow_sources}
+        textfieldsupport.h textfieldsupport.cpp
     OUTPUT_TARGETS module_auxiliary_targets)
 qt_add_shaders(${module_target} "qavsi_material3_small_button_shaders"
     PREFIX "/Qavsi/Material3/Style"

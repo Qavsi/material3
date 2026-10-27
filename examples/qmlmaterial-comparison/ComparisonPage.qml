@@ -43,12 +43,14 @@ ColumnLayout {
         clip: true
         boundsBehavior: Flickable.StopAtBounds
         SK.ScrollBar.vertical: SK.ScrollBar { }
-        ActionsGallery {
+        Column {
             id: gallery
-            tokens: root.tokens
             x: root.tokens.spacingMedium
             y: root.tokens.spacingMedium
             width: Math.max(0, viewport.width - root.tokens.spacingMedium * 2)
+            spacing: root.tokens.spacingLarge
+            FieldsGallery { width: Math.min(parent.width, root.tokens.referenceCardWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
+            ActionsGallery { width: parent.width; tokens: root.tokens }
         }
     }
 }

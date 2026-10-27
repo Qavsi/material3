@@ -119,8 +119,8 @@ normal QML `implicitWidth/implicitHeight` alanları yeniden yazılmaz.
 | Icon boyutu | Native hedef | Optical plate | Her kenarda inset | İkon | Checked / pressed radius |
 |---|---|---|---|---|---|
 | XS | 40 | 30 | 5 | 22 | 12 / 8 |
-| S | 48 | 40 | 4 | 24 | 12 / 8 |
-| M | 64 | 56 | 4 | 24 | 16 / 12 |
+| S | 48 | 4 | 24 | 12 / 8 |
+| M | 64 | 4 | 24 | 16 / 12 |
 | L | 104 | 96 | 4 | 32 | 28 / 16 |
 | XL | 144 | 136 | 4 | 40 | 28 / 16 |
 
@@ -562,3 +562,100 @@ An already-running job can therefore finish within its original 300/150 ms
 bound; following transitions are immediate. No synthetic close/open is used.
 Qt 6.12 QQuickMenu also ignores open() while its exit is still visible, unlike
 base QQuickPopup. After closed, normal open works. This native limitation is preserved rather than replacing Qt routing.
+
+
+## Native TextField: outlined and filled
+
+Reference: QmlMaterial 0.6.1 (`191260585a829ee4ae2c99e6232b7145b5c34474`),
+`qml/input/TextField.qml`, `TextFieldEmbed.qml`, `FloatingPlaceholderText.qml`,
+`OutlineTextFieldShape.qml` and `FilledTextFieldShape.qml`. This slice adds no
+control wrapper, input router or dependency on Merce.
+
+- `SK.TextField` is outlined by default. `textFieldFilled` selects filled;
+  the family-prefixed variation avoids inheriting generic button variations.
+- `placeholderText` is the single floating caption: rest inside when empty,
+  float on focus or non-empty text, remain floated after blur with a value.
+- Medium recipe: 56 logical px height, 16 px horizontal padding, BodyLarge
+  16/400/tracking 0.5, 0.8 caption scale. All values belong to Material3Theme.
+- Filled uses surfaceContainerHighest, top corners4, bottom underline1/2.
+  The resting outlined background is transparent; its outline has a real gap
+  behind the floated caption rather than a surface-colored patch.
+- Foreground/indicator roles follow onSurfaceVariant, onSurface, primary and
+  error. Invalid state uses native `acceptableInput`; readOnly stays enabled.
+  Disabled content/outline use Material3 onSurface opacity roles.
+- Editing, selection, cursor, validator, focus, readOnly and caller bindings
+  remain owned by the native control. No delegate rewrites the input text.
+- Label motion uses the Theme duration/easing. Effective reduced motion or
+  disabled StyleKit transitions resolves the label directly to its end state.
+  The same QML text/path implementation works on Metal and software.
+
+Qt 6.12's native StyleKit placeholder reads the control palette directly rather
+than the type palette. The background therefore uses a conditional, restoring
+Binding to hide the default placeholder while it draws the floating caption.
+An initially nondefault placeholderTextColor opts out and keeps the native
+placeholder. No global palette or SDK patch is used.
+
+The XS–XL sizes follow QCM's TextField token table.
+
+| Size | TextField height | Font px / tracking |
+|---|---:|---|
+| XS | 40 | 12 / 0.4 |
+| S | 48 | 14 / 0.25 |
+| M | 56 | 16 / 0.5 |
+| L | 64 | 16 / 0.5 |
+| XL | 72 | 16 / 0.5 |
+
+Material3Theme owns typed size recipes: horizontal/vertical padding, adornment
+size, gap and font. Private recipe variations map native geometry and supply
+that same recipe through delegate data. TextField uses complete appearance+size
+recipes (`textFieldFilledExtraSmall`, `textFieldOutlinedSmall`, etc.) because
+StyleKit's opaque background.data slot cannot merge two independent axis objects.
+One parameterized variation implementation supplies all recipes. `textFieldFilled`
+remains the medium filled alias; outlined medium remains the default.
+A restoring default-font binding applies the size typography; explicit caller
+font ownership is retained. Recipe variations are assigned at creation; the
+known Qt 6.12 dynamic-variation cache limitation remains.
+
+The comparison's Text Inputs reference card reproduces QCM's sample
+order, 400px card width, 12px card padding and 8px input spacing. Native editing/contract examples
+follow them. See [BACKLOG.md](BACKLOG.md) for deferred button work.
+
+### TextField accessories and messages
+
+`TextFieldSupport` is an attached content/status API on the native SK.TextField.
+It provides prefix/suffix, leadingIcon/trailingIcon, supportingText/errorText and
+an optional error override; it does not own text input or route events. Native
+acceptableInput supplies the default error state. Assigning error=false/true
+explicitly overrides it; error=undefined restores automatic validation.
+
+The QCM 0.6.1 medium recipe supplies icon24/spacing12, affix spacing2 and support
+spacing4. Supporting/error text uses BodySmall12/400/tracking0.4, line height16.
+These are Theme tokens. Prefix/suffix appear when the caption floats or there is
+no caption. They use the rendered input baseline, including its vertical-alignment
+offset, elide at narrow widths and remain presentation only: the native text/validator value contains no affix.
+Leading/trailing icons use AppIcon and package:icon names, Theme appearance and
+onSurfaceVariant; an enabled error tints the trailing icon with the error role.
+Icons are decorative, matching QCM, and do not introduce another focus stop.
+
+Error text replaces supporting text when error=true and errorText is nonempty;
+otherwise supportingText remains. The message wraps and reserves real native
+bottom inset/padding, so subsequent controls do not overlap it. The 56px container
+keeps its geometry while total implicit height includes the message. The selected
+filled/outlined Theme recipe supplies the input's base bottom padding; supporting
+space is added to that stable value. Logical
+leading/trailing placement follows the native field's LayoutMirroring setting.
+Optional decorations load only for fields that request them.
+
+The geometry adapter temporarily augments default native padding/insets and
+background minimum width, restoring their bindings when extras disappear or the
+delegate is released. Initial nondefault caller values and later assignments keep
+caller ownership; custom geometry must reserve enough room for accessories.
+A binding initially equal to the style default cannot be distinguished through
+public Qt API and is temporarily augmented until restoration. Text, font, explicit
+width/height, selection, validator and readOnly remain native.
+
+The placeholder supplies an initially empty Accessible.name, so adding a message
+never removes the field label. Support/error text and affix units populate an
+initially empty Accessible.description. Explicit nonempty caller names/descriptions
+are preserved. Decorative labels/icons
+are ignored individually, so the field description is not announced twice.
