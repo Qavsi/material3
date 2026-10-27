@@ -69,6 +69,7 @@ ColumnLayout {
                 // Qt 6.12 must finish Style completion before creating these readers.
                 Component.onCompleted: Qt.callLater(() => navigationExamples.active = true)
             }
+            SwitchesGallery { width: Math.min(parent.width, root.tokens.referenceCardWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
             ActionsGallery { width: parent.width; tokens: root.tokens }
         }
     }

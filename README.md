@@ -531,3 +531,17 @@ shows string/role models, editable/disabled controls and caller-owned factories.
 
 Native SK.TabBar/TabButton provide bar and primary-tab selection.
 Material3NavigationContent supplies package icons for bar/rail examples.
+
+### Switch
+
+```qml
+SK.Switch {
+    checked: true
+    icon.name: checked ? "material:check" : "material:close"
+    icon.width: tokens.switchIconSize
+    icon.height: tokens.switchIconSize
+    icon.color: checked ? tokens.switchCheckedIcon : tokens.switchIcon
+}
+```
+
+The optional native icon fields bind size and semantic ink to Material3Style.tokens.

@@ -89,6 +89,18 @@ foreach(recipe IN ITEMS Button IconButton Fab Joined ConnectedButton SegmentedBu
     set_source_files_properties("internal/recipes/Material3${recipe}Recipe.js" PROPERTIES
         QT_RESOURCE_ALIAS "Material3${recipe}Recipe.js")
 endforeach()
+set(material3_switch_files
+    internal/switches/Material3SwitchDelegate.qml
+    internal/switches/Material3SwitchParameters.qml
+    internal/switches/Material3SwitchIndicator.qml
+)
+foreach(family_file IN LISTS material3_switch_files)
+    get_filename_component(logical_name "${family_file}" NAME)
+    set_source_files_properties("${family_file}" PROPERTIES QT_RESOURCE_ALIAS "${logical_name}")
+    if(NOT logical_name STREQUAL "Material3NavigationContent.qml")
+        set_source_files_properties("${family_file}" PROPERTIES QT_QML_INTERNAL_TYPE TRUE)
+    endif()
+endforeach()
 set(material3_navigation_files
     internal/navigation/Material3NavigationParameters.qml
     internal/navigation/Material3NavigationDelegate.qml
@@ -116,7 +128,7 @@ qt_add_qml_module(${module_target} SHARED
         internal/menus/Material3MenuEnterTransition.qml
         internal/menus/Material3MenuExitTransition.qml
         Material3ButtonContent.qml ${material3_advanced_files} ${material3_menu_files} ${material3_field_files} ${material3_combo_files}
-        ${material3_navigation_files}
+        ${material3_switch_files} ${material3_navigation_files}
         internal/shadows/Material3Elevation.qml
         Material3Style.qml SmallButtonTheme.qml SmallButtonBackground.qml SmallButtonShadow.qml
         SmallButtonDelegate.qml SmallButtonParameters.qml

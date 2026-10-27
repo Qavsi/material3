@@ -1,4 +1,5 @@
 import QtQuick
+import "Material3SwitchRecipe.js" as SwitchRecipe
 import "Material3NavigationRecipe.js" as NavigationRecipe
 import "Material3TabRecipe.js" as TabRecipe
 
@@ -114,6 +115,29 @@ QtObject {
     }
 
 
+    readonly property real switchTrackWidth: SwitchRecipe.trackWidth
+    readonly property real switchTrackHeight: SwitchRecipe.trackHeight
+    readonly property real switchTrackOutlineWidth: SwitchRecipe.edgeInset
+    readonly property real switchThumbUncheckedDiameter: SwitchRecipe.thumbUncheckedDiameter
+    readonly property real switchThumbCheckedDiameter: SwitchRecipe.thumbCheckedDiameter
+    readonly property real switchThumbPressedDiameter: SwitchRecipe.thumbPressedDiameter
+    readonly property real switchIconSize: 16
+    readonly property real switchStateLayerDiameter: 28
+    readonly property int switchColorDuration: 200
+    readonly property int switchMotionDuration: shapeDuration
+    readonly property int switchMotionEasing: shapeEasing
+    readonly property color switchTrack: surfaceContainerHighest
+    readonly property color switchCheckedTrack: primary
+    readonly property color switchThumb: outline
+    readonly property color switchCheckedThumb: primaryForeground
+    readonly property color switchActiveThumb: surfaceVariantForeground
+    readonly property color switchCheckedActiveThumb: primaryContainer
+    readonly property color switchIcon: surfaceContainerHighest
+    readonly property color switchCheckedIcon: primaryContainerForeground
+    readonly property color switchDisabledTrack: Qt.alpha(surfaceForeground, disabledContainerOpacity)
+    readonly property real switchDisabledThumbOpacity: disabledLabelOpacity
+    readonly property color switchStateLayer: surfaceForeground
+    readonly property color switchCheckedStateLayer: primary
 
     readonly property real navigationIconSize: 24
     readonly property real navigationRippleOpacity: 0.10

@@ -48,7 +48,7 @@ caption and filled/outlined geometry. The adaptation uses Qt's native TextField
 and Shape APIs; no QCM control or input runtime is linked.
 The native ComboBox recipes, floating caption and option-menu geometry use the
 same pinned QCM reference; Qt retains model, editing and selection ownership.
-The navigation bar/rail-item/tab mappings also reference this pinned revision and its
+The navigation bar/rail-item/tab, Switch mappings also reference this pinned revision and its
 MIT license. Native Qt retains input/selection ownership; QCM is not linked.
 
 The example’s `icons/*.svg` are Google Material Symbols Rounded, pinned to

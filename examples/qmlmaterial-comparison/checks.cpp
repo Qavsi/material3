@@ -403,6 +403,27 @@ void checkNavigation(QQuickWindow &window)
 
 
 
+void checkSwitch(QQuickWindow &window)
+{
+    auto *toggle = control(window, "comparison.switch.unchecked");
+    auto *disabled = control(window, "comparison.switch.disabled");
+    if (!toggle || !disabled)
+        return;
+    reveal(toggle);
+    auto *indicator = toggle->property("indicator").value<QQuickItem *>();
+    expect(indicator && qAbs(indicator->width() - 52) < 0.5 && qAbs(indicator->height() - 32) < 0.5,
+           qPrintable(QStringLiteral("Switch uses QCM's 52 by 32 native indicator geometry (actual %1 by %2)")
+               .arg(indicator ? indicator->width() : 0).arg(indicator ? indicator->height() : 0)));
+    QSignalSpy toggled(toggle, SIGNAL(toggled()));
+    toggle->forceActiveFocus(Qt::TabFocusReason);
+    QTest::keyClick(&window, Qt::Key_Space);
+    expect(toggle->property("checked").toBool() && toggled.size() == 1,
+           "Space toggles a styled Switch through its native checked API");
+    const auto center = disabled->mapToScene(QPointF(disabled->width() / 2, disabled->height() / 2));
+    QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, center.toPoint());
+    expect(!disabled->property("enabled").toBool() && !disabled->property("checked").toBool(),
+           "a disabled Switch rejects pointer activation");
+}
 
 void checkSelection(QQuickWindow &window)
 {
@@ -487,6 +508,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     checkTextField(window);
     checkFieldAccessories(window);
     checkInputSizes(window);
+    checkSwitch(window);
     checkNavigation(window);
     checkSelection(window);
     checkFab(window);

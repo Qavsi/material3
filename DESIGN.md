@@ -710,7 +710,7 @@ The stock-origin adapter is scoped to Qt 6.12's StyleKit component layout and
 must be rechecked when Qt changes that implementation. Motion policy and software
 use the same existing kit paths; no Qt SDK source is changed.
 
-## Native navigation
+## Native navigation and switches
 
 Reference: QmlMaterial 0.6.1, `191260585a829ee4ae2c99e6232b7145b5c34474`.
 This is a native Qt StyleKit adaptation; QCM is not linked.
@@ -723,6 +723,11 @@ This is a native Qt StyleKit adaptation; QCM is not linked.
   a responsive rail/drawer container is not part of this slice.
   The comparison defers Navigation creation until Style completion, like its
   caller-popup examples, to avoid Qt 6.12 reader-reset crashes in an isolated build.
+- `Material3NavigationContent` is an opt-in contentItem helper, like
+  Material3ButtonContent. It preserves the native control, package:icon names,
+  native icon color and checked-to-filled policy. Bar label ink is separate
+  from selected icon ink. Native QFont metrics are retained; bar examples bind
+  LabelMedium because Qt 6.12 has no variation-level fonts slot.
 
 Geometry recipes are private Theme resources; Theme stays independent of Style.
 Motion follows effectiveReducedMotion, StyleKit transitions, visibility and window state.

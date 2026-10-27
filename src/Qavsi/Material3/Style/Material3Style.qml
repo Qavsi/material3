@@ -17,6 +17,7 @@ SK.Style {
     readonly property Material3TextFieldDelegate textFieldDelegate: Material3TextFieldDelegate { }
 
 
+    readonly property Material3SwitchDelegate switchFactory: Material3SwitchDelegate { }
     readonly property Material3NavigationDelegate navigationDelegate: Material3NavigationDelegate { }
     fonts.tabBar: root.tokens.titleSmall
 
@@ -199,6 +200,55 @@ SK.Style {
         }
     }
 
+    switchControl {
+        leftPadding: 0
+        rightPadding: 0
+        topPadding: 0
+        bottomPadding: 0
+        spacing: root.tokens.spacingSmall
+        text {
+            color: root.tokens.surfaceForeground
+            alignment: Qt.AlignLeft | Qt.AlignVCenter
+            padding: 0
+        }
+        // Native Switch derives its natural width from the hidden background.
+        background {
+            width: root.tokens.switchTrackWidth
+            height: root.tokens.switchTrackHeight
+            visible: false
+            margins: 0
+            shadow.visible: false
+        }
+        handle.visible: false
+        indicator {
+            visible: true
+            width: root.tokens.switchTrackWidth
+            height: root.tokens.switchTrackHeight
+            radius: root.tokens.switchTrackHeight / 2
+            margins: 0
+            alignment: Qt.AlignLeft | Qt.AlignVCenter
+            fillWidth: false
+            fillHeight: false
+            color: root.tokens.switchTrack
+            gradient: null
+            border.width: root.tokens.switchTrackOutlineWidth
+            border.color: root.tokens.outline
+            foreground.visible: false
+            delegate: root.switchFactory.indicator
+            data: Material3SwitchParameters {
+                tokens: root.tokens
+                reducedMotion: root.effectiveReducedMotion
+            }
+        }
+        checked.indicator.foreground.visible: false
+        checked.indicator.color: root.tokens.switchCheckedTrack
+        disabled {
+            text.color: root.tokens.disabledLabel
+            indicator.color: root.tokens.switchDisabledTrack
+            indicator.border.color: Qt.alpha(root.tokens.outline, root.tokens.disabledContainerOpacity)
+            checked.indicator.color: root.tokens.switchDisabledTrack
+        }
+    }
 
     tabBar {
         leftPadding: 0; rightPadding: 0; topPadding: 0; bottomPadding: 0
