@@ -23,3 +23,7 @@ Input-family investigations (not confirmed defects):
 |---|---|---|
 | INPUT-001 | Large option models | Profile popup width measurement for large short-label models before adding a cache; the current short-list path scans on open and stops at the maximum width |
 | SDK-001 | Qt 6.12 StyleKit startup | Cold launches can crash in QQStyleKitReader::resetReadersForStyle when caller popup/delegate readers are created during initial style completion. The comparison defers its caller-popup API examples and reference menus, keeping variation recipe galleries eager. Source repeated starts pass; the SDK root cause remains upstream work. |
+
+| ID | Area | Follow-up |
+|---|---|---|
+| NAV-001 | Rail motion | Exact QCM spring parity and a complete responsive rail/drawer are outside the isolated item slice; current rail selection uses Theme-based Qt easing. The comparison defers Navigation reader creation until Style completion to avoid SDK-001 in the isolated family build. |

@@ -526,3 +526,8 @@ space. Caller-defined popup/delegate/contentItem are preserved.
 The ComboBox is outlined, matching the pinned QCM implementation; no filled
 ComboBox variant is exposed. [ComboBoxGallery.qml](examples/qmlmaterial-comparison/ComboBoxGallery.qml)
 shows string/role models, editable/disabled controls and caller-owned factories.
+
+### Navigation
+
+Native SK.TabBar/TabButton provide bar and primary-tab selection.
+Material3NavigationContent supplies package icons for bar/rail examples.

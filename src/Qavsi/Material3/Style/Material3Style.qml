@@ -17,6 +17,9 @@ SK.Style {
     readonly property Material3TextFieldDelegate textFieldDelegate: Material3TextFieldDelegate { }
 
 
+    readonly property Material3NavigationDelegate navigationDelegate: Material3NavigationDelegate { }
+    fonts.tabBar: root.tokens.titleSmall
+
     themeName: "Light"
     fonts.system: root.tokens.labelLarge
     fonts.button: root.tokens.labelLarge
@@ -195,6 +198,49 @@ SK.Style {
             checked.background.color: root.tokens.secondaryContainer
         }
     }
+
+
+    tabBar {
+        leftPadding: 0; rightPadding: 0; topPadding: 0; bottomPadding: 0
+        spacing: root.tokens.tabBarSpacing
+        background {
+            height: root.tokens.tabHeight
+            radius: 0
+            color: root.tokens.transparent
+            gradient: null
+            margins: 0
+            border.width: 0
+            shadow.visible: false
+            delegate: root.navigationDelegate.barBackground
+            data: Material3NavigationParameters { tokens: root.tokens; reducedMotion: root.effectiveReducedMotion }
+        }
+    }
+    tabButton {
+        leftPadding: root.tokens.tabHorizontalPadding
+        rightPadding: root.tokens.tabHorizontalPadding
+        topPadding: 0; bottomPadding: 0
+        spacing: root.tokens.tabSpacing
+        text { color: root.tokens.surfaceForeground; alignment: Qt.AlignCenter; padding: 0 }
+        background {
+            width: root.tokens.tabMinimumWidth
+            height: root.tokens.tabHeight
+            radius: 0
+            color: root.tokens.transparent
+            gradient: null
+            margins: 0
+            border.width: 0
+            shadow.visible: false
+            delegate: root.navigationDelegate.itemBackground
+            data: Material3NavigationParameters { tokens: root.tokens; reducedMotion: root.effectiveReducedMotion }
+        }
+        hovered.background.color: root.tokens.transparent
+        focused.background.color: root.tokens.transparent
+        pressed.background.color: root.tokens.transparent
+        checked { text.color: root.tokens.primary; background.color: root.tokens.transparent }
+        disabled { text.color: root.tokens.disabledLabel; background.color: root.tokens.transparent; checked.text.color: root.tokens.disabledLabel }
+    }
+
+
     light: SmallButtonTheme { tokens: root.lightTokens; sourceStyle: root }
     dark: SmallButtonTheme { tokens: root.darkTokens; sourceStyle: root }
 }

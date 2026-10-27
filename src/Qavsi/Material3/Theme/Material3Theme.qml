@@ -1,4 +1,6 @@
 import QtQuick
+import "Material3NavigationRecipe.js" as NavigationRecipe
+import "Material3TabRecipe.js" as TabRecipe
 
 QtObject {
     id: root
@@ -110,6 +112,43 @@ QtObject {
         height: 72; horizontalPadding: 24; verticalPadding: 0
         iconSize: 32; spacing: 0; font: root.bodyLarge
     }
+
+
+
+    readonly property real navigationIconSize: 24
+    readonly property real navigationRippleOpacity: 0.10
+    readonly property real navigationBarIndicatorWidth: 64
+    readonly property real navigationBarIndicatorStartWidth: 48
+    readonly property real navigationBarIndicatorHeight: 32
+    readonly property real navigationBarLabelSpacing: 4
+    readonly property real navigationBarLabelHeight: 16
+    readonly property real navigationBarItemHeight: navigationBarIndicatorHeight + navigationBarLabelSpacing + navigationBarLabelHeight
+    readonly property int navigationBarSelectionDuration: 100
+    readonly property int navigationBarSelectionEasing: Easing.Linear
+    readonly property real navigationRailCollapsedWidth: NavigationRecipe.collapsedWidth
+    readonly property real navigationRailIndicatorWidth: NavigationRecipe.indicatorWidth
+    readonly property real navigationRailIndicatorHeight: NavigationRecipe.indicatorHeight
+    readonly property real navigationRailExpandedIndicatorSize: NavigationRecipe.expandedHeight
+    readonly property real navigationRailIndicatorMargin: 16
+    readonly property real navigationRailExpandedWidth: navigationRailExpandedIndicatorSize + navigationRailIndicatorMargin * 2
+    // Qt adaptation of QCM's standard 700/.9 SpringMotion, not an exact spring port.
+    readonly property int navigationRailSelectionDuration: 250
+    readonly property int navigationRailSelectionEasing: Easing.OutCubic
+    readonly property real tabMinimumWidth: 80
+    readonly property real tabHeight: 48
+    readonly property real tabHorizontalPadding: 16
+    readonly property real tabSpacing: 8
+    readonly property real tabBarSpacing: 1
+    readonly property real tabDividerHeight: 1
+    readonly property real tabIndicatorHeight: TabRecipe.indicatorThickness
+    readonly property real tabIndicatorRadius: 3
+    readonly property real tabIndicatorMinimumWidth: TabRecipe.minimumIndicatorWidth
+    readonly property int tabIndicatorDuration: 250
+    readonly property list<real> tabIndicatorEasingCurve: [0.2, 0, 0, 1, 1, 1]
+    readonly property font titleSmall: Qt.font({ family: root.effectiveFontFamily,
+        pixelSize: 14, weight: Font.Medium, letterSpacing: 0.1 })
+
+
     readonly property real referenceCardWidth: 400
     readonly property real inputGalleryPadding: 12
     readonly property real inputGallerySpacing: spacingSmall

@@ -60,6 +60,15 @@ ColumnLayout {
                 // shortcut: keep caller popup creation outside Qt 6.12's initial reader-reset iteration.
                 Component.onCompleted: Qt.callLater(() => apiExamples.active = true)
             }
+            Loader {
+                id: navigationExamples
+                width: Math.min(parent.width, root.tokens.referenceCardWidth)
+                anchors.horizontalCenter: parent.horizontalCenter
+                active: false
+                sourceComponent: NavigationGallery { tokens: root.tokens }
+                // Qt 6.12 must finish Style completion before creating these readers.
+                Component.onCompleted: Qt.callLater(() => navigationExamples.active = true)
+            }
             ActionsGallery { width: parent.width; tokens: root.tokens }
         }
     }

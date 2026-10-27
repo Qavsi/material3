@@ -4,6 +4,9 @@ import "Material3ButtonRecipe.js" as Recipe
 
 Material3TextFieldTheme {
     id: root
+    readonly property Material3NavigationVariations navigationVariations: Material3NavigationVariations {
+        sourceStyle: root.sourceStyle
+    }
     // Theme-local variations outrank the direct Theme button mapping in Qt 6.12.
     readonly property QtObject buttonVariations: ButtonVariations { sourceStyle: root.sourceStyle }
     readonly property QtObject advancedButtonVariations: Material3AdvancedButtonVariations { sourceStyle: root.sourceStyle }

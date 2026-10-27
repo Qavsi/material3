@@ -1,6 +1,6 @@
-# Qavsi Material3 — buton ailesi
+# Qavsi Material3 — StyleKit
 
-Qt 6.12 tabanlı bağımsız buton ailesi. Semantik renkler ve typografi Google
+Qt 6.12 tabanlı bağımsız, aşamalı Material3 StyleKit kiti. Semantik renkler ve typografi Google
 Material 3 kaynaklarından, bu tur kullanıcı isteğiyle eşlenen Qt buton geometrisi
 ve FAB davranışları pinned QmlMaterial referansından gelir. Görsel sözleşme bu
 pakete aittir; Merce Theme, Runtime, ortak palette veya kontrol sarmalayıcısı yoktur.
@@ -276,8 +276,8 @@ factory/data dosyaları ve C++ registration metadata'sı paketle taşınır.
   ikonları Qavsi.Icons.Material üzerinden gerçek paketli Material Symbols adlarıdır;
   font ve katalog kitte kopyalanmaz.
 
-**Açık sınırlar:** loading, badge, navigation, input, seçim kontrolleri, slider,
-tabs ve genel Menu/Popup skin bu dilime dahil değildir. Split menü referans gibi
+**Remaining scope:** loading, badges, the complete responsive navigation shell and
+selection controls beyond the families documented below remain outside this slice. Split menü referans gibi
 sahne içi Popup.Item ve Qt fallback’ini kullanır.
 İki inline FAB action stack bu karşılaştırmaya dahildir; bütün Expressive FAB
 menu ailesinin eşliği iddia edilmez. Grouped neighbor-width redistribution ve
@@ -709,3 +709,20 @@ The native ownership/activation path is checked against
 The stock-origin adapter is scoped to Qt 6.12's StyleKit component layout and
 must be rechecked when Qt changes that implementation. Motion policy and software
 use the same existing kit paths; no Qt SDK source is changed.
+
+## Native navigation
+
+Reference: QmlMaterial 0.6.1, `191260585a829ee4ae2c99e6232b7145b5c34474`.
+This is a native Qt StyleKit adaptation; QCM is not linked.
+
+- Native SK.TabBar / SK.TabButton own navigation selection, exclusivity, focus
+  and keyboard input. The `navigationBar` / `navigationBarItem` variations use
+  a 64x32 selected capsule with icon and label. `tabPrimary` uses the native tab
+  bar and a content-width 3px underline. Independent `navigationRailCollapsed`
+  and `navigationRailExpanded` Button recipes show the screenshot's icon items;
+  a responsive rail/drawer container is not part of this slice.
+  The comparison defers Navigation creation until Style completion, like its
+  caller-popup examples, to avoid Qt 6.12 reader-reset crashes in an isolated build.
+
+Geometry recipes are private Theme resources; Theme stays independent of Style.
+Motion follows effectiveReducedMotion, StyleKit transitions, visibility and window state.

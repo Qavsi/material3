@@ -378,6 +378,26 @@ void checkFieldAccessories(QQuickWindow &window)
     email->setProperty("showSupportingText", false);
 }
 
+void checkNavigation(QQuickWindow &window)
+{
+    auto *bar = control(window, "comparison.navigation.bar");
+    auto *pets = control(window, "comparison.navigation.pets");
+    auto *tabs = control(window, "comparison.tabs.bar");
+    auto *photos = control(window, "comparison.tabs.photos");
+    if (!bar || !pets || !tabs || !photos)
+        return;
+    reveal(pets);
+    pets->forceActiveFocus(Qt::TabFocusReason);
+    QTest::keyClick(&window, Qt::Key_Space);
+    expect(bar->property("currentIndex").toInt() == 1 && pets->property("checked").toBool()
+               && bar->property("currentItem").value<QObject *>() == pets,
+           "navigation items retain native exclusive TabBar selection");
+    reveal(photos);
+    photos->forceActiveFocus(Qt::TabFocusReason);
+    QTest::keyClick(&window, Qt::Key_Space);
+    expect(tabs->property("currentIndex").toInt() == 1 && photos->property("checked").toBool(),
+           "Space selects a primary tab through its native currentIndex API");
+}
 
 
 
@@ -467,6 +487,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     checkTextField(window);
     checkFieldAccessories(window);
     checkInputSizes(window);
+    checkNavigation(window);
     checkSelection(window);
     checkFab(window);
     checkMenu(window);
