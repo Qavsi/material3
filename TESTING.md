@@ -88,3 +88,7 @@ The two native flat menu triggers have one rendered-edge check each: pointer
 focus must retain rounded, borderless state feedback. Hardware runs wait for
 actual hover; offscreen runs cover pointer focus because they do not deliver
 native cursor hover. No private background items are inspected.
+
+Before scrolling a control into view, the consumer check renders pending layout.
+Scroll offsets must use settled geometry after a window resize; otherwise the
+floating-caption capture can fall above the Flickable clip despite correct focus.

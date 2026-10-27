@@ -46,6 +46,9 @@ QQuickItem *control(QQuickWindow &window, const QString &name)
 
 void reveal(QQuickItem *item)
 {
+    // Settle pending layout before measuring the Flickable scroll offset.
+    if (auto *window = item->window())
+        window->grabWindow();
     for (auto *ancestor = item->parentItem(); ancestor; ancestor = ancestor->parentItem()) {
         auto *content = ancestor->property("contentItem").value<QQuickItem *>();
         if (!content || !ancestor->property("contentY").isValid())
