@@ -1,4 +1,5 @@
 #include <QGuiApplication>
+#include <QAccessible>
 #include <QQmlApplicationEngine>
 #include <QQuickWindow>
 #include <QScreen>
@@ -18,6 +19,8 @@ int main(int argc, char *argv[])
     QSurfaceFormat::setDefaultFormat(format);
 #endif
     QGuiApplication app(argc, argv);
+    if (app.arguments().contains("--check"))
+        QAccessible::setActive(true);
     QGuiApplication::styleHints()->setTabFocusBehavior(Qt::TabFocusAllControls);
     QQmlApplicationEngine engine;
     const auto screens = QGuiApplication::screens();

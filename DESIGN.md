@@ -657,8 +657,12 @@ width/height, selection, validator and readOnly remain native.
 
 The placeholder supplies an initially empty Accessible.name, so adding a message
 never removes the field label. Support/error text and affix units populate an
-initially empty Accessible.description. Explicit nonempty caller names/descriptions
-are preserved. Decorative labels/icons
+Accessible.description that is empty or still equals Qt's implicit placeholder
+value. Accessibility-active startup is supported: the native placeholder is a
+default, not a caller override. Other caller descriptions and later explicit
+assignments keep ownership. As with geometry defaults, an explicit description
+identical to the placeholder is indistinguishable through public Qt API.
+Decorative labels/icons
 are ignored individually, so the field description is not announced twice.
 
 

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- TextField accessible descriptions preserve caller ownership when native placeholder descriptions are active; comparison checks enable accessibility before loading QML.
+
 - Native `SK.MenuItem`, butonlarla ortak private ripple katmanına bağlandı:
   Metal shader/software painter, menüye özel %10 press ve per-corner mask.
   Native `SK.Menu` için Theme tabanlı 300/150 ms enter/exit yardımcıları eklendi;

@@ -83,8 +83,12 @@ Item {
         value: root.control.placeholderText
     }
     Material3TextFieldBinding {
+        id: descriptionBinding
         target: root.control.Accessible; property: "description"
         defaultValue: ""
+        // Native TextField supplies the placeholder when accessibility is active.
+        atDefault: descriptionBinding.currentValue === descriptionBinding.defaultValue
+            || descriptionBinding.currentValue === root.control.placeholderText
         requested: root.accessibleDescription.length > 0
         value: root.accessibleDescription
     }

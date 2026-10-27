@@ -5,6 +5,7 @@
 #include <QMetaEnum>
 #include <QMetaProperty>
 #include <QQmlApplicationEngine>
+#include <QQmlProperty>
 #include <QQuickItem>
 #include <QQuickItemGrabResult>
 #include <QQuickWindow>
@@ -367,8 +368,21 @@ void checkFieldAccessories(QQuickWindow &window)
     amount->setProperty("extraInputPadding", 100.0);
     expect(amount->property("rightPadding").toReal() == plain->property("rightPadding").toReal() + 100,
            "the caller's native padding binding remains live");
+    const auto callerDescription = QStringLiteral("Application-managed email description");
+    const bool assigned = QQmlProperty::write(email, QStringLiteral("Accessible.description"), callerDescription,
+                                              QQmlEngine::contextForObject(email));
+    email->setProperty("serverError", true);
+    expect(assigned && accessible && accessible->text(QAccessible::Description) == callerDescription,
+           "an explicit caller description survives supporting/error updates");
+    email->setProperty("serverError", false);
     email->setProperty("showSupportingText", false);
 }
+
+
+
+
+
+
 
 void checkSelection(QQuickWindow &window)
 {
@@ -410,6 +424,8 @@ void checkFab(QQuickWindow &window)
            "a second Create activation restores the expanded control");
 }
 
+
+
 void checkMenu(QQuickWindow &window)
 {
     auto *trigger = control(window, "comparison.split.filled.menuButton");
@@ -445,6 +461,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     QSignalSpy warnings(&engine, &QQmlEngine::warnings);
     expect(QTest::qWaitForWindowExposed(&window), "the comparison consumer exposes");
     window.requestActivate();
+    expect(QTest::qWaitForWindowActive(&window), "the comparison consumer gains native keyboard focus");
     window.setProperty("reducedMotion", true);
     checkComboBox(window);
     checkTextField(window);

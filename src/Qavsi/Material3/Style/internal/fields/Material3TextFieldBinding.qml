@@ -9,6 +9,7 @@ Binding {
     property bool ready: false
     property bool applying: false
     readonly property var currentValue: target ? target[property] : undefined
+    property bool atDefault: currentValue === defaultValue
     when: ready && applying
     function updateRequested(): void {
         if (!root.ready)
@@ -16,14 +17,14 @@ Binding {
         if (!root.requested || !root.managed)
             root.applying = false
         else if (!root.applying) {
-            root.managed = root.currentValue === root.defaultValue
+            root.managed = root.atDefault
             root.applying = root.managed
         }
     }
     onRequestedChanged: updateRequested()
     Component.onCompleted: {
         // shortcut: an initial binding equal to the style default is indistinguishable; nondefault geometry stays caller-owned.
-        managed = currentValue === defaultValue
+        managed = atDefault
         ready = true
         updateRequested()
     }

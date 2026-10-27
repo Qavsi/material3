@@ -53,3 +53,8 @@ mutable reader-reset iteration during initial style completion. The stock-popup
 return fixture is activated only after window exposure; it checks public popup,
 parent and model restoration. This bootstrap boundary is a consumer workaround,
 not an SDK patch. See SDK-001 in BACKLOG.md.
+
+The comparison's --check path enables QAccessible before creating the QML engine.
+This exercises Qt's implicit placeholder descriptions on software as well as native
+Metal, so supporting/error description regressions cannot hide behind inactive
+accessibility. The same consumer pass preserves explicit caller descriptions.
