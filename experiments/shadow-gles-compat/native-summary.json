@@ -1,0 +1,34 @@
+[
+  {
+    "backend": "metal",
+    "scene": "controls",
+    "snapshotSha256": "a0daf9067068c36ea322447ed93e80158575de1c595a9d5264f4fbe22ba4fe08",
+    "baselineSnapshotSha256": "d65d12a9aa172c13b24f7ae9bc9947fc08bce0f7e0008fad794bf3c8397d4ff1",
+    "pngIdentical": false,
+    "exit": 0
+  },
+  {
+    "backend": "metal",
+    "scene": "blur-mixed",
+    "snapshotSha256": "2f958b81bf4bc89a3a76c8920580900c8ff8c721f09dc5376da4a46ff742938c",
+    "baselineSnapshotSha256": "2f958b81bf4bc89a3a76c8920580900c8ff8c721f09dc5376da4a46ff742938c",
+    "pngIdentical": true,
+    "exit": 0
+  },
+  {
+    "backend": "opengl",
+    "scene": "controls",
+    "snapshotSha256": "96d7220d0b52b885600d0f6418cf65b25571cadd340e50217d40e4b7a1d4ab03",
+    "baselineSnapshotSha256": "9635a407bfac84a5ee604eeb62d51e6852cadf246d99f87b32db209e77c92856",
+    "pngIdentical": false,
+    "exit": 0
+  },
+  {
+    "backend": "opengl",
+    "scene": "blur-mixed",
+    "snapshotSha256": "2f958b81bf4bc89a3a76c8920580900c8ff8c721f09dc5376da4a46ff742938c",
+    "baselineSnapshotSha256": "2f958b81bf4bc89a3a76c8920580900c8ff8c721f09dc5376da4a46ff742938c",
+    "pngIdentical": true,
+    "exit": 0
+  }
+]

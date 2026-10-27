@@ -2,7 +2,7 @@
 // Skia-derived Gaussian model (BSD-3-Clause); see third_party/shadow-reference.
 #version 440
 
-#ifdef GLES
+#ifdef QSHADER_GLSL_ES
 #define noperspective
 #endif
 

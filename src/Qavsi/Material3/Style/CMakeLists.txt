@@ -88,16 +88,13 @@ qt_add_qml_module(${module_target} SHARED
 qt_add_shaders(${module_target} "qavsi_material3_small_button_shaders"
     PREFIX "/Qavsi/Material3/Style"
     FILES shaders/smallbuttonfeedback.frag)
-set(material3_shadow_defines)
-if(QT_FEATURE_opengles2)
-    list(APPEND material3_shadow_defines GLES)
-endif()
 qt_add_shaders(${module_target} "qavsi_material3_shadow_shaders"
     PREFIX "/Qavsi/Material3/Style"
     BASE "${CMAKE_CURRENT_SOURCE_DIR}/internal/shadows"
     BATCHABLE
+    # Select interpolation by shader target, independent of the Qt OpenGL build flavor.
+    PERTARGETCOMPILE
     GLSL 150,140,130,330,300es
-    DEFINES ${material3_shadow_defines}
     FILES internal/shadows/shaders/shadow.vert internal/shadows/shaders/shadow.frag
         internal/shadows/shaders/blur_mask.vert internal/shadows/shaders/blur_mask.frag)
 set_target_properties(${module_target} PROPERTIES EXPORT_NAME Style VERSION ${PROJECT_VERSION} SOVERSION 0.1)

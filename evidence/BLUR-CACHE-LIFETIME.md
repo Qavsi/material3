@@ -50,6 +50,6 @@ Metal/threaded invalidates on hide plus releaseResources with persistence disabl
 
 ## Limits
 
-No GLES, Vulkan or D3D device run, no 1000-item mixed-corner workload and no total-GPU-memory measurement. The GLES noperspective/extension portability question remains separate. No software-backend timing rerun: this RHI cache is bypassed by the existing software path. No pre-warm, crossfade or batching change.
+No GLES, Vulkan or D3D device run, no 1000-item mixed-corner workload and no total-GPU-memory measurement. The GLES noperspective requirement is now removed by a separate [shader portability fix](SHADOW-GLES.md); real-device GLES validation remains pending. No software-backend timing rerun: this RHI cache is bypassed by the existing software path. No pre-warm, crossfade or batching change.
 
 AI assistance has been used to create this output.

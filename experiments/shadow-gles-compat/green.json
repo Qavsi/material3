@@ -1,0 +1,336 @@
+{
+  "variants": [
+    {
+      "shader": "shadow.vert",
+      "batchable": false,
+      "target": "glsl,300es",
+      "sha256": "eeb2ed2bc60d7189d86c13e75e73b35598fb8da46355ab607c97043be1fa21c9"
+    },
+    {
+      "shader": "shadow.vert",
+      "batchable": false,
+      "target": "glsl,130",
+      "sha256": "8bac75208c296d9f72738aebfbda23478210bbda5a2e88c923705376c56bd43b",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.vert",
+      "batchable": false,
+      "target": "glsl,140",
+      "sha256": "c7027eee1b8d42d2954ac275d77312476774fede0d02c175e344b139742cc438",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.vert",
+      "batchable": false,
+      "target": "glsl,150",
+      "sha256": "3ad397f2f393930800ed8c3bc04a7dcd47dd5be133495656896aaf962db4b71d",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.vert",
+      "batchable": false,
+      "target": "glsl,330",
+      "sha256": "6283092e120523a146e9ad584c87b9e560cbde53cb95d051bbbe7fe3018aaa06",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.vert",
+      "batchable": false,
+      "target": "hlsl,50",
+      "sha256": "d941fcaf7e260754834712b2e0cc10ba612ada09b0cd703a32d7edf704acb825",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.vert",
+      "batchable": false,
+      "target": "msl,12",
+      "sha256": "dfef07426ceb96236b0e84279cffad91e49241c2234f4a97aed95befa00173ca",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.vert",
+      "batchable": false,
+      "target": "spirv,100",
+      "sha256": "5cc49788742425d933b31a4a665cd2057ed6b6c127f895397d3c0330ccf51f7c",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.vert",
+      "batchable": true,
+      "target": "glsl,300es",
+      "sha256": "a361dc63246bda7fca5f09a7beb11b395d30e7fbce12ad0a29da42f89eb8a6cb"
+    },
+    {
+      "shader": "shadow.vert",
+      "batchable": true,
+      "target": "glsl,130",
+      "sha256": "8027a6b2d3245a2bad9d656ec544ac08397b6d49bcdcbed545b702c790130f2f",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.vert",
+      "batchable": true,
+      "target": "glsl,140",
+      "sha256": "40522987feff20db054131a54ee839260c1ac852bae98e6ac5c8d4468f4b4ff0",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.vert",
+      "batchable": true,
+      "target": "glsl,150",
+      "sha256": "5667d7fef9a35a97ababc2ee60e470ab9f6898e59522e579bd93f2bd00c3b960",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.vert",
+      "batchable": true,
+      "target": "glsl,330",
+      "sha256": "38047ed16178d6186ffd1dc19d938145e91822b1c787a2b12abf5e407fcfd3f0",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.vert",
+      "batchable": true,
+      "target": "hlsl,50",
+      "sha256": "39d9e5f9d655e7407a343f3944be4a49aea3cd00532a377a4fb545549e12971e",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.vert",
+      "batchable": true,
+      "target": "msl,12",
+      "sha256": "e53bdf1749eeba53e426ccce2846d9620c23974eddc719898a2f4a42820b4f04",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.vert",
+      "batchable": true,
+      "target": "spirv,100",
+      "sha256": "cf0b84bbdec26047e61fa15b31acc8c3b857733341fcadc35f7e9b31afe87cc0",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.frag",
+      "batchable": false,
+      "target": "glsl,300es",
+      "sha256": "06212f814e1757732b9fc61f8e07944e32ad82d29f72b29a1e08d85a71cfc090"
+    },
+    {
+      "shader": "shadow.frag",
+      "batchable": false,
+      "target": "glsl,130",
+      "sha256": "c196f432c28ee7de93461ef5e2496d7fadcb404d53d254d6cf1721c70abbdf6e",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.frag",
+      "batchable": false,
+      "target": "glsl,140",
+      "sha256": "249ccade36bc6825018e152d8e0ddaf89ced20dabeb6473d146b49d136a35903",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.frag",
+      "batchable": false,
+      "target": "glsl,150",
+      "sha256": "3c26a419dd15a485df7242f13bbd92e65312eb10861624a1697aa619d01e65a9",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.frag",
+      "batchable": false,
+      "target": "glsl,330",
+      "sha256": "996d9f6543209fac66167afb18d0411fae24dc2423ed6e78cc088b4aa6c6bd78",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.frag",
+      "batchable": false,
+      "target": "hlsl,50",
+      "sha256": "6888a84dfdcbd610d60fa843aa063bb435d4f7d4f0399c776305b61f62e57819",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.frag",
+      "batchable": false,
+      "target": "msl,12",
+      "sha256": "e7919d3048cb7677ab175e1b65598bc31893ddee4fb6e53ab8ea5108b11598de",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "shadow.frag",
+      "batchable": false,
+      "target": "spirv,100",
+      "sha256": "31c35f1eca52cf978e113029541f9a84607d06e77ad741e4dbac87e1a660b0fc",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.vert",
+      "batchable": false,
+      "target": "glsl,300es",
+      "sha256": "657620e1b9e2f6e49f51a38735dd11b164525bf88ad853bc96ea45334d184810"
+    },
+    {
+      "shader": "blur_mask.vert",
+      "batchable": false,
+      "target": "glsl,130",
+      "sha256": "304985853e6c2ed9a906db2a1b3eca5c53aa826acaa2a2bbad2b653df1f8c4a5",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.vert",
+      "batchable": false,
+      "target": "glsl,140",
+      "sha256": "00378df4e516a7f1e2dc31ba96d17e9de092ad8e061130215e925f044ebbafdc",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.vert",
+      "batchable": false,
+      "target": "glsl,150",
+      "sha256": "7f11da130dea4919431e03d84565ef625ef0c3b6fc70bf82cedc3eb61ea92e31",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.vert",
+      "batchable": false,
+      "target": "glsl,330",
+      "sha256": "1b54ded315706f5344421f71cfcba4156ddc056427c6f2555ef2bb54c86538d5",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.vert",
+      "batchable": false,
+      "target": "hlsl,50",
+      "sha256": "6930acca27434252af1257cedb0e545b213ece7fdb5c4965e684188076fa6782",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.vert",
+      "batchable": false,
+      "target": "msl,12",
+      "sha256": "22c2fc724248dee660ff9008ca6e12f67503b399f16324f166bd72a2bf3300d0",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.vert",
+      "batchable": false,
+      "target": "spirv,100",
+      "sha256": "151a79f068c2d5bda271a84adcd0636d28e7287a04653c8ba2d04847fdaeccba",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.vert",
+      "batchable": true,
+      "target": "glsl,300es",
+      "sha256": "47503388437d03efb58e831934efbaae5287f78db8a0bbff0c7cc10711d46039"
+    },
+    {
+      "shader": "blur_mask.vert",
+      "batchable": true,
+      "target": "glsl,130",
+      "sha256": "c68f51a3d496d4d0c1e53a2466f98352709f4a34933b28487eef2add5b9ddc9f",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.vert",
+      "batchable": true,
+      "target": "glsl,140",
+      "sha256": "6dd452b7a3fd579b2797b1a0c383f63ba6834185088799e76135f422f9addeb5",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.vert",
+      "batchable": true,
+      "target": "glsl,150",
+      "sha256": "fbeee84ebce54ebac95dcf0d705c0e7c47627f2a9cda13faf6d6e16c9a1d1c96",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.vert",
+      "batchable": true,
+      "target": "glsl,330",
+      "sha256": "552f49edaaeb3d1771c819122d40fb24dcf4e1b6f479e32187603a30fc70f23e",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.vert",
+      "batchable": true,
+      "target": "hlsl,50",
+      "sha256": "f59e7973c62fe660a0b8a078c609bf32d975c0d689743075bde7ee6f8e59b0f1",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.vert",
+      "batchable": true,
+      "target": "msl,12",
+      "sha256": "42e913fa7e12221e94a4824df64ceca78ab3b3d055cfdd5e4c2ef9f196258371",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.vert",
+      "batchable": true,
+      "target": "spirv,100",
+      "sha256": "306ac6c8ce37b81b30fced3e745652162b09fdf14b4715da5f6ae93c92883cb5",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.frag",
+      "batchable": false,
+      "target": "glsl,300es",
+      "sha256": "6818dd11a229b0bde7abb5d1eb136a21be2bf60d0751eda12f5d63c409ffd5b4"
+    },
+    {
+      "shader": "blur_mask.frag",
+      "batchable": false,
+      "target": "glsl,130",
+      "sha256": "11a837d9c5eeb80183e398c05104bd403ad879653bf8f8506f7290fe6a1b3bea",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.frag",
+      "batchable": false,
+      "target": "glsl,140",
+      "sha256": "86a2072542be363e1951e1e88756b4b1dcf56d9d8b168f882108859b90cf39e9",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.frag",
+      "batchable": false,
+      "target": "glsl,150",
+      "sha256": "c0a79a0f63b631fc6494a1bc6c9ef0ea8308d2a7a1114f78e7a9230ce791ac1e",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.frag",
+      "batchable": false,
+      "target": "glsl,330",
+      "sha256": "d85edcbbb9d47143c9e54eedb904bcf14ec0042b55c2b81e420ae26e219f47c6",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.frag",
+      "batchable": false,
+      "target": "hlsl,50",
+      "sha256": "599ce3666963e1b5bae325c16590ee37ff88023512d50660ef3a126a91d02b5c",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.frag",
+      "batchable": false,
+      "target": "msl,12",
+      "sha256": "66ae3bedd0747213b6c4095ccf552b0774287c2b5261762ecb5c65c4881ac910",
+      "baselineIdentical": true
+    },
+    {
+      "shader": "blur_mask.frag",
+      "batchable": false,
+      "target": "spirv,100",
+      "sha256": "21b43d2e2e166701c940db2d128230de4e257e666b209f1ad569aae8185272ff",
+      "baselineIdentical": true
+    }
+  ],
+  "failures": [],
+  "passed": true
+}

@@ -51,8 +51,9 @@ the ripple adaptation. Colored/partial-opacity raw QCM equality is deliberately
 not claimed. Separate tests verify the Qt alpha/source-over contract.
 
 Software retains painter ripple/fill/focus and suppresses GPU shadows. Hardware
-uses QCM analytic/BlurMask selection. OpenGL requires version 3 or newer; GLES
-builds retain the upstream GLES shader guard. The macOS comparison bootstrap
+uses QCM analytic/BlurMask selection. OpenGL requires version 3 or newer.
+The GLES interpolation guard is selected per generated shader language; see
+[ES portability verification](SHADOW-GLES.md). The macOS comparison bootstrap
 requests a standard Qt 3.3 core context before QGuiApplication. Initial legacy
 GL2.1 testing found missing GLSL120 graphics pipelines; its structural assertion
 count was not a valid graphics pass. Those failures remain recorded as an

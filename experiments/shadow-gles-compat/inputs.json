@@ -1,0 +1,26 @@
+{
+  "baselineCommit": "e73fa2b",
+  "qt": "6.12.0",
+  "baseSourceFixture": "d8aced24fecc2edbbd2c28f1e9ae0f4277093bf7",
+  "cacheCandidateInputs": "../shadow-list-cold-cache/cache-candidate-inputs.json",
+  "shaderSourceSha256": {
+    "shadow.vert": "d33536524fb814e185e86cb75be2aab7c6c306167a62d8cc8961c156df92662f",
+    "shadow.frag": "57ac6073814e6940ee36463d06dee55f674efcb3434ae0ca0f2ef4743858e6ca",
+    "blur_mask.vert": "27a41217d4447b928e40a6c71c9d48d62f728996af4317497ff86b84656733e1",
+    "blur_mask.frag": "d2ba1ba9f95a5ff179ac6081523e5637a552e4dac54a5f177ea7ffd462c94918"
+  },
+  "baselinePackageSha256": {
+    "shadow.vert": "ee3e04e4bb45e6f576c1a27ece84c6364878c634b5480a9f58c67b821f0fcb19",
+    "shadow.frag": "d5d8ddf59f35d426aa3b9f78ef3036fc32d81d0b7fd6d23f4cc74cc19ad37167",
+    "blur_mask.vert": "65984374c325bd338de73fa2cea415edefcdb7e6bdf2ddd3d4bb0daa435ce7b0",
+    "blur_mask.frag": "42fd87c273aae1b1851cc4e31a86784c7dc828277b48608d18d5f2e5724d0013"
+  },
+  "candidatePackageSha256": {
+    "shadow.vert": "688ffc2e9e1b247b34216b0c2e7739a78c89b590844f97f0d9ef1bb8c1218c0f",
+    "shadow.frag": "02551bf45bf73c3dd0413ea4027ca0c8fd930c1b9550535b897e9aef0541ca19",
+    "blur_mask.vert": "5202a85df57141266d7bca7c2c1d5e5f676127644c78885c99f4dc3440cdb07d",
+    "blur_mask.frag": "51cf6c9d8eae9f4b57a2f85680fbb396129ba576ff8ffa2f3779a9e5917bc806"
+  },
+  "checkerSha256": "21b00dec45ad9d3451c64437c8aca4ac05103bd73300dd52467da80b5fd47af7",
+  "note": "Native fixture uses the pinned shadow-list source plus cache-lifetime fix and this target-specific shader patch; unrelated uncommitted field/combo changes are excluded."
+}
