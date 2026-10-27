@@ -103,22 +103,18 @@ std::shared_ptr<CornerTexture> TextureCache::corner(float sigma, float radius)
 std::shared_ptr<TextureCache> acquireTextureCache(QQuickWindow *window)
 {
     static std::mutex mutex;
-    static std::unordered_map<QQuickWindow *, std::weak_ptr<TextureCache>> caches;
+    static std::unordered_map<QQuickWindow *, std::shared_ptr<TextureCache>> caches;
     std::lock_guard guard(mutex);
-    for (auto it = caches.begin(); it != caches.end();) {
-        if (it->second.expired())
-            it = caches.erase(it);
-        else
-            ++it;
-    }
-    if (auto it = caches.find(window); it != caches.end()) {
-        if (auto cache = it->second.lock())
-            return cache;
-    }
+    if (auto it = caches.find(window); it != caches.end())
+        return it->second;
     auto cache = std::make_shared<TextureCache>(window);
     if (!cache->initialize())
         return {};
-    // Scene graph materials own the cache and destroy every GPU texture on their render thread.
+    // Keep warm textures through zero elevation; release them with their render context.
+    QObject::connect(window, &QQuickWindow::sceneGraphInvalidated, window, [window] {
+        std::lock_guard guard(mutex);
+        caches.erase(window);
+    }, Qt::ConnectionType(Qt::DirectConnection | Qt::SingleShotConnection));
     caches.insert_or_assign(window, cache);
     return cache;
 }

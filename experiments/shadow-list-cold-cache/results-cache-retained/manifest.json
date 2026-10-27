@@ -1,0 +1,271 @@
+{
+  "executableSha256": "620d6f037113e64f527649c38dcb7a3ff9c2e93a575a52e04c00faec3145e8c0",
+  "cases": [
+    [
+      "opengl",
+      "controls",
+      0,
+      true
+    ],
+    [
+      "metal",
+      "blur-mixed",
+      0,
+      false
+    ],
+    [
+      "metal",
+      "controls-off",
+      2,
+      false
+    ],
+    [
+      "metal",
+      "blur-mixed",
+      1,
+      false
+    ],
+    [
+      "metal",
+      "controls-off",
+      0,
+      true
+    ],
+    [
+      "opengl",
+      "controls-off",
+      0,
+      false
+    ],
+    [
+      "metal",
+      "controls",
+      2,
+      false
+    ],
+    [
+      "opengl",
+      "blur-same",
+      0,
+      true
+    ],
+    [
+      "opengl",
+      "controls",
+      0,
+      false
+    ],
+    [
+      "metal",
+      "blur-same",
+      2,
+      false
+    ],
+    [
+      "metal",
+      "blur-mixed",
+      2,
+      false
+    ],
+    [
+      "opengl",
+      "blur-same",
+      0,
+      false
+    ],
+    [
+      "metal",
+      "blur-mixed",
+      0,
+      true
+    ],
+    [
+      "metal",
+      "blur-same",
+      0,
+      true
+    ],
+    [
+      "metal",
+      "controls-off",
+      0,
+      false
+    ],
+    [
+      "metal",
+      "blur-same",
+      1,
+      false
+    ],
+    [
+      "metal",
+      "controls",
+      0,
+      false
+    ],
+    [
+      "metal",
+      "controls",
+      0,
+      true
+    ],
+    [
+      "opengl",
+      "controls-off",
+      0,
+      true
+    ],
+    [
+      "opengl",
+      "blur-mixed",
+      0,
+      false
+    ],
+    [
+      "metal",
+      "blur-same",
+      0,
+      false
+    ],
+    [
+      "opengl",
+      "blur-mixed",
+      0,
+      true
+    ],
+    [
+      "metal",
+      "controls-off",
+      1,
+      false
+    ],
+    [
+      "metal",
+      "controls",
+      1,
+      false
+    ]
+  ],
+  "runs": [
+    {
+      "name": "opengl-controls-0-drawcalls",
+      "exit": 0,
+      "wallSeconds": 3.189404249191284
+    },
+    {
+      "name": "metal-blur-mixed-0",
+      "exit": 0,
+      "wallSeconds": 8.300408840179443
+    },
+    {
+      "name": "metal-controls-off-2",
+      "exit": 0,
+      "wallSeconds": 6.589406967163086
+    },
+    {
+      "name": "metal-blur-mixed-1",
+      "exit": 0,
+      "wallSeconds": 8.374666929244995
+    },
+    {
+      "name": "metal-controls-off-0-drawcalls",
+      "exit": 0,
+      "wallSeconds": 3.2591969966888428
+    },
+    {
+      "name": "opengl-controls-off-0",
+      "exit": 0,
+      "wallSeconds": 6.5652077198028564
+    },
+    {
+      "name": "metal-controls-2",
+      "exit": 0,
+      "wallSeconds": 6.355616092681885
+    },
+    {
+      "name": "opengl-blur-same-0-drawcalls",
+      "exit": 0,
+      "wallSeconds": 5.001348972320557
+    },
+    {
+      "name": "opengl-controls-0",
+      "exit": 0,
+      "wallSeconds": 6.318306922912598
+    },
+    {
+      "name": "metal-blur-same-2",
+      "exit": 0,
+      "wallSeconds": 8.197261810302734
+    },
+    {
+      "name": "metal-blur-mixed-2",
+      "exit": 0,
+      "wallSeconds": 8.204105138778687
+    },
+    {
+      "name": "opengl-blur-same-0",
+      "exit": 0,
+      "wallSeconds": 8.508209943771362
+    },
+    {
+      "name": "metal-blur-mixed-0-drawcalls",
+      "exit": 0,
+      "wallSeconds": 4.93483304977417
+    },
+    {
+      "name": "metal-blur-same-0-drawcalls",
+      "exit": 0,
+      "wallSeconds": 4.799408912658691
+    },
+    {
+      "name": "metal-controls-off-0",
+      "exit": 0,
+      "wallSeconds": 6.3642261028289795
+    },
+    {
+      "name": "metal-blur-same-1",
+      "exit": 0,
+      "wallSeconds": 8.113803148269653
+    },
+    {
+      "name": "metal-controls-0",
+      "exit": 0,
+      "wallSeconds": 6.317638158798218
+    },
+    {
+      "name": "metal-controls-0-drawcalls",
+      "exit": 0,
+      "wallSeconds": 3.0305898189544678
+    },
+    {
+      "name": "opengl-controls-off-0-drawcalls",
+      "exit": 0,
+      "wallSeconds": 3.076122760772705
+    },
+    {
+      "name": "opengl-blur-mixed-0",
+      "exit": 0,
+      "wallSeconds": 8.402194023132324
+    },
+    {
+      "name": "metal-blur-same-0",
+      "exit": 0,
+      "wallSeconds": 8.13437795639038
+    },
+    {
+      "name": "opengl-blur-mixed-0-drawcalls",
+      "exit": 0,
+      "wallSeconds": 4.931370973587036
+    },
+    {
+      "name": "metal-controls-off-1",
+      "exit": 0,
+      "wallSeconds": 6.392311096191406
+    },
+    {
+      "name": "metal-controls-1",
+      "exit": 0,
+      "wallSeconds": 6.248908996582031
+    }
+  ]
+}

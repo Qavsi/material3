@@ -35,7 +35,12 @@ the kit. Only the Outer mask needed by elevation is exposed internally.
 Finite-input, tile-size and convolution-work checks prevent invalid allocation.
 The render-thread cache retains at most 16 MiB of alpha8 payload; active material
 references can outlive cache eviction, so this is not a total GPU-memory cap.
-Materials own GPU lifetimes; weak global bookkeeping owns no GPU textures.
+The BlurMask cache is retained per window until sceneGraphInvalidated, so hiding
+all unequal-corner shadows does not discard warm masks. A direct, single-shot
+connection releases the retained owner on the rendering thread; materials can
+retain their references until their scene graph nodes are destroyed. Analytic
+profile textures retain their existing weak bookkeeping. See
+[cache lifetime verification](BLUR-CACHE-LIFETIME.md).
 
 ## Explicit Qt adaptations
 

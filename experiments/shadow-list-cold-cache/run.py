@@ -2,7 +2,8 @@ import hashlib, json, os, pathlib, random, signal, subprocess, sys, time
 root=pathlib.Path(__file__).resolve().parent
 build=pathlib.Path(sys.argv[1]) if len(sys.argv)>1 else pathlib.Path('/private/tmp/qavsi-shadow-list-study-20261027/build')
 exe=build/'shadow-list-study.app/Contents/MacOS/shadow-list-study'
-out=root/'results'; out.mkdir(exist_ok=True)
+out=pathlib.Path(sys.argv[2]) if len(sys.argv)>2 else root/'results'; out.mkdir(exist_ok=True)
+require_reuse='--require-cache-reuse' in sys.argv
 probe=subprocess.run(['rtk',str(exe),'--self-test'],capture_output=True,text=True)
 assert probe.returncode==0,probe.stderr
 cases=[]
@@ -21,6 +22,7 @@ for backend,scene,repeat,diagnostic in cases:
  cmd=['rtk',str(exe),'--backend',backend,'--scene',scene,'--output',str(path),'--snapshot',str(out/(name+'.png'))]
  env=os.environ.copy();env['QSG_RENDER_LOOP']='basic' if backend=='opengl' else 'threaded';env['QT_LOGGING_RULES']='qt.qml.connections=false'
  env.pop('DYLD_INSERT_LIBRARIES',None)
+ if require_reuse:cmd.append('--require-cache-reuse')
  if diagnostic:
   env['DYLD_INSERT_LIBRARIES']=str(build/'libdrawcounter.dylib');cmd.append('--drawcalls')
  print('START',name,flush=True)

@@ -1,6 +1,7 @@
-import hashlib,json,math,pathlib,statistics
+import hashlib,json,math,pathlib,statistics,sys
 root=pathlib.Path(__file__).resolve().parent
-runs=[json.loads(p.read_text()) for p in (root/'results').glob('*.json') if p.name not in ('manifest.json','summary.json')]
+results=pathlib.Path(sys.argv[1]) if len(sys.argv)>1 else root/'results'
+runs=[json.loads(p.read_text()) for p in results.glob('*.json') if p.name not in ('manifest.json','summary.json')]
 assert len(runs)==24
 for run in runs:
  assert run['count']==50 and run['qmlWarnings']==0
@@ -37,7 +38,9 @@ for backend in ['metal','opengl']:
    point['drawCallsDiagnostic']={k:d['drawCalls'][k] for k in ['samples','p50','p95','p99','max']}
    row['phases'].append(point)
   summary.append(row)
-(root/'results/summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+(results/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+if '--summary-only' in sys.argv:
+ print('Validated24 runs; summary:',results/'summary.json');sys.exit(0)
 num=lambda v:'—' if v is None else f'{v:.3f}'
 steady=lambda r:next(p for p in r['phases'] if p['phase']=='steady')
 labels={'controls-off':'50 SK.Button, shadow off','controls':'50 SK.Button, analytic shadow on','blur-same':'50 BlurMask cards, identical radii','blur-mixed':'50 BlurMask cards, five radius sets'}

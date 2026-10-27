@@ -1,0 +1,29 @@
+{
+  "baselineHarnessRevision": "688d389",
+  "material3Revision": "d8aced24fecc2edbbd2c28f1e9ae0f4277093bf7",
+  "iconsRevision": "c99b7d3be274933ce2271e7f90bb9ec8e369573e",
+  "productionChangesFromBaseline": {
+    "src/Qavsi/Material3/Style/internal/shadows/blurmaskmaterial.cpp": "19ceb6cd64038e2a3c0970fa5aa23d18eeb495cb1fa7f79ff6ae0236b485650f"
+  },
+  "harnessSha256": {
+    "main.cpp": "140ba53c49168361def0320e281546986750a73d953e5095ec96d2f3345a3908",
+    "CMakeLists.txt": "91b9528970c3403a06c605d7895bc6b8bd460940740e0c41bc6600178585c389",
+    "Scene.qml": "21fa77c1d6ca092584d798def57fc2131a6a61c9380d3536f3f6f580ce5eb322",
+    "Elevation.qml": "6f8c56fe219f267b3d6b411e4e8c79d8f988eba926ebc207c41d7c2db98c4e25",
+    "drawcounter.cpp": "b199216031b9f2f35950ab7edbe7075d4973e110d2a0f6ab2958a931a60ed048",
+    "prepare.py": "9064c659265ca79c333ef2a61422e8ea2f4aca439ed0e926d0782ab71ab3ef6b",
+    "run.py": "8ccf54ea467472bbcf990fa7e87ebe12e055026cf558a8edf5489aae5167789c",
+    "analyze.py": "b478ed0bb79075724c280128030dfcd11375fe1d1de023b8283f06c81131c173"
+  },
+  "frozenInstrumentedSha256": {
+    "blurmaskmaterial.cpp": "f4863253706a99f3cc14a8d46bea4b029f78b1d460b6c42f7c034b187edbde24",
+    "blurmaskmaterial.h": "4d19ba7083f9e5d97ed18079a5dc0f27f133cac9b1633083d8477b2d1a57d5d7"
+  },
+  "executableSha256": "620d6f037113e64f527649c38dcb7a3ff9c2e93a575a52e04c00faec3145e8c0",
+  "drawCounterSha256": "86b8732b3435eebeda48369e5054fc15357fd73aefdf938f78d20f5904dc744d",
+  "lifecycleSha256": {
+    "metal.json": "234d4163a4bba06d46709b3817ae01fe2f51c898f04a2ef1b0caaa25c168362b",
+    "opengl.json": "fce8f98d1637b10c3472199f47e023f69f61e83bfbfe550e879ccc2968db6e18"
+  },
+  "note": "Only the production BlurMask cache lifetime differs from pinned source; cache probes exist only in temporary instrumented sources."
+}

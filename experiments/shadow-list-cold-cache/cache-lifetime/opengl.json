@@ -1,0 +1,246 @@
+{
+    "backend": "opengl",
+    "build": "Release",
+    "cacheProbe": "Frozen copy only: atomic miss counter + steady_clock around convolution; production is not instrumented",
+    "cacheReuseRequired": true,
+    "count": 50,
+    "dpr": 1,
+    "drawCallDiagnostic": false,
+    "gpu": "Apple Apple M4 4.1 Metal - 90.5",
+    "gpuTimestampsSupported": true,
+    "gpuTiming": "asynchronous completed-frame QRhi times; not paired to current CPU frame",
+    "lifecycle": {
+        "cacheCreations": 3,
+        "cacheDestructions": 3,
+        "cycles": [
+            {
+                "cacheCreations": 2,
+                "cacheDestructions": 1,
+                "cycle": 0,
+                "newCornerTextures": 18
+            },
+            {
+                "cacheCreations": 3,
+                "cacheDestructions": 2,
+                "cycle": 1,
+                "newCornerTextures": 18
+            }
+        ],
+        "pixelIdentical": true,
+        "resetMethod": "window-destruction",
+        "wrongThreadDestructions": 0
+    },
+    "nativeControls": 0,
+    "os": "macOS Tahoe (26.5.2)",
+    "phases": [
+        {
+            "convolutionMs": 30.741414,
+            "cornerCacheMisses": 180,
+            "cpuMs": 60.87,
+            "cpuMsPerFrame": 4.682307692307692,
+            "drawCalls": {
+                "samples": 0
+            },
+            "firstFrameQueuedMs": 59.37420799999995,
+            "frameMs": {
+                "max": 23.78820799999994,
+                "mean": 15.719340250000016,
+                "over25": 0,
+                "over33": 0,
+                "over50": 0,
+                "p50": 15.957583000000113,
+                "p95": 23.78820799999994,
+                "p99": 23.78820799999994,
+                "samples": 12
+            },
+            "frames": 13,
+            "gpuMs": {
+                "samples": 0
+            },
+            "phase": "first-0-to-12",
+            "renderElapsedMs": {
+                "max": 5.205625000000055,
+                "mean": 0.7442306153846123,
+                "over25": 0,
+                "over33": 0,
+                "over50": 0,
+                "p50": 0.2760409999998501,
+                "p95": 5.205625000000055,
+                "p99": 5.205625000000055,
+                "samples": 13
+            },
+            "syncElapsedMs": {
+                "max": 5.740916999999854,
+                "mean": 2.5038686153846075,
+                "over25": 0,
+                "over33": 0,
+                "over50": 0,
+                "p50": 2.3825419999998303,
+                "p95": 5.740916999999854,
+                "p99": 5.740916999999854,
+                "samples": 13
+            },
+            "wallMs": 258.51575
+        },
+        {
+            "convolutionMs": 0,
+            "cornerCacheMisses": 0,
+            "cpuMs": 51.3,
+            "cpuMsPerFrame": 3.42,
+            "drawCalls": {
+                "samples": 0
+            },
+            "firstFrameQueuedMs": 24.342875000000276,
+            "frameMs": {
+                "max": 17.77695900000026,
+                "mean": 16.72173214285713,
+                "over25": 0,
+                "over33": 0,
+                "over50": 0,
+                "p50": 16.679749999999785,
+                "p95": 17.77695900000026,
+                "p99": 17.77695900000026,
+                "samples": 14
+            },
+            "frames": 15,
+            "gpuMs": {
+                "samples": 0
+            },
+            "phase": "warm-retained-cache",
+            "renderElapsedMs": {
+                "max": 1.076249999999618,
+                "mean": 0.645630399999906,
+                "over25": 0,
+                "over33": 0,
+                "over50": 0,
+                "p50": 0.6087079999997513,
+                "p95": 1.076249999999618,
+                "p99": 1.076249999999618,
+                "samples": 15
+            },
+            "syncElapsedMs": {
+                "max": 0.15341699999999037,
+                "mean": 0.09504446666660442,
+                "over25": 0,
+                "over33": 0,
+                "over50": 0,
+                "p50": 0.08624999999983629,
+                "p95": 0.15341699999999037,
+                "p99": 0.15341699999999037,
+                "samples": 15
+            },
+            "wallMs": 259.202
+        },
+        {
+            "convolutionMs": 0,
+            "cornerCacheMisses": 0,
+            "cpuMs": 48.615,
+            "cpuMsPerFrame": 3.7396153846153846,
+            "drawCalls": {
+                "samples": 0
+            },
+            "firstFrameQueuedMs": 29.221915999999965,
+            "frameMs": {
+                "max": 33.138582999999926,
+                "mean": 18.085031250000004,
+                "over25": 1,
+                "over33": 1,
+                "over50": 0,
+                "p50": 16.689166000000114,
+                "p95": 33.138582999999926,
+                "p99": 33.138582999999926,
+                "samples": 12
+            },
+            "frames": 13,
+            "gpuMs": {
+                "samples": 0
+            },
+            "phase": "repeat-after-zero",
+            "renderElapsedMs": {
+                "max": 1.0064579999998386,
+                "mean": 0.5785286923077225,
+                "over25": 0,
+                "over33": 0,
+                "over50": 0,
+                "p50": 0.5554999999999382,
+                "p95": 1.0064579999998386,
+                "p99": 1.0064579999998386,
+                "samples": 13
+            },
+            "syncElapsedMs": {
+                "max": 0.13954199999989214,
+                "mean": 0.09937807692309573,
+                "over25": 0,
+                "over33": 0,
+                "over50": 0,
+                "p50": 0.09795800000028976,
+                "p95": 0.13954199999989214,
+                "p99": 0.13954199999989214,
+                "samples": 13
+            },
+            "wallMs": 258.466166
+        },
+        {
+            "convolutionMs": 0,
+            "cornerCacheMisses": 0,
+            "cpuMs": 789.034,
+            "cpuMsPerFrame": 3.3152689075630253,
+            "drawCalls": {
+                "samples": 0
+            },
+            "firstFrameQueuedMs": 16.00629200000003,
+            "frameMs": {
+                "max": 33.62804200000028,
+                "mean": 16.81602601687764,
+                "over25": 2,
+                "over33": 1,
+                "over50": 0,
+                "p50": 16.73308300000008,
+                "p95": 17.947582999999213,
+                "p99": 19.399583000000348,
+                "samples": 237
+            },
+            "frames": 238,
+            "gpuMs": {
+                "samples": 0
+            },
+            "phase": "steady",
+            "renderElapsedMs": {
+                "max": 1.1275409999998374,
+                "mean": 0.6272135966386669,
+                "over25": 0,
+                "over33": 0,
+                "over50": 0,
+                "p50": 0.6614159999999174,
+                "p95": 0.8662910000002739,
+                "p99": 0.9099170000008598,
+                "samples": 238
+            },
+            "syncElapsedMs": {
+                "max": 0.20066700000006676,
+                "mean": 0.10276420168068727,
+                "over25": 0,
+                "over33": 0,
+                "over50": 0,
+                "p50": 0.10454200000003766,
+                "p95": 0.14820899999995163,
+                "p99": 0.17987499999981083,
+                "samples": 238
+            },
+            "wallMs": 4001.61925
+        }
+    ],
+    "qmlWarnings": 0,
+    "qt": "6.12.0",
+    "refreshHz": 60,
+    "scene": "blur-mixed",
+    "screen": "VA2419 Series",
+    "shadowPixelCount": 50,
+    "warmPolicy": "All sigma buckets preloaded; 0.012dp start retains cache ownership; zero misses required",
+    "window": [
+        -1860,
+        80,
+        1800,
+        950
+    ]
+}

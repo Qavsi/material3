@@ -66,6 +66,8 @@ int main(int argc,char**argv)
         {"backend","metal or opengl","backend","metal"},
         {"scene","controls, controls-off, blur-same, blur-mixed","scene","controls"},
         {"drawcalls","Separate instrumented draw-call run"},
+        {"require-cache-reuse","Fail if returning to zero discards warmed corner textures"},
+        {"lifecycle","Verify scene graph invalidation, recreation and window destruction"},
         {"output","JSON output","file"},{"snapshot","Validation PNG","file"}});cli.process(app);
 #ifndef QT_NO_DEBUG
     qCritical()<<"Release build required";return 2;
@@ -148,11 +150,16 @@ int main(int argc,char**argv)
         if(!measure("warm-retained-cache",0,true))return 7;
         if(misses()!=cached){qCritical()<<"Warm phase generated new corner textures";return 7;}
         window->setProperty("phase",0.0);window->setProperty("startPhase",0.0);waitEvents(100);
+        const auto repeatBefore = misses();
         if(!measure("repeat-after-zero",0,true))return 7;
+        if(cli.isSet("require-cache-reuse") && misses()!=repeatBefore){
+            qCritical()<<"Cache reuse regression: returning to zero regenerated"<<misses()-repeatBefore<<"corner textures";
+            return 10;
+        }
         window->setProperty("cycling",true);window->setProperty("heartbeat",true);waitEvents(800);
     } else {window->setProperty("heartbeat",true);waitEvents(800);}
     if(!measure("steady",cli.isSet("drawcalls")?600:4000,false))return 7;
-    window->setProperty("cycling",false);window->setProperty("heartbeat",false);window->setProperty("phase",.5);waitEvents(100);
+    window->setProperty("cycling",false);window->setProperty("heartbeat",false);window->setProperty("beat",0.0);window->setProperty("phase",.5);waitEvents(100);
     const auto image=window->grabWindow();if(image.isNull())return 8;
     int shadowPixels=0;
     for(auto *cell:cells){const auto pos=cell->mapToScene(QPointF(cell->width()/2,cell->height()+1))*image.devicePixelRatio();if(window->color().red()-image.pixelColor(qRound(pos.x()),qRound(pos.y())).red()>=2)++shadowPixels;}
@@ -167,9 +174,45 @@ int main(int argc,char**argv)
     QJsonObject output{{"scene",kind},{"backend",cli.value("backend")},{"qt",qVersion()},{"os",QSysInfo::prettyProductName()},
         {"gpu",data.gpuName},{"gpuTimestampsSupported",data.timestamps},{"build","Release"},{"count",50},{"nativeControls",native.size()},
         {"shadowPixelCount",shadowPixels},{"screen",left->name()},{"window",QJsonArray{window->x(),window->y(),window->width(),window->height()}},
-        {"refreshHz",left->refreshRate()},{"dpr",window->devicePixelRatio()},{"drawCallDiagnostic",cli.isSet("drawcalls")},{"qmlWarnings",warnings.size()},
+        {"refreshHz",left->refreshRate()},{"dpr",window->devicePixelRatio()},{"drawCallDiagnostic",cli.isSet("drawcalls")},{"cacheReuseRequired",cli.isSet("require-cache-reuse")},{"qmlWarnings",warnings.size()},
         {"gpuTiming","asynchronous completed-frame QRhi times; not paired to current CPU frame"},
-        {"cacheProbe","Frozen copy only: atomic miss counter + steady_clock around convolution; production unchanged"},
+        {"cacheProbe","Frozen copy only: atomic miss counter + steady_clock around convolution; production is not instrumented"},
         {"warmPolicy","All sigma buckets preloaded; 0.012dp start retains cache ownership; zero misses required"},{"phases",phases}};
+    if(cli.isSet("lifecycle")){
+        auto created=reinterpret_cast<Counter>(dlsym(RTLD_DEFAULT,"study_cache_created"));
+        auto destroyed=reinterpret_cast<Counter>(dlsym(RTLD_DEFAULT,"study_cache_destroyed"));
+        auto wrongThread=reinterpret_cast<Counter>(dlsym(RTLD_DEFAULT,"study_cache_wrong_thread"));
+        if(controls || !created || !destroyed || !wrongThread){qCritical()<<"Lifecycle probe missing";return 11;}
+        window->setPersistentSceneGraph(false);window->setPersistentGraphics(false);
+        QJsonArray cycles;
+        for(int cycle=0;cycle<2;++cycle){
+            const auto missBefore=misses();
+            if(gl){
+                // The basic loop retains its graph on hide; destroy the window to force cleanup.
+                delete window;window=nullptr;
+            }else{
+                QSignalSpy invalidated(window,&QQuickWindow::sceneGraphInvalidated);
+                window->hide();window->releaseResources();
+                if(invalidated.isEmpty() && !invalidated.wait(4000)){qCritical()<<"No scene graph invalidation";return 11;}
+            }
+            if(created()!=destroyed() || wrongThread()!=0){qCritical()<<"Cache cleanup mismatch"<<created()<<destroyed()<<wrongThread();return 11;}
+            if(gl){
+                engine.setInitialProperties({{"sceneKind",kind},{"previewArea",left->availableGeometry()}});
+                engine.load(QUrl::fromLocalFile(QStringLiteral(STUDY_QML_DIR "/Scene.qml")));
+                window=engine.rootObjects().isEmpty()?nullptr:qobject_cast<QQuickWindow*>(engine.rootObjects().last());
+                if(!window)return 11;
+                window->setScreen(left);window->setGraphicsConfiguration(config);window->setProperty("phase",.5);
+            }
+            window->show();if(!QTest::qWaitForWindowExposed(window,4000)){qCritical()<<"Window not re-exposed";return 11;}
+            waitEvents(150);const auto recreated=window->grabWindow();
+            if(recreated.isNull() || recreated!=image || misses()<=missBefore || created()!=destroyed()+1 || !warnings.isEmpty()){qCritical()<<"Recreated scene mismatch"<<recreated.isNull()<<(recreated==image)<<misses()<<missBefore<<created()<<destroyed()<<warnings;return 11;}
+            cycles.append(QJsonObject{{"cycle",cycle},{"cacheCreations",double(created())},
+                {"cacheDestructions",double(destroyed())},{"newCornerTextures",double(misses()-missBefore)}});
+        }
+        delete window;window=nullptr;
+        if(created()!=destroyed() || wrongThread()!=0){qCritical()<<"Cache cleanup mismatch"<<created()<<destroyed()<<wrongThread();return 11;}
+        output.insert("lifecycle",QJsonObject{{"resetMethod",gl?"window-destruction":"hide-release-resources"},{"cycles",cycles},{"cacheCreations",double(created())},
+            {"cacheDestructions",double(destroyed())},{"wrongThreadDestructions",double(wrongThread())},{"pixelIdentical",true}});
+    }
     QFile file(cli.value("output"));if(!file.open(QIODevice::WriteOnly))return 9;file.write(QJsonDocument(output).toJson());return 0;
 }
