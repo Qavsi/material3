@@ -4,6 +4,9 @@ import "Material3ButtonRecipe.js" as Recipe
 
 Material3TextFieldTheme {
     id: root
+    readonly property Material3ChipVariations chipVariations: Material3ChipVariations {
+        sourceStyle: root.sourceStyle
+    }
     readonly property Material3NavigationVariations navigationVariations: Material3NavigationVariations {
         sourceStyle: root.sourceStyle
     }

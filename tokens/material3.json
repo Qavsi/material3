@@ -653,6 +653,45 @@
           "$type": "dimension",
           "$value": 2.5
         }
+      },
+      "chip": {
+        "$description": "QCM 0.6.1 flat chip geometry. Material3Theme owns semantic colors, typography and motion; the 32px source target does not claim 48px touch coverage.",
+        "height": {
+          "$type": "dimension",
+          "$value": 32
+        },
+        "minimumWidth": {
+          "$type": "dimension",
+          "$value": 32
+        },
+        "radius": {
+          "$type": "dimension",
+          "$value": 8
+        },
+        "padding": {
+          "$type": "dimension",
+          "$value": 16
+        },
+        "iconPadding": {
+          "$type": "dimension",
+          "$value": 8
+        },
+        "spacing": {
+          "$type": "dimension",
+          "$value": 8
+        },
+        "iconSize": {
+          "$type": "dimension",
+          "$value": 18
+        },
+        "trailingTarget": {
+          "$type": "dimension",
+          "$value": 32
+        },
+        "embedSpacing": {
+          "$type": "dimension",
+          "$value": 4
+        }
       }
     }
   }

@@ -89,6 +89,17 @@ foreach(recipe IN ITEMS Button IconButton Fab Joined ConnectedButton SegmentedBu
     set_source_files_properties("internal/recipes/Material3${recipe}Recipe.js" PROPERTIES
         QT_RESOURCE_ALIAS "Material3${recipe}Recipe.js")
 endforeach()
+set(material3_chip_files
+    internal/chips/Material3ChipDelegate.qml
+    internal/chips/Material3ChipParameters.qml
+    internal/chips/Material3ChipVariation.qml
+    internal/chips/Material3ChipVariations.qml
+    internal/chips/Material3ChipBackground.qml)
+foreach(chip_file IN LISTS material3_chip_files)
+    get_filename_component(logical_name "${chip_file}" NAME)
+    set_source_files_properties("${chip_file}" PROPERTIES
+        QT_RESOURCE_ALIAS "${logical_name}" QT_QML_INTERNAL_TYPE TRUE)
+endforeach()
 set(material3_radio_files
     internal/radiobuttons/Material3RadioButtonDelegate.qml
     internal/radiobuttons/Material3RadioButtonParameters.qml
@@ -151,8 +162,8 @@ qt_add_qml_module(${module_target} SHARED
         internal/menus/Material3MenuItemBackground.qml
         internal/menus/Material3MenuEnterTransition.qml
         internal/menus/Material3MenuExitTransition.qml
-        Material3ButtonContent.qml ${material3_advanced_files} ${material3_menu_files} ${material3_field_files} ${material3_combo_files}
-        ${material3_switch_files} ${material3_navigation_files} ${material3_slider_files} ${material3_radio_files}
+        Material3ButtonContent.qml Material3ChipContent.qml ${material3_advanced_files} ${material3_menu_files} ${material3_field_files} ${material3_combo_files}
+        ${material3_switch_files} ${material3_navigation_files} ${material3_slider_files} ${material3_radio_files} ${material3_chip_files}
         internal/shadows/Material3Elevation.qml
         Material3Style.qml SmallButtonTheme.qml SmallButtonBackground.qml SmallButtonShadow.qml
         SmallButtonDelegate.qml SmallButtonParameters.qml

@@ -584,3 +584,25 @@ Column {
 `RadioButtonSupport.readOnly` blocks user selection while retaining the enabled
 appearance and caller bindings. Programmatic checked updates remain valid. The
 comparison gallery shows three options and a Read only switch, matching QCM.
+
+### Chips
+
+Chips retain the native button API. Use one immutable chip role with the content
+helper; no Label wrapper or extra selection state is introduced.
+
+```qml
+SK.Button {
+    id: filterChip
+    text: qsTr("Filter")
+    checkable: true
+    SK.StyleVariation.variations: ["chipFilter"]
+    contentItem: Material3ChipContent { control: filterChip }
+}
+```
+
+Roles: chipAssist, chipFilter, chipInput, chipSuggestion and QCM's chipEmbed.
+Input's Material3ChipContent.trailingAction accepts a native Qt Quick Action;
+its text names the separate accessible action and its enabled state is honored.
+The handler decides whether to update/remove the application item. A trailing X
+never activates the parent chip. trailingIconName is decoration only.
+The comparison shows enabled/disabled kinds and a constrained long label.

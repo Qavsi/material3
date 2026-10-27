@@ -486,6 +486,56 @@ void checkSliderDestruction(QQmlApplicationEngine &engine, QQuickWindow &window)
     QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, point.toPoint());
 }
 
+void checkChips(QQuickWindow &window)
+{
+    auto *assist = control(window, "comparison.chip.assist");
+    auto *filter = control(window, "comparison.chip.filter");
+    auto *input = control(window, "comparison.chip.input");
+    auto *suggestion = control(window, "comparison.chip.suggestion");
+    auto *disabled = control(window, "comparison.chip.disabled");
+    auto *disabledInput = control(window, "comparison.chip.input.disabled");
+    auto *longChip = control(window, "comparison.chip.long");
+    if (!assist || !filter || !input || !suggestion || !disabled || !disabledInput || !longChip)
+        return;
+    reveal(assist);
+    QSignalSpy commanded(assist, SIGNAL(clicked()));
+    assist->forceActiveFocus(Qt::TabFocusReason);
+    QTest::keyClick(&window, Qt::Key_Space);
+    expect(commanded.size() == 1 && qAbs(assist->height() - 32) < 0.5,
+           "Assist chip keeps native activation and QCM's 32-pixel geometry");
+    filter->forceActiveFocus(Qt::TabFocusReason);
+    QTest::keyClick(&window, Qt::Key_Space);
+    expect(filter->property("checked").toBool() && disabled->property("checked").toBool(),
+           "Filter selection uses native checked and its disabled example reflects the same selection");
+    input->forceActiveFocus(Qt::TabFocusReason);
+    QSignalSpy bodyClicked(input, SIGNAL(clicked()));
+    QTest::keyClick(&window, Qt::Key_Space);
+    auto *removeAction = window.findChild<QObject *>("comparison.chip.input.action");
+    expect(removeAction && input->property("checked").toBool() && disabledInput->property("checked").toBool()
+               && bodyClicked.size() == 1,
+           "Input selects through its native body and its disabled example reflects the same selection");
+    if (removeAction) {
+        QSignalSpy removed(removeAction, SIGNAL(triggered(QObject*)));
+        QTest::keyClick(&window, Qt::Key_Tab);
+        auto *trailing = window.activeFocusItem();
+        const bool nativeAction = trailing && trailing->property("action").value<QObject *>() == removeAction;
+        expect(nativeAction, "Tab reaches the separate native trailing Action button");
+        if (nativeAction)
+            QTest::keyClick(&window, Qt::Key_Space);
+        expect(removed.size() == 1 && bodyClicked.size() == 1 && !input->property("checked").toBool()
+                   && !disabledInput->property("checked").toBool(),
+               "the trailing Action runs once without activating the Input chip body");
+    }
+    QSignalSpy disabledClicked(disabled, SIGNAL(clicked()));
+    const auto checkedBefore = disabled->property("checked").toBool();
+    const auto point = disabled->mapToScene(QPointF(disabled->width() / 2, disabled->height() / 2));
+    QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, point.toPoint());
+    expect(disabledClicked.isEmpty() && disabled->property("checked").toBool() == checkedBefore,
+           "disabled chips retain native input gating");
+    expect(qAbs(longChip->width() - 180) < 0.5
+               && longChip->property("text").toString() == QStringLiteral("A long chip label constrained by its parent"),
+           "a constrained chip preserves the source label for native accessibility");
+}
 
 void checkRadioButtons(QQuickWindow &window)
 {
@@ -659,6 +709,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     checkTextField(window);
     checkFieldAccessories(window);
     checkInputSizes(window);
+    checkChips(window);
     checkRadioButtons(window);
     checkSwitch(window);
     checkNavigation(window);

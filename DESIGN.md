@@ -788,3 +788,38 @@ bound only while this policy is active. Accessible actions use native click()
 when unlocked; their handlers remain installed across the read-only transition.
 Native disabled styling remains separate.
 The comparison-only Read only row spacing belongs to ComparisonMetrics.
+
+### Chips
+
+Chips are native SK.Button controls, not labels or replacement control types.
+Assist/Suggestion command chips remain non-checkable; Filter/Input use native
+checkable/checked. Their selected surface uses secondaryContainer and
+chipSelectedInk; it persists after pointer exit and clears on deselection. The
+comparison's disabled Filter/Input examples mirror the enabled chip selection,
+as in QCM, while native enabled:false prevents user activation. The QCM-specific
+Embed recipe is included as a command chip
+with decorative trailing content. The five immutable variation roles are
+chipAssist/chipFilter/chipInput/chipSuggestion/chipEmbed. Their private chipDismiss
+role styles a native trailing Action button; no runtime variation switching is
+needed. The native button still owns input, focus, disabled gating and selection.
+
+QCM0.6.1 pin191260585a829ee4ae2c99e6232b7145b5c34474
+qml/chip/*.qml and src/style/chip_state.cpp supply the32px height,8px radius,
+18px icons and16/8 optical padding. Canonical ChipRecipe geometry feeds Theme;
+semantic ink, disabled0.38/0.12 roles and50/100ms linear filter motion remain
+Theme-owned. Native LabelLarge/font overrides are retained. These desktop32px
+controls do not claim a separate48px touch target.
+
+Material3ChipContent is an opt-in contentItem helper, like Material3ButtonContent.
+It supplies package icons, the selected Filter check, elision/RTL and an optional
+native T.Action trailing slot. Logical padding correction applies only at the
+style's default native padding; explicit custom padding stays caller-owned.
+Native text remains complete for accessibility. The helper's iconWidth/iconHeight
+use the recipe18px default because Qt6.12 has no per-variation icon-size slot.
+A nondefault native icon color remains caller-owned. A decorative trailingIconName
+has no separate activation; trailingAction creates a separately focusable native
+button. The Action's handler owns model removal; the style never destroys a chip
+or changes checked/enabled bindings. An unused trailing Action slot creates no
+extra button. Existing Material3Ripple and Material3Elevation supply shader/painter
+policies, Theme/reduced-motion/visibility gates and the kit focus ring.
+Elevated, editing/avatar input chips and drag interactions are deferred.

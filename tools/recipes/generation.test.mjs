@@ -6,6 +6,8 @@ import { mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { generateRecipes, sourceFile } from './generate.mjs';
+import { formatMaterial3ChipRecipe } from './material3-format.mjs';
+import { resolveDictionary } from './token-value-utils.mjs';
 
 const temporary = await mkdtemp(path.join(os.tmpdir(), 'qavsi-material3-recipes-'));
 try {
@@ -14,8 +16,10 @@ try {
   const tokens = JSON.parse(await readFile(sourceFile, 'utf8'));
   await writeFile(source, JSON.stringify(tokens));
   await assert.rejects(generateRecipes({ source, directory, check: true }), /Missing generated/);
-  assert.equal(await generateRecipes({ source, directory }), 13);
-  assert.equal(await generateRecipes({ source, directory, check: true }), 13);
+  assert.equal(await generateRecipes({ source, directory }), 14);
+  assert.equal(await generateRecipes({ source, directory, check: true }), 14);
+  assert.equal(await readFile(path.join(directory, 'Material3ChipRecipe.js'), 'utf8'),
+    formatMaterial3ChipRecipe(resolveDictionary(tokens)));
 
   const button = path.join(directory, 'Material3ButtonRecipe.js');
   const expected = await readFile(button, 'utf8');
@@ -50,6 +54,15 @@ try {
   await assert.rejects(generateRecipes({ source, directory }), /must fit inside/);
   for (const [name, contents] of originalOutputs)
     assert.equal(await readFile(path.join(directory, name), 'utf8'), contents);
+  for (const [field, value] of [['radius', 17], ['iconSize', 33]]) {
+    const invalidChip = structuredClone(tokens);
+    invalidChip.style.material3.chip[field].$value = value;
+    assert.throws(() => formatMaterial3ChipRecipe(resolveDictionary(invalidChip)), /must fit/);
+    await writeFile(source, JSON.stringify(invalidChip));
+    await assert.rejects(generateRecipes({ source, directory }), /must fit/);
+    for (const [name, contents] of originalOutputs)
+      assert.equal(await readFile(path.join(directory, name), 'utf8'), contents);
+  }
   const cycle = structuredClone(tokens);
   cycle.style.material3.button.smallHeight.$value = '{style.material3.button.mediumHeight}';
   cycle.style.material3.button.mediumHeight.$value = '{style.material3.button.smallHeight}';

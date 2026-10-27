@@ -7,6 +7,9 @@ QtObject {
     readonly property real commonSizeSpacing: 12
     readonly property real iconAppearanceSpacing: 36
 
+    readonly property real chipCardWidth: 560
+    readonly property real chipGallerySpacing: 12
+    readonly property real chipLongWidth: 180
 
     readonly property real radioReadOnlySpacing: 5
 

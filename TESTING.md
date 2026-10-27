@@ -72,3 +72,8 @@ The comparison's --check path enables QAccessible before creating the QML engine
 This exercises Qt's implicit placeholder descriptions on software as well as native
 Metal, so supporting/error description regressions cannot hide behind inactive
 accessibility. The same consumer pass preserves explicit caller descriptions.
+
+Chip coverage uses the same native-consumer seam: command activation/32px recipe,
+native Filter/Input selection, keyboard access to the separate trailing Action,
+no parent activation on removal, disabled gating and constrained-label ownership.
+The public Action signal is observed; private chip delegates are not inspected.

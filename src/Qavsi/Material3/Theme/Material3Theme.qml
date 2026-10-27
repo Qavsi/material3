@@ -2,6 +2,7 @@ import QtQuick
 import "Material3SliderRecipe.js" as SliderRecipe
 import "Material3SwitchRecipe.js" as SwitchRecipe
 import "Material3RadioButtonRecipe.js" as RadioRecipe
+import "Material3ChipRecipe.js" as ChipRecipe
 import "Material3NavigationRecipe.js" as NavigationRecipe
 import "Material3TabRecipe.js" as TabRecipe
 
@@ -115,6 +116,24 @@ QtObject {
         height: 72; horizontalPadding: 24; verticalPadding: 0
         iconSize: 32; spacing: 0; font: root.bodyLarge
     }
+    readonly property real chipHeight: ChipRecipe.height
+    readonly property real chipMinimumWidth: ChipRecipe.minimumWidth
+    readonly property real chipRadius: ChipRecipe.radius
+    readonly property real chipPadding: ChipRecipe.padding
+    readonly property real chipIconPadding: ChipRecipe.iconPadding
+    readonly property real chipSpacing: ChipRecipe.spacing
+    readonly property real chipIconSize: ChipRecipe.iconSize
+    readonly property real chipTrailingTarget: ChipRecipe.trailingTarget
+    readonly property real chipEmbedSpacing: ChipRecipe.embedSpacing
+    readonly property int chipSelectionDuration: 100
+    readonly property int chipPaddingDuration: 50
+    readonly property int chipSelectionEasing: Easing.Linear
+    readonly property int chipPaddingEasing: Easing.Linear
+    readonly property color chipAssistInk: surfaceForeground
+    readonly property color chipInk: surfaceVariantForeground
+    readonly property color chipSelectedInk: secondaryContainerForeground
+    readonly property color chipIconInk: primary
+    readonly property color chipDisabledOutline: Qt.alpha(surfaceForeground, disabledContainerOpacity)
 
     readonly property real radioIndicatorDiameter: RadioRecipe.indicatorDiameter
     readonly property real radioOutlineWidth: RadioRecipe.outlineWidth
