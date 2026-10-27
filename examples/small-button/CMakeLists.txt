@@ -28,4 +28,5 @@ target_link_libraries(qavsi-small-button PRIVATE Qt6::Quick Qt6::Test QavsiMater
 enable_testing()
 add_test(NAME small-button-software COMMAND qavsi-small-button --check)
 set_tests_properties(small-button-software PROPERTIES
+    LABELS "controls;software"
     ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QT_QUICK_BACKEND=software")

@@ -104,11 +104,11 @@ türetilir, sabit metin genişliği uygulanmaz.
 
 ### Standalone icon sözleşmesi
 
-Karşılaştırma ekranı pinned QmlMaterial kaynağındaki Common XS/S/M, Icon
-XS/S/M/L ve S için Narrow/Default/Wide örneklerini gösterir. Kütüphanenin Common
-ve Icon XS–XL API'si korunur; referans API de beş boyut sunar. Ek L/XL kapsamı
-`checks.cpp` içindeki test-only `QQmlComponent` native buton fixture'larıyla
-sınanır; demo'ya gizli sahte kontroller veya görünürlük flag'leri eklenmez.
+The reference gallery shows Common XS/S/M, Icon XS/S/M/L and S
+Narrow/Default/Wide examples. All Common and Icon XS–XL roles remain public.
+Exhaustive size/shape probes are outside the routine gate; public behavior and
+caller bindings follow [TESTING.md](TESTING.md). No hidden size probes are added
+to the gallery.
 
 Standalone icon geometri eşlemesi Qt 6.12'nin kendi `Button.qml` sözleşmesini
 kullanır: `background.margins` native `leftInset/rightInset/topInset/bottomInset`
@@ -298,13 +298,11 @@ native state güncellemesine kadar platform varsayılanı kalır. Statik Main
 reader'ları ilk `Style.componentComplete()` / `reapplyStyle()` reset'ini alır.
 [Qt 6.12 reader kaynağı](https://github.com/qt/qtdeclarative/blob/6.12/src/labs/stylekit/qqstylekitreader.cpp).
 
-Yalnız test-only boyut fixture'larının hazırlığında completion sonrası native
-`enabled: false` → `true` geçişi yapılır; bu mevcut `updateControl()` /
-`rebuildEffectiveFont()` yolunu çalıştırır. Tek Small probe'un before/after font
-logu korunur; Label Large 14 px assert'i gevşetilmez veya literal font atanmaz.
-Kit/public consumer API'sine bu geçiş eklenmez; genel dinamik font SDK hatası
-giderilmiş sayılmaz. Bu sınır dinamik variation cache hatasından ayrıdır; SDK
-ve normal QML implicit ölçüleri değiştirilmez.
+Earlier test-only size probes forced a native enabled-state change to refresh
+this reader. Those implementation-coupled probes are retired from the routine
+suite; the SDK limitation remains documented here. The kit and public consumer
+API do not add this state change. SDK files and normal QML implicit dimensions
+remain unchanged. See [TESTING.md](TESTING.md) for the current public test seams.
 
 Native SK.Button içeriğinin IconLabel.color alanında notify yoktur. Ek içerik
 helper’ı kendi bindable color alanını sunar. Helper kullanılmayan native butonun

@@ -21,7 +21,7 @@ foreach(unwanted IN ITEMS Merce::Theme MerceTheme MerceStyle QavsiRuntime)
 endforeach()
 
 qt_add_executable(qavsi-material3-comparison MACOSX_BUNDLE
-    main.cpp checks.cpp menu-motion-checks.cpp menu-motion-checks.h)
+    main.cpp checks.cpp)
 set_target_properties(qavsi-material3-comparison PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER dev.qavsi.material3.comparison)
 file(GLOB comparison_icons CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "icons/*.svg")
@@ -36,4 +36,5 @@ target_link_libraries(qavsi-material3-comparison PRIVATE Qt6::Quick Qt6::Test Qa
 enable_testing()
 add_test(NAME comparison-software COMMAND qavsi-material3-comparison --check)
 set_tests_properties(comparison-software PROPERTIES
+    LABELS "controls;software"
     ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QT_QUICK_BACKEND=software")

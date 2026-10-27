@@ -202,10 +202,10 @@ halen kapsam boşluğudur. Bütün eski aile ilerlemesi
 
 ### Referans galerisi ve kit API'si
 
-Galeri QmlMaterial kaynağını izler: Common'da XS/S/M; Icon'da XS/S/M/L ve S için
-Narrow/Default/Wide. Kütüphane her iki ailede de XS–XL sunar; bu QmlMaterial'ın
-API kapsamıdır. Beş rolün tamamı yalnız C++ check'lerinin oluşturduğu native
-QML fixture'larında sınanır; ek boyutlar demo içinde gizli kontrollerle tutulmaz.
+The gallery follows QmlMaterial: Common XS/S/M; Icon XS/S/M/L and S
+Narrow/Default/Wide. The kit retains the public XS–XL roles in both families.
+Routine tests cover public control behavior and caller bindings; exhaustive
+size/shape comparison is separate. See [TESTING.md](TESTING.md).
 
 Standalone icon plate/native hedef ölçüleri XS 30/40, S 40/48, M 56/64, L 96/104,
 XL 136/144'tür. Native StyleKit background margins inset'lere eşlenir: XS 5,
@@ -227,9 +227,9 @@ With Badges, sonraki ayrı Badge ailesidir; bu tur yeni MD kontrol sarmalayıcı
 veya genel runtime eklenmez.
 
 Qt 6.12.0'ın loaded-style dinamik reader font başlangıcı ayrıca sınırlıdır.
-Test-only `QQmlComponent` fixture hazırlığı native enabled false→true geçişiyle
-font rebuild'ini tetikler; Theme'in 14 px assert'i korunur. Bu genel runtime
-SDK düzeltmesi değildir; [DESIGN.md](DESIGN.md) sınırı ve test hazırlığını ayırır.
+Earlier dynamic size probes and their font-reset preparation are no longer part
+of the routine suite. This does not fix the SDK limitation documented in
+[DESIGN.md](DESIGN.md). The current test policy is [TESTING.md](TESTING.md).
 
 ## Source tüketimi
 
