@@ -11,6 +11,7 @@ SK.Style {
     readonly property bool effectiveReducedMotion: reducedMotion
         || Application.styleHints.accessibility.motionPreference === Qt.MotionPreference.ReducedMotion
     readonly property Material3Theme tokens: themeName === "Dark" ? darkTokens : lightTokens
+    readonly property Material3ComboBoxDelegate comboBoxDelegate: Material3ComboBoxDelegate { }
     readonly property SmallButtonDelegate buttonDelegate: SmallButtonDelegate { }
     readonly property Material3MenuDelegate menuDelegate: Material3MenuDelegate { }
     readonly property Material3TextFieldDelegate textFieldDelegate: Material3TextFieldDelegate { }
@@ -20,6 +21,81 @@ SK.Style {
     fonts.system: root.tokens.labelLarge
     fonts.button: root.tokens.labelLarge
     fonts.textField: root.tokens.bodyLarge
+    fonts.comboBox: root.tokens.bodyLarge
+    comboBox {
+        leftPadding: root.tokens.comboBoxHorizontalPadding
+        rightPadding: root.tokens.comboBoxHorizontalPadding
+        topPadding: 0
+        bottomPadding: 0
+        spacing: root.tokens.comboBoxSpacing
+        text {
+            color: root.tokens.surfaceForeground
+            alignment: Qt.AlignLeft | Qt.AlignVCenter
+            padding: 0
+        }
+        background {
+            width: root.tokens.comboBoxMinimumWidth
+            height: root.tokens.comboBoxHeight
+            radius: root.tokens.textFieldCornerRadius
+            color: root.tokens.transparent
+            gradient: null
+            margins: 0
+            border.width: root.tokens.textFieldOutlineWidth
+            border.color: root.tokens.outline
+            shadow.visible: false
+            delegate: root.comboBoxDelegate.background
+            data: Material3ComboBoxParameters { tokens: root.tokens; reducedMotion: root.effectiveReducedMotion }
+        }
+        indicator {
+            color: root.tokens.transparent
+            margins: 0
+            fillWidth: false
+            fillHeight: false
+            alignment: Qt.AlignRight | Qt.AlignVCenter
+            foreground {
+                width: root.tokens.comboBoxIndicatorSize
+                height: root.tokens.comboBoxIndicatorSize
+                color: root.tokens.surfaceVariantForeground
+                margins: 0
+                fillWidth: false
+                fillHeight: false
+                alignment: Qt.AlignCenter
+                delegate: root.comboBoxDelegate.indicator
+            }
+        }
+        hovered.background.border.color: root.tokens.surfaceForeground
+        focused {
+            background.border.width: root.tokens.textFieldFocusedOutlineWidth
+            background.border.color: root.tokens.primary
+        }
+        disabled {
+            text.color: root.tokens.disabledLabel
+            background.border.color: root.tokens.disabledContainer
+            indicator.foreground.color: root.tokens.disabledLabel
+        }
+    }
+    popup {
+        leftPadding: 0
+        rightPadding: 0
+        topPadding: root.tokens.menuVerticalPadding
+        bottomPadding: root.tokens.menuVerticalPadding
+        background {
+            width: root.tokens.menuMinimumWidth
+            height: root.tokens.menuMinimumHeight
+            radius: root.tokens.menuCornerRadius
+            color: root.tokens.surfaceContainer
+            gradient: null
+            border.width: 0
+            margins: 0
+            data: Material3MenuParameters { tokens: root.tokens; reducedMotion: root.effectiveReducedMotion }
+            shadow {
+                visible: true
+                color: root.tokens.shadow
+                opacity: root.tokens.elevationContainerOpacity
+                delegate: root.menuDelegate.shadow
+            }
+        }
+    }
     textField {
         background {
             delegate: root.textFieldDelegate.background

@@ -49,7 +49,17 @@ ColumnLayout {
             y: root.tokens.spacingMedium
             width: Math.max(0, viewport.width - root.tokens.spacingMedium * 2)
             spacing: root.tokens.spacingLarge
+            ComboBoxGallery { width: Math.min(parent.width, preferredWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
             FieldsGallery { width: Math.min(parent.width, root.tokens.referenceCardWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
+            Loader {
+                id: apiExamples
+                width: Math.min(parent.width, root.tokens.referenceCardWidth)
+                anchors.horizontalCenter: parent.horizontalCenter
+                active: false
+                sourceComponent: ComboBoxApiExamples { tokens: root.tokens }
+                // shortcut: keep caller popup creation outside Qt 6.12's initial reader-reset iteration.
+                Component.onCompleted: Qt.callLater(() => apiExamples.active = true)
+            }
             ActionsGallery { width: parent.width; tokens: root.tokens }
         }
     }

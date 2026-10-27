@@ -463,10 +463,16 @@ SK.TextField {
     placeholderText: qsTr("Filled · XS")
     SK.StyleVariation.variations: ["textFieldFilledExtraSmall"]
 }
+SK.ComboBox {
+    model: [qsTr("Small"), qsTr("Medium"), qsTr("Large")]
+    ComboBoxSupport.label: qsTr("Size")
+    SK.StyleVariation.variations: ["comboBoxSmall"]
+}
 ```
 
 TextField recipe names combine `textFieldFilled` or `textFieldOutlined` with
-`ExtraSmall/Small/Medium/Large/ExtraLarge`. Defaults are medium. Set the complete recipe at creation;
+`ExtraSmall/Small/Medium/Large/ExtraLarge`. ComboBox names use `comboBox` with
+the same size suffixes. Defaults are medium. Set the complete recipe at creation;
 Qt 6.12's dynamic variation limitation still applies. These recipes supply the
 QCM font size/tracking and geometry while retaining native editing APIs.
 
@@ -498,3 +504,25 @@ supporting text and updates the default accessible description.
 Nondefault native padding/insets or an explicit accessible description keep
 caller ownership. Custom geometry must leave enough space for accessories;
 default geometry is augmented/restored automatically by the delegate.
+
+
+## Native ComboBox
+
+```qml
+SK.ComboBox {
+    model: [qsTr("Personal"), qsTr("Team"), qsTr("Production")]
+    ComboBoxSupport.label: qsTr("Workspace")
+}
+```
+
+Select Material3Style once at the window. The private field/popup/row factories
+follow that style; consumer pages need no style condition or custom input router.
+`model`, `textRole`, `valueRole`, `currentIndex`, `currentValue`, `editable`,
+`editText`, `accepted` and `activated` keep native semantics. The caption floats
+on focus or a value, and selected-row color is independent of navigation/hover.
+
+The popup width cap comes from Theme (280); height follows available window
+space. Caller-defined popup/delegate/contentItem are preserved.
+The ComboBox is outlined, matching the pinned QCM implementation; no filled
+ComboBox variant is exposed. [ComboBoxGallery.qml](examples/qmlmaterial-comparison/ComboBoxGallery.qml)
+shows string/role models, editable/disabled controls and caller-owned factories.

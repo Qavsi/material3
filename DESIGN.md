@@ -119,8 +119,8 @@ normal QML `implicitWidth/implicitHeight` alanları yeniden yazılmaz.
 | Icon boyutu | Native hedef | Optical plate | Her kenarda inset | İkon | Checked / pressed radius |
 |---|---|---|---|---|---|
 | XS | 40 | 30 | 5 | 22 | 12 / 8 |
-| S | 48 | 4 | 24 | 12 / 8 |
-| M | 64 | 4 | 24 | 16 / 12 |
+| S | 48 | 40 | 4 | 24 | 12 / 8 |
+| M | 64 | 56 | 4 | 24 | 16 / 12 |
 | L | 104 | 96 | 4 | 32 | 28 / 16 |
 | XL | 144 | 136 | 4 | 40 | 28 / 16 |
 
@@ -595,15 +595,15 @@ Binding to hide the default placeholder while it draws the floating caption.
 An initially nondefault placeholderTextColor opts out and keeps the native
 placeholder. No global palette or SDK patch is used.
 
-The XS–XL sizes follow QCM's TextField token table.
+The XS–XL sizes follow QCM's separate TextField and ComboBox token tables.
 
-| Size | TextField height | Font px / tracking |
-|---|---:|---|
-| XS | 40 | 12 / 0.4 |
-| S | 48 | 14 / 0.25 |
-| M | 56 | 16 / 0.5 |
-| L | 64 | 16 / 0.5 |
-| XL | 72 | 16 / 0.5 |
+| Size | TextField height | ComboBox height | Font px / tracking |
+|---|---:|---:|---|
+| XS | 40 | 32 | 12 / 0.4 |
+| S | 48 | 40 | 14 / 0.25 |
+| M | 56 | 48 | 16 / 0.5 |
+| L | 64 | 56 | 16 / 0.5 |
+| XL | 72 | 72 | 16 / 0.5 |
 
 Material3Theme owns typed size recipes: horizontal/vertical padding, adornment
 size, gap and font. Private recipe variations map native geometry and supply
@@ -612,11 +612,12 @@ recipes (`textFieldFilledExtraSmall`, `textFieldOutlinedSmall`, etc.) because
 StyleKit's opaque background.data slot cannot merge two independent axis objects.
 One parameterized variation implementation supplies all recipes. `textFieldFilled`
 remains the medium filled alias; outlined medium remains the default.
+ComboBox uses `comboBoxExtraSmall/Small/Medium/Large/ExtraLarge`.
 A restoring default-font binding applies the size typography; explicit caller
 font ownership is retained. Recipe variations are assigned at creation; the
 known Qt 6.12 dynamic-variation cache limitation remains.
 
-The comparison's Text Inputs reference card reproduces QCM's sample
+The comparison's Text Inputs and Menus reference cards reproduce QCM's sample
 order, 400px card width, 12px card padding and 8px input spacing. Native editing/contract examples
 follow them. See [BACKLOG.md](BACKLOG.md) for deferred button work.
 
@@ -659,3 +660,48 @@ never removes the field label. Support/error text and affix units populate an
 initially empty Accessible.description. Explicit nonempty caller names/descriptions
 are preserved. Decorative labels/icons
 are ignored individually, so the field description is not announced twice.
+
+
+## Native ComboBox
+
+Reference: QCM 0.6.1 `qml/input/ComboBox.qml`, `qml/popup/Menu.qml` and
+`src/style/menu_item_state.cpp`, pinned to the same `191260585a829ee4ae2c99e6232b7145b5c34474` revision.
+The adapter retains native SK.ComboBox model, textRole/valueRole, selection,
+keyboard, editable acceptance and activation semantics.
+
+- ComboBoxSupport.label supplies the floating caption. Focus or displayed/edit
+  text raises it; a selected value keeps it raised after blur. QCM's ComboBox
+  uses the outlined shape even though its exposed type property suggests more
+  appearances. No unsupported filled variant is claimed.
+- The medium geometry is 48px, horizontal padding12, indicator24 and spacing0,
+  BodyLarge typography, extraSmall corner and the field caption motion tokens.
+  The static down triangle has no font dependency. Native validator errors use
+  the error role. The outline/gap renderer is shared with TextField.
+- The default popup is modeless, retains ComboBox focus, has a 4px anchor gap,
+  12px top/bottom safety margins, 8px vertical padding, a 200px minimum natural
+  width and 280px default maximum width. Long rows elide; tall lists scroll.
+  Width is measured on open and stops measuring after reaching the cap.
+- Popup surfaces reuse Material3 popup/menu material, elevation and enter/exit
+  transitions. MenuItem's checked container represents currentIndex, while
+  highlightedIndex represents navigation/hover. Moving highlight never removes
+  the selected container. All rows fill the available content width.
+- Rows use native AbstractButton activation; no QCM input router, synthetic
+  activated signal or model wrapper is introduced. Editable content remains
+  the stock TextInput; a private noneditable display layer adds clipping/elision.
+  Explicit caller content/factories are preserved; the label supplies the
+  default accessible name.
+
+Qt 6.12 StyleKit has no ComboBox popup/delegate style slots. The kit therefore
+installs private factories only when public QML origin URLs identify the stock
+StyleKit ComboBox. Custom caller factories stay installed; later assignments
+retain caller ownership. Stock view/model attachment and popup parenting are
+restored when the style delegate releases them. New popups are created after
+component completion to avoid premature deferred StyleKit reader construction.
+Native delegate replacement is guarded and selection restored before the actual
+delegateChanged notification; caller QML selection bindings remain attached.
+
+The native ownership/activation path is checked against
+[Qt 6.12 ComboBox source](https://github.com/qt/qtdeclarative/blob/v6.12.0/src/quicktemplates/qquickcombobox.cpp).
+The stock-origin adapter is scoped to Qt 6.12's StyleKit component layout and
+must be rechecked when Qt changes that implementation. Motion policy and software
+use the same existing kit paths; no Qt SDK source is changed.

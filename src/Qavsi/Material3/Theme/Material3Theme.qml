@@ -90,9 +90,37 @@ QtObject {
         height: 72; horizontalPadding: 24; verticalPadding: 24
         iconSize: 32; spacing: 16; font: root.bodyLarge
     }
+    readonly property InputSize comboBoxExtraSmall: InputSize {
+        height: 32; horizontalPadding: 8; verticalPadding: 0
+        iconSize: 18; spacing: 0; font: root.bodySmall
+    }
+    readonly property InputSize comboBoxSmall: InputSize {
+        height: 40; horizontalPadding: 10; verticalPadding: 0
+        iconSize: 20; spacing: 0; font: root.bodyMedium
+    }
+    readonly property InputSize comboBoxMedium: InputSize {
+        height: 48; horizontalPadding: 12; verticalPadding: 0
+        iconSize: 24; spacing: 0; font: root.bodyLarge
+    }
+    readonly property InputSize comboBoxLarge: InputSize {
+        height: 56; horizontalPadding: 16; verticalPadding: 0
+        iconSize: 24; spacing: 0; font: root.bodyLarge
+    }
+    readonly property InputSize comboBoxExtraLarge: InputSize {
+        height: 72; horizontalPadding: 24; verticalPadding: 0
+        iconSize: 32; spacing: 0; font: root.bodyLarge
+    }
     readonly property real referenceCardWidth: 400
     readonly property real inputGalleryPadding: 12
     readonly property real inputGallerySpacing: spacingSmall
+    readonly property real comboBoxMinimumWidth: 64
+    readonly property real comboBoxHeight: comboBoxMedium.height
+    readonly property real comboBoxHorizontalPadding: comboBoxMedium.horizontalPadding
+    readonly property real comboBoxIndicatorSize: comboBoxMedium.iconSize
+    readonly property real comboBoxSpacing: comboBoxMedium.spacing
+    readonly property real comboBoxPopupMaximumWidth: 280
+    readonly property real comboBoxPopupMargin: 12
+    readonly property real comboBoxPopupGap: 4
     readonly property real textFieldMinimumWidth: 64
     readonly property real textFieldHeight: 56
     readonly property real textFieldHorizontalPadding: spacingMedium

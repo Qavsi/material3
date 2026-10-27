@@ -13,4 +13,13 @@ These items do not block the TextField family.
 
 Current slice: native SK.TextField, default outlined, textFieldFilled variation,
 placeholderText as floating caption, TextFieldSupport affixes/icons/messages,
-Theme, accessibility motion and software. QCM XS–XL TextField recipes are implemented; the comparison shows the reference card.
+Theme, accessibility motion and software. Native outlined ComboBox now includes
+floating label, popup/selection, role models, editable acceptance and caller factory
+preservation. QCM XS–XL field and ComboBox recipes are implemented; the comparison shows their reference cards.
+
+Input-family investigations (not confirmed defects):
+
+| ID | Area | Follow-up |
+|---|---|---|
+| INPUT-001 | Large option models | Profile popup width measurement for large short-label models before adding a cache; the current short-list path scans on open and stops at the maximum width |
+| SDK-001 | Qt 6.12 StyleKit startup | Cold launches can crash in QQStyleKitReader::resetReadersForStyle when caller popup/delegate readers are created during initial style completion. The comparison defers its caller-popup API examples and reference menus, keeping variation recipe galleries eager. Source repeated starts pass; the SDK root cause remains upstream work. |

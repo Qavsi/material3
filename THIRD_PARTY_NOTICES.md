@@ -46,6 +46,8 @@ The native TextField recipe additionally references QmlMaterial 0.6.1
 (`191260585a829ee4ae2c99e6232b7145b5c34474`), its input layout, floating
 caption and filled/outlined geometry. The adaptation uses Qt's native TextField
 and Shape APIs; no QCM control or input runtime is linked.
+The native ComboBox recipes, floating caption and option-menu geometry use the
+same pinned QCM reference; Qt retains model, editing and selection ownership.
 
 The example’s `icons/*.svg` are Google Material Symbols Rounded, pinned to
 material-design-icons `10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7`, under Apache-2.0.

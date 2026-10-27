@@ -7,7 +7,7 @@ import Qavsi.Material3.Theme
 Transition {
     id: root
     objectName: "material3.menu.enter"
-    required property T.Menu control
+    required property T.Popup control
     readonly property Material3Style sourceStyle: root.control ? root.control.SK.StyleKit.style as Material3Style : null
     readonly property Material3Theme tokens: root.sourceStyle ? root.sourceStyle.tokens : null
     readonly property bool motionEnabled: root.sourceStyle !== null

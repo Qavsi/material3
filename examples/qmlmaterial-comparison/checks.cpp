@@ -6,6 +6,7 @@
 #include <QMetaProperty>
 #include <QQmlApplicationEngine>
 #include <QQuickItem>
+#include <QQuickItemGrabResult>
 #include <QQuickWindow>
 #include <QSignalSpy>
 #include <QTest>
@@ -63,24 +64,186 @@ QImage captionBand(QQuickWindow &window, QQuickItem *field)
                            qRound(70 * dpr), qRound(5 * dpr)));
 }
 
+void checkComboBox(QQuickWindow &window)
+{
+    auto *basic = control(window, "comparison.combo.basic");
+    auto *roles = control(window, "comparison.combo.roles");
+    auto *custom = control(window, "comparison.combo.custom");
+    if (!basic || !roles || !custom)
+        return;
+    reveal(basic);
+    auto *indicator = basic->property("indicator").value<QQuickItem *>();
+    expect(indicator && indicator->isVisible() && indicator->width() > 0 && indicator->height() > 0,
+           "the native ComboBox reserves a visible down indicator");
+    const auto capture = indicator ? indicator->grabToImage() : nullptr;
+    bool arrowPainted = false;
+    if (capture && QTest::qWaitFor([&] { return !capture->image().isNull(); })) {
+        const QImage image = capture->image();
+        for (int y = 0; y < image.height() && !arrowPainted; ++y)
+            for (int x = 0; x < image.width() && !arrowPainted; ++x)
+                arrowPainted = qAlpha(image.pixel(x, y)) > 0;
+    }
+    expect(arrowPainted, "the native ComboBox paints its down indicator");
+    basic->setProperty("currentIndex", -1);
+    basic->setFocus(false, Qt::OtherFocusReason);
+    const auto rest = captionBand(window, basic);
+    basic->forceActiveFocus(Qt::TabFocusReason);
+    expect(captionBand(window, basic) != rest, "ComboBox floats its label on native focus");
+    basic->setProperty("currentIndex", 0);
+    basic->setFocus(false, Qt::OtherFocusReason);
+    expect(QTest::qWaitFor([&] { return captionBand(window, basic) != rest; }, 200),
+           "a selected ComboBox keeps its label floated after blur");
+    basic->setProperty("selectedChoice", 2);
+    expect(basic->property("currentIndex").toInt() == 2 && basic->property("currentText").toString() == QStringLiteral("Third"),
+           "the caller's currentIndex binding survives style factory installation");
+    auto *model = roles->property("model").value<QObject *>();
+    if (model)
+        QMetaObject::invokeMethod(model, "move", Q_ARG(int, 0), Q_ARG(int, 1), Q_ARG(int, 1));
+    expect(model && roles->property("currentIndex").toInt() == 1 && roles->property("currentValue").toInt() == 10,
+           "a currentValue-bound ComboBox keeps its value while model rows move");
+    if (model)
+        QMetaObject::invokeMethod(model, "move", Q_ARG(int, 1), Q_ARG(int, 0), Q_ARG(int, 1));
+    auto *customPopup = custom->property("popup").value<QObject *>();
+    auto *customDelegate = custom->property("delegate").value<QObject *>();
+    expect(customPopup && customPopup->objectName() == QStringLiteral("comparison.combo.custom.popup")
+               && customDelegate && customDelegate == custom->property("callerDelegate").value<QObject *>(),
+           "caller-provided ComboBox popup and delegate remain installed");
+    reveal(roles);
+    roles->forceActiveFocus(Qt::TabFocusReason);
+    QSignalSpy activated(roles, SIGNAL(activated(int)));
+    QTest::keyClick(&window, Qt::Key_Space);
+    auto *popup = roles->property("popup").value<QObject *>();
+    expect(popup && popup->property("opened").toBool(), "native ComboBox opens its Material3 popup");
+    if (!popup)
+        return;
+    expect(popup->property("width").toReal() <= 280, "ComboBox popup obeys the QCM maximum width");
+    auto *view = popup->property("contentItem").value<QQuickItem *>();
+    QQuickItem *firstRow = nullptr;
+    QQuickItem *lastRow = nullptr;
+    const bool rowsReady = QTest::qWaitFor([&] {
+        if (!view)
+            return false;
+        QMetaObject::invokeMethod(view, "itemAtIndex", Q_RETURN_ARG(QQuickItem *, firstRow), Q_ARG(int, 0));
+        QMetaObject::invokeMethod(view, "itemAtIndex", Q_RETURN_ARG(QQuickItem *, lastRow), Q_ARG(int, 2));
+        return firstRow && lastRow;
+    }, 200);
+    expect(rowsReady && firstRow->property("text").toString() == QStringLiteral("Personal workspace"),
+           "popup delegates display the model's textRole");
+    if (model)
+        QMetaObject::invokeMethod(model, "setProperty", Q_ARG(int, 0), Q_ARG(QString, QStringLiteral("title")), Q_ARG(QVariant, QVariant(QStringLiteral("Renamed workspace"))));
+    expect(rowsReady && firstRow->property("text").toString() == QStringLiteral("Renamed workspace"),
+           "an open ComboBox row follows model role updates");
+    roles->setProperty("textRole", QStringLiteral("key"));
+    expect(rowsReady && firstRow->property("text").toString() == QStringLiteral("10"),
+           "an open ComboBox row follows textRole changes");
+    roles->setProperty("textRole", QStringLiteral("title"));
+    expect(rowsReady && firstRow->width() == view->width() && lastRow->width() == view->width()
+               && firstRow->y() >= 0 && lastRow->y() + lastRow->height() <= view->height() + 0.5,
+           "first and last ComboBox rows fit the popup content width and height");
+    QTest::keyClick(&window, Qt::Key_Down);
+    expect(rowsReady && firstRow->property("checked").toBool(),
+           "the selected row stays marked while keyboard highlight moves elsewhere");
+    expect(roles->property("currentIndex").toInt() == 0 && roles->property("highlightedIndex").toInt() == 1,
+           "keyboard highlighting does not change the committed selection");
+    QTest::keyClick(&window, Qt::Key_Return);
+    expect(roles->property("currentIndex").toInt() == 1 && roles->property("currentValue").toInt() == 20
+               && activated.size() == 1 && !popup->property("visible").toBool(),
+           "Enter commits one native selection with its valueRole and closes the popup");
+    QTest::keyClick(&window, Qt::Key_Space);
+    QTest::keyClick(&window, Qt::Key_End);
+    QTest::keyClick(&window, Qt::Key_Escape);
+    expect(roles->property("currentIndex").toInt() == 1 && activated.size() == 1,
+           "Escape discards the last-row highlight without another activation");
+    QTest::keyClick(&window, Qt::Key_Space);
+    QMetaObject::invokeMethod(view, "itemAtIndex", Q_RETURN_ARG(QQuickItem *, firstRow), Q_ARG(int, 0));
+    if (firstRow) {
+        const auto point = firstRow->mapToScene(QPointF(firstRow->width() / 2, firstRow->height() / 2)).toPoint();
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, point);
+    }
+    expect(roles->property("currentIndex").toInt() == 0 && activated.size() == 2
+               && !popup->property("visible").toBool(),
+           "pointer selection commits one native activation and dismisses the popup");
+    roles->setProperty("selectedWorkspace", 30);
+    expect(roles->property("currentIndex").toInt() == 2 && roles->property("currentValue").toInt() == 30
+               && activated.size() == 2, "the caller's currentValue binding remains live without synthetic activation");
+    const int oldWindowWidth = window.width();
+    const qreal oldBasicWidth = basic->width();
+    const qreal oldBasicX = basic->x();
+    window.setWidth(180);
+    window.grabWindow();
+    basic->setWidth(64);
+    basic->setX(qMax<qreal>(0, basic->parentItem()->width() - basic->width()));
+    reveal(basic);
+    basic->forceActiveFocus(Qt::TabFocusReason);
+    QTest::keyClick(&window, Qt::Key_Space);
+    auto *edgePopup = basic->property("popup").value<QObject *>();
+    auto *edgeContent = edgePopup ? edgePopup->property("contentItem").value<QQuickItem *>() : nullptr;
+    window.grabWindow();
+    const auto popupBounds = edgeContent ? edgeContent->mapRectToScene(QRectF(0, 0, edgeContent->width(), edgeContent->height())) : QRectF();
+    expect(edgePopup && edgePopup->property("width").toReal() <= window.width()
+               && popupBounds.left() >= 0 && popupBounds.right() <= window.width() + 0.5,
+           "a compact ComboBox keeps its popup within a narrow window's horizontal bounds");
+    QTest::keyClick(&window, Qt::Key_Escape);
+    window.setWidth(oldWindowWidth);
+    basic->setX(oldBasicX);
+    basic->setWidth(oldBasicWidth);
+    auto *lifecycleLoader = control(window, "comparison.combo.popupLifecycleLoader");
+    if (lifecycleLoader) {
+        lifecycleLoader->setProperty("active", true);
+        auto *lifecycle = control(window, "comparison.combo.popupLifecycle");
+        auto *stockPopup = lifecycle ? lifecycle->property("stockPopup").value<QObject *>() : nullptr;
+        const bool installed = lifecycle && stockPopup && QTest::qWaitFor([&] {
+            return lifecycle->property("popup").value<QObject *>() != stockPopup;
+        });
+        if (installed) {
+            lifecycle->setProperty("useReplacementPopup", true);
+            lifecycle->setProperty("popup", QVariant::fromValue(stockPopup));
+        }
+        auto *stockView = stockPopup ? stockPopup->property("contentItem").value<QObject *>() : nullptr;
+        expect(installed && stockPopup->property("parent").value<QObject *>() == lifecycle
+                   && stockView && !stockView->property("model").isNull(),
+               "returning from a caller popup to the saved stock popup restores its parent and model");
+        lifecycleLoader->setProperty("active", false);
+    }
+    auto *editable = control(window, "comparison.combo.editable");
+    if (editable) {
+        expect(editable->property("editText") == editable->property("pendingDraft"),
+               "style delegate installation preserves a caller's uncommitted draft");
+        editable->setProperty("pendingDraft", QStringLiteral("Updated draft"));
+        expect(editable->property("editText").toString() == QStringLiteral("Updated draft"),
+               "the caller's draft binding remains live after delegate installation");
+        reveal(editable);
+        editable->forceActiveFocus(Qt::TabFocusReason);
+        editable->setProperty("editText", QStringLiteral("Medium"));
+        QSignalSpy accepted(editable, SIGNAL(accepted()));
+        QTest::keyClick(&window, Qt::Key_Return);
+        expect(editable->property("currentIndex").toInt() == 1 && accepted.size() == 1,
+               "editable ComboBox keeps native text acceptance and matching selection");
+    }
+}
+
 void checkInputSizes(QQuickWindow &window)
 {
-    struct Expected { const char *name; int height; int pixels; qreal tracking; };
+    struct Expected { const char *name; int fieldHeight; int comboHeight; int pixels; qreal tracking; };
     const Expected sizes[] = {
-        {"XS", 40, 12, 0.4}, {"S", 48, 14, 0.25}, {"M", 56, 16, 0.5},
-        {"L", 64, 16, 0.5}, {"XL", 72, 16, 0.5}
+        {"XS", 40, 32, 12, 0.4}, {"S", 48, 40, 14, 0.25}, {"M", 56, 48, 16, 0.5},
+        {"L", 64, 56, 16, 0.5}, {"XL", 72, 72, 16, 0.5}
     };
     for (const auto &size : sizes) {
-        auto *item = control(window, QStringLiteral("comparison.field.size.") + QLatin1String(size.name));
+        for (const bool field : {true, false}) {
+            auto *item = control(window, QString::fromLatin1(field ? "comparison.field.size." : "comparison.combo.size.") + QLatin1String(size.name));
+            if (!item)
+                continue;
+            const auto font = item->property("font").value<QFont>();
+            expect(qAbs(item->height() - (field ? size.fieldHeight : size.comboHeight)) <= 0.5
+                       && font.pixelSize() == size.pixels && qAbs(font.letterSpacing() - size.tracking) < 0.01,
+                   qPrintable(QStringLiteral("%1 %2 matches QCM height and typography").arg(field ? "TextField" : "ComboBox").arg(size.name)));
+        }
+    }
+    for (const char *name : {"comparison.field.size.XS", "comparison.combo.size.XS"}) {
+        auto *item = control(window, QString::fromLatin1(name));
         if (!item)
             continue;
-        const auto font = item->property("font").value<QFont>();
-        expect(qAbs(item->height() - size.height) <= 0.5 && font.pixelSize() == size.pixels
-                   && qAbs(font.letterSpacing() - size.tracking) < 0.01,
-               qPrintable(QStringLiteral("TextField %1 matches QCM height and typography").arg(size.name)));
-    }
-    auto *item = control(window, QStringLiteral("comparison.field.size.XS"));
-    if (item) {
         auto font = item->property("font").value<QFont>();
         font.setPixelSize(18);
         item->setProperty("font", font);
@@ -283,6 +446,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     expect(QTest::qWaitForWindowExposed(&window), "the comparison consumer exposes");
     window.requestActivate();
     window.setProperty("reducedMotion", true);
+    checkComboBox(window);
     checkTextField(window);
     checkFieldAccessories(window);
     checkInputSizes(window);

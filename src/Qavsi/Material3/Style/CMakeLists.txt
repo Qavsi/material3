@@ -55,6 +55,21 @@ foreach(field_file IN LISTS material3_field_files)
     set_source_files_properties("${field_file}" PROPERTIES
         QT_RESOURCE_ALIAS "${logical_name}" QT_QML_INTERNAL_TYPE TRUE)
 endforeach()
+set(material3_combo_files
+    internal/combobox/Material3ComboBoxParameters.qml
+    internal/combobox/Material3ComboBoxVariation.qml
+    internal/combobox/Material3ComboBoxVariations.qml
+    internal/combobox/Material3ComboBoxDelegate.qml
+    internal/combobox/Material3ComboBoxBackground.qml
+    internal/combobox/Material3ComboBoxIndicator.qml
+    internal/combobox/Material3ComboBoxBridge.qml
+    internal/combobox/Material3ComboBoxPopup.qml
+    internal/combobox/Material3ComboBoxDisplay.qml)
+foreach(combo_file IN LISTS material3_combo_files)
+    get_filename_component(logical_name "${combo_file}" NAME)
+    set_source_files_properties("${combo_file}" PROPERTIES
+        QT_RESOURCE_ALIAS "${logical_name}" QT_QML_INTERNAL_TYPE TRUE)
+endforeach()
 set(material3_advanced_files
     internal/actions/advanced/Material3AdvancedButtonParameters.qml
     internal/actions/advanced/Material3JoinedButtonDelegate.qml
@@ -84,7 +99,7 @@ qt_add_qml_module(${module_target} SHARED
         internal/menus/Material3MenuItemBackground.qml
         internal/menus/Material3MenuEnterTransition.qml
         internal/menus/Material3MenuExitTransition.qml
-        Material3ButtonContent.qml ${material3_advanced_files} ${material3_menu_files} ${material3_field_files}
+        Material3ButtonContent.qml ${material3_advanced_files} ${material3_menu_files} ${material3_field_files} ${material3_combo_files}
         internal/shadows/Material3Elevation.qml
         Material3Style.qml SmallButtonTheme.qml SmallButtonBackground.qml SmallButtonShadow.qml
         SmallButtonDelegate.qml SmallButtonParameters.qml
@@ -99,6 +114,7 @@ qt_add_qml_module(${module_target} SHARED
         internal/recipes/Material3SplitButtonRecipe.js
     SOURCES materialbuttonfeedback.h materialbuttonfeedback.cpp ${material3_shadow_sources}
         textfieldsupport.h textfieldsupport.cpp
+        comboboxsupport.h comboboxsupport.cpp
     OUTPUT_TARGETS module_auxiliary_targets)
 qt_add_shaders(${module_target} "qavsi_material3_small_button_shaders"
     PREFIX "/Qavsi/Material3/Style"

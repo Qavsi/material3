@@ -5,7 +5,7 @@ import Qt.labs.StyleKit as SK
 Material3Elevation {
     id: root
     required property SK.DelegateStyle delegateStyle
-    required property T.Menu control
+    required property T.Popup control
     readonly property Material3MenuParameters parameters: root.delegateStyle.data as Material3MenuParameters
     readonly property real maximumRadius: Math.min(root.width, root.height) / 2
     readonly property bool feedbackEnabled: Math.floor(root.width * Screen.devicePixelRatio) > 0

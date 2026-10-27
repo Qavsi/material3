@@ -5,7 +5,7 @@ behavior at these seams; they do not navigate the kit's private delegate tree.
 
 | Seam | Kept coverage | Outside the routine gate |
 |---|---|---|
-| Native SK.Button / SK.Menu / SK.TextField consumption | Pointer/keyboard activation, disabled/cancel behavior, selection, FAB display, menu activation/dismissal, floating caption/native editing, accessory space/rendering, message wrapping/accessible description and live caller bindings | Internal object names, loaders, ripple phase, shadow geometry, per-size/appearance permutations |
+| Native SK.Button / SK.Menu / SK.TextField / SK.ComboBox consumption | Pointer/keyboard activation, disabled/cancel behavior, selection, FAB display, menu activation/dismissal, floating caption/native editing, accessory space/rendering, message wrapping/accessible description and live caller bindings; ComboBox floating caption, first/last rows, native selection/acceptance and caller factories | Internal object names, loaders, ripple phase, shadow geometry, per-size/appearance permutations |
 | Theme and reduced motion | Independent color oracle, role overrides/invalid inputs, light/dark rendered primary, OS preference, static pressed feedback, immediate menu opening | Every renderer/color/timing combination and frame parity with QCM |
 | Source / installed consumption | Real example using the exported targets/URIs; relocated find_package consumer | Rebuilding every consumer after a styling-only edit |
 
@@ -44,5 +44,12 @@ Manual QCM comparison and optional experiments are separate from this gate.
 Historical evidence remains a record of its original revision, not current coverage.
 
 Input size coverage remains at the native consumer seam: one QCM table checks
-XS–XL TextField height, font size and tracking; explicit caller font
+XS–XL TextField/ComboBox height, font size and tracking; explicit caller font
 assignment is retained. It does not inspect private delegate trees.
+
+The comparison keeps XS–XL recipe controls in the initial style tree. Its caller-
+popup API gallery is loaded on the next event-loop turn to avoid Qt 6.12's
+mutable reader-reset iteration during initial style completion. The stock-popup
+return fixture is activated only after window exposure; it checks public popup,
+parent and model restoration. This bootstrap boundary is a consumer workaround,
+not an SDK patch. See SDK-001 in BACKLOG.md.

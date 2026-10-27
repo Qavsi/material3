@@ -7,6 +7,7 @@ SK.Theme {
     id: root
     required property Material3Theme tokens
     required property Material3Style sourceStyle
+    readonly property Material3ComboBoxVariations comboVariations: Material3ComboBoxVariations { sourceStyle: root.sourceStyle }
     readonly property Material3TextFieldVariation filledTextField: Material3TextFieldVariation {
         sourceStyle: root.sourceStyle
         name: "textFieldFilled"
