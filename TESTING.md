@@ -77,3 +77,14 @@ Chip coverage uses the same native-consumer seam: command activation/32px recipe
 native Filter/Input selection, keyboard access to the separate trailing Action,
 no parent activation on removal, disabled gating and constrained-label ownership.
 The public Action signal is observed; private chip delegates are not inspected.
+
+The shared Action-menu check stays at the native-consumer seam: three MenuItems
+reference native Actions, live metadata/state follows the Action, and one keyboard
+activation emits one Action signal and closes the menu. Dark-theme output and
+native icon-color ownership are checked at the consumer boundary. It does not
+inspect a private menu renderer or assert per-frame hover pixels.
+
+The two native flat menu triggers have one rendered-edge check each: pointer
+focus must retain rounded, borderless state feedback. Hardware runs wait for
+actual hover; offscreen runs cover pointer focus because they do not deliver
+native cursor hover. No private background items are inspected.

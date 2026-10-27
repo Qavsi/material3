@@ -666,7 +666,107 @@ void checkFab(QQuickWindow &window)
            "a second Create activation restores the expanded control");
 }
 
+void checkTextButtonPointerFocus(QQuickWindow &window)
+{
+    auto *style = window.property("materialStyle").value<QObject *>();
+    auto *tokens = style ? style->property("tokens").value<QObject *>() : nullptr;
+    const int hoverAlpha = tokens ? qRound(tokens->property("hoverOpacity").toReal() * 255) : 0;
+    for (const auto &name : {QStringLiteral("comparison.menu.open"), QStringLiteral("comparison.menu.action.open")}) {
+        auto *button = control(window, name);
+        if (!button)
+            continue;
+        reveal(button);
+        button->forceActiveFocus(Qt::MouseFocusReason);
+        const auto center = button->mapToScene(QPointF(button->width() / 2, button->height() / 2));
+        QTest::mouseMove(&window, QPoint(1, 1));
+        QTest::mouseMove(&window, center.toPoint());
+        const bool hoverObserved = QGuiApplication::platformName() == QStringLiteral("offscreen")
+            || QTest::qWaitFor([&] { return button->property("hovered").toBool(); });
+        const auto image = button->grabToImage();
+        const bool ready = image && QTest::qWaitFor([&] { return !image->image().isNull(); });
+        const auto painted = ready ? image->image() : QImage();
+        expect(ready && hoverObserved && !button->property("visualFocus").toBool()
+                   && painted.pixelColor(0, 0).alpha() == 0
+                   && painted.pixelColor(0, painted.height() / 2).alpha() <= hoverAlpha + 1,
+               qPrintable(name + " keeps rounded borderless feedback on hover and pointer focus"));
+    }
+}
 
+void checkActionMenu(QQuickWindow &window)
+{
+    auto *trigger = control(window, "comparison.menu.action.open");
+    if (!trigger)
+        return;
+    const auto originalDark = window.property("darkMode");
+    window.setProperty("darkMode", true);
+    reveal(trigger);
+    trigger->forceActiveFocus(Qt::TabFocusReason);
+    QTest::keyClick(&window, Qt::Key_Space);
+    auto *menu = window.findChild<QObject *>("comparison.menu.actions");
+    expect(menu && menu->property("opened").toBool(), "the native Action menu opens");
+    if (!menu)
+        return;
+    QQuickItem *first = nullptr;
+    QMetaObject::invokeMethod(menu, "itemAt", Q_RETURN_ARG(QQuickItem *, first), Q_ARG(int, 0));
+    auto *action = first ? first->property("action").value<QObject *>() : nullptr;
+    expect(menu->property("count").toInt() == 3 && action
+               && action == window.findChild<QObject *>("comparison.menu.action.first"),
+           "QCM's three commands use shared native MenuItem.action objects");
+    if (!action) {
+        QMetaObject::invokeMethod(menu, "close");
+        return;
+    }
+    auto *style = window.property("materialStyle").value<QObject *>();
+    auto *tokens = style ? style->property("tokens").value<QObject *>() : nullptr;
+    const auto foreground = tokens ? tokens->property("surfaceForeground").value<QColor>() : QColor();
+    const auto rendered = first->grabToImage();
+    const bool ready = rendered && QTest::qWaitFor([&] { return !rendered->image().isNull(); });
+    bool textPainted = false;
+    if (ready && foreground.isValid()) {
+        const auto image = rendered->image();
+        const auto dpr = image.devicePixelRatio();
+        const auto start = qRound((first->property("leftPadding").toReal()
+            + QQmlProperty::read(first, QStringLiteral("icon.width"), QQmlEngine::contextForObject(first)).toReal()
+            + first->property("spacing").toReal()) * dpr);
+        for (int y = 0; y < image.height() && !textPainted; ++y)
+            for (int x = start; x < image.width() && !textPainted; ++x) {
+                const auto pixel = image.pixelColor(x, y);
+                textPainted = pixel.alpha() > 240 && qAbs(pixel.red() - foreground.red()) < 3
+                    && qAbs(pixel.green() - foreground.green()) < 3 && qAbs(pixel.blue() - foreground.blue()) < 3;
+            }
+    }
+    expect(textPainted && QQmlProperty::read(first, QStringLiteral("icon.color"), QQmlEngine::contextForObject(first)).value<QColor>() == foreground,
+           "dark Action-menu text and native icon color follow Theme.surfaceForeground");
+    const auto originalText = action->property("text");
+    action->setProperty("text", QStringLiteral("Renamed action"));
+    action->setProperty("enabled", false);
+    action->setProperty("checkable", true);
+    action->setProperty("checked", true);
+    expect(first->property("text").toString() == QStringLiteral("Renamed action")
+               && !first->property("enabled").toBool() && first->property("checkable").toBool()
+               && first->property("checked").toBool()
+               && QQmlProperty::read(first, QStringLiteral("icon.name"), QQmlEngine::contextForObject(first)).toString() == QStringLiteral("material:add"),
+           "native Action text/icon/enabled/checkable/checked stay connected to the menu item");
+    action->setProperty("enabled", true);
+    action->setProperty("checked", false);
+    action->setProperty("text", originalText);
+    QSignalSpy triggered(action, SIGNAL(triggered(QObject*)));
+    QSignalSpy selected(first, SIGNAL(triggered()));
+    QTest::keyClick(&window, Qt::Key_Down);
+    QTest::keyClick(&window, Qt::Key_Return);
+    expect(triggered.size() == 1 && selected.size() == 1 && action->property("checked").toBool()
+               && !menu->property("visible").toBool(),
+           "menu selection triggers the shared Action once and closes the native menu");
+    action->setProperty("checked", false);
+    action->setProperty("checkable", false);
+    const auto customInk = tokens->property("primary").value<QColor>();
+    const bool assigned = QQmlProperty::write(first, QStringLiteral("icon.color"), customInk, QQmlEngine::contextForObject(first));
+    action->setProperty("enabled", false);
+    expect(assigned && QQmlProperty::read(first, QStringLiteral("icon.color"), QQmlEngine::contextForObject(first)).value<QColor>() == customInk,
+           "an explicit caller icon-color override keeps ownership after Action updates");
+    action->setProperty("enabled", true);
+    window.setProperty("darkMode", originalDark);
+}
 
 void checkMenu(QQuickWindow &window)
 {
@@ -717,6 +817,8 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     checkSliderDestruction(engine, window);
     checkSelection(window);
     checkFab(window);
+    checkTextButtonPointerFocus(window);
+    checkActionMenu(window);
     checkMenu(window);
     expect(!window.grabWindow().isNull(), "the comparison consumer renders with its imported kit and icons");
     expect(warnings.isEmpty(), "gallery interactions produce no QML warnings");

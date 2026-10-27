@@ -1,5 +1,7 @@
 pragma ComponentBehavior: Bound
 import QtQuick
+import QtQuick.Controls as C
+import QtQuick.Templates as T
 import Qt.labs.StyleKit as SK
 import Qavsi.Material3.Style
 import Qavsi.Material3.Theme
@@ -10,6 +12,21 @@ Column {
     spacing: tokens.spacingLarge
     readonly property real preferredWidth: Math.max(tokens.referenceCardWidth, sizes.implicitWidth
         + (tokens.inputGalleryPadding + tokens.spacingUnit + tokens.focusRingWidth) * 2)
+    C.Action {
+        id: firstAction
+        objectName: "comparison.menu.action.first"
+        text: qsTr("First action")
+        icon.name: "material:add"
+    }
+    C.Action {
+        id: secondAction
+        text: qsTr("Second action")
+    }
+    C.Action {
+        id: longAction
+        text: qsTr("long long long long long long long long long")
+        icon.name: "material:description"
+    }
     DemoCard {
         width: parent.width
         tokens: root.tokens
@@ -17,6 +34,7 @@ Column {
         minimumContentWidth: sizes.implicitWidth
         contentPadding: root.tokens.inputGalleryPadding
         SK.Button {
+            objectName: "comparison.menu.open"
             text: qsTr("Open menu")
             flat: true
             anchors.horizontalCenter: parent.horizontalCenter
@@ -37,6 +55,7 @@ Column {
             }
         }
         SK.Button {
+            objectName: "comparison.menu.action.open"
             text: qsTr("Open action menu")
             flat: true
             anchors.horizontalCenter: parent.horizontalCenter
@@ -47,10 +66,20 @@ Column {
                 onLoaded: (item as SK.Menu).open()
                 sourceComponent: Component {
                     SK.Menu {
+                        objectName: "comparison.menu.actions"
                         parent: actionMenuLoader.parent
                         y: (parent as SK.Button).height
-                        SK.MenuItem { text: qsTr("First action") }
-                        SK.MenuItem { text: qsTr("Second action") }
+                        onVisibleChanged: {
+                            if (visible && count === 0) {
+                                addAction(firstAction)
+                                addAction(secondAction)
+                                addAction(longAction)
+                            }
+                        }
+                        delegate: SK.MenuItem {
+                            icon.color: (contentItem as Material3MenuItemContent).color
+                            contentItem: Material3MenuItemContent { control: parent as T.MenuItem }
+                        }
                     }
                 }
             }

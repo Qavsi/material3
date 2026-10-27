@@ -8,6 +8,7 @@
 - Add horizontal/vertical Slider and RangeSlider recipes, value labels, stops and read-only input policy; protect cancellation when application callbacks destroy a control.
 - Add native RadioButton styling and read-only selection/accessibility policy, retaining exclusive groups and application updates.
 - Add Assist, Filter, Input, Suggestion and Embed chip recipes on native buttons, with shared disabled selection and a separate trailing Action.
+- Connect reference menus to shared native Actions and packaged icons; correct dark-theme content and remove inherited Text Button hover borders while preserving keyboard focus.
 
 - Native `SK.MenuItem`, butonlarla ortak private ripple katmanına bağlandı:
   Metal shader/software painter, menüye özel %10 press ve per-corner mask.

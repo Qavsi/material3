@@ -162,7 +162,7 @@ qt_add_qml_module(${module_target} SHARED
         internal/menus/Material3MenuItemBackground.qml
         internal/menus/Material3MenuEnterTransition.qml
         internal/menus/Material3MenuExitTransition.qml
-        Material3ButtonContent.qml Material3ChipContent.qml ${material3_advanced_files} ${material3_menu_files} ${material3_field_files} ${material3_combo_files}
+        Material3ButtonContent.qml Material3ChipContent.qml Material3MenuItemContent.qml ${material3_advanced_files} ${material3_menu_files} ${material3_field_files} ${material3_combo_files}
         ${material3_switch_files} ${material3_navigation_files} ${material3_slider_files} ${material3_radio_files} ${material3_chip_files}
         internal/shadows/Material3Elevation.qml
         Material3Style.qml SmallButtonTheme.qml SmallButtonBackground.qml SmallButtonShadow.qml

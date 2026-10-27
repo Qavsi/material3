@@ -823,3 +823,33 @@ or changes checked/enabled bindings. An unused trailing Action slot creates no
 extra button. Existing Material3Ripple and Material3Elevation supply shader/painter
 policies, Theme/reduced-motion/visibility gates and the kit focus ring.
 Elevated, editing/avatar input chips and drag interactions are deferred.
+
+### Native Action menu ownership
+
+Open action menu adapts QCM0.6.1 ActionMenu's three reference Action objects with
+native Qt Quick Action and MenuItem.action. Actions are owned outside the lazy
+popup; text/icon/enabled/checkable/checked updates and activation remain Qt's
+responsibility. No action mirror, custom command runtime or ActionMenu control
+wrapper is introduced. The existing lazy-menu startup boundary remains intact.
+Menu.addAction creates each native delegate when the popup first becomes visible,
+matching QCM's deferred ActionMenu population; reopening preserves the same Actions.
+
+Material3MenuItemContent only adapts the icon drawing slot for package:icon.
+Qt's MenuItemIconLabel remains the text/mnemonic/shortcut/native-QIcon renderer;
+check indicators, submenu arrows, focus, keyboard activation and menu dismissal
+remain native. Glyph appearance follows Theme and the existing Qavsi.Icons provider.
+The helper defers its StyleReader until native control completion, as existing
+button backgrounds do for Qt 6.12. The menu delegate binds icon.color to that
+reader's color; native caller assignments retain ordinary binding ownership.
+The reference triggers retain flat:true: measured on Metal, their resting surface
+alpha is 0 and hovered state-layer alpha 20/255, matching Theme's 0.08 hover policy.
+FlatButton's Theme mapping explicitly suppresses inherited hover/focus/pressed
+container borders and hover elevation, and uses the Small Button pill and pressed
+corner tokens. The interior 0.08 state-layer measurement alone does not establish
+that the container edge is correct: native Metal hover previously exposed an
+opaque inherited border. Keyboard visualFocus retains the separate kit focus ring.
+
+The Action-menu Theme pass also exercises rail items created after Style completion.
+StyleKit may publish Navigation data before replacing the old button delegate.
+That outgoing background stays hidden for mismatched typed data and uses the
+selected Theme until its replacement is ready; no extra Theme instance is created.

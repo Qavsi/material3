@@ -12,10 +12,10 @@ Rectangle {
     required property SK.DelegateStyle delegateStyle
     required property T.AbstractButton control
     readonly property SmallButtonParameters parameters: delegateStyle.data as SmallButtonParameters
-    readonly property Material3Theme tokens: parameters.tokens
-    readonly property bool reduceMotion: parameters.reduceMotion
-    property real plateWidth: parameters.paintWidth
-    property real plateHeight: parameters.paintHeight
+    readonly property Material3Theme tokens: parameters?.tokens ?? (control.SK.StyleKit.style as Material3Style)?.tokens
+    readonly property bool reduceMotion: parameters?.reduceMotion ?? true
+    property real plateWidth: parameters?.paintWidth ?? 0
+    property real plateHeight: parameters?.paintHeight ?? 0
     property vector4d cornerRadii: Qt.vector4d(delegateStyle.topLeftRadius,
         delegateStyle.topRightRadius, delegateStyle.bottomLeftRadius, delegateStyle.bottomRightRadius)
     readonly property Material3ButtonContent styledContent: control.contentItem as Material3ButtonContent
@@ -65,7 +65,7 @@ Rectangle {
     border.width: delegateStyle.border.width
     border.color: delegateStyle.border.color
     opacity: delegateStyle.opacity
-    visible: delegateStyle.visible
+    visible: delegateStyle.visible && parameters !== null
     antialiasing: true
     Accessible.ignored: true
 

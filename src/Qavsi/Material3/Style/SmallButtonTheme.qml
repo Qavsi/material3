@@ -53,10 +53,29 @@ Material3TextFieldTheme {
     }
     flatButton {
         text.color: root.tokens.primary
-        background.color: root.tokens.transparent
-        hovered.background.color: root.tokens.transparent
-        focused.background.color: root.tokens.transparent
-        pressed.background.color: root.tokens.transparent
-        disabled.background.color: root.tokens.transparent
+        background {
+            color: root.tokens.transparent
+            radius: root.tokens.smallRadius
+            border.width: 0
+            shadow.visible: false
+        }
+        hovered {
+            background.color: root.tokens.transparent
+            background.border.width: 0
+            background.shadow.visible: false
+        }
+        focused {
+            background.color: root.tokens.transparent
+            background.border.width: 0
+        }
+        pressed {
+            background.color: root.tokens.transparent
+            background.border.width: 0
+            background.radius: root.tokens.radiusSmall
+        }
+        disabled {
+            background.color: root.tokens.transparent
+            background.border.width: 0
+        }
     }
 }

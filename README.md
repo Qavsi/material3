@@ -606,3 +606,31 @@ its text names the separate accessible action and its enabled state is honored.
 The handler decides whether to update/remove the application item. A trailing X
 never activates the parent chip. trailingIconName is decoration only.
 The comparison shows enabled/disabled kinds and a constrained long label.
+
+### Shared menu Actions
+
+The comparison's Open action menu uses Qt Quick Actions owned outside the popup.
+MenuItem.action supplies text, icon, enabled, checkable and checked automatically;
+activation uses the native Action signal without an extra onTriggered bridge.
+
+```qml
+import QtQuick.Controls as C
+
+C.Action {
+    id: command
+    text: qsTr("First action")
+    icon.name: "material:add"
+}
+SK.MenuItem {
+    id: item
+    action: command
+    icon.color: (contentItem as Material3MenuItemContent).color
+    contentItem: Material3MenuItemContent { control: item }
+}
+```
+
+The optional content helper draws package icons through AppIcon while retaining
+Qt's native MenuItemIconLabel for text, mnemonics, shortcuts and ordinary QIcons.
+The native icon color binds to the helper's StyleReader color; an explicit caller
+assignment retains normal Qt binding ownership. QCM's three reference commands
+include the long label and its document icon.
