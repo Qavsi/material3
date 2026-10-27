@@ -1,0 +1,13 @@
+Test project /private/tmp/qavsi-migration-source
+    Start 1: small-button-software
+1/4 Test #1: small-button-software ............   Passed    8.06 sec
+    Start 2: comparison-software
+2/4 Test #2: comparison-software ..............   Passed    7.58 sec
+    Start 3: material-colors
+3/4 Test #3: material-colors ..................   Passed    0.46 sec
+    Start 4: material-color-utils
+4/4 Test #4: material-color-utils .............   Passed    0.01 sec
+
+100% tests passed out of 4
+
+Total Test time (real) =  16.13 sec

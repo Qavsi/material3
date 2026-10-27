@@ -328,6 +328,9 @@ Column {
                             modal: true
                             dim: false
                             focus: true
+                            transformOrigin: mirrored ? Item.TopRight : Item.TopLeft
+                            enter: Material3MenuEnterTransition { control: menu }
+                            exit: Material3MenuExitTransition { control: menu }
                             objectName: splitRow.objectName + ".menu"
                             parent: splitRow
                             closePolicy: SK.Popup.CloseOnEscape | SK.Popup.CloseOnPressOutside

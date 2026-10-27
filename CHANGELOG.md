@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Native `SK.MenuItem`, butonlarla ortak private ripple katmanına bağlandı:
+  Metal shader/software painter, menüye özel %10 press ve per-corner mask.
+  Native `SK.Menu` için Theme tabanlı 300/150 ms enter/exit yardımcıları eklendi;
+  reduced motion, caller transition binding'leri ve native input sahipliği korunur.
+
 - Ripple now follows QCM's Skia wave/sparkle mathematics on Metal and its
  450ms hold-at40% /350ms release /150+150ms fade sequence. The software painter
  keeps a soft-wave fallback; reduced motion uses static pressed feedback.

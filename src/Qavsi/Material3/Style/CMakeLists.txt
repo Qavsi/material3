@@ -16,6 +16,14 @@ set_source_files_properties(
     PROPERTIES QT_QML_SKIP_QMLDIR_ENTRY TRUE)
 set_source_files_properties(internal/shadows/Material3Elevation.qml PROPERTIES
     QT_RESOURCE_ALIAS Material3Elevation.qml QT_QML_INTERNAL_TYPE TRUE)
+set_source_files_properties(internal/feedback/Material3Ripple.qml PROPERTIES
+    QT_RESOURCE_ALIAS Material3Ripple.qml QT_QML_INTERNAL_TYPE TRUE)
+set_source_files_properties(internal/menus/Material3MenuItemBackground.qml PROPERTIES
+    QT_RESOURCE_ALIAS Material3MenuItemBackground.qml QT_QML_INTERNAL_TYPE TRUE)
+foreach(menu_transition IN ITEMS Material3MenuEnterTransition Material3MenuExitTransition)
+    set_source_files_properties("internal/menus/${menu_transition}.qml" PROPERTIES
+        QT_RESOURCE_ALIAS "${menu_transition}.qml")
+endforeach()
 set(material3_shadow_sources
     internal/shadows/roundedrectshadow.h internal/shadows/roundedrectshadow.cpp
     internal/shadows/shadowgeometry.h internal/shadows/shadowgeometry.cpp
@@ -58,7 +66,11 @@ qt_add_qml_module(${module_target} SHARED
     IMPORTS TARGET QavsiMaterial3Theme Qavsi.Icons
     IMPORT_PATH "${QavsiIcons_QML_IMPORT_DIR}"
     DEPENDENCIES QtQuick.Controls.impl
-    QML_FILES Material3ButtonContent.qml ${material3_advanced_files} ${material3_menu_files}
+    QML_FILES internal/feedback/Material3Ripple.qml
+        internal/menus/Material3MenuItemBackground.qml
+        internal/menus/Material3MenuEnterTransition.qml
+        internal/menus/Material3MenuExitTransition.qml
+        Material3ButtonContent.qml ${material3_advanced_files} ${material3_menu_files}
         internal/shadows/Material3Elevation.qml
         Material3Style.qml SmallButtonTheme.qml SmallButtonBackground.qml SmallButtonShadow.qml
         SmallButtonDelegate.qml SmallButtonParameters.qml

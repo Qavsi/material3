@@ -429,5 +429,10 @@ Menü yüzeyi `surfaceContainer`, satırlar LabelLarge kullanır. Menü minimumu
 200 px, satır yüksekliği 48 px, köşeler 4 px ve dikey iç boşluk 8 px'dir;
 bütün değerler Theme token'larından gelir. Klavye, seçim ve kapanış native
 `SK.Menu`'de kalır. Inline FAB menüsünün `+ / ×` tetikleyicisi 6/8 elevation
-alır; eylem satırları düz kalır. QCM'nin özel menu ripple ve giriş/çıkış
-animasyonları bu görsel eşlemeye dahil değildir.
+alır; eylem satırları düz kalır. Menü item ripple
+Metal'de mevcut shader, software'da mevcut painter ile çizilir. Butonun %12
+press davranışı korunur; QCM 0.6.1 menü tarifi %10 kullanır. Native popup hareketi
+için `enter: Material3MenuEnterTransition { control: menu }` ve
+`exit: Material3MenuExitTransition { control: menu }` açıkça bağlanır. Süre/easing
+Theme'den gelir; kontrol `SK.Menu` kalır. Public Qt API sınırları ve mid-motion
+reduced davranışı [DESIGN.md](DESIGN.md) içinde açıklanır.

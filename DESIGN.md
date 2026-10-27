@@ -510,9 +510,57 @@ than surfaceContainerLow. Dynamic color generation exposes Google's
 GetSurfaceContainer() directly; fixed colors stay in Material3Theme.
 Pointer opening has no initial selected row. Native menu routing owns keyboard
 navigation, activation, dismissal and focus; the consumer requests modal input
-without dimming, matching QCM. MenuItem uses StyleKit state layers; QCM's custom ripple and enter/exit
-animations are not part of this mapping or a port of its MenuBase router.
+without dimming, matching QCM. MenuItem feedback and native popup transitions follow the QCM motion recipe
+below; QCM's MenuBase input router is not a runtime dependency.
 
 The actual `fabMenuToggle` receives FAB elevation 6/8, matching both pinned and
 current QCM. Action-stack rows remain flat. No shadow alpha or renderer
 mathematics is changed to compensate for the previous disabled trigger shadow.
+
+## Native menu motion and shared feedback
+
+MenuItem uses a private Material3Ripple, shared with button backgrounds. The
+existing Metal shader and software painter are reused. The state-layer color
+is the live onSurface role, matching QCM StateMenuItem; it is not read from
+Qt's non-notifiable internal label color. Persistent selected container color
+stays in StyleKit mapping; hover/focus/press alpha belongs to the feedback
+layer, so no interaction tint is applied twice.
+
+QCM 0.6.1 Menu press opacity is 0.10 and each press resets wave progress/phase.
+Button press opacity stays 0.12 and repress continues its current expansion.
+The common 450/350ms expansion/release and 150+150ms fade recipe stays intact.
+PointHandler observes input passively; native MenuItem owns activation and
+keyboard navigation. Disabled/hidden/minimized/reduced-motion states stop the
+animated wave. Reduced motion retains a static press state layer.
+
+Qt 6.12 StyleKit does not assign Popup.enter/exit through StyleControl. The
+public helpers connect the native properties explicitly, preserving caller
+ownership and native exit lifetime:
+
+```qml
+SK.Menu {
+    id: menu
+    transformOrigin: mirrored ? Item.TopRight : Item.TopLeft
+    enter: Material3MenuEnterTransition { control: menu }
+    exit: Material3MenuExitTransition { control: menu }
+}
+```
+
+The helpers read the selected Material3Style through the control's StyleKit
+attachment. No style-name condition or duration/color literal is needed in
+consumer pages. Caller-provided or explicitly null enter/exit bindings are
+never installed over by a background delegate.
+
+Enter uses 300 ms, opacity 0→1, scale 0.8→1, cubic(0.1,0.7,0.1,1).
+Exit uses 150 ms, current opacity→0 and current scale→0.8,
+cubic(0.3,0,0.8,0.2). Native Transition animates the complete PopupItem, including
+content and shadow. There is no opacity-only background approximation or
+extra effect layer. All motion values are owned by Material3Theme.
+
+Reduced motion or `StyleKit.transitionsEnabled: false` sets future jobs to duration 0.
+Qt clones native Transition jobs: changing duration or calling complete() on
+the declarative prototype cannot cancel a prepared job through public API.
+An already-running job can therefore finish within its original 300/150 ms
+bound; following transitions are immediate. No synthetic close/open is used.
+Qt 6.12 QQuickMenu also ignores open() while its exit is still visible, unlike
+base QQuickPopup. After closed, normal open works. This native limitation is preserved rather than replacing Qt routing.

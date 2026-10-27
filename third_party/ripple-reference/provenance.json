@@ -94,5 +94,33 @@
       "gitBlobSha": "4302f6616cd0e60475f63ed0c4255314bb4d37c6",
       "bytes": 1538
     }
-  ]
+  ],
+  "qcmMenuRecipe": {
+    "revision": "191260585a829ee4ae2c99e6232b7145b5c34474",
+    "version": "0.6.1",
+    "adaptation": "Native StyleKit Menu/MenuItem routing retained; QCM menu press .10, restart-on-press and 300/150ms popup transition recipes adapted. Existing ripple shader mathematics and its original source pins remain unchanged.",
+    "files": [
+      {
+        "path": "qml/popup/Menu.qml",
+        "sourceUrl": "https://github.com/hypengw/QmlMaterial/blob/191260585a829ee4ae2c99e6232b7145b5c34474/qml/popup/Menu.qml",
+        "sha256": "fd74b55a50c3a37e07efa764b5a3de675108154918877fd0dcb71cae3c91fa16",
+        "gitBlobSha": "e373562339122737983e12f3ca94ce3a0783c296",
+        "bytes": 7932
+      },
+      {
+        "path": "qml/visual/RippleSkia.qml",
+        "sourceUrl": "https://github.com/hypengw/QmlMaterial/blob/191260585a829ee4ae2c99e6232b7145b5c34474/qml/visual/RippleSkia.qml",
+        "sha256": "bf45ff04373443b5b2340e92444bebf499c0d3f26f22097411f8ecb919d07073",
+        "gitBlobSha": "e8799bbe800d7bfa0f37ca9764f2c08812d9d55d",
+        "bytes": 6297
+      },
+      {
+        "path": "src/style/menu_item_state.cpp",
+        "sourceUrl": "https://github.com/hypengw/QmlMaterial/blob/191260585a829ee4ae2c99e6232b7145b5c34474/src/style/menu_item_state.cpp",
+        "sha256": "2dfc0858a71c09f01d75b2e23c549b237ba0c5dd112a488e56709fc762ee756a",
+        "gitBlobSha": "728b6a757b940a35b946e1d249ecbb9a77d906d0",
+        "bytes": 2840
+      }
+    ]
+  }
 }

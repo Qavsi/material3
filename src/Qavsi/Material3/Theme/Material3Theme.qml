@@ -68,6 +68,14 @@ QtObject {
     readonly property real menuVerticalPadding: spacingSmall
     readonly property real menuItemHorizontalPadding: spacingMedium
     readonly property real menuItemSpacing: spacingMedium
+    readonly property real menuRippleOpacity: 0.10
+    readonly property int menuEnterDuration: 300
+    readonly property int menuExitDuration: 150
+    readonly property real menuClosedScale: 0.8
+    readonly property real menuOpenScale: 1
+    readonly property list<real> menuEnterEasingCurve: [0.1, 0.7, 0.1, 1, 1, 1]
+    readonly property list<real> menuExitEasingCurve: [0.3, 0, 0.8, 0.2, 1, 1]
+
     readonly property real fabMenuAreaHeight: 280
     readonly property real fabMenuEdgeInset: 16
     readonly property real fabMenuItemSpacing: 4

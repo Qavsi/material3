@@ -1,3 +1,5 @@
+#include "menu-motion-checks.h"
+
 #include <QGuiApplication>
 #include <QFont>
 #include <QFontInfo>
@@ -922,6 +924,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     QObject::connect(&framePump, &QTimer::timeout, &window, [&] { window.update(); });
     if (galleryHardware)
         framePump.start();
+    checkMenuMotion(engine, window, galleryHardware, expect);
     checkGalleryFabShadows(window, galleryHardware);
     checkSplitMenus(window, galleryHardware);
 
@@ -1377,7 +1380,8 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
                        << window.isActive() << window.isExposed() << window.visibility();
         expect(rotated, "split indicator reaches the expanded rotation");
         QTest::keyClick(&window, Qt::Key_Escape);
-        expect(menu && !menu->property("visible").toBool(), "Escape closes the split menu");
+        expect(menu && QTest::qWaitFor([&] { window.update(); return !menu->property("visible").toBool(); }, 1000),
+               "Escape closes the split menu after its native exit transition");
     }
     for (const auto &geometry : fabGeometries) {
         auto *fab = item(window, "comparison.fab." + QString::fromLatin1(geometry.name));

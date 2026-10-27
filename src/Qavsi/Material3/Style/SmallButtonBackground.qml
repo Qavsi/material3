@@ -25,31 +25,27 @@ Rectangle {
             ? (foregroundReader.item as SK.StyleReader).text.color : tokens.primaryForeground
 
     readonly property bool focusVisible: control.enabled && control.visualFocus && control.visible && !pointerFocus
-    readonly property bool rippleRunning: expansion.running || release.running || fade.running || noise.running
-    readonly property bool rippleVisible: rippleOpacity > 0 || (feedbackEnabled && control.pressed)
-    readonly property string feedbackRenderer: GraphicsInfo.api === GraphicsInfo.Metal && !shaderFailed
-        ? "shader" : "painter"
-    readonly property int feedbackShaderStatus: shaderFailed ? ShaderEffect.Error
-        : feedbackRenderer === "shader" && feedback.status === Loader.Ready
-            ? (feedback.item as ShaderEffect)?.status ?? ShaderEffect.Uncompiled : ShaderEffect.Uncompiled
-    property bool shaderFailed: false
-    property string feedbackShaderLog: ""
+    readonly property bool rippleRunning: ripple.rippleRunning
+    readonly property bool rippleVisible: ripple.rippleVisible
+    readonly property string feedbackRenderer: ripple.feedbackRenderer
+    readonly property int feedbackShaderStatus: ripple.feedbackShaderStatus
+    property alias shaderFailed: ripple.shaderFailed
+    property alias feedbackShaderLog: ripple.feedbackShaderLog
     readonly property real stateOpacity: focusVisible ? tokens.interactionOpacity
         : control.hovered ? tokens.hoverOpacity : 0
     readonly property color rippleColor: contentColor
     readonly property real feedbackOutset: tokens.focusRingGap + tokens.focusRingWidth
-    readonly property bool hasPaintArea: Math.floor(width * Screen.devicePixelRatio) > 0
-        && Math.floor(height * Screen.devicePixelRatio) > 0
+    readonly property bool hasPaintArea: ripple.hasPaintArea
     readonly property bool feedbackEnabled: hasPaintArea && control.enabled && control.visible
         && control.opacity > 0 && root.visible && root.opacity > 0
         && root.Window.window && root.Window.window.visible
         && root.Window.window.visibility !== Window.Minimized
-    property point rippleOrigin: Qt.point(width / 2, height / 2)
-    property real rippleProgress: 0
-    property real rippleOpacity: 0
-    property real ripplePhase: 0
-    property real stateLayerOpacity: stateOpacity
-    property bool pointerFocus: false
+    property alias rippleOrigin: ripple.rippleOrigin
+    property alias rippleProgress: ripple.rippleProgress
+    property alias rippleOpacity: ripple.rippleOpacity
+    property alias ripplePhase: ripple.ripplePhase
+    property alias stateLayerOpacity: ripple.stateLayerOpacity
+    property alias pointerFocus: ripple.pointerFocus
 
     objectName: "material3.small.background"
     width: plateWidth > 0 ? Math.min(parent.width,
@@ -88,208 +84,24 @@ Rectangle {
         }
     }
 
-    function resetRipple(): void {
-        expansion.stop()
-        release.stop()
-        fade.stop()
-        rippleProgress = 0
-        rippleOpacity = 0
-        ripplePhase = 0
-        stateLayerOpacity = Qt.binding(() => root.stateOpacity)
-    }
-
-    function beginRipple(): void {
-        if (!feedbackEnabled)
-            return
-        expansion.stop()
-        release.stop()
-        fade.stop()
-        rippleOrigin = pointer.active
-            ? mapFromItem(pointerArea, pointer.point.pressPosition.x, pointer.point.pressPosition.y)
-            : Qt.point(width / 2, height / 2)
-        pointerFocus = pointer.active
-        stateLayerOpacity = tokens.rippleOpacity
-        if (reduceMotion) {
-            rippleProgress = 0
-            rippleOpacity = 0
-        } else {
-            // Repress continues from the current expansion, as QCM does.
-            rippleOpacity = tokens.rippleOpacity
-            expansion.start()
-        }
-    }
-
-    function finishRipple(): void {
-        if (reduceMotion || !feedbackEnabled) {
-            resetRipple()
-        } else if (rippleOpacity > 0) {
-            expansion.stop()
-            release.restart()
-            fade.restart()
-        } else {
-            resetRipple()
-        }
-    }
-
-    onFeedbackEnabledChanged: {
-        if (!feedbackEnabled)
-            resetRipple()
-        else if (control.pressed)
-            beginRipple()
-    }
-    onReduceMotionChanged: {
-        resetRipple()
-        if (feedbackEnabled && control.pressed) {
-            stateLayerOpacity = tokens.rippleOpacity
-        }
-    }
+    function resetRipple(): void { ripple.resetRipple() }
+    function beginRipple(): void { ripple.beginRipple() }
+    function finishRipple(): void { ripple.finishRipple() }
     function finishForeground() { foregroundReady = true }
-    Component.onCompleted: {
-        Qt.callLater(finishForeground)
-        if (control.pressed)
-            beginRipple()
-    }
+    Component.onCompleted: Qt.callLater(finishForeground)
 
-    Item {
-        id: pointerArea
-        // Visual parent follows input; QObject ownership stays with the delegate.
-        parent: root.control
-        width: root.control.width
-        height: root.control.height
-        Accessible.ignored: true
-        PointHandler {
-            id: pointer
-            target: null
-            acceptedButtons: Qt.LeftButton
-            onPointChanged: {
-                if (active)
-                    root.rippleOrigin = root.mapFromItem(pointerArea, point.position.x, point.position.y)
-            }
-            onActiveChanged: {
-                if (active) {
-                    root.pointerFocus = true
-                    root.rippleOrigin = root.mapFromItem(pointerArea,
-                        point.pressPosition.x, point.pressPosition.y)
-                }
-            }
-        }
-    }
-
-    Connections {
-        target: root.control
-        function onPressedChanged(): void {
-            if (root.control.pressed)
-                root.beginRipple()
-            else
-                root.finishRipple()
-        }
-        function onCanceled(): void {
-            root.resetRipple()
-        }
-        function onActiveFocusChanged(): void {
-            root.pointerFocus = false
-        }
-    }
-
-    NumberAnimation {
-        id: expansion
-        target: root
-        property: "rippleProgress"
-        to: root.tokens.rippleHoldProgress
-        duration: root.tokens.rippleExpansionDuration
-        easing.type: Easing.OutCubic
-    }
-    NumberAnimation {
-        id: release
-        target: root
-        property: "rippleProgress"
-        to: 1
-        duration: root.tokens.rippleReleaseDuration
-        easing.type: Easing.OutCubic
-        onFinished: {
-            root.rippleProgress = 0
-            root.ripplePhase = 0
-        }
-    }
-    SequentialAnimation {
-        id: fade
-        onStopped: root.stateLayerOpacity = Qt.binding(() => root.stateOpacity)
-        NumberAnimation {
-            target: root
-            property: "stateLayerOpacity"
-            to: root.stateOpacity
-            duration: root.tokens.rippleFadeDuration
-        }
-        NumberAnimation {
-            target: root
-            property: "rippleOpacity"
-            to: 0
-            duration: root.tokens.rippleFadeDuration
-        }
-    }
-    NumberAnimation {
-        id: noise
-        target: root
-        property: "ripplePhase"
-        from: 0
-        to: root.tokens.rippleNoisePhase
-        duration: root.tokens.rippleNoiseDuration
-        loops: Animation.Infinite
-        running: root.feedbackRenderer === "shader" && root.feedbackEnabled
-            && !root.reduceMotion && root.rippleOpacity > 0
-    }
-
-    Loader {
-        id: feedback
+    Material3Ripple {
+        id: ripple
         anchors.fill: parent
-        active: root.hasPaintArea
-        visible: root.feedbackEnabled
-        sourceComponent: root.feedbackRenderer === "shader" ? shaderFeedback : painterFeedback
-    }
-
-    Component {
-        id: shaderFeedback
-        ShaderEffect {
-            objectName: "material3.small.feedback"
-            property size size: Qt.size(width, height)
-            property real cornerRadius: root.radius
-            property vector4d cornerRadii: Qt.vector4d(root.topLeftRadius, root.topRightRadius,
-                root.bottomLeftRadius, root.bottomRightRadius)
-            property point rippleOrigin: root.rippleOrigin
-            property real rippleProgress: root.rippleProgress
-            property real rippleOpacity: root.rippleOpacity
-            property real stateOpacity: root.stateLayerOpacity
-            property real ripplePhase: root.ripplePhase
-            property color rippleColor: root.rippleColor
-            property color sparkleColor: root.tokens.rippleSparkleColor
-            fragmentShader: "qrc:/Qavsi/Material3/Style/shaders/smallbuttonfeedback.frag.qsb"
-            onStatusChanged: {
-                if (status === ShaderEffect.Error) {
-                    root.feedbackShaderLog = log
-                    root.shaderFailed = true
-                    console.warn("Material3 Small Button shader failed; using painter:", log)
-                }
-            }
-            Accessible.ignored: true
-        }
-    }
-
-    Component {
-        id: painterFeedback
-        MaterialButtonFeedback {
-            objectName: "material3.small.feedback"
-            cornerRadius: root.radius
-            cornerRadii: Qt.vector4d(root.topLeftRadius, root.topRightRadius,
-                root.bottomLeftRadius, root.bottomRightRadius)
-            rippleOrigin: root.rippleOrigin
-            rippleProgress: root.rippleProgress
-            rippleOpacity: root.rippleOpacity
-            stateOpacity: root.stateLayerOpacity
-            ripplePhase: root.ripplePhase
-            rippleColor: root.rippleColor
-            sparkleColor: root.tokens.rippleSparkleColor
-            Accessible.ignored: true
-        }
+        control: root.control
+        tokens: root.tokens
+        reduceMotion: root.reduceMotion
+        rippleColor: root.rippleColor
+        cornerRadius: root.radius
+        cornerRadii: Qt.vector4d(root.topLeftRadius, root.topRightRadius,
+            root.bottomLeftRadius, root.bottomRightRadius)
+        feedbackEnabled: root.feedbackEnabled
+        stateOpacity: root.stateOpacity
     }
 
     Rectangle {

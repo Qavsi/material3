@@ -88,29 +88,19 @@ SK.Style {
             border.width: 0
             margins: 0
             shadow.visible: false
+            data: root.menu.background.data
+            delegate: root.menuDelegate.itemBackground
         }
-        hovered.background.color: Qt.alpha(root.tokens.surfaceForeground, root.tokens.hoverOpacity)
-        highlighted {
-            background.color: Qt.alpha(root.tokens.surfaceForeground, root.tokens.interactionOpacity)
-            hovered.background.color: Qt.alpha(root.tokens.surfaceForeground, root.tokens.hoverOpacity)
-            pressed.background.color: Qt.alpha(root.tokens.surfaceForeground, root.tokens.rippleOpacity)
-        }
-        focused {
-            background.color: Qt.alpha(root.tokens.surfaceForeground, root.tokens.interactionOpacity)
-            hovered.background.color: Qt.alpha(root.tokens.surfaceForeground, root.tokens.hoverOpacity)
-            pressed.background.color: Qt.alpha(root.tokens.surfaceForeground, root.tokens.rippleOpacity)
-        }
-        pressed.background.color: Qt.alpha(root.tokens.surfaceForeground, root.tokens.rippleOpacity)
+        hovered.background.color: root.tokens.transparent
+        highlighted.background.color: root.tokens.transparent
+        focused.background.color: root.tokens.transparent
+        pressed.background.color: root.tokens.transparent
         checked {
             background.color: root.tokens.secondaryContainer
-            hovered.background.color: Qt.tint(root.tokens.secondaryContainer,
-                Qt.alpha(root.tokens.surfaceForeground, root.tokens.hoverOpacity))
-            highlighted.background.color: Qt.tint(root.tokens.secondaryContainer,
-                Qt.alpha(root.tokens.surfaceForeground, root.tokens.interactionOpacity))
-            focused.background.color: Qt.tint(root.tokens.secondaryContainer,
-                Qt.alpha(root.tokens.surfaceForeground, root.tokens.interactionOpacity))
-            pressed.background.color: Qt.tint(root.tokens.secondaryContainer,
-                Qt.alpha(root.tokens.surfaceForeground, root.tokens.rippleOpacity))
+            hovered.background.color: root.tokens.secondaryContainer
+            highlighted.background.color: root.tokens.secondaryContainer
+            focused.background.color: root.tokens.secondaryContainer
+            pressed.background.color: root.tokens.secondaryContainer
         }
         disabled {
             text.color: root.tokens.disabledLabel

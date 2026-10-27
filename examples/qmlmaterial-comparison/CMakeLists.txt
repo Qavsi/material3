@@ -20,7 +20,8 @@ foreach(unwanted IN ITEMS Merce::Theme MerceTheme MerceStyle QavsiRuntime)
     endif()
 endforeach()
 
-qt_add_executable(qavsi-material3-comparison MACOSX_BUNDLE main.cpp checks.cpp)
+qt_add_executable(qavsi-material3-comparison MACOSX_BUNDLE
+    main.cpp checks.cpp menu-motion-checks.cpp menu-motion-checks.h)
 set_target_properties(qavsi-material3-comparison PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER dev.qavsi.material3.comparison)
 file(GLOB comparison_icons CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "icons/*.svg")
