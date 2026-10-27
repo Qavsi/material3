@@ -755,7 +755,7 @@ Reference: QmlMaterial 0.6.1, `191260585a829ee4ae2c99e6232b7145b5c34474`:
 - Native RangeSlider has no minimum-span validator before accepting a value.
   The gallery's discrete range starts at20/80 but does not claim an enforced20
   minimum. No caller-value correction or replacement input router is installed.
-- Generated Slider/Switch/Navigation/Tab geometry recipes are compiled as private
+- Generated Slider/Switch/RadioButton/Navigation/Tab geometry recipes are compiled as private
   Theme resources from the canonical tokens/material3.json outputs. Theme therefore
   stays independent of the Style target. Palette, typography and motion policy
   remain Theme-owned; comparison-only layout metrics stay in ComparisonMetrics.
@@ -764,3 +764,27 @@ Reference: QmlMaterial 0.6.1, `191260585a829ee4ae2c99e6232b7145b5c34474`:
   claimed. Every new motion follows effectiveReducedMotion, StyleKit transitions,
   visibility and window state. Simple Qt Quick tracks/thumbs render on software;
   existing Material3Ripple/Material3Elevation retain their Metal/painter policies.
+
+### RadioButton
+
+The native `SK.RadioButton` mapping follows the same QCM0.6.1 pin
+`191260585a829ee4ae2c99e6232b7145b5c34474`: `qml/input/RadioButton.qml`,
+`RadioIndicatorShape.qml` and `src/style/radio_button_state.cpp`. A20px circle
+has a2px outline and10px selected dot; the state layer is40px. LabelLarge,
+horizontal padding8, vertical padding14 and spacing8 give a48px natural height.
+Explicit caller fonts and native RTL layout remain owned by Qt. Geometry comes
+from the canonical generated RadioButton recipe; colors/150ms linear selection
+motion belong to Theme. Selection motion honors reduced motion, StyleKit
+transitions, visibility and window state; the existing ripple keeps its
+Metal/software backends. Focus retains this kit's accessible outer ring rather
+than claiming exact QCM dual-ring parity.
+
+`RadioButtonSupport.readOnly` supplies Qt's missing input policy without writing
+checked/enabled or replacing native selection/grouping. It blocks pointer/touch,
+selection keys, mnemonics and accessible activation; Tab navigation and parent
+wheel scrolling remain available. Entering read-only cancels a pending native
+press, and programmatic checked updates remain valid. Accessible.readOnly is
+bound only while this policy is active. Accessible actions use native click()
+when unlocked; their handlers remain installed across the read-only transition.
+Native disabled styling remains separate.
+The comparison-only Read only row spacing belongs to ComparisonMetrics.

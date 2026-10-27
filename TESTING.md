@@ -5,7 +5,7 @@ behavior at these seams; they do not navigate the kit's private delegate tree.
 
 | Seam | Kept coverage | Outside the routine gate |
 |---|---|---|
-| Native SK.Button / SK.Menu / SK.TextField / SK.ComboBox / SK.TabBar / SK.Switch / SK.Slider / SK.RangeSlider consumption | Pointer/keyboard activation, disabled/cancel behavior, selection, FAB display, menu activation/dismissal, floating caption/native editing, accessory space/rendering, message wrapping/accessible description and live caller bindings; ComboBox floating caption, first/last rows, native selection/acceptance and caller factories | Internal object names, loaders, ripple phase, shadow geometry, per-size/appearance permutations |
+| Native SK.Button / SK.Menu / SK.TextField / SK.ComboBox / SK.TabBar / SK.Switch / SK.RadioButton / SK.Slider / SK.RangeSlider consumption | Pointer/keyboard activation, disabled/cancel behavior, selection, FAB display, menu activation/dismissal, floating caption/native editing, accessory space/rendering, message wrapping/accessible description and live caller bindings; ComboBox floating caption, first/last rows, native selection/acceptance and caller factories | Internal object names, loaders, ripple phase, shadow geometry, per-size/appearance permutations |
 | Theme and reduced motion | Independent color oracle, role overrides/invalid inputs, light/dark rendered primary, OS preference, static pressed feedback, immediate menu opening | Every renderer/color/timing combination and frame parity with QCM |
 | Source / installed consumption | Real example using the exported targets/URIs; relocated find_package consumer | Rebuilding every consumer after a styling-only edit |
 
@@ -62,6 +62,11 @@ that a press-cancellation callback can synchronously destroy its control safely.
 Tests use public control selectors and
 properties, not private family delegates or animation phases. No full per-stop,
 per-orientation or frame-by-frame QCM matrix is part of the routine gate.
+
+RadioButton coverage stays at the same native-consumer seam: one exclusive
+selection group, actual selected-dot rendering, read-only pointer/keyboard and
+accessibility gating, programmatic updates, and cancellation of a pending key
+press on entering read-only. It does not inspect the private delegate tree.
 
 The comparison's --check path enables QAccessible before creating the QML engine.
 This exercises Qt's implicit placeholder descriptions on software as well as native

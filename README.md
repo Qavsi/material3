@@ -559,3 +559,28 @@ so the optional native icon fields are explicit Theme bindings. Native Slider
 steps, snap modes, live updates and RangeSlider first/second values are unchanged.
 Use `sliderMedium` with SliderSupport.insetIcon for the thick inset-icon recipe.
 An enforced minimum span for native RangeSlider is not currently supported.
+
+### Radio buttons
+
+Use native StyleKit controls; sibling radios retain Qt's auto-exclusive selection.
+
+```qml
+import Qt.labs.StyleKit as SK
+import Qavsi.Material3.Style
+
+Column {
+    SK.RadioButton {
+        text: qsTr("option 1")
+        checked: true
+        RadioButtonSupport.readOnly: saveJob.running
+    }
+    SK.RadioButton {
+        text: qsTr("option 2")
+        RadioButtonSupport.readOnly: saveJob.running
+    }
+}
+```
+
+`RadioButtonSupport.readOnly` blocks user selection while retaining the enabled
+appearance and caller bindings. Programmatic checked updates remain valid. The
+comparison gallery shows three options and a Read only switch, matching QCM.

@@ -8,6 +8,7 @@ QtObject {
     readonly property real iconAppearanceSpacing: 36
 
 
+    readonly property real radioReadOnlySpacing: 5
 
     readonly property real sliderGalleryMinimumWidth: 520
     readonly property real sliderGalleryVerticalLength: 160

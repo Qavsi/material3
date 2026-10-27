@@ -14,8 +14,8 @@ try {
   const tokens = JSON.parse(await readFile(sourceFile, 'utf8'));
   await writeFile(source, JSON.stringify(tokens));
   await assert.rejects(generateRecipes({ source, directory, check: true }), /Missing generated/);
-  assert.equal(await generateRecipes({ source, directory }), 12);
-  assert.equal(await generateRecipes({ source, directory, check: true }), 12);
+  assert.equal(await generateRecipes({ source, directory }), 13);
+  assert.equal(await generateRecipes({ source, directory, check: true }), 13);
 
   const button = path.join(directory, 'Material3ButtonRecipe.js');
   const expected = await readFile(button, 'utf8');
@@ -44,6 +44,12 @@ try {
     for (const [name, contents] of originalOutputs)
       assert.equal(await readFile(path.join(directory, name), 'utf8'), contents);
   }
+  const invalidRadio = structuredClone(tokens);
+  invalidRadio.style.material3.radioButton.dotDiameter.$value = 24;
+  await writeFile(source, JSON.stringify(invalidRadio));
+  await assert.rejects(generateRecipes({ source, directory }), /must fit inside/);
+  for (const [name, contents] of originalOutputs)
+    assert.equal(await readFile(path.join(directory, name), 'utf8'), contents);
   const cycle = structuredClone(tokens);
   cycle.style.material3.button.smallHeight.$value = '{style.material3.button.mediumHeight}';
   cycle.style.material3.button.mediumHeight.$value = '{style.material3.button.smallHeight}';

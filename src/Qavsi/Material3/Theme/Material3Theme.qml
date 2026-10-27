@@ -1,6 +1,7 @@
 import QtQuick
 import "Material3SliderRecipe.js" as SliderRecipe
 import "Material3SwitchRecipe.js" as SwitchRecipe
+import "Material3RadioButtonRecipe.js" as RadioRecipe
 import "Material3NavigationRecipe.js" as NavigationRecipe
 import "Material3TabRecipe.js" as TabRecipe
 
@@ -115,6 +116,27 @@ QtObject {
         iconSize: 32; spacing: 0; font: root.bodyLarge
     }
 
+    readonly property real radioIndicatorDiameter: RadioRecipe.indicatorDiameter
+    readonly property real radioOutlineWidth: RadioRecipe.outlineWidth
+    readonly property real radioDotDiameter: RadioRecipe.dotDiameter
+    readonly property real radioStateLayerDiameter: RadioRecipe.stateLayerDiameter
+    readonly property real radioHorizontalPadding: spacingSmall
+    readonly property real radioVerticalPadding: 14
+    readonly property real radioSpacing: spacingSmall
+    readonly property real radioMinimumWidth: radioIndicatorDiameter + 2 * radioHorizontalPadding + radioSpacing
+    readonly property real radioMinimumHeight: radioIndicatorDiameter + 2 * radioVerticalPadding
+    readonly property int radioSelectionDuration: 150
+    readonly property int radioSelectionEasing: Easing.Linear
+    readonly property real radioFocusIndicatorWidth: RadioRecipe.focusWidth
+    readonly property real radioFocusIndicatorDiameter: radioIndicatorDiameter + 4 * radioFocusIndicatorWidth
+    readonly property color radioIndicator: surfaceVariantForeground
+    readonly property color radioCheckedIndicator: primary
+    readonly property color radioActiveIndicator: surfaceForeground
+    readonly property color radioDisabledIndicator: disabledLabel
+    readonly property color radioStateLayer: surfaceForeground
+    readonly property color radioCheckedStateLayer: primary
+    readonly property color radioPressedStateLayer: primary
+    readonly property color radioCheckedPressedStateLayer: surfaceForeground
 
     readonly property real switchTrackWidth: SwitchRecipe.trackWidth
     readonly property real switchTrackHeight: SwitchRecipe.trackHeight

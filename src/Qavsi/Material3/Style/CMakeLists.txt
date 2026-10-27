@@ -89,6 +89,15 @@ foreach(recipe IN ITEMS Button IconButton Fab Joined ConnectedButton SegmentedBu
     set_source_files_properties("internal/recipes/Material3${recipe}Recipe.js" PROPERTIES
         QT_RESOURCE_ALIAS "Material3${recipe}Recipe.js")
 endforeach()
+set(material3_radio_files
+    internal/radiobuttons/Material3RadioButtonDelegate.qml
+    internal/radiobuttons/Material3RadioButtonParameters.qml
+    internal/radiobuttons/Material3RadioButtonIndicator.qml)
+foreach(radio_file IN LISTS material3_radio_files)
+    get_filename_component(logical_name "${radio_file}" NAME)
+    set_source_files_properties("${radio_file}" PROPERTIES
+        QT_RESOURCE_ALIAS "${logical_name}" QT_QML_INTERNAL_TYPE TRUE)
+endforeach()
 set(material3_switch_files
     internal/switches/Material3SwitchDelegate.qml
     internal/switches/Material3SwitchParameters.qml
@@ -143,7 +152,7 @@ qt_add_qml_module(${module_target} SHARED
         internal/menus/Material3MenuEnterTransition.qml
         internal/menus/Material3MenuExitTransition.qml
         Material3ButtonContent.qml ${material3_advanced_files} ${material3_menu_files} ${material3_field_files} ${material3_combo_files}
-        ${material3_switch_files} ${material3_navigation_files} ${material3_slider_files}
+        ${material3_switch_files} ${material3_navigation_files} ${material3_slider_files} ${material3_radio_files}
         internal/shadows/Material3Elevation.qml
         Material3Style.qml SmallButtonTheme.qml SmallButtonBackground.qml SmallButtonShadow.qml
         SmallButtonDelegate.qml SmallButtonParameters.qml
@@ -160,6 +169,7 @@ qt_add_qml_module(${module_target} SHARED
         textfieldsupport.h textfieldsupport.cpp
         comboboxsupport.h comboboxsupport.cpp
         internal/sliders/slidersupport.h internal/sliders/slidersupport.cpp
+        internal/radiobuttons/radiobuttonsupport.h internal/radiobuttons/radiobuttonsupport.cpp
     OUTPUT_TARGETS module_auxiliary_targets)
 qt_add_shaders(${module_target} "qavsi_material3_small_button_shaders"
     PREFIX "/Qavsi/Material3/Style"
@@ -178,7 +188,8 @@ set_target_properties(${module_target}Plugin PROPERTIES EXPORT_NAME StylePlugin)
 target_compile_features(${module_target} PUBLIC cxx_std_20)
 target_include_directories(${module_target} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/internal/shadows"
-    "${CMAKE_CURRENT_SOURCE_DIR}/internal/sliders")
+    "${CMAKE_CURRENT_SOURCE_DIR}/internal/sliders"
+    "${CMAKE_CURRENT_SOURCE_DIR}/internal/radiobuttons")
 target_link_libraries(${module_target} PUBLIC QavsiMaterial3::Theme QavsiIcons::Core PRIVATE Qt6::Quick Qt6::LabsStyleKit)
 add_library(QavsiMaterial3::Style ALIAS ${module_target})
 include("${PROJECT_SOURCE_DIR}/cmake/InstallQmlModule.cmake")

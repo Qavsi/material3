@@ -487,6 +487,72 @@ void checkSliderDestruction(QQmlApplicationEngine &engine, QQuickWindow &window)
 }
 
 
+void checkRadioButtons(QQuickWindow &window)
+{
+    auto *first = control(window, "comparison.radio.option1");
+    auto *second = control(window, "comparison.radio.option2");
+    auto *third = control(window, "comparison.radio.option3");
+    auto *readOnly = control(window, "comparison.radio.readOnly");
+    if (!first || !second || !third || !readOnly)
+        return;
+    reveal(second);
+    auto *indicator = second->property("indicator").value<QQuickItem *>();
+    expect(indicator && qAbs(indicator->width() - 20) < 0.5 && qAbs(indicator->height() - 20) < 0.5,
+           "RadioButton uses QCM's 20 by 20 native indicator geometry");
+    const auto unselectedCapture = indicator ? indicator->grabToImage() : nullptr;
+    const bool unselectedReady = unselectedCapture && QTest::qWaitFor([&] { return !unselectedCapture->image().isNull(); });
+    const auto unselected = unselectedReady ? unselectedCapture->image() : QImage();
+    second->forceActiveFocus(Qt::TabFocusReason);
+    QTest::keyClick(&window, Qt::Key_Space);
+    expect(second->property("checked").toBool() && !first->property("checked").toBool(),
+           "Space selects one native RadioButton and clears its sibling");
+    const auto selectedCapture = indicator ? indicator->grabToImage() : nullptr;
+    const bool selectedReady = selectedCapture && QTest::qWaitFor([&] { return !selectedCapture->image().isNull(); });
+    const auto selected = selectedReady ? selectedCapture->image() : QImage();
+    expect(unselectedReady && selectedReady
+               && qAlpha(unselected.pixel(unselected.width() / 2, unselected.height() / 2)) == 0
+               && qAlpha(selected.pixel(selected.width() / 2, selected.height() / 2)) > 0,
+           "the radio center paints a dot only for the selected native option");
+    readOnly->setProperty("checked", true);
+    first->forceActiveFocus(Qt::TabFocusReason);
+    QTest::keyClick(&window, Qt::Key_Space);
+    const auto point = first->mapToScene(QPointF(first->width() / 2, first->height() / 2));
+    QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, point.toPoint());
+    expect(second->property("checked").toBool() && !first->property("checked").toBool()
+               && first->property("enabled").toBool(),
+           "read-only RadioButtons reject keyboard and pointer selection without disabling them");
+    auto *accessible = QAccessible::queryAccessibleInterface(first);
+    auto *actions = accessible ? accessible->actionInterface() : nullptr;
+    if (actions) {
+        actions->doAction(QAccessibleActionInterface::toggleAction());
+        expect(second->property("checked").toBool() && !first->property("checked").toBool(),
+               "read-only RadioButtons reject native accessibility activation");
+    } else {
+        expect(false, "RadioButton exposes native accessibility actions");
+    }
+    third->setProperty("checked", true);
+    expect(third->property("checked").toBool() && !second->property("checked").toBool(),
+           "a read-only radio group still accepts application selection updates");
+    readOnly->setProperty("checked", false);
+    first->forceActiveFocus(Qt::TabFocusReason);
+    QTest::keyPress(&window, Qt::Key_Space);
+    readOnly->setProperty("checked", true);
+    QTest::keyRelease(&window, Qt::Key_Space);
+    expect(third->property("checked").toBool() && !first->property("checked").toBool()
+               && !first->property("pressed").toBool(),
+           "entering read-only during a key press cancels pending radio activation");
+    readOnly->setProperty("checked", false);
+    QTest::keyClick(&window, Qt::Key_Space);
+    expect(first->property("checked").toBool() && !third->property("checked").toBool(),
+           "unlocking read-only restores native radio selection");
+    if (actions) {
+        third->setProperty("checked", true);
+        actions->doAction(QAccessibleActionInterface::pressAction());
+        expect(first->property("checked").toBool() && !third->property("checked").toBool()
+                   && !accessible->state().readOnly,
+               "unlocking read-only restores accessible native radio activation and state");
+    }
+}
 
 void checkSwitch(QQuickWindow &window)
 {
@@ -593,6 +659,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     checkTextField(window);
     checkFieldAccessories(window);
     checkInputSizes(window);
+    checkRadioButtons(window);
     checkSwitch(window);
     checkNavigation(window);
     checkSliders(window);

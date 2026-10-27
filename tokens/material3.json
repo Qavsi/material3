@@ -630,6 +630,29 @@
             "$value": 6
           }
         }
+      },
+      "radioButton": {
+        "$description": "QCM radio indicator paint geometry; Theme owns semantic colors, motion and control spacing.",
+        "indicatorDiameter": {
+          "$type": "dimension",
+          "$value": 20
+        },
+        "outlineWidth": {
+          "$type": "dimension",
+          "$value": 2
+        },
+        "dotDiameter": {
+          "$type": "dimension",
+          "$value": 10
+        },
+        "stateLayerDiameter": {
+          "$type": "dimension",
+          "$value": 40
+        },
+        "focusWidth": {
+          "$type": "dimension",
+          "$value": 2.5
+        }
       }
     }
   }
