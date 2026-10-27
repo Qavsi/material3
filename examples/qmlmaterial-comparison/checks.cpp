@@ -5,6 +5,8 @@
 #include <QMetaEnum>
 #include <QMetaProperty>
 #include <QQmlApplicationEngine>
+#include <QQmlComponent>
+#include <QPointer>
 #include <QQmlProperty>
 #include <QQuickItem>
 #include <QQuickItemGrabResult>
@@ -399,7 +401,90 @@ void checkNavigation(QQuickWindow &window)
            "Space selects a primary tab through its native currentIndex API");
 }
 
+void checkSliders(QQuickWindow &window)
+{
+    auto *volume = control(window, "comparison.slider.volume");
+    auto *readOnly = control(window, "comparison.slider.readOnly");
+    auto *range = control(window, "comparison.range.continuous");
+    if (!volume || !readOnly || !range)
+        return;
+    reveal(volume);
+    const auto paintedTrack = volume->grabToImage();
+    const bool trackReady = paintedTrack && QTest::qWaitFor([&] { return !paintedTrack->image().isNull(); });
+    const auto trackImage = trackReady ? paintedTrack->image() : QImage();
+    expect(trackReady && qAlpha(trackImage.pixel(trackImage.width() / 4, trackImage.height() / 2)) > 0
+               && qAlpha(trackImage.pixel(trackImage.width() * 3 / 4, trackImage.height() / 2)) > 0,
+           "the M3 Slider renders both track segments around its native handle");
+    volume->forceActiveFocus(Qt::TabFocusReason);
+    const auto original = volume->property("value").toReal();
+    QTest::keyClick(&window, Qt::Key_Right);
+    expect(qAbs(volume->property("value").toReal() - original - 1) < 0.01,
+           "the M3 Slider keeps native step-size keyboard behavior");
+    readOnly->forceActiveFocus(Qt::TabFocusReason);
+    QTest::keyClick(&window, Qt::Key_Space);
+    const auto locked = volume->property("value").toReal();
+    volume->forceActiveFocus(Qt::TabFocusReason);
+    QTest::keyClick(&window, Qt::Key_Right);
+    const auto point = volume->mapToScene(QPointF(volume->width() / 4, volume->height() / 2));
+    QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, point.toPoint());
+    expect(readOnly->property("checked").toBool() && volume->property("enabled").toBool()
+               && qAbs(volume->property("value").toReal() - locked) < 0.01,
+           "read-only Slider blocks pointer and keyboard input without disabling the control");
+    volume->setProperty("value", 54.0);
+    expect(qAbs(volume->property("value").toReal() - 54) < 0.01,
+           "a read-only Slider still accepts application value updates");
+    readOnly->forceActiveFocus(Qt::TabFocusReason);
+    QTest::keyClick(&window, Qt::Key_Space);
+    auto *first = range->property("first").value<QObject *>();
+    auto *second = range->property("second").value<QObject *>();
+    auto *handle = first ? first->property("handle").value<QQuickItem *>() : nullptr;
+    if (first && second && handle) {
+        reveal(handle);
+        handle->forceActiveFocus(Qt::TabFocusReason);
+        const auto before = first->property("value").toReal();
+        QTest::keyClick(&window, Qt::Key_Right);
+        expect(first->property("value").toReal() > before
+                   && first->property("value").toReal() <= second->property("value").toReal(),
+               "RangeSlider handles retain native keyboard stepping and ordered values");
+    } else {
+        expect(false, "RangeSlider exposes both native value nodes and its first handle");
+    }
+}
 
+void checkSliderDestruction(QQmlApplicationEngine &engine, QQuickWindow &window)
+{
+    QQmlComponent component(&engine);
+    component.setData(R"(
+        import QtQuick
+        import Qt.labs.StyleKit as SK
+        import Qavsi.Material3.Style
+        SK.Slider {
+            width: 200; height: 48
+            property bool lockInput: false
+            SliderSupport.readOnly: lockInput
+        }
+    )", QUrl());
+    const QPointer<QQuickItem> slider(qobject_cast<QQuickItem *>(component.create()));
+    expect(slider, "the read-only cancellation consumer creates a native Slider");
+    if (!slider)
+        return;
+    slider->setParent(window.contentItem());
+    slider->setParentItem(window.contentItem());
+    slider->setPosition(QPointF(16, window.height() - slider->height() - 16));
+    const auto point = slider->mapToScene(QPointF(slider->width() / 2, slider->height() / 2));
+    QTest::mousePress(&window, Qt::LeftButton, Qt::NoModifier, point.toPoint());
+    const bool pressed = slider->property("pressed").toBool();
+    const auto signal = slider->metaObject()->property(slider->metaObject()->indexOfProperty("pressed")).notifySignal();
+    const auto connection = QMetaObject::connect(slider, signal, &window, [slider] {
+        if (slider && !slider->property("pressed").toBool())
+            delete slider.data();
+    }, Qt::DirectConnection);
+    slider->setProperty("lockInput", true);
+    expect(pressed && slider.isNull(), "read-only cancellation safely allows a native press callback to destroy its Slider");
+    QObject::disconnect(connection);
+    delete slider.data();
+    QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, point.toPoint());
+}
 
 
 
@@ -510,6 +595,8 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     checkInputSizes(window);
     checkSwitch(window);
     checkNavigation(window);
+    checkSliders(window);
+    checkSliderDestruction(engine, window);
     checkSelection(window);
     checkFab(window);
     checkMenu(window);

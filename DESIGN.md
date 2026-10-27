@@ -710,10 +710,12 @@ The stock-origin adapter is scoped to Qt 6.12's StyleKit component layout and
 must be rechecked when Qt changes that implementation. Motion policy and software
 use the same existing kit paths; no Qt SDK source is changed.
 
-## Native navigation and switches
+## Native navigation, switches and sliders
 
-Reference: QmlMaterial 0.6.1, `191260585a829ee4ae2c99e6232b7145b5c34474`.
-This is a native Qt StyleKit adaptation; QCM is not linked.
+Reference: QmlMaterial 0.6.1, `191260585a829ee4ae2c99e6232b7145b5c34474`:
+`qml/navigation/{BarItem,RailItem,TabBar,TabButton}.qml`,
+`qml/input/{Switch,Slider,RangeSlider,SliderHandle}.qml`, their state classes and
+`example/Components.qml`. This is a Qt StyleKit adaptation, not a QCM runtime link.
 
 - Native SK.TabBar / SK.TabButton own navigation selection, exclusivity, focus
   and keyboard input. The `navigationBar` / `navigationBarItem` variations use
@@ -728,6 +730,37 @@ This is a native Qt StyleKit adaptation; QCM is not linked.
   native icon color and checked-to-filled policy. Bar label ink is separate
   from selected icon ink. Native QFont metrics are retained; bar examples bind
   LabelMedium because Qt 6.12 has no variation-level fonts slot.
-
-Geometry recipes are private Theme resources; Theme stays independent of Style.
-Motion follows effectiveReducedMotion, StyleKit transitions, visibility and window state.
+- Native SK.Switch owns checked/position, pointer, keyboard and mirrored drag
+  behavior. The indicator paints a 52x32 track, 16px unchecked /24px checked or
+  icon thumb, and 28px pressed thumb. The hidden background retains its natural
+  dimensions because native Switch implicitWidth does not include the indicator.
+  Icons use native icon.name/source/width/height/color unchanged. Qt 6.12's switch
+  has no StyleKit icon slot/default ink: icon consumers explicitly bind its size
+  and semantic color from Theme. Explicit zero sizes and transparent colors remain
+  owned by the caller. Label-free examples use native spacing0 for optical centering.
+- SK.Slider and SK.RangeSlider share StyleKit's `slider` group. Default track is
+  16px; `sliderMedium` gives the 40px inset-icon track. Native handles retain their
+  positions/input with a 4px line (2px active), 44px length and 6px track gap.
+  Active/inactive split tracks, horizontal/vertical orientation, native RTL,
+  native stepSize/snapMode/live behavior and range nodes are preserved.
+- `SliderSupport` adds only missing presentation/input policies: floating,
+  visible or hidden value labels; tick visibility; package inset icons; and a
+  readOnly user-input gate. Preview labels use native valueAt(position), including
+  live:false drags. Decorative stops are capped at20; this does not alter native
+  snapping. Read-only blocks pointer/touch/wheel/value keys without writing enabled
+  or value bindings, marks Accessible.readOnly and consumes accessible increment/
+  decrement requests. Programmatic/native value setters intentionally remain valid.
+  Releasing an active grab can invoke application callbacks; cancellation guards
+  permit those callbacks to destroy the control without a subsequent stale access.
+- Native RangeSlider has no minimum-span validator before accepting a value.
+  The gallery's discrete range starts at20/80 but does not claim an enforced20
+  minimum. No caller-value correction or replacement input router is installed.
+- Generated Slider/Switch/Navigation/Tab geometry recipes are compiled as private
+  Theme resources from the canonical tokens/material3.json outputs. Theme therefore
+  stays independent of the Style target. Palette, typography and motion policy
+  remain Theme-owned; comparison-only layout metrics stay in ComparisonMetrics.
+- Bar selection uses100ms linear motion, tabs250ms standard cubic. Rail selection
+  uses a250ms Qt OutCubic adaptation of QCM's spring; exact spring parity is not
+  claimed. Every new motion follows effectiveReducedMotion, StyleKit transitions,
+  visibility and window state. Simple Qt Quick tracks/thumbs render on software;
+  existing Material3Ripple/Material3Elevation retain their Metal/painter policies.

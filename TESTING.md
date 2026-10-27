@@ -5,7 +5,7 @@ behavior at these seams; they do not navigate the kit's private delegate tree.
 
 | Seam | Kept coverage | Outside the routine gate |
 |---|---|---|
-| Native SK.Button / SK.Menu / SK.TextField / SK.ComboBox / SK.TabBar / SK.Switch consumption | Pointer/keyboard activation, disabled/cancel behavior, selection, FAB display, menu activation/dismissal, floating caption/native editing, accessory space/rendering, message wrapping/accessible description and live caller bindings; ComboBox floating caption, first/last rows, native selection/acceptance and caller factories | Internal object names, loaders, ripple phase, shadow geometry, per-size/appearance permutations |
+| Native SK.Button / SK.Menu / SK.TextField / SK.ComboBox / SK.TabBar / SK.Switch / SK.Slider / SK.RangeSlider consumption | Pointer/keyboard activation, disabled/cancel behavior, selection, FAB display, menu activation/dismissal, floating caption/native editing, accessory space/rendering, message wrapping/accessible description and live caller bindings; ComboBox floating caption, first/last rows, native selection/acceptance and caller factories | Internal object names, loaders, ripple phase, shadow geometry, per-size/appearance permutations |
 | Theme and reduced motion | Independent color oracle, role overrides/invalid inputs, light/dark rendered primary, OS preference, static pressed feedback, immediate menu opening | Every renderer/color/timing combination and frame parity with QCM |
 | Source / installed consumption | Real example using the exported targets/URIs; relocated find_package consumer | Rebuilding every consumer after a styling-only edit |
 
@@ -54,8 +54,14 @@ return fixture is activated only after window exposure; it checks public popup,
 parent and model restoration. This bootstrap boundary is a consumer workaround,
 not an SDK patch. See SDK-001 in BACKLOG.md.
 
-Navigation coverage checks native TabBar keyboard selection. Switch coverage checks native activation, disabled gating and indicator geometry.
-Public control selectors are used; private family delegates are not inspected.
+The new families add one small native-consumer pass: TabBar keyboard selection,
+Switch activation/disabled behavior and QCM indicator geometry, Slider native
+stepping/read-only pointer+keyboard gating with application updates still valid,
+and RangeSlider native handle stepping. A transient native Slider also verifies
+that a press-cancellation callback can synchronously destroy its control safely.
+Tests use public control selectors and
+properties, not private family delegates or animation phases. No full per-stop,
+per-orientation or frame-by-frame QCM matrix is part of the routine gate.
 
 The comparison's --check path enables QAccessible before creating the QML engine.
 This exercises Qt's implicit placeholder descriptions on software as well as native

@@ -26,4 +26,5 @@ Input-family investigations (not confirmed defects):
 
 | ID | Area | Follow-up |
 |---|---|---|
+| RANGE-001 | Minimum span | Native Qt RangeSlider has no pre-accept minimum-span validator. The discrete example is20/80 initially, not an enforced20 gap; do not correct caller values after acceptance. |
 | NAV-001 | Rail motion | Exact QCM spring parity and a complete responsive rail/drawer are outside the isolated item slice; current rail selection uses Theme-based Qt easing. The comparison defers Navigation reader creation until Style completion to avoid SDK-001 in the isolated family build. |

@@ -1,4 +1,5 @@
 import QtQuick
+import "Material3SliderRecipe.js" as SliderRecipe
 import "Material3SwitchRecipe.js" as SwitchRecipe
 import "Material3NavigationRecipe.js" as NavigationRecipe
 import "Material3TabRecipe.js" as TabRecipe
@@ -172,6 +173,26 @@ QtObject {
     readonly property font titleSmall: Qt.font({ family: root.effectiveFontFamily,
         pixelSize: 14, weight: Font.Medium, letterSpacing: 0.1 })
 
+    readonly property real sliderTrackThickness: SliderRecipe.trackThickness
+    readonly property real sliderMediumTrackThickness: 40
+    readonly property real sliderHandleExtent: SliderRecipe.handleExtent
+    readonly property real sliderHandleLength: SliderRecipe.handleLength
+    readonly property real sliderHandleWidth: SliderRecipe.handleWidth
+    readonly property real sliderActiveHandleWidth: SliderRecipe.activeHandleWidth
+    readonly property real sliderTrackGap: SliderRecipe.trackGap
+    readonly property real sliderTrackInnerRadius: SliderRecipe.trackInnerRadius
+    readonly property real sliderFocusExpansion: SliderRecipe.focusExpansion
+    readonly property real sliderFocusWidth: SliderRecipe.focusWidth
+    readonly property real sliderValueMinimum: SliderRecipe.valueMinimum
+    readonly property real sliderValueGap: SliderRecipe.valueGap
+    readonly property real sliderStopDiameter: SliderRecipe.stopDiameter
+    readonly property int sliderMaxVisibleStops: SliderRecipe.maxVisibleStops
+    readonly property real sliderMinimumLength: 200
+    readonly property real sliderInsetIconSize: 24
+    readonly property real sliderInsetIconPadding: 8
+    readonly property int sliderMotionDuration: 100
+    readonly property list<real> sliderLabelEasingCurve: [0.2, 0, 0, 1, 1, 1]
+    readonly property real sliderValueElevation: 3
 
     readonly property real referenceCardWidth: 400
     readonly property real inputGalleryPadding: 12

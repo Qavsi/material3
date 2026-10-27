@@ -5,6 +5,7 @@
 - TextField accessible descriptions preserve caller ownership when native placeholder descriptions are active; comparison checks enable accessibility before loading QML.
 - Add native navigation bar, rail-item and primary-tab recipes with package icons, Theme motion and software rendering.
 - Add QCM Switch track/thumb/icon styling while retaining native checked state, keyboard input and disabled behavior.
+- Add horizontal/vertical Slider and RangeSlider recipes, value labels, stops and read-only input policy; protect cancellation when application callbacks destroy a control.
 
 - Native `SK.MenuItem`, butonlarla ortak private ripple katmanına bağlandı:
   Metal shader/software painter, menüye özel %10 press ve per-corner mask.

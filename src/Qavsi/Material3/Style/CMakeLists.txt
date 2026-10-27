@@ -117,6 +117,21 @@ foreach(family_file IN LISTS material3_navigation_files)
         set_source_files_properties("${family_file}" PROPERTIES QT_QML_INTERNAL_TYPE TRUE)
     endif()
 endforeach()
+set(material3_slider_files
+    internal/sliders/Material3SliderParameters.qml
+    internal/sliders/Material3SliderDelegate.qml
+    internal/sliders/Material3SliderTrack.qml
+    internal/sliders/Material3SliderBackground.qml
+    internal/sliders/Material3SliderHandle.qml
+    internal/sliders/Material3SliderVariation.qml
+)
+foreach(family_file IN LISTS material3_slider_files)
+    get_filename_component(logical_name "${family_file}" NAME)
+    set_source_files_properties("${family_file}" PROPERTIES QT_RESOURCE_ALIAS "${logical_name}")
+    if(NOT logical_name STREQUAL "Material3NavigationContent.qml")
+        set_source_files_properties("${family_file}" PROPERTIES QT_QML_INTERNAL_TYPE TRUE)
+    endif()
+endforeach()
 qt_add_qml_module(${module_target} SHARED
     URI Qavsi.Material3.Style
     PLUGIN_TARGET ${module_target}Plugin
@@ -128,7 +143,7 @@ qt_add_qml_module(${module_target} SHARED
         internal/menus/Material3MenuEnterTransition.qml
         internal/menus/Material3MenuExitTransition.qml
         Material3ButtonContent.qml ${material3_advanced_files} ${material3_menu_files} ${material3_field_files} ${material3_combo_files}
-        ${material3_switch_files} ${material3_navigation_files}
+        ${material3_switch_files} ${material3_navigation_files} ${material3_slider_files}
         internal/shadows/Material3Elevation.qml
         Material3Style.qml SmallButtonTheme.qml SmallButtonBackground.qml SmallButtonShadow.qml
         SmallButtonDelegate.qml SmallButtonParameters.qml
@@ -144,6 +159,7 @@ qt_add_qml_module(${module_target} SHARED
     SOURCES materialbuttonfeedback.h materialbuttonfeedback.cpp ${material3_shadow_sources}
         textfieldsupport.h textfieldsupport.cpp
         comboboxsupport.h comboboxsupport.cpp
+        internal/sliders/slidersupport.h internal/sliders/slidersupport.cpp
     OUTPUT_TARGETS module_auxiliary_targets)
 qt_add_shaders(${module_target} "qavsi_material3_small_button_shaders"
     PREFIX "/Qavsi/Material3/Style"
@@ -160,7 +176,9 @@ qt_add_shaders(${module_target} "qavsi_material3_shadow_shaders"
 set_target_properties(${module_target} PROPERTIES EXPORT_NAME Style VERSION ${PROJECT_VERSION} SOVERSION 0.1)
 set_target_properties(${module_target}Plugin PROPERTIES EXPORT_NAME StylePlugin)
 target_compile_features(${module_target} PUBLIC cxx_std_20)
-target_include_directories(${module_target} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/internal/shadows")
+target_include_directories(${module_target} PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/internal/shadows"
+    "${CMAKE_CURRENT_SOURCE_DIR}/internal/sliders")
 target_link_libraries(${module_target} PUBLIC QavsiMaterial3::Theme QavsiIcons::Core PRIVATE Qt6::Quick Qt6::LabsStyleKit)
 add_library(QavsiMaterial3::Style ALIAS ${module_target})
 include("${PROJECT_SOURCE_DIR}/cmake/InstallQmlModule.cmake")

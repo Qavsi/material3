@@ -20,6 +20,11 @@ SK.Style {
     readonly property Material3SwitchDelegate switchFactory: Material3SwitchDelegate { }
     readonly property Material3NavigationDelegate navigationDelegate: Material3NavigationDelegate { }
     fonts.tabBar: root.tokens.titleSmall
+    readonly property Material3SliderDelegate sliderDelegate: Material3SliderDelegate { }
+    readonly property Material3SliderVariation mediumSlider: Material3SliderVariation {
+        sourceStyle: root
+        name: "sliderMedium"
+    }
 
     themeName: "Light"
     fonts.system: root.tokens.labelLarge
@@ -290,6 +295,52 @@ SK.Style {
         disabled { text.color: root.tokens.disabledLabel; background.color: root.tokens.transparent; checked.text.color: root.tokens.disabledLabel }
     }
 
+    slider {
+        padding: 0
+        background {
+            visible: true
+            width: root.tokens.sliderMinimumLength
+            height: root.tokens.sliderHandleLength
+            color: root.tokens.transparent
+            gradient: null
+            margins: 0
+            border.width: 0
+            shadow.visible: false
+            delegate: root.sliderDelegate.background
+            data: Material3SliderParameters { tokens: root.tokens; reducedMotion: root.effectiveReducedMotion }
+        }
+        indicator.visible: false
+        handle {
+            width: root.tokens.sliderHandleExtent
+            height: root.tokens.sliderHandleLength
+            margins: 0
+            fillWidth: false
+            fillHeight: false
+            color: root.tokens.transparent
+            border.width: 0
+            delegate: root.sliderDelegate.handle
+            data: root.slider.background.data
+            first.delegate: root.sliderDelegate.firstHandle
+            second.delegate: root.sliderDelegate.secondHandle
+            // Explicit child dimensions/data prevent relying on undocumented handle inheritance.
+            first.width: root.tokens.sliderHandleExtent
+            first.height: root.tokens.sliderHandleLength
+            first.data: root.slider.background.data
+            second.width: root.tokens.sliderHandleExtent
+            second.height: root.tokens.sliderHandleLength
+            second.data: root.slider.background.data
+        }
+        vertical {
+            background.width: root.tokens.sliderHandleLength
+            background.height: root.tokens.sliderMinimumLength
+            handle.width: root.tokens.sliderHandleLength
+            handle.height: root.tokens.sliderHandleExtent
+            handle.first.width: root.tokens.sliderHandleLength
+            handle.first.height: root.tokens.sliderHandleExtent
+            handle.second.width: root.tokens.sliderHandleLength
+            handle.second.height: root.tokens.sliderHandleExtent
+        }
+    }
 
     light: SmallButtonTheme { tokens: root.lightTokens; sourceStyle: root }
     dark: SmallButtonTheme { tokens: root.darkTokens; sourceStyle: root }

@@ -7,6 +7,7 @@ import Qavsi.Material3.Theme
 ColumnLayout {
     id: root
     required property Material3Theme tokens
+    readonly property ComparisonMetrics metrics: ComparisonMetrics { }
     required property bool darkMode
     required property bool reducedMotion
     signal toggleTheme()
@@ -70,6 +71,7 @@ ColumnLayout {
                 Component.onCompleted: Qt.callLater(() => navigationExamples.active = true)
             }
             SwitchesGallery { width: Math.min(parent.width, root.tokens.referenceCardWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
+            SlidersGallery { width: Math.min(parent.width, root.metrics.sliderCardWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
             ActionsGallery { width: parent.width; tokens: root.tokens }
         }
     }

@@ -527,12 +527,12 @@ The ComboBox is outlined, matching the pinned QCM implementation; no filled
 ComboBox variant is exposed. [ComboBoxGallery.qml](examples/qmlmaterial-comparison/ComboBoxGallery.qml)
 shows string/role models, editable/disabled controls and caller-owned factories.
 
-### Navigation
+### Navigation, Switch and Slider
 
-Native SK.TabBar/TabButton provide bar and primary-tab selection.
-Material3NavigationContent supplies package icons for bar/rail examples.
-
-### Switch
+The comparison also contains the QCM navigation bar, isolated icon rail items,
+primary tabs, four Switch examples and horizontal/vertical Slider/RangeSlider
+examples. Controls remain native StyleKit types; family rendering lives in
+`internal/navigation`, `internal/switches` and `internal/sliders`.
 
 ```qml
 SK.Switch {
@@ -542,6 +542,20 @@ SK.Switch {
     icon.height: tokens.switchIconSize
     icon.color: checked ? tokens.switchCheckedIcon : tokens.switchIcon
 }
+SK.Slider {
+    from: 0
+    to: 100
+    value: 40
+    stepSize: 1
+    SliderSupport.readOnly: saveJob.running
+    SliderSupport.labelBehavior: SliderSupport.LabelVisible
+    SliderSupport.tickVisibilityMode: SliderSupport.TickAutoLimit
+}
 ```
 
-The optional native icon fields bind size and semantic ink to Material3Style.tokens.
+Here `tokens` is the selected Material3Style.tokens instance and `saveJob.running`
+is application state. Qt 6.12 does not supply a switch icon size/ink style slot,
+so the optional native icon fields are explicit Theme bindings. Native Slider
+steps, snap modes, live updates and RangeSlider first/second values are unchanged.
+Use `sliderMedium` with SliderSupport.insetIcon for the thick inset-icon recipe.
+An enforced minimum span for native RangeSlider is not currently supported.
