@@ -3,7 +3,7 @@
 
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { formatMaterial3SliderRecipe, formatMaterial3TabRecipe, formatMaterial3SwitchRecipe, formatMaterial3NavigationRecipe, formatMaterial3FabRecipe, formatMaterial3JoinedRecipe, formatMaterial3ButtonRecipe, formatMaterial3IconButtonRecipe, formatMaterial3BadgeRecipe, formatMaterial3SegmentedButtonRecipe, formatMaterial3SplitButtonRecipe, formatMaterial3ConnectedButtonRecipe } from './material3-format.mjs';
+import { formatMaterial3ProgressRecipe, formatMaterial3SliderRecipe, formatMaterial3TabRecipe, formatMaterial3SwitchRecipe, formatMaterial3NavigationRecipe, formatMaterial3FabRecipe, formatMaterial3JoinedRecipe, formatMaterial3ButtonRecipe, formatMaterial3IconButtonRecipe, formatMaterial3BadgeRecipe, formatMaterial3SegmentedButtonRecipe, formatMaterial3SplitButtonRecipe, formatMaterial3ConnectedButtonRecipe } from './material3-format.mjs';
 import { resolveDictionary } from './token-value-utils.mjs';
 
 const source = JSON.parse(await readFile(new URL('../../tokens/material3.json', import.meta.url), 'utf8'));
@@ -455,3 +455,14 @@ assert.throws(()=>formatConnected(badConnected),/finite positive dimension/);
 const aliasConnected=structuredClone(source); aliasConnected.style.material3.iconButton.small.containerHeight.$value='{style.material3.button.smallHeight}';
 assert.equal(formatConnected(aliasConnected),formatConnected(source));
 console.log('Material3 connected composed recipe and optical-bias validation checks passed.');
+
+const progress = structuredClone(source);
+progress.style.material3.progress.stopDiameter.$value = 5;
+assert.throws(() => formatMaterial3ProgressRecipe(resolveDictionary(progress)), /must fit/);
+progress.style.material3.progress.stopDiameter.$value = 4;
+progress.style.material3.progress.thickness.$value = 0;
+assert.throws(() => formatMaterial3ProgressRecipe(resolveDictionary(progress)), /finite and positive/);
+progress.style.material3.progress.thickness.$value = 4;
+progress.style.material3.progress.circularGapAngle.$type = 'dimension';
+assert.throws(() => formatMaterial3ProgressRecipe(resolveDictionary(progress)), /must declare/);
+console.log('Material3 progress recipe invalid-input checks passed.');

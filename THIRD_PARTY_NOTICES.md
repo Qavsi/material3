@@ -55,6 +55,14 @@ The CheckBox indicator adapts the four SVG paths from QCM's `qml/input/CheckShap
 translating their origin without changing shape. The full upstream MIT notice is
 also installed as `share/licenses/QavsiMaterial3/ripple-reference/QMLMATERIAL-MIT-LICENSE.txt`.
 
+The standard progress painter adapts straight/arc geometry, disjoint/advance
+motion and cubic curves from the same pinned QCM revision's progress geometry,
+linear/circular updators and interpolator. The geometry is Copyright (C) 2020
+The Android Open Source Project, Apache-2.0; QCM is MIT. Local changes use one
+QPainter Image renderer, native Qt control state and full-at-completion behavior;
+wavy and morphing loading paths are excluded. Full Apache-2.0 and QCM MIT texts
+are installed in `share/licenses/QavsiMaterial3/ripple-reference/`.
+
 The example’s `icons/*.svg` are Google Material Symbols Rounded, pinned to
 material-design-icons `10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7`, under Apache-2.0.
 Their [full license](https://github.com/Qavsi/material3/blob/main/examples/qmlmaterial-comparison/icons/LICENSE-Apache-2.0.txt),

@@ -17,6 +17,68 @@ SK.Style {
     readonly property Material3TextFieldDelegate textFieldDelegate: Material3TextFieldDelegate { }
 
 
+    readonly property Material3ProgressDelegate progressFactory: Material3ProgressDelegate { }
+    readonly property SK.StyleVariation circularProgress: SK.StyleVariation {
+        name: "progressCircular"
+        progressBar {
+            indicator {
+                width: root.tokens.progressCircularSize
+                height: root.tokens.progressCircularSize
+                fillWidth: false
+                fillHeight: false
+                data: Material3ProgressParameters {
+                    tokens: root.tokens
+                    reducedMotion: root.effectiveReducedMotion
+                    circular: true
+                }
+            }
+        }
+    }
+    progressBar {
+        padding: 0
+        background {
+            visible: false
+            width: 0
+            height: 0
+            margins: 0
+        }
+        indicator {
+            width: root.tokens.progressLinearMinimumWidth
+            height: root.tokens.progressThickness
+            margins: 0
+            fillWidth: true
+            fillHeight: true
+            alignment: Qt.AlignCenter
+            delegate: root.progressFactory.indicator
+            data: Material3ProgressParameters { tokens: root.tokens; reducedMotion: root.effectiveReducedMotion }
+            foreground.visible: false
+        }
+    }
+    busyIndicator {
+        padding: 0
+        background {
+            visible: false
+            width: 0
+            height: 0
+            margins: 0
+        }
+        indicator {
+            width: root.tokens.progressCircularSize
+            height: root.tokens.progressCircularSize
+            margins: 0
+            fillWidth: true
+            fillHeight: true
+            alignment: Qt.AlignCenter
+            delegate: root.progressFactory.indicator
+            data: Material3ProgressParameters {
+                tokens: root.tokens
+                reducedMotion: root.effectiveReducedMotion
+                circular: true
+                busy: true
+            }
+            foreground.visible: false
+        }
+    }
     readonly property Material3CheckBoxDelegate checkBoxFactory: Material3CheckBoxDelegate { }
     readonly property Material3RadioButtonDelegate radioFactory: Material3RadioButtonDelegate { }
     readonly property Material3SwitchDelegate switchFactory: Material3SwitchDelegate { }

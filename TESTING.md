@@ -3,6 +3,12 @@
 The user approved three public seams on 2026-10-27. Tests describe observable
 behavior at these seams; they do not navigate the kit's private delegate tree.
 
+Progress coverage stays at those seams: native range/value/mode bindings,
+accessible numeric progress, rendered fill and reduced-motion feedback, and
+BusyIndicator running. Dynamic modes use the public `Material3ProgressContent`
+opt-in around the Qt 6.12.0 default-content defect. Source and relocated installed
+consumers exercise the same gallery; private animation phases are not asserted.
+
 | Seam | Kept coverage | Outside the routine gate |
 |---|---|---|
 | Native SK.Button / SK.Menu / SK.TextField / SK.ComboBox / SK.TabBar / SK.Switch / SK.CheckBox / SK.RadioButton / SK.Slider / SK.RangeSlider consumption | Pointer/keyboard activation, disabled/cancel behavior, selection, FAB display, menu activation/dismissal, floating caption/native editing, accessory space/rendering, message wrapping/accessible description and live caller bindings; ComboBox floating caption, first/last rows, native selection/acceptance and caller factories | Internal object names, loaders, ripple phase, shadow geometry, per-size/appearance permutations |

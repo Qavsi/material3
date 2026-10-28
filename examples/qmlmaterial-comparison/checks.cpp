@@ -540,6 +540,63 @@ void checkChips(QQuickWindow &window)
            "a constrained chip preserves the source label for native accessibility");
 }
 
+void checkProgress(QQuickWindow &window)
+{
+    const bool previousReducedMotion = window.property("reducedMotion").toBool();
+    auto *linear = control(window, "comparison.progress.linear");
+    auto *unknown = control(window, "comparison.progress.indeterminate");
+    auto *circular = control(window, "comparison.progress.circular");
+    auto *busy = control(window, "comparison.progress.busy");
+    if (!linear || !unknown || !circular || !busy)
+        return;
+    reveal(linear);
+    expect(qAbs(linear->height() - 4) < 0.5 && qAbs(circular->width() - 40) < 0.5
+               && qAbs(circular->height() - 40) < 0.5 && qAbs(busy->width() - 40) < 0.5,
+           "native progress controls use QCM linear and circular geometry");
+    const auto capture = [](QQuickItem *item) -> QImage {
+        const auto grab = item->grabToImage();
+        return grab && QTest::qWaitFor([&] { return !grab->image().isNull(); }) ? grab->image() : QImage();
+    };
+    const auto first = capture(linear);
+    linear->setProperty("completed", 70);
+    expect(qAbs(linear->property("position").toReal() - 0.7) < 0.001 && first != capture(linear),
+           "application progress binding updates native position and rendered fill");
+    linear->setProperty("total", 200);
+    expect(qAbs(linear->property("position").toReal() - 0.35) < 0.001,
+           "application range bindings remain live after style installation");
+    linear->setProperty("unknown", true);
+    const auto indeterminate = capture(linear);
+    QTest::qWait(100);
+    expect(linear->property("indeterminate").toBool() && !indeterminate.isNull()
+               && indeterminate == capture(linear),
+           "reduced-motion indeterminate progress keeps visible static feedback");
+    linear->setProperty("unknown", false);
+    expect(!linear->property("indeterminate").toBool()
+               && qAbs(linear->property("value").toReal() - 70) < 0.001,
+           "switching progress modes retains the caller's value binding");
+    reveal(busy);
+    const auto spinning = capture(busy);
+    bool painted = false;
+    for (int y = 0; y < spinning.height() && !painted; ++y)
+        for (int x = 0; x < spinning.width() && !painted; ++x)
+            painted = qAlpha(spinning.pixel(x, y)) > 0;
+    busy->setProperty("working", false);
+    const auto stopped = capture(busy);
+    expect(painted && !busy->property("running").toBool() && spinning != stopped,
+           "native BusyIndicator renders static reduced-motion feedback and honors running");
+    busy->setProperty("working", true);
+    auto *accessible = QAccessible::queryAccessibleInterface(linear);
+    expect(accessible && accessible->role() == QAccessible::ProgressBar
+               && accessible->text(QAccessible::Name) == QStringLiteral("Download progress")
+               && accessible->valueInterface() && accessible->valueInterface()->currentValue().toReal() == 70,
+           "native progress retains its accessible name, role and numeric value");
+    window.setProperty("reducedMotion", false);
+    const auto animated = capture(busy);
+    QTest::qWait(180);
+    expect(animated != capture(busy), "native BusyIndicator animates when full motion is enabled");
+    window.setProperty("reducedMotion", previousReducedMotion);
+}
+
 void checkCheckBoxes(QQuickWindow &window)
 {
     auto *binary = control(window, "comparison.checkbox.unchecked");
@@ -858,6 +915,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     checkInputSizes(window);
     checkChips(window);
     checkCheckBoxes(window);
+    checkProgress(window);
     checkRadioButtons(window);
     checkSwitch(window);
     checkNavigation(window);

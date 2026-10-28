@@ -161,6 +161,16 @@ foreach(family_file IN LISTS material3_slider_files)
         set_source_files_properties("${family_file}" PROPERTIES QT_QML_INTERNAL_TYPE TRUE)
     endif()
 endforeach()
+set(material3_progress_files
+    internal/progress/Material3ProgressParameters.qml
+    internal/progress/Material3ProgressDelegate.qml
+    internal/progress/Material3ProgressIndicator.qml
+    internal/progress/Material3ProgressVisual.qml)
+foreach(progress_file IN LISTS material3_progress_files)
+    get_filename_component(logical_name "${progress_file}" NAME)
+    set_source_files_properties("${progress_file}" PROPERTIES
+        QT_RESOURCE_ALIAS "${logical_name}" QT_QML_INTERNAL_TYPE TRUE)
+endforeach()
 qt_add_qml_module(${module_target} SHARED
     URI Qavsi.Material3.Style
     PLUGIN_TARGET ${module_target}Plugin
@@ -171,6 +181,7 @@ qt_add_qml_module(${module_target} SHARED
         internal/menus/Material3MenuItemBackground.qml
         internal/menus/Material3MenuEnterTransition.qml
         internal/menus/Material3MenuExitTransition.qml
+        Material3ProgressContent.qml ${material3_progress_files}
         Material3ButtonContent.qml Material3ChipContent.qml Material3MenuItemContent.qml ${material3_advanced_files} ${material3_menu_files} ${material3_field_files} ${material3_combo_files}
         ${material3_switch_files} ${material3_navigation_files} ${material3_slider_files} ${material3_radio_files} ${material3_checkbox_files} ${material3_chip_files}
         internal/shadows/Material3Elevation.qml
@@ -185,7 +196,8 @@ qt_add_qml_module(${module_target} SHARED
         internal/recipes/Material3ConnectedButtonRecipe.js
         internal/recipes/Material3SegmentedButtonRecipe.js
         internal/recipes/Material3SplitButtonRecipe.js
-    SOURCES materialbuttonfeedback.h materialbuttonfeedback.cpp ${material3_shadow_sources}
+    SOURCES internal/progress/materialprogresspaint.h internal/progress/materialprogresspaint.cpp
+        materialbuttonfeedback.h materialbuttonfeedback.cpp ${material3_shadow_sources}
         textfieldsupport.h textfieldsupport.cpp
         comboboxsupport.h comboboxsupport.cpp
         internal/sliders/slidersupport.h internal/sliders/slidersupport.cpp
@@ -208,6 +220,7 @@ set_target_properties(${module_target}Plugin PROPERTIES EXPORT_NAME StylePlugin)
 target_compile_features(${module_target} PUBLIC cxx_std_20)
 target_include_directories(${module_target} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/internal/shadows"
+    "${CMAKE_CURRENT_SOURCE_DIR}/internal/progress"
     "${CMAKE_CURRENT_SOURCE_DIR}/internal/sliders"
     "${CMAKE_CURRENT_SOURCE_DIR}/internal/radiobuttons")
 target_link_libraries(${module_target} PUBLIC QavsiMaterial3::Theme QavsiIcons::Core PRIVATE Qt6::Quick Qt6::LabsStyleKit)

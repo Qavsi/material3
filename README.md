@@ -506,6 +506,27 @@ caller ownership. Custom geometry must leave enough space for accessories;
 default geometry is augmented/restored automatically by the delegate.
 
 
+## Native progress
+
+`SK.ProgressBar` defaults to QCM linear styling; `progressCircular` selects the
+circular recipe. `SK.BusyIndicator` keeps native `running` with circular motion.
+For live indeterminate mode changes on Qt 6.12.0, opt into the content helper:
+
+```qml
+SK.ProgressBar {
+    id: download
+    value: application.progress
+    indeterminate: application.totalUnknown
+    Accessible.name: qsTr("Download progress")
+    contentItem: Material3ProgressContent { control: download }
+}
+SK.ProgressBar { SK.StyleVariation.variations: ["progressCircular"]; value: 0.6 }
+SK.BusyIndicator { running: application.loading; Accessible.name: qsTr("Loading") }
+```
+
+The helper follows the selected `Material3Style` Theme and reduced motion.
+See [family usage, SDK boundary and rendering limits](docs/families/progress.md).
+
 ## Native ComboBox
 
 ```qml

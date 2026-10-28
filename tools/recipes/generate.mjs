@@ -11,7 +11,7 @@ export const sourceFile = fileURLToPath(new URL('../../tokens/material3.json', i
 export const outputDirectory = fileURLToPath(new URL(
   '../../src/Qavsi/Material3/Style/internal/recipes/', import.meta.url));
 
-const families = ['Slider', 'Tab', 'Switch', 'CheckBox', 'RadioButton', 'Chip', 'Navigation', 'Fab', 'Joined',
+const families = ['Progress', 'Slider', 'Tab', 'Switch', 'CheckBox', 'RadioButton', 'Chip', 'Navigation', 'Fab', 'Joined',
   'Button', 'IconButton', 'Badge', 'SegmentedButton', 'SplitButton', 'ConnectedButton'];
 
 export function recipeOutputs(tokens) {

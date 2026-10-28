@@ -276,7 +276,7 @@ factory/data dosyaları ve C++ registration metadata'sı paketle taşınır.
   ikonları Qavsi.Icons.Material üzerinden gerçek paketli Material Symbols adlarıdır;
   font ve katalog kitte kopyalanmaz.
 
-**Remaining scope:** loading, badges, the complete responsive navigation shell and
+**Remaining scope:** morphing/wavy loading, badges, the complete responsive navigation shell and
 selection controls beyond the families documented below remain outside this slice. Split menü referans gibi
 sahne içi Popup.Item ve Qt fallback’ini kullanır.
 İki inline FAB action stack bu karşılaştırmaya dahildir; bütün Expressive FAB
@@ -287,6 +287,24 @@ ripple ve helper’ın kendi motion politikası aynı tercihi izler. Small doğr
 eşliği iddia edilmez. Qt SDK’sı değiştirilmez.
 
 Kabul kanıtı: [evidence/VERIFICATION.md](evidence/VERIFICATION.md).
+
+### Progress / BusyIndicator
+
+Native `SK.ProgressBar` has a 4 px rounded linear recipe, 4 px track gap and
+endpoint dot. `progressCircular` selects the QCM 40 px outer / 32 px path /
+4 px stroke circular recipe. Native `SK.BusyIndicator` uses the same circular
+advance motion and retains `running`. Primary/secondary-container and
+transparent circular track are semantic Theme roles; optical values come from
+the generated Progress recipe. QCM 0.6.1's disjoint 1800 ms / advance 5400 ms
+motion uses one software-compatible painter; reduced motion has visible static
+feedback. Native completed progress stays full, without QCM drain-to-hidden.
+
+Qt 6.12.0's default ProgressBar content has broken indeterminate-change
+Connections. Dynamic modes opt into `Material3ProgressContent` explicitly;
+the style does not replace caller content or patch Qt. Public API, source pins,
+usage and limits are in [docs/families/progress.md](docs/families/progress.md).
+Morphing BusyIndicator/loading shapes, wavy, contiguous and retreat variants
+remain outside this standard straight/arc family.
 
 ## Qt 6.12 uygulama ayrıntıları
 

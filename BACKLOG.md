@@ -23,6 +23,7 @@ Input-family investigations (not confirmed defects):
 |---|---|---|
 | INPUT-001 | Large option models | Profile popup width measurement for large short-label models before adding a cache; the current short-list path scans on open and stops at the maximum width |
 | SDK-001 | Qt 6.12 StyleKit startup | Cold launches can crash in QQStyleKitReader::resetReadersForStyle when caller popup/delegate readers are created during initial style completion. The comparison defers its caller-popup API examples and reference menus, keeping variation recipe galleries eager. Source repeated starts pass; the SDK root cause remains upstream work. |
+| SDK-002 | Qt 6.12.0 ProgressBar mode changes | Default deferred content's Connections access properties on the wrong object. Dynamic modes explicitly use public Material3ProgressContent; static native controls remain supported. Remove the workaround only after an upstream fix and consumer mode-switch verification. |
 
 | ID | Area | Follow-up |
 |---|---|---|

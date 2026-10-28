@@ -1,6 +1,7 @@
 import QtQuick
 import "Material3SliderRecipe.js" as SliderRecipe
 import "Material3SwitchRecipe.js" as SwitchRecipe
+import "Material3ProgressRecipe.js" as ProgressRecipe
 import "Material3CheckBoxRecipe.js" as CheckBoxRecipe
 import "Material3RadioButtonRecipe.js" as RadioRecipe
 import "Material3ChipRecipe.js" as ChipRecipe
@@ -135,6 +136,21 @@ QtObject {
     readonly property color chipSelectedInk: secondaryContainerForeground
     readonly property color chipIconInk: primary
     readonly property color chipDisabledOutline: Qt.alpha(surfaceForeground, disabledContainerOpacity)
+
+    readonly property real progressThickness: ProgressRecipe.thickness
+    readonly property real progressGap: ProgressRecipe.gap
+    readonly property real progressStopDiameter: ProgressRecipe.stopDiameter
+    readonly property real progressLinearMinimumWidth: ProgressRecipe.linearMinimumWidth
+    readonly property real progressCircularSize: ProgressRecipe.circularSize
+    readonly property real progressCircularGapAngle: ProgressRecipe.circularGapAngle
+    readonly property color progressIndicator: primary
+    readonly property color progressTrack: secondaryContainer
+    readonly property color progressCircularTrack: transparent
+    readonly property color progressDisabledIndicator: disabledLabel
+    readonly property color progressDisabledTrack: disabledContainer
+    readonly property int progressValueDuration: 150
+    readonly property int progressLinearCycleDuration: 1800
+    readonly property int progressCircularCycleDuration: 5400
 
     readonly property real checkBoxIndicatorSize: CheckBoxRecipe.indicatorSize
     readonly property real checkBoxStateLayerDiameter: CheckBoxRecipe.stateLayerDiameter
