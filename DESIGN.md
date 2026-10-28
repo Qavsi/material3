@@ -35,7 +35,8 @@ açıp QCM'nin seed/scheme girdilerini açıkça eşitler; bu tercih kitin varsa
   state-layer sonuçları. Hex renkler yalnız burada bulunur.
 - `Material3Style`: doğrudan `SK.Style`; Light/Dark seçimi, family font eşlemesi ve
   azaltılmış hareket politikası.
-- Internal `SmallButtonTheme`: `SK.Theme` üzerinden Qt button alanlarına eşleme.
+- Internal `Material3ControlTheme`: direct `SK.Theme` composition root for native control mappings and theme-local family variations.
+- Internal `Material3TextFieldVariations`: field recipe registration, separate from base control mappings.
 - Internal `SmallButtonDelegate` / `SmallButtonParameters`: background factory ve
   `DelegateStyle.data` üzerinden typed token/hareket aktarımı.
 - Internal `SmallButtonBackground`: pasif pointer gözlemi, ortak ripple durumu,
@@ -303,8 +304,15 @@ Qt 6.12.0's default ProgressBar content has broken indeterminate-change
 Connections. Dynamic modes opt into `Material3ProgressContent` explicitly;
 the style does not replace caller content or patch Qt. Public API, source pins,
 usage and limits are in [docs/families/progress.md](docs/families/progress.md).
-Morphing BusyIndicator/loading shapes, wavy, contiguous and retreat variants
-remain outside this standard straight/arc family.
+QCM's measured cubic geometry now supplies progressWavy (10px),
+progressCircularWavy (48px), progressContiguous and progressCircularRetreat.
+The private Progress variation family owns these immutable recipes; canonical
+wave geometry is generated from tokens/material3.json. The existing delegate
+owns QCM amplitude, phase, finish/fade and segment calculations; native Qt retains
+range/value/indeterminate and accessibility. The reference gallery uses one
+percentage slider and QCM's play/pause composition, with semantic track overrides
+for determinate circles. See the family document for exact source files and API.
+Morphing BusyIndicator/loading shapes remain separate from this progress port.
 
 ## Qt 6.12 uygulama ayrıntıları
 
@@ -785,7 +793,7 @@ Reference: QmlMaterial 0.6.1, `191260585a829ee4ae2c99e6232b7145b5c34474`:
 
 ### CheckBox
 
-The native `SK.CheckBox` mapping follows QCM0.6.1
+The native `SK.CheckBox` mapping follows QCM 0.6.1
 `191260585a829ee4ae2c99e6232b7145b5c34474`, `qml/input/CheckBox.qml`,
 `CheckShape.qml` and `src/style/check_box_state.cpp`. The generated recipe owns
 an18px indicator and40px state layer. Theme owns LabelLarge, padding8/15,
@@ -807,11 +815,11 @@ extensions are not introduced by this slice.
 
 ### RadioButton
 
-The native `SK.RadioButton` mapping follows the same QCM0.6.1 pin
+The native `SK.RadioButton` mapping follows the same QCM 0.6.1 pin
 `191260585a829ee4ae2c99e6232b7145b5c34474`: `qml/input/RadioButton.qml`,
 `RadioIndicatorShape.qml` and `src/style/radio_button_state.cpp`. A20px circle
 has a2px outline and10px selected dot; the state layer is40px. LabelLarge,
-horizontal padding8, vertical padding14 and spacing8 give a48px natural height.
+horizontal padding8, vertical padding14 and spacing8 give a 48px natural height.
 Explicit caller fonts and native RTL layout remain owned by Qt. Geometry comes
 from the canonical generated RadioButton recipe; colors/150ms linear selection
 motion belong to Theme. Selection motion honors reduced motion, StyleKit
@@ -843,7 +851,7 @@ chipAssist/chipFilter/chipInput/chipSuggestion/chipEmbed. Their private chipDism
 role styles a native trailing Action button; no runtime variation switching is
 needed. The native button still owns input, focus, disabled gating and selection.
 
-QCM0.6.1 pin191260585a829ee4ae2c99e6232b7145b5c34474
+QCM 0.6.1 pin191260585a829ee4ae2c99e6232b7145b5c34474
 qml/chip/*.qml and src/style/chip_state.cpp supply the32px height,8px radius,
 18px icons and16/8 optical padding. Canonical ChipRecipe geometry feeds Theme;
 semantic ink, disabled0.38/0.12 roles and50/100ms linear filter motion remain
@@ -866,7 +874,7 @@ Elevated, editing/avatar input chips and drag interactions are deferred.
 
 ### Native Action menu ownership
 
-Open action menu adapts QCM0.6.1 ActionMenu's three reference Action objects with
+Open action menu adapts QCM 0.6.1 ActionMenu's three reference Action objects with
 native Qt Quick Action and MenuItem.action. Actions are owned outside the lazy
 popup; text/icon/enabled/checkable/checked updates and activation remain Qt's
 responsibility. No action mirror, custom command runtime or ActionMenu control
@@ -897,7 +905,7 @@ selected Theme until its replacement is ready; no extra Theme instance is create
 
 ## Badge
 
-QCM0.6.1 Badge uses one native SK.Label-based Material3Badge presentation helper.
+QCM 0.6.1 Badge uses one native SK.Label-based Material3Badge presentation helper.
 The immutable badge/badgePrimary/badgeSecondary/badgeContrast recipes map semantic
 foreground/container pairs; the private Rectangle delegate owns paint, Theme owns
 LabelSmall and canonical BadgeRecipe geometry. Theme remains independent of Style.
@@ -910,7 +918,7 @@ See [Badge family](docs/families/badge.md) for API and the QCM source pin.
 
 ## Application navigation composition
 
-See [app-navigation](docs/families/app-navigation.md) for the QCM0.6.1 pin, native
+See [app-navigation](docs/families/app-navigation.md) for the QCM 0.6.1 pin, native
 ToolBar/searchField mappings and public Material3AppNavigation contract. Theme
 owns64px toolbar,56px search,96/220px rail,600/1200px breakpoints and sheet motion.
 The shell composes existing rail recipes with native Buttons/TextField/ToolBar,
@@ -919,15 +927,20 @@ is scoped to its implementation and does not change the application Controls sty
 Selection and text survive responsive presentation changes. SearchView overlays,
 QCM runtime integration and automatic application navigation are outside this API.
 
-### Pickers and uncontained carousel
+### Pickers and carousel
 
 Native SK.Dialog compositions own date/time/color drafts and acceptance requests;
 Qt MonthGrid owns locale/calendar data, and native ComboBox/Slider/TextField own
 editing. Picker geometry and semantic ink live in Theme and immutable picker
-variations. Material3Carousel is a native ListView uncontained recipe with bounded
-selection and item snapping. FileDialog is a direct example-only QtQuick.Dialogs
-consumer. See [family contract](docs/families/pickers-carousel.md) for supported
-APIs and explicit gaps; six QCM carousel modes are not claimed.
+variations. Material3Carousel composes native StyleKit Pane/Button/PageIndicator
+with a public Qt Flickable and the pinned QCM keyline/snap engine. Uncontained,
+MultiBrowse, Hero, HeroCenter, FullScreen and UncontainedMultiAspect share Theme
+geometry and motion, including immediate reduced-motion snapping. Image cards
+use Qt Image without shader-only masking, retaining the source gallery's rectangular
+photos on Metal and software. FileDialog is a direct example-only QtQuick.Dialogs
+consumer. See [picker contract](docs/families/pickers-carousel.md) and
+[carousel contract](docs/families/carousel.md).
+
 
 ## ListItem / Card family
 
@@ -948,3 +961,66 @@ Native Dialog slots, explicit header/footer/overlay/transition delegates, local
 Basic.ToolTip and native Popup snackbar contracts are specified in
 [dialog-feedback.md](docs/families/dialog-feedback.md). The native Dialog owns
 roles/focus/dismissal; all helper materials and dimensions resolve from Theme.
+
+### Embedded pickers and ScrollBar
+
+QCM 0.6.1 DatePicker and ColorPicker are embedded native StyleKit compositions.
+Their Dialog-suffixed types host the same controls and own only draft/accept/cancel
+state. Date Single/Range and Calendar/Input requests stay caller-owned; color
+HSV/RGB channels use QCM trailing-alpha RGBA8, not Qt ARGB string syntax. See
+[date picker](docs/families/date-picker.md) and [color picker](docs/families/color-picker.md).
+
+Native SK.ScrollBar input and attached Flickable synchronization remain intact.
+The StyleKit delegate paints the QCM8px overlay,2px idle/6px expanded thumb,
+neutral38%/pressed80% ink and12% expanded track. AsNeeded feedback retains for
+2450ms then fades using QCM medium1/250ms. Theme owns these values; reduced
+motion hides immediately and no per-frame effect or SDK modification is involved.
+
+The QCM ColorPickerButton preview remains separate from the inline channel editor.
+Its native 32px split swatch uses HCT palette tones30/90 for the trailing plate and
+80/30 for ink; the colorize glyph opens the picker dialog, not a screen sampler.
+The date input's calendar glyph opens its dialog. No extra text-only date/color
+launch buttons belong to the reference gallery.
+
+Color dialogs use QCM 0.6.1's full ColorPicker: 240px hue ring with 22px thickness,
+rotating SV triangle, RGBA8 chip, XS segmented mode selector and 60×24 channel
+steppers. Channel tracks are 220×20 with 6px row spacing. The picker has 12px
+horizontal padding and the standard dialog has 24px horizontal padding, giving
+its natural 382px width. The inline composition alone hides the wheel header.
+All physical hue/alpha colors describe color data; handle/checker contrast colors
+are explicit Theme tokens. Pointer drags retain their grab inside a Flickable.
+
+QCM date navigation uses a 48px month header, followed by an inline 3-column year
+view (312px, 52px cells), then a 3-column month view (78px cells). The date header
+is at least 100px, supporting Label Medium and Headline Medium 28px. Weekday rows
+are 24px plus 4px top/bottom padding; day grids keep 40px cells and 8px gaps. All
+navigation hover/pressed/focus/selected colors come from the kit's button styles
+and `pickerNavigationItem`; gallery code contains no styling branches.
+Year/month browsing and calendar keyboard focus do not commit date selection.
+
+Year/month navigation buttons fill their 52/78px cells; idle corners are half
+that height (26/39px), with the kit's Small pressed corner. The existing button
+delegate clamps the resolved radius to the actual cell, so no separate surface
+or custom button is introduced.
+
+Date input mode reuses native TextField floating labels: Date for Single, Start date
+and End date for Range, with the locale format as supporting text. Entering input
+mode focuses the first editor as in QCM. The reference gallery hides its separate
+single-date field in Range mode; this is content visibility, not a style branch.
+
+### Review fixes and optical ownership
+
+Carousel, Picker and ScrollBar optical dimensions follow the same canonical
+`tokens/material3.json` -> generated recipe -> typed Theme flow as other families.
+Semantic ink, typography, shape roles, motion and target-size policy remain in
+Material3Theme. The neutral Material3ControlTheme composes default native mappings;
+field recipe registration is a separate private family object. No common Runtime
+or universal palette is introduced.
+
+The private date helper normalizes calendar-day comparison and bounds in both
+input and calendar. A read-only/disabled/hidden date field dismisses its open
+calendar and rejects late acceptance. Calendar Tab focus always selects an enabled
+visible day when one exists. Inactive Progress transitions settle to the current
+public value without waiting for a stopped clock. Carousel owns model lifecycle
+and retains logical selection when layout geometry changes. Unused QCM ring
+broadcast and Progress compatibility state are excluded from the native adapters.

@@ -42,7 +42,9 @@ MDC-Android 1.13.0. The initial Small Filled prototype's 16 px horizontal paddin
 is historical; the current Small contract uses 24 px on each side. XS/S/M/L/XL
 padding is 16/24/24/32/32, with gaps 8/8/8/12/12 and unchanged optical heights.
 Geometry alignment does not replace the kit's semantic roles or copy the
-reference seed palette. Future families require the same explicit source split.
+reference seed palette. Future families require the same explicit source split. Carousel, Picker and
+ScrollBar optical dimensions now use their own generated recipes. Motion, opacity,
+semantic shape and minimum input-target policy remain in Theme.
 
 ## Source provenance
 

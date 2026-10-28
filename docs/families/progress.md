@@ -60,46 +60,75 @@ remain available. Ordinary QML width/height and content bindings remain
 application owned. If the application already supplies custom content, this kit
 does not replace it. Static native progress controls need no helper.
 
-## Reference and rendering
+## QCM progress port
 
-Pinned source: QmlMaterial 0.6.1,
-`191260585a829ee4ae2c99e6232b7145b5c34474`, files
-`qml/indicator/{LinearIndicator,CircularIndicator}.qml`,
-`src/anim/{linear_indicator_updator,circular_indicator_updator}.cpp`,
-`include/qml_material/anim/interpolator.hpp` and
-`src/indicator/progress_indicator_geometry.cpp`.
+Source: QmlMaterial 0.6.1, `191260585a829ee4ae2c99e6232b7145b5c34474`:
+`example/Components.qml`, `src/control/progress_indicator.cpp`, linear/circular
+updators, `src/indicator/progress_indicator_geometry.cpp`, `src/path/measured_path.cpp`
+and the Cubic point/split functions from `src/shape/rounded_polygon.cpp`.
 
-- Linear: 4 px rounded stroke, 4 px active/track gap, 4 px endpoint dot,
-  100 px default minimum width; primary on secondary-container track.
-- Circular: 40 px implicit square, 32 px path diameter, 4 px stroke, 8° gap,
-  top origin; primary on transparent track.
-- Indeterminate: QCM two-segment disjoint 1800 ms linear motion and the four
-  expand/collapse advance cycles over 5400 ms for circular motion. Position
-  changes use the QCM 150 ms standard cubic curve.
-- Reduced motion, disabled or hidden controls do not run the kit's frame clock.
-  Reduced motion retains QCM's visible fixed sample: linear at 75%, circular
-  at 12.5% of the cycle. A stopped BusyIndicator paints nothing.
-- A single `QQuickPaintedItem::Image` painter path supports software and hardware
-  renderers. It has CPU drawing/texture-upload cost; no Skia, Canvas, runtime
-  shader compilation or new external dependency is required.
+The private geometry preserves QCM's measured cubic paths, wavelength rounding,
+phase offset, rounded caps, track gaps and endpoint dot. It is compiled into this
+kit; no QCM module, runtime, new dependency or private Qt API is linked.
 
-This is QCM's standard straight/arc family. Wavy, contiguous, retreat,
-multi-color, morphing Expressive loading shapes and show/min-hide delays are
-outside this family. Native BusyIndicator uses the circular advance treatment;
-it does not reproduce QCM's separate morphing BusyIndicator. At value==to,
-ProgressBar keeps a full indicator, following native progress semantics;
-QCM's optional drain-to-hidden completion animation is not applied.
+Immutable StyleKit recipes provide:
+
+- Default linear: 4px stroke, 4px gap/stop dot, 100px minimum width.
+- `progressWavy`: 240px minimum width, 10px height, 3px amplitude; wavelength
+  40px for determinate, 20px for indeterminate; 1000ms wave cycle.
+- `progressCircular`: 40px control, 32px content path, 4px stroke, 8-degree gap.
+- `progressCircularWavy`: 48px control, 1.6px inward wave and 15px wavelength;
+  Retreat is its default indeterminate motion.
+- `progressContiguous`: QCM three segments, 333ms motion and half-gap spacing.
+- `progressCircularRetreat`: QCM 6000ms grow/shrink/spin motion.
+
+Disjoint remains 1800ms; circular Advance remains 5400ms. Position interpolation
+is 150ms; QCM amplitude transitions use 500ms standard/emphasized-accelerate curves.
+Wave amplitude flattens below10% and above90%. Native completed progress stays
+full, matching the reference gallery's Keep behavior; no drain API is added.
+
+`Material3ProgressContent` keeps the Qt6.12 mode-switch workaround above. Its
+`wavy`, `circular` and `motionType` presentation properties select the same renderer;
+`running` controls only indeterminate playback. Use `Material3ProgressContent.Disjoint` /
+`Contiguous` for linear motion and `Advance` / `Retreat` for circular motion. Stopping completes the current
+linear segments/collapses circular arcs, then fades in100ms, as in QCM.
+Determinate waves keep moving independently of indeterminate playback.
+`trackColor` defaults to the Theme's linear/circular role; the comparison selects
+`tokens.progressTrack` for determinate circles, as the QCM example does.
+
+```qml
+SK.ProgressBar {
+    SK.StyleVariation.variations: ["progressWavy"]
+    value: job.progress
+}
+SK.ProgressBar {
+    id: loading
+    indeterminate: true
+    contentItem: Material3ProgressContent {
+        control: loading
+        wavy: true
+        running: application.loading
+    }
+}
+```
+
+A FrameAnimation passes actual frame time to QCM's adapted transition/segment math;
+no NumberAnimation clock or refresh-rate-dependent phase is used. Hidden/disabled
+controls and hidden/minimized windows stop the kit clock. Theme reduced motion and
+StyleKit transitions disable the clock and retain QCM's fixed visible sample
+(linear75%, Advance12.5%, Retreat25%). A paused indicator is hidden immediately
+under reduced motion. Existing native BusyIndicator running/geometry remain intact.
+QCM's separate morphing BusyIndicator and show/min-hide delays are outside this port.
+
+QQuickPaintedItem Image draws the same paths on Metal and software. This retains
+the software fallback and avoids private Qt Shape APIs; it has CPU/texture-upload
+cost, unlike QCM's CurveRenderer. No claim of equal renderer performance is made.
 
 ## Verification
 
-`ProgressGallery.qml` is a real source/installed consumer. Its normal check
-verifies QCM implicit geometry, live range/value/mode bindings, rendered fill,
-visible static reduced-motion feedback, native BusyIndicator running and
-accessible progress value/name/role. Global consumer warnings catch the SDK
-mode-switch error if the helper or its compatibility properties are removed. Tests do not
-inspect private delegates or sample animation phases.
-
-Run `cmake --build <build> --parallel 2`,
-`ctest --test-dir <build> -L 'controls|theme' --output-on-failure`, recipe generator
-checks and the relevant QML lint targets. Registration/export changes also need
-the relocated installed-package comparison consumer described in `TESTING.md`.
+The real source/installed gallery follows QCM's shared percentage slider, straight
+and wavy determinate rows, paired circles, playback button, three indeterminate
+lines and three indeterminate circles. BusyIndicator remains a separate sample.
+The native-consumer check covers rendered wave extent, QCM10/48px geometry,
+play/stop under reduced motion, live range/value/mode bindings and accessible
+progress value. It does not inspect private path caches or animation phases.

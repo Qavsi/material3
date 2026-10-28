@@ -19,7 +19,7 @@ tasarım referansları kendi koşullarını korur; [üçüncü taraf notları](T
 ```text
 src/Qavsi/Material3/Theme/   Material3Theme.qml — token'lar ve QFont
 src/Qavsi/Material3/Style/   Material3Style.qml — composition root
-                           SmallButtonTheme.qml — internal button mapping
+                           Material3ControlTheme.qml — internal control-family mapping
                            SmallButtonDelegate.qml — internal Component factory
                            SmallButtonParameters.qml — typed delegate data
                            SmallButtonBackground.qml — ripple/focus background

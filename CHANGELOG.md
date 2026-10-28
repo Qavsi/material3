@@ -2,6 +2,38 @@
 
 ## Unreleased
 
+- Fix Carousel item-model destruction and runtime layout selection, inactive
+  ProgressBar rendering, calendar Tab recovery after bound changes, and date
+  popup editability when its field becomes read-only/disabled/hidden.
+- Use a neutral internal Material3ControlTheme composition root, family-specific
+  TextField variations and one picker-private date utility; remove unused QCM
+  focus/geometry compatibility state. Generate Carousel/Picker/ScrollBar optical
+  recipes from canonical tokens while retaining Theme-owned visual policy.
+
+- Port QCM's six Carousel layouts, native navigation/page indicators, image cards
+  and snapping into the independent StyleKit kit, including software and reduced motion.
+
+
+- Port QCM measured progress paths, determinate/indeterminate waves, Contiguous
+  and Retreat motion and play/stop finishing to native StyleKit delegates;
+  match the percentage-slider gallery while preserving Theme/software rendering.
+
+- Match QCM date selection visibility and Date/Start date/End date floating labels with locale format hints and editor focus.
+
+- Port QCM's date header and inline year/month selector to native StyleKit buttons;
+  calendar navigation preserves selection and keyboard arrows move focus.
+
+- Port the full QCM color-dialog hue wheel/SV triangle and channel steppers,
+  with the reference layout, scrim and reduced-motion-aware popup transitions.
+
+- Match QCM's split color swatch launcher and date-input calendar action; remove
+  extra date/color dialog launch buttons from the reference gallery.
+
+- Separate embeddable date/color pickers from Dialog hosts; add single/range date
+  input and HSV/RGB/alpha channels. Dialog callers migrate to the `Dialog` suffix.
+- Style native ScrollBar as a QCM overlay with narrow idle/expanded hover thumb,
+  Theme-owned ink and reduced-motion-aware fade.
+
 - Add QCM-referenced linear/circular ProgressBar and circular BusyIndicator on native StyleKit controls, Theme motion, visible reduced-motion feedback and software rendering. Opt-in `Material3ProgressContent` supports live indeterminate mode changes around the Qt 6.12.0 deferred-content defect.
 
 - Add QCM dot, count, capped-count and text badges on one native `SK.Label`, with semantic/contrast roles, full-count accessibility, safe zero handling and Theme/software rendering.

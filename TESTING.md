@@ -133,3 +133,17 @@ rich-tooltip keyboard focus and Escape return to its anchor.
 The application-navigation activation scenario explicitly focuses its public
 native destination after the separate Theme/enabled ownership checks. A previous
 scenario's focus is not a precondition for keyboard activation or rail restoration.
+
+Embedded picker coverage extends the existing public consumer scenario: bounded
+single/range requests, live caller-owned bindings, HSV/RGB alpha and RGBA8 input.
+Dialog cancel/reopen checks exercise the same editor through its separate host.
+Native ScrollBar coverage checks the8px overlay without an opaque idle track and
+one actual native scroll request. No private delegate selectors or timing matrix.
+
+Review regressions remain at the existing consumer/render seams: destroying an
+item model safely clears a public Carousel, runtime layout change keeps the
+selected card under the public activation point without leaking model roles into
+native Button state, disabled native ProgressBar
+value changes update its rendered fill, date-bound changes retain a keyboard Tab
+entry and a read-only date field dismisses/rejects an already-open calendar.
+No private engine/attached-property probes or per-layout/frame matrix is added.
