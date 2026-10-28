@@ -491,6 +491,57 @@ void checkSliderDestruction(QQmlApplicationEngine &engine, QQuickWindow &window)
     QTest::mouseRelease(&window, Qt::LeftButton, Qt::NoModifier, point.toPoint());
 }
 
+void checkListCards(QQuickWindow &window)
+{
+    auto *row = control(window, "comparison.list.selectable");
+    auto *disabled = control(window, "comparison.list.disabled");
+    auto *card = control(window, "comparison.card.interactive");
+    auto *surface = control(window, "comparison.card.passive");
+    if (!row || !disabled || !card || !surface)
+        return;
+    reveal(row);
+    const bool originalChecked = row->property("checked").toBool();
+    QSignalSpy selected(row, SIGNAL(clicked()));
+    row->forceActiveFocus(Qt::TabFocusReason);
+    QTest::keyClick(&window, Qt::Key_Space);
+    expect(selected.size() == 1 && row->property("checked").toBool() != originalChecked,
+           "ListItem selection is native and keyboard accessible");
+    const bool disabledChecked = disabled->property("checked").toBool();
+    reveal(disabled);
+    const auto point = disabled->mapToScene(QPointF(disabled->width() / 2, disabled->height() / 2));
+    QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, point.toPoint());
+    expect(disabled->property("checked").toBool() == disabledChecked,
+           "disabled ListItem rejects native pointer selection");
+    reveal(card);
+    QSignalSpy activated(card, SIGNAL(clicked()));
+    card->forceActiveFocus(Qt::TabFocusReason);
+    QTest::keyClick(&window, Qt::Key_Space);
+    expect(activated.size() == 1, "interactive Card keeps native keyboard activation");
+    expect(surface->width() > 0 && surface->height() >= 64 && !surface->activeFocusOnTab(),
+           "passive Card remains a usable noninteractive native surface");
+    reveal(surface);
+    const auto capture = surface->grabToImage();
+    const bool captured = capture && QTest::qWaitFor([&] { return !capture->image().isNull(); });
+    auto *style = window.property("materialStyle").value<QObject *>();
+    auto *tokens = style ? style->property("tokens").value<QObject *>() : nullptr;
+    const auto expectedFill = tokens ? tokens->property("surfaceContainerHighest").value<QColor>() : QColor();
+    const auto image = captured ? capture->image() : QImage();
+    expect(captured && expectedFill.isValid()
+               && image.pixelColor(image.width() / 2, image.height() - 4) == expectedFill,
+           "filled passive Card paints the active Theme surface role");
+    card->setFocus(false, Qt::OtherFocusReason);
+    QTest::mouseMove(&window, QPoint(0, 0));
+    const auto cardCapture = card->grabToImage();
+    const bool cardCaptured = cardCapture && QTest::qWaitFor([&] { return !cardCapture->image().isNull(); });
+    const auto cardImage = cardCaptured ? cardCapture->image() : QImage();
+    expect(cardCaptured && tokens
+               && cardImage.pixelColor(cardImage.width() / 2, cardImage.height() - 4)
+                   == tokens->property("surfaceContainerLow").value<QColor>(),
+           "interactive elevated Card paints its Theme surface instead of the normal button fill");
+    row->setProperty("checked", originalChecked);
+    QTest::mouseMove(&window, QPoint(0, 0));
+}
+
 void checkChips(QQuickWindow &window)
 {
     auto *assist = control(window, "comparison.chip.assist");
@@ -1114,6 +1165,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     checkTextField(window);
     checkFieldAccessories(window);
     checkInputSizes(window);
+    checkListCards(window);
     checkChips(window);
     checkBadges(window);
     checkCheckBoxes(window);

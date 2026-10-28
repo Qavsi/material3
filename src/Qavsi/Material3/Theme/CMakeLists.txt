@@ -1,6 +1,6 @@
 set(module_target QavsiMaterial3Theme)
 set(material3_theme_recipes)
-foreach(family IN ITEMS Progress Slider Switch CheckBox RadioButton Chip Navigation Tab Badge)
+foreach(family IN ITEMS Progress Slider Switch CheckBox RadioButton Chip ListCard Navigation Tab Badge)
     set(recipe "../Style/internal/recipes/Material3${family}Recipe.js")
     set_source_files_properties("${recipe}" PROPERTIES
         QT_RESOURCE_ALIAS "Material3${family}Recipe.js" QT_QML_SKIP_QMLDIR_ENTRY TRUE)

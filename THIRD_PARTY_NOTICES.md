@@ -117,3 +117,12 @@ Picker/dialog and uncontained-carousel recipes additionally reference QmlMateria
 0.6.1 `191260585a829ee4ae2c99e6232b7145b5c34474`, `qml/picker/*.qml` and
 `qml/scrollable/Carousel.qml` (MIT). Qt native controls replace QCM runtime code;
 no Skia implementation or runtime dependency is included. The MIT notice above applies.
+
+## QmlMaterial ListItem / Card adaptation
+
+List/Card geometry, content arrangement and state recipes derive from QmlMaterial
+0.6.1 commit `191260585a829ee4ae2c99e6232b7145b5c34474` (MIT):
+`qml/scrollable/{ListItem,SelectionListItem,ToggleListItem,ListItemStyle}.qml`,
+`qml/container/Card.qml` and `src/style/{list_item,card}_state.cpp`. The existing
+QmlMaterial MIT notice in `docs/migration/QMLMATERIAL-LICENSE.txt` applies.
+Native Qt control ownership and the kit's existing feedback/elevation are retained.

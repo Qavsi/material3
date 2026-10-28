@@ -9,6 +9,10 @@
 - Add Theme-owned native toolbar/search material and Material3AppNavigation:
   responsive rail/drawer, controlled selection, live native search and modeless details.
 
+- Native ItemDelegate ListItem recipes (one/two/three lines, selected and disabled),
+  optional rich list content and filled/elevated/outlined native Card variations;
+  source/installed comparison gallery and public behavior checks.
+
 - Add QCM CheckBox styling on native `SK.CheckBox`: unchecked, checked and indeterminate paths, native tristate input, mixed accessibility state, Theme/ripple/focus and software rendering.
 
 - TextField accessible descriptions preserve caller ownership when native placeholder descriptions are active; comparison checks enable accessibility before loading QML.

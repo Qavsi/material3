@@ -5,6 +5,7 @@ import "Material3ProgressRecipe.js" as ProgressRecipe
 import "Material3CheckBoxRecipe.js" as CheckBoxRecipe
 import "Material3RadioButtonRecipe.js" as RadioRecipe
 import "Material3ChipRecipe.js" as ChipRecipe
+import "Material3ListCardRecipe.js" as ListCardRecipe
 import "Material3NavigationRecipe.js" as NavigationRecipe
 import "Material3TabRecipe.js" as TabRecipe
 import "Material3BadgeRecipe.js" as BadgeRecipe
@@ -127,6 +128,18 @@ QtObject {
         height: 72; horizontalPadding: 24; verticalPadding: 0
         iconSize: 32; spacing: 0; font: root.bodyLarge
     }
+    readonly property real listCardOneLineHeight: ListCardRecipe.oneLineHeight
+    readonly property real listCardTwoLineHeight: ListCardRecipe.twoLineHeight
+    readonly property real listCardThreeLineHeight: ListCardRecipe.threeLineHeight
+    readonly property real listCardMinimumWidth: ListCardRecipe.minimumWidth
+    readonly property real listCardLeadingPadding: ListCardRecipe.leadingPadding
+    readonly property real listCardTrailingPadding: ListCardRecipe.trailingPadding
+    readonly property real listCardVerticalPadding: ListCardRecipe.verticalPadding
+    readonly property real listCardSpacing: ListCardRecipe.spacing
+    readonly property real listCardIconSize: ListCardRecipe.iconSize
+    readonly property real listCardCardRadius: ListCardRecipe.cardRadius
+    readonly property real listCardCardMinimumSize: ListCardRecipe.cardMinimumSize
+    readonly property real listCardCardPadding: ListCardRecipe.cardPadding
     readonly property real chipHeight: ChipRecipe.height
     readonly property real badgeDotDiameter: BadgeRecipe.dotDiameter
     readonly property real badgeLabelHeight: BadgeRecipe.labelHeight

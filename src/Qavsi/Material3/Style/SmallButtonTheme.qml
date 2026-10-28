@@ -7,6 +7,9 @@ Material3TextFieldTheme {
     readonly property Material3BadgeVariations badgeVariations: Material3BadgeVariations {
         sourceStyle: root.sourceStyle
     }
+    readonly property Material3ListCardVariations listCardVariations: Material3ListCardVariations {
+        sourceStyle: root.sourceStyle
+    }
     readonly property Material3ChipVariations chipVariations: Material3ChipVariations {
         sourceStyle: root.sourceStyle
     }

@@ -928,3 +928,16 @@ variations. Material3Carousel is a native ListView uncontained recipe with bound
 selection and item snapping. FileDialog is a direct example-only QtQuick.Dialogs
 consumer. See [family contract](docs/families/pickers-carousel.md) for supported
 APIs and explicit gaps; six QCM carousel modes are not claimed.
+
+## ListItem / Card family
+
+Native `SK.ItemDelegate` supplies list input, focus and selection. Immutable
+`listOneLine` / `listTwoLine` / `listThreeLine` resolve 56/72/96 px minimum rows;
+checked automatically resolves secondaryContainer. Optional public
+`Material3ListItemContent` composes decorative overline, supporting text and
+leading/trailing metadata without replacing native bindings/accessibility.
+
+Immutable `cardFilled` / `cardElevated` / `cardOutlined` map native `SK.Pane`
+and interactive `SK.Button` / `SK.ItemDelegate` surfaces, with 12px corners,
+64px minimum and 16px padding. Existing ripple and elevation are reused;
+software shadows remain omitted. See [family contract](docs/families/list-card.md).

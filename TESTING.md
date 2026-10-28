@@ -120,3 +120,7 @@ are reached through exported shell aliases; private visual children are not test
 This scenario runs before other live Theme changes, so an initial variation-reader
 failure cannot be hidden by a later Theme reset. A native destination capture
 checks transparent initial unselected output and the selected tonal fill.
+
+List/Card coverage uses native ItemDelegate/Button/Pane consumption: one Space
+selection, disabled pointer gating, one Card activation and a passive surface.
+No private delegates or appearance matrix are inspected.

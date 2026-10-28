@@ -16,8 +16,8 @@ try {
   const tokens = JSON.parse(await readFile(sourceFile, 'utf8'));
   await writeFile(source, JSON.stringify(tokens));
   await assert.rejects(generateRecipes({ source, directory, check: true }), /Missing generated/);
-  assert.equal(await generateRecipes({ source, directory }), 16);
-  assert.equal(await generateRecipes({ source, directory, check: true }), 16);
+  assert.equal(await generateRecipes({ source, directory }), 17);
+  assert.equal(await generateRecipes({ source, directory, check: true }), 17);
   assert.equal(await readFile(path.join(directory, 'Material3ChipRecipe.js'), 'utf8'),
     formatMaterial3ChipRecipe(resolveDictionary(tokens)));
 

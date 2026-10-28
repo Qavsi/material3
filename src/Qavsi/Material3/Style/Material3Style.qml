@@ -84,6 +84,7 @@ SK.Style {
     readonly property Material3SwitchDelegate switchFactory: Material3SwitchDelegate { }
     readonly property Material3AppNavigationDelegate appNavigationFactory: Material3AppNavigationDelegate { }
     readonly property Material3NavigationDelegate navigationDelegate: Material3NavigationDelegate { }
+    fonts.itemDelegate: root.tokens.bodyLarge
     fonts.tabBar: root.tokens.titleSmall
     readonly property Material3SliderDelegate sliderDelegate: Material3SliderDelegate { }
     readonly property Material3SliderVariation mediumSlider: Material3SliderVariation {

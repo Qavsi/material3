@@ -201,6 +201,19 @@ foreach(picker_file IN LISTS material3_picker_files)
     set_source_files_properties("${picker_file}" PROPERTIES
         QT_RESOURCE_ALIAS "${logical_name}" QT_QML_INTERNAL_TYPE TRUE)
 endforeach()
+set(material3_listcard_files
+    internal/listcards/Material3ListCardParameters.qml
+    internal/listcards/Material3ListCardDelegate.qml
+    internal/listcards/Material3ListCardBackground.qml
+    internal/listcards/Material3ListCardShadow.qml
+    internal/listcards/Material3ListCardVariations.qml
+    internal/listcards/Material3ListVariation.qml
+    internal/listcards/Material3CardVariation.qml
+)
+foreach(family_file IN LISTS material3_listcard_files)
+    get_filename_component(logical_name "${family_file}" NAME)
+    set_source_files_properties("${family_file}" PROPERTIES QT_RESOURCE_ALIAS "${logical_name}" QT_QML_INTERNAL_TYPE TRUE)
+endforeach()
 qt_add_qml_module(${module_target} SHARED
     URI Qavsi.Material3.Style
     PLUGIN_TARGET ${module_target}Plugin
@@ -213,7 +226,7 @@ qt_add_qml_module(${module_target} SHARED
         internal/menus/Material3MenuExitTransition.qml
         Material3AppNavigation.qml ${material3_app_navigation_files}
         Material3ProgressContent.qml ${material3_progress_files}
-        Material3ButtonContent.qml Material3ChipContent.qml Material3MenuItemContent.qml Material3Badge.qml ${material3_badge_files} ${material3_advanced_files} ${material3_menu_files} ${material3_field_files} ${material3_combo_files}
+        Material3ButtonContent.qml Material3ListItemContent.qml ${material3_listcard_files} Material3ChipContent.qml Material3MenuItemContent.qml Material3Badge.qml ${material3_badge_files} ${material3_advanced_files} ${material3_menu_files} ${material3_field_files} ${material3_combo_files}
         ${material3_switch_files} ${material3_navigation_files} ${material3_slider_files} ${material3_radio_files} ${material3_checkbox_files} ${material3_chip_files}
         internal/shadows/Material3Elevation.qml
         Material3Style.qml SmallButtonTheme.qml SmallButtonBackground.qml SmallButtonShadow.qml
