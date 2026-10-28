@@ -1074,9 +1074,13 @@ void checkAppNavigation(QQuickWindow &window)
         field->setProperty("enabled", true);
         field->setProperty("placeholderTextColor", originalPlaceholder);
 
+        // The activation scenario starts after independent Theme/enabled ownership checks.
+        if (destination)
+            destination->forceActiveFocus(Qt::TabFocusReason);
+        const bool destinationFocused = destination && QTest::qWaitFor([&] { return destination->hasActiveFocus(); });
         QSignalSpy activated(shell, SIGNAL(activated(int)));
         QTest::keyClick(&window, Qt::Key_Space);
-        expect(activated.size() == 1 && gallery->property("selection").toInt() == 0
+        expect(destinationFocused && activated.size() == 1 && gallery->property("selection").toInt() == 0
                    && shell->property("currentIndex").toInt() == 0
                    && destination->property("checked").toBool() && !destination->property("checkable").toBool(),
                "native destination checked styling follows the live caller selection without native toggles");

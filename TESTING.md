@@ -129,3 +129,7 @@ Dialog/feedback coverage stays at the public native-consumer seam: opaque
 light/dark Dialog output, accept/Escape/reject/focus return, native snackbar Action
 activation and visible timeout (including zero for persistent messages), plus
 rich-tooltip keyboard focus and Escape return to its anchor.
+
+The application-navigation activation scenario explicitly focuses its public
+native destination after the separate Theme/enabled ownership checks. A previous
+scenario's focus is not a precondition for keyboard activation or rail restoration.
