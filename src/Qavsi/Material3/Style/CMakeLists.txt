@@ -157,6 +157,17 @@ foreach(family_file IN LISTS material3_navigation_files)
         set_source_files_properties("${family_file}" PROPERTIES QT_QML_INTERNAL_TYPE TRUE)
     endif()
 endforeach()
+set(material3_app_navigation_files
+    internal/appnavigation/Material3DestinationVariation.qml
+    internal/appnavigation/Material3AppDestinations.qml
+    internal/appnavigation/Material3AppNavigationDelegate.qml
+    internal/appnavigation/Material3SearchBackground.qml
+    internal/appnavigation/Material3AppNavigationVariations.qml)
+foreach(family_file IN LISTS material3_app_navigation_files)
+    get_filename_component(logical_name "${family_file}" NAME)
+    set_source_files_properties("${family_file}" PROPERTIES
+        QT_RESOURCE_ALIAS "${logical_name}" QT_QML_INTERNAL_TYPE TRUE)
+endforeach()
 set(material3_slider_files
     internal/sliders/Material3SliderParameters.qml
     internal/sliders/Material3SliderDelegate.qml
@@ -187,11 +198,12 @@ qt_add_qml_module(${module_target} SHARED
     PLUGIN_TARGET ${module_target}Plugin
     IMPORTS TARGET QavsiMaterial3Theme Qavsi.Icons
     IMPORT_PATH "${QavsiIcons_QML_IMPORT_DIR}"
-    DEPENDENCIES QtQuick.Controls.impl QtQuick.Shapes
+    DEPENDENCIES QtQuick.Controls.impl QtQuick.Controls.Basic QtQuick.Layouts QtQuick.Shapes
     QML_FILES internal/feedback/Material3Ripple.qml
         internal/menus/Material3MenuItemBackground.qml
         internal/menus/Material3MenuEnterTransition.qml
         internal/menus/Material3MenuExitTransition.qml
+        Material3AppNavigation.qml ${material3_app_navigation_files}
         Material3ProgressContent.qml ${material3_progress_files}
         Material3ButtonContent.qml Material3ChipContent.qml Material3MenuItemContent.qml Material3Badge.qml ${material3_badge_files} ${material3_advanced_files} ${material3_menu_files} ${material3_field_files} ${material3_combo_files}
         ${material3_switch_files} ${material3_navigation_files} ${material3_slider_files} ${material3_radio_files} ${material3_checkbox_files} ${material3_chip_files}

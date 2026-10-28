@@ -226,6 +226,27 @@ QtObject {
     readonly property color switchStateLayer: surfaceForeground
     readonly property color switchCheckedStateLayer: primary
 
+    readonly property real appToolbarHeight: 64
+    readonly property real appToolbarPadding: 8
+    readonly property real searchHeight: 56
+    readonly property real searchMinimumWidth: 200
+    readonly property InputSize searchMetrics: InputSize {
+        height: root.searchHeight; horizontalPadding: 16; verticalPadding: 0
+        iconSize: 24; spacing: 16; font: root.bodyLarge
+    }
+    readonly property real appNavigationCompactBreakpoint: 600
+    readonly property real appNavigationExpandedBreakpoint: 1200
+    readonly property real appNavigationExpandedWidth: 220
+    readonly property real appNavigationSheetWidth: 360
+    readonly property real appNavigationMinimumHeight: 400
+    readonly property real appNavigationScrimOpacity: 0.32
+    readonly property int appNavigationMotionDuration: 300
+    readonly property int appNavigationMotionEasing: Easing.OutCubic
+    readonly property real navigationDestinationHeight: 56
+    readonly property real navigationDestinationLeadingPadding: 16
+    readonly property real navigationDestinationTrailingPadding: 24
+    readonly property real navigationDestinationSpacing: 12
+
     readonly property real navigationIconSize: 24
     readonly property real navigationRippleOpacity: 0.10
     readonly property real navigationBarIndicatorWidth: 64

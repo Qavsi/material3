@@ -70,6 +70,13 @@ ColumnLayout {
                 // Qt 6.12 must finish Style completion before creating these readers.
                 Component.onCompleted: Qt.callLater(() => navigationExamples.active = true)
             }
+            Loader {
+                id: appNavigationExamples
+                width: parent.width
+                active: false
+                sourceComponent: AppNavigationGallery { tokens: root.tokens }
+                Component.onCompleted: Qt.callLater(() => appNavigationExamples.active = true)
+            }
             SwitchesGallery { width: Math.min(parent.width, root.tokens.referenceCardWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
             ChipsGallery { width: Math.min(parent.width, preferredWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
             CheckBoxesGallery { width: Math.min(parent.width, preferredWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }

@@ -938,6 +938,138 @@ void checkActionMenu(QQuickWindow &window)
     window.setProperty("darkMode", originalDark);
 }
 
+void checkAppNavigation(QQuickWindow &window)
+{
+    auto *shell = control(window, "comparison.appNavigation.shell");
+    if (!shell)
+        return;
+    reveal(shell);
+    const auto originalWidth = shell->width();
+    const auto originalWindowSize = window.size();
+    const auto originalTheme = window.property("darkMode");
+    const auto originalMotion = window.property("reducedMotion");
+    shell->setProperty("width", 1300);
+    auto *gallery = control(window, "comparison.appNavigation");
+    const auto originalSelection = gallery->property("selection");
+    const auto originalSearchText = shell->property("searchText");
+    gallery->setProperty("selection", 1);
+    QCoreApplication::processEvents();
+    expect(shell->property("navigationMode").toString() == QStringLiteral("expanded"),
+           "wide application navigation presents an expanded rail");
+    shell->setProperty("width", 800);
+    QCoreApplication::processEvents();
+    expect(shell->property("navigationMode").toString() == QStringLiteral("collapsed")
+               && shell->property("currentIndex").toInt() == 1,
+           "narrow rail keeps the consumer selection across responsive modes");
+    shell->setProperty("width", 440);
+    QCoreApplication::processEvents();
+    auto *field = shell->property("searchField").value<QQuickItem *>();
+    auto *drawer = shell->property("navigationDrawer").value<QObject *>();
+    expect(field && drawer && shell->property("currentIndex").toInt() == 1,
+           "compact application navigation preserves selection and native public controls");
+    if (field && drawer) {
+        auto *navigationTokens = shell->property("tokens").value<QObject *>();
+        expect(navigationTokens && field->property("placeholderTextColor").value<QColor>()
+                   == navigationTokens->property("surfaceVariantForeground").value<QColor>(),
+               "native search placeholder uses readable Theme ink");
+        field->forceActiveFocus(Qt::TabFocusReason);
+        QTest::keyClick(&window, Qt::Key_B);
+        expect(shell->property("searchText").toString() == QStringLiteral("b"),
+               "native search editing updates the consumer search text live");
+        QMetaObject::invokeMethod(shell, "openNavigation");
+        expect(drawer->property("visible").toBool(), "compact navigation opens its native modal drawer");
+        QTest::keyClick(&window, Qt::Key_Tab);
+        auto *destination = window.activeFocusItem();
+        expect(destination && destination->property("text").toString() == QStringLiteral("Explore"),
+               "native Tab navigation focuses the first drawer destination");
+        if (destination) {
+            const auto unselectedGrab = destination->grabToImage();
+            const bool unselectedReady = unselectedGrab && QTest::qWaitFor([&] { return !unselectedGrab->image().isNull(); });
+            gallery->setProperty("selection", 0);
+            const auto selectedGrab = destination->grabToImage();
+            const bool selectedReady = selectedGrab && QTest::qWaitFor([&] { return !selectedGrab->image().isNull(); });
+            const auto unselectedImage = unselectedReady ? unselectedGrab->image() : QImage();
+            const auto selectedImage = selectedReady ? selectedGrab->image() : QImage();
+            const auto selectedFill = selectedReady ? selectedImage.pixelColor(selectedImage.width() - 30, selectedImage.height() / 2) : QColor();
+            const auto expectedFill = navigationTokens->property("secondaryContainer").value<QColor>();
+            expect(unselectedReady && selectedReady
+                       && unselectedImage.pixelColor(unselectedImage.width() - 30, unselectedImage.height() / 2).alpha() < 100
+                       && selectedFill.alpha() > 240
+                       && qAbs(selectedFill.red() - expectedFill.red()) < 30
+                       && qAbs(selectedFill.green() - expectedFill.green()) < 30
+                       && qAbs(selectedFill.blue() - expectedFill.blue()) < 30,
+                   "newly opened native drawer paints its initial unselected row transparently and selection tonally");
+            gallery->setProperty("selection", 1);
+        }
+        window.setProperty("darkMode", !originalTheme.toBool());
+        QCoreApplication::processEvents();
+        expect(drawer->property("visible").toBool() && shell->property("currentIndex").toInt() == 1,
+               "an open native drawer survives a live Theme change without losing selection");
+        auto *changedTokens = shell->property("tokens").value<QObject *>();
+        expect(changedTokens && field->property("placeholderTextColor").value<QColor>()
+                   == changedTokens->property("surfaceVariantForeground").value<QColor>(),
+               "native search placeholder follows readable ink during a live Theme change");
+        window.setProperty("darkMode", originalTheme);
+        QCoreApplication::processEvents();
+        const auto originalPlaceholder = field->property("placeholderTextColor");
+        const auto customPlaceholder = QColor("#13579b");
+        field->setProperty("placeholderTextColor", customPlaceholder);
+        field->setProperty("enabled", false);
+        QCoreApplication::processEvents();
+        expect(field->property("placeholderTextColor").value<QColor>() == customPlaceholder,
+               "explicit search placeholder ink stays caller-owned after state changes");
+        field->setProperty("enabled", true);
+        field->setProperty("placeholderTextColor", originalPlaceholder);
+
+        QSignalSpy activated(shell, SIGNAL(activated(int)));
+        QTest::keyClick(&window, Qt::Key_Space);
+        expect(activated.size() == 1 && gallery->property("selection").toInt() == 0
+                   && shell->property("currentIndex").toInt() == 0
+                   && destination->property("checked").toBool() && !destination->property("checkable").toBool(),
+               "native destination checked styling follows the live caller selection without native toggles");
+        gallery->setProperty("selection", 1);
+        QMetaObject::invokeMethod(shell, "openNavigation");
+        QTest::keyClick(&window, Qt::Key_Tab);
+        destination = window.activeFocusItem();
+        const auto focusedText = destination ? destination->property("text").toString() : QString();
+        shell->setProperty("width", 800);
+        expect(QTest::qWaitFor([&] { return window.activeFocusItem()
+                   && window.activeFocusItem()->property("text").toString() == focusedText; }),
+               "rail focus follows the same destination when the responsive presentation changes");
+        field->forceActiveFocus(Qt::TabFocusReason);
+        shell->setProperty("width", 1300);
+        QCoreApplication::processEvents();
+        expect(window.activeFocusItem() == field,
+               "responsive navigation never steals focus from native search");
+        shell->setProperty("width", 440);
+        QMetaObject::invokeMethod(shell, "openNavigation");
+        QTest::keyClick(&window, Qt::Key_Escape);
+        expect(!drawer->property("visible").toBool() && shell->property("currentIndex").toInt() == 1,
+               "Escape dismisses navigation without changing the consumer selection");
+        auto *sheet = shell->property("sideSheet").value<QObject *>();
+        QMetaObject::invokeMethod(shell, "openSideSheet");
+        expect(sheet && sheet->property("visible").toBool() && !sheet->property("modal").toBool()
+                   && !sheet->property("dim").toBool(),
+               "details opens a native nonmodal side sheet without dimming the page");
+        if (sheet) {
+            field->forceActiveFocus(Qt::TabFocusReason);
+            QTest::keyClick(&window, Qt::Key_C);
+            expect(shell->property("searchText").toString() == QStringLiteral("bc"),
+                   "native search remains editable beside the nonmodal side sheet");
+            QMetaObject::invokeMethod(sheet, "forceActiveFocus");
+            QTest::keyClick(&window, Qt::Key_Escape);
+            expect(!sheet->property("visible").toBool(), "Escape dismisses the focused nonmodal side sheet");
+        }
+    }
+    gallery->setProperty("selection", originalSelection);
+    shell->setProperty("searchText", originalSearchText);
+    shell->setProperty("width", originalWidth);
+    window.resize(originalWindowSize);
+    window.setProperty("darkMode", originalTheme);
+    window.setProperty("reducedMotion", originalMotion);
+    QTest::mouseMove(&window, QPoint(0, 0));
+}
+
 void checkMenu(QQuickWindow &window)
 {
     auto *trigger = control(window, "comparison.split.filled.menuButton");
@@ -975,6 +1107,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     window.requestActivate();
     expect(QTest::qWaitForWindowActive(&window), "the comparison consumer gains native keyboard focus");
     window.setProperty("reducedMotion", true);
+    checkAppNavigation(window);
     checkComboBox(window);
     checkTextField(window);
     checkFieldAccessories(window);

@@ -10,6 +10,8 @@ Material3TextFieldTheme {
     readonly property Material3ChipVariations chipVariations: Material3ChipVariations {
         sourceStyle: root.sourceStyle
     }
+    readonly property Material3DestinationVariation destinationVariation: Material3DestinationVariation { sourceStyle: root.sourceStyle }
+    readonly property Material3AppNavigationVariations appNavigationVariations: Material3AppNavigationVariations { sourceStyle: root.sourceStyle }
     readonly property Material3NavigationVariations navigationVariations: Material3NavigationVariations {
         sourceStyle: root.sourceStyle
     }

@@ -82,6 +82,7 @@ SK.Style {
     readonly property Material3CheckBoxDelegate checkBoxFactory: Material3CheckBoxDelegate { }
     readonly property Material3RadioButtonDelegate radioFactory: Material3RadioButtonDelegate { }
     readonly property Material3SwitchDelegate switchFactory: Material3SwitchDelegate { }
+    readonly property Material3AppNavigationDelegate appNavigationFactory: Material3AppNavigationDelegate { }
     readonly property Material3NavigationDelegate navigationDelegate: Material3NavigationDelegate { }
     fonts.tabBar: root.tokens.titleSmall
     readonly property Material3SliderDelegate sliderDelegate: Material3SliderDelegate { }
@@ -411,6 +412,20 @@ SK.Style {
             indicator.color: root.tokens.switchDisabledTrack
             indicator.border.color: Qt.alpha(root.tokens.outline, root.tokens.disabledContainerOpacity)
             checked.indicator.color: root.tokens.switchDisabledTrack
+        }
+    }
+
+    toolBar {
+        padding: root.tokens.appToolbarPadding
+        spacing: root.tokens.spacingSmall
+        background {
+            height: root.tokens.appToolbarHeight
+            radius: root.tokens.appToolbarHeight / 2
+            color: root.tokens.surfaceContainer
+            gradient: null
+            margins: 0
+            border.width: 0
+            shadow.visible: false
         }
     }
 

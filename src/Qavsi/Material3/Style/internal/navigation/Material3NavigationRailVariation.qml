@@ -7,7 +7,7 @@ SK.StyleVariation {
     required property Material3Style sourceStyle
     property bool expanded: false
 
-    button {
+    control {
         topPadding: 0; bottomPadding: 0; leftPadding: 0; rightPadding: 0
         spacing: 0
         text.color: root.sourceStyle.tokens.surfaceVariantForeground

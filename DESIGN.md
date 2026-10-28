@@ -907,3 +907,14 @@ There is no input handler, auto-target wrapper or extra label; ordinary anchors
 place overlays. Full counts remain accessible while visual counts are capped.
 No motion or GPU effect is needed, so software and reduced motion use the same path.
 See [Badge family](docs/families/badge.md) for API and the QCM source pin.
+
+## Application navigation composition
+
+See [app-navigation](docs/families/app-navigation.md) for the QCM0.6.1 pin, native
+ToolBar/searchField mappings and public Material3AppNavigation contract. Theme
+owns64px toolbar,56px search,96/220px rail,600/1200px breakpoints and sheet motion.
+The shell composes existing rail recipes with native Buttons/TextField/ToolBar,
+modal navigation and nonmodal details. Qt6.12 has no StyleKit Drawer; Basic.Drawer
+is scoped to its implementation and does not change the application Controls style.
+Selection and text survive responsive presentation changes. SearchView overlays,
+QCM runtime integration and automatic application navigation are outside this API.
