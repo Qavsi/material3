@@ -192,7 +192,8 @@ kitin dependency’si veya alt modülü olmaz. Örnek ikonları bağımsız Qavs
 Galeride paketli isimler sabittir; selected FILL kararını stilin parameters
 politikası belirler. Font ve katalog Icons sağlayıcısına aittir.
 
-Bildirim badge’leri, rail/drawer, fields, slider ve tabs bu ekranın kit kapsamı
+Dot/count/capped/text badge’ler ayrı [Badge ailesindedir](docs/families/badge.md).
+Rail/drawer, fields, slider ve tabs bu ekranın kit kapsamı
 sayılmaz. Split menüsü, referans gibi sahne içi Popup.Item üzerinde Qt fallback’idir;
 Material3 Menu aktarılmış sayılmaz.
 İki inline FAB stack bu dilimdedir; tüm Expressive FAB menu ailesinin eşliği
@@ -223,8 +224,8 @@ aynı sözleşmeyi izler; tam tablo [DESIGN.md](DESIGN.md) içindedir.
 size sıra aralığını taşır. Kit Theme'ına demo metriği eklenmez. QmlMaterial'ın
 `mdState.type/size` ayarlarını native `SK.Button` + statik variation rollerine
 çeviren [örnek ve aktarım sınırları](docs/migration/README.md) ayrı belgelenir.
-With Badges, sonraki ayrı Badge ailesidir; bu tur yeni MD kontrol sarmalayıcısı
-veya genel runtime eklenmez.
+With Badges, tek native SK.Label tabanlı Material3Badge ile ayrı aile olarak
+aktarılır; MD kontrol sarmalayıcısı veya genel runtime eklenmez.
 
 Qt 6.12.0'ın loaded-style dinamik reader font başlangıcı ayrıca sınırlıdır.
 Earlier dynamic size probes and their font-reset preparation are no longer part

@@ -79,6 +79,14 @@ This exercises Qt's implicit placeholder descriptions on software as well as nat
 Metal, so supporting/error description regressions cannot hide behind inactive
 accessibility. The same consumer pass preserves explicit caller descriptions.
 
+Badge coverage uses a public native `SK.Label` presentation helper: live count
+formatting/capping, full-count accessible names, explicit caller text ownership
+and safe zero visibility. Rendered right-edge samples verify the capsule covers
+both capped counts and long text. The same comparison consumes source and installed
+packages; private background/delegate selectors and per-role permutations are
+outside the routine gate. The Theme oracle adds on_error from its existing QCM
+cases, without a new color matrix.
+
 Chip coverage uses the same native-consumer seam: command activation/32px recipe,
 native Filter/Input selection, keyboard access to the separate trailing Action,
 no parent activation on removal, disabled gating and constrained-label ownership.

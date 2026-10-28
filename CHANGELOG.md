@@ -4,6 +4,8 @@
 
 - Add QCM-referenced linear/circular ProgressBar and circular BusyIndicator on native StyleKit controls, Theme motion, visible reduced-motion feedback and software rendering. Opt-in `Material3ProgressContent` supports live indeterminate mode changes around the Qt 6.12.0 deferred-content defect.
 
+- Add QCM dot, count, capped-count and text badges on one native `SK.Label`, with semantic/contrast roles, full-count accessibility, safe zero handling and Theme/software rendering.
+
 - Add QCM CheckBox styling on native `SK.CheckBox`: unchecked, checked and indeterminate paths, native tristate input, mixed accessibility state, Theme/ripple/focus and software rendering.
 
 - TextField accessible descriptions preserve caller ownership when native placeholder descriptions are active; comparison checks enable accessibility before loading QML.

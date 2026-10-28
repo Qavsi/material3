@@ -95,6 +95,8 @@ int main(int argc, char **argv)
                    && theme->setProperty("contrastLevel", 0.0),
                QStringLiteral("dynamic inputs update the same Theme instance"));
         const auto expected = test.value(QStringLiteral("roles")).toObject();
+        expect(color(theme.get(), "errorForeground") == QColor(expected.value(QStringLiteral("on_error")).toString()),
+               QStringLiteral("badge error foreground matches the independent QCM on_error role"));
         for (auto role = roles.begin(); role != roles.end(); ++role) {
             const auto name = role.key().toUtf8();
             const auto target = QColor(expected.value(role.value().toString()).toString());

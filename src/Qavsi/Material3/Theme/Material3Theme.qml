@@ -7,6 +7,7 @@ import "Material3RadioButtonRecipe.js" as RadioRecipe
 import "Material3ChipRecipe.js" as ChipRecipe
 import "Material3NavigationRecipe.js" as NavigationRecipe
 import "Material3TabRecipe.js" as TabRecipe
+import "Material3BadgeRecipe.js" as BadgeRecipe
 
 QtObject {
     id: root
@@ -44,6 +45,7 @@ QtObject {
     property color inverseSurface: root.dynamicColors ? root.colorScheme.colors.inverseSurface : (dark ? "#e6e0e9" : "#322f35")
     property color inverseSurfaceForeground: root.dynamicColors ? root.colorScheme.colors.inverseSurfaceForeground : (dark ? "#322f35" : "#f5eff7")
     property color error: root.dynamicColors ? root.colorScheme.colors.error : (dark ? "#f2b8b5" : "#b3261e")
+    property color errorForeground: root.dynamicColors ? root.colorScheme.colors.errorForeground : (dark ? "#601410" : "#ffffff")
     property color outline: root.dynamicColors ? root.colorScheme.colors.outline : (dark ? "#938f99" : "#79747e")
     property color outlineVariant: root.dynamicColors ? root.colorScheme.colors.outlineVariant : (dark ? "#49454f" : "#cac4d0")
     property color shadow: root.dynamicColors ? root.colorScheme.colors.shadow : ("#000000")
@@ -119,6 +121,16 @@ QtObject {
         iconSize: 32; spacing: 0; font: root.bodyLarge
     }
     readonly property real chipHeight: ChipRecipe.height
+    readonly property real badgeDotDiameter: BadgeRecipe.dotDiameter
+    readonly property real badgeLabelHeight: BadgeRecipe.labelHeight
+    readonly property real badgeLabelMinimumWidth: BadgeRecipe.labelMinimumWidth
+    readonly property real badgeHorizontalPadding: BadgeRecipe.labelHorizontalPadding
+    readonly property real badgeOffsetX: BadgeRecipe.offsetX
+    readonly property real badgeOffsetY: BadgeRecipe.offsetY
+    readonly property color badgeContainer: error
+    readonly property color badgeForeground: errorForeground
+    readonly property font labelSmall: Qt.font({ family: root.effectiveFontFamily,
+        pixelSize: 11, weight: Font.Medium, letterSpacing: 0.5 })
     readonly property real chipMinimumWidth: ChipRecipe.minimumWidth
     readonly property real chipRadius: ChipRecipe.radius
     readonly property real chipPadding: ChipRecipe.padding

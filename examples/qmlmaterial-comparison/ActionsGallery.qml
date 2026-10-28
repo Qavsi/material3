@@ -396,7 +396,7 @@ Column {
             }
             return minimum
         }
-        gapNote: qsTr("Reference examples: four appearances, XS/S/M/L, and three Small width modes. Badges are a separate family and have not been ported yet.")
+        gapNote: qsTr("Reference examples: four appearances, XS/S/M/L, and three Small width modes. Dot, count and text overlays are shown in the Badges gallery.")
         Repeater {
             id: iconAppearanceRows
             model: [true, false]

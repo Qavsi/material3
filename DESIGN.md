@@ -147,8 +147,8 @@ olur. M checked 16 / pressed 12 köşeleri Small'ın 12/8 değerlerine düşür�
 Dış galeri yerleşimi `examples/qmlmaterial-comparison/ComparisonMetrics.qml`
 sahipliğindedir: `iconAppearanceSpacing: 36`, `commonSizeSpacing: 12`. Bunlar
 buton içi spacing veya kit Theme token'ı değildir; ortak runtime eklenmez.
-Referanstaki With Badges bölümü ayrı Badge ailesi olarak envanterde tutulur;
-bu buton diliminde dot/count/capped/text badge aktarılmış sayılmaz.
+Referanstaki With Badges bölümü ayrı Badge ailesinde dot/count/capped/text
+olarak aktarılır; aşağıdaki Badge sözleşmesine bakın.
 
 ### FAB geometrisi
 
@@ -276,7 +276,7 @@ factory/data dosyaları ve C++ registration metadata'sı paketle taşınır.
   ikonları Qavsi.Icons.Material üzerinden gerçek paketli Material Symbols adlarıdır;
   font ve katalog kitte kopyalanmaz.
 
-**Remaining scope:** morphing/wavy loading, badges, the complete responsive navigation shell and
+**Remaining scope:** morphing/wavy loading, the complete responsive navigation shell and
 selection controls beyond the families documented below remain outside this slice. Split menü referans gibi
 sahne içi Popup.Item ve Qt fallback’ini kullanır.
 İki inline FAB action stack bu karşılaştırmaya dahildir; bütün Expressive FAB
@@ -893,3 +893,17 @@ The Action-menu Theme pass also exercises rail items created after Style complet
 StyleKit may publish Navigation data before replacing the old button delegate.
 That outgoing background stays hidden for mismatched typed data and uses the
 selected Theme until its replacement is ready; no extra Theme instance is created.
+
+
+## Badge
+
+QCM0.6.1 Badge uses one native SK.Label-based Material3Badge presentation helper.
+The immutable badge/badgePrimary/badgeSecondary/badgeContrast recipes map semantic
+foreground/container pairs; the private Rectangle delegate owns paint, Theme owns
+LabelSmall and canonical BadgeRecipe geometry. Theme remains independent of Style.
+Count, cap, showZero and decorative dot update without runtime variation changes.
+Explicit native text/font/geometry/accessible-name bindings remain caller-owned.
+There is no input handler, auto-target wrapper or extra label; ordinary anchors
+place overlays. Full counts remain accessible while visual counts are capped.
+No motion or GPU effect is needed, so software and reduced motion use the same path.
+See [Badge family](docs/families/badge.md) for API and the QCM source pin.

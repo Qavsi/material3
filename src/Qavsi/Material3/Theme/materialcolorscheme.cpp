@@ -74,6 +74,7 @@ QVariantMap MaterialColorScheme::colors() const
     m_colors = {
         { QStringLiteral("primary"), QColor::fromRgba(generated.GetPrimary()) },
         { QStringLiteral("error"), QColor::fromRgba(generated.GetError()) },
+        { QStringLiteral("errorForeground"), QColor::fromRgba(generated.GetOnError()) },
         { QStringLiteral("primaryForeground"), QColor::fromRgba(generated.GetOnPrimary()) },
         { QStringLiteral("primaryContainer"), QColor::fromRgba(generated.GetPrimaryContainer()) },
         { QStringLiteral("primaryContainerForeground"), QColor::fromRgba(generated.GetOnPrimaryContainer()) },

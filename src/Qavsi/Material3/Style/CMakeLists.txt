@@ -109,6 +109,17 @@ foreach(checkbox_file IN LISTS material3_checkbox_files)
     set_source_files_properties("${checkbox_file}" PROPERTIES
         QT_RESOURCE_ALIAS "${logical_name}" QT_QML_INTERNAL_TYPE TRUE)
 endforeach()
+set(material3_badge_files
+    internal/badges/Material3BadgeParameters.qml
+    internal/badges/Material3BadgeDelegate.qml
+    internal/badges/Material3BadgeBackground.qml
+    internal/badges/Material3BadgeVariation.qml
+    internal/badges/Material3BadgeVariations.qml)
+foreach(badge_file IN LISTS material3_badge_files)
+    get_filename_component(logical_name "${badge_file}" NAME)
+    set_source_files_properties("${badge_file}" PROPERTIES
+        QT_RESOURCE_ALIAS "${logical_name}" QT_QML_INTERNAL_TYPE TRUE)
+endforeach()
 set(material3_radio_files
     internal/radiobuttons/Material3RadioButtonDelegate.qml
     internal/radiobuttons/Material3RadioButtonParameters.qml
@@ -182,7 +193,7 @@ qt_add_qml_module(${module_target} SHARED
         internal/menus/Material3MenuEnterTransition.qml
         internal/menus/Material3MenuExitTransition.qml
         Material3ProgressContent.qml ${material3_progress_files}
-        Material3ButtonContent.qml Material3ChipContent.qml Material3MenuItemContent.qml ${material3_advanced_files} ${material3_menu_files} ${material3_field_files} ${material3_combo_files}
+        Material3ButtonContent.qml Material3ChipContent.qml Material3MenuItemContent.qml Material3Badge.qml ${material3_badge_files} ${material3_advanced_files} ${material3_menu_files} ${material3_field_files} ${material3_combo_files}
         ${material3_switch_files} ${material3_navigation_files} ${material3_slider_files} ${material3_radio_files} ${material3_checkbox_files} ${material3_chip_files}
         internal/shadows/Material3Elevation.qml
         Material3Style.qml SmallButtonTheme.qml SmallButtonBackground.qml SmallButtonShadow.qml

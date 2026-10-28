@@ -597,6 +597,72 @@ void checkProgress(QQuickWindow &window)
     window.setProperty("reducedMotion", previousReducedMotion);
 }
 
+void checkBadges(QQuickWindow &window)
+{
+    auto *badge = control(window, "comparison.badge.count");
+    if (!badge)
+        return;
+    reveal(badge);
+    const auto capsuleCoversLabel = [&](QQuickItem *label) {
+        window.grabWindow();
+        const auto grab = label->grabToImage();
+        if (!grab || !QTest::qWaitFor([&] { return !grab->image().isNull(); }))
+            return false;
+        const QImage image = grab->image();
+        const int inset = qMax(2, qRound(2 * image.width() / label->width()));
+        return image.pixelColor(image.width() - inset, image.height() / 2)
+            == QColor(window.property("darkMode").toBool() ? QStringLiteral("#ffb4ab") : QStringLiteral("#ba1a1a"));
+    };
+    expect(badge->property("text").toString() == QStringLiteral("8"),
+           "the native badge label displays its live count");
+    expect(badge->height() == 16, "the badge uses QCM's 16px label recipe");
+    badge->setProperty("count", 120);
+    expect(badge->property("text").toString() == QStringLiteral("99+"),
+           "the badge caps the visual count");
+    auto *accessible = QAccessible::queryAccessibleInterface(badge);
+    expect(accessible && accessible->text(QAccessible::Name) == QStringLiteral("120"),
+           "the capped badge keeps its full count accessible");
+    expect(capsuleCoversLabel(badge), "the badge surface covers the right edge of a capped count");
+    badge->setProperty("count", 0);
+    expect(!badge->isVisible(), "zero counts are hidden by default");
+    badge->setProperty("showZero", true);
+    expect(badge->isVisible() && badge->property("text").toString() == QStringLiteral("0"),
+           "showZero displays a meaningful zero label");
+    badge->setProperty("dot", true);
+    badge->setProperty("showZero", false);
+    expect(!badge->isVisible(), "a zero count never becomes a decorative dot");
+    badge->setProperty("count", 8);
+    badge->setProperty("dot", false);
+    badge->setProperty("showZero", false);
+    const bool originalDark = window.property("darkMode").toBool();
+    window.setProperty("darkMode", true);
+    expect(badge->property("color").value<QColor>() == QColor(QStringLiteral("#690005")),
+           "the selected dark Theme supplies QCM's on_error label color");
+    const auto capture = badge->grabToImage();
+    expect(capture && QTest::qWaitFor([&] { return !capture->image().isNull(); })
+               && capture->image().pixelColor(2, capture->image().height() / 2) == QColor(QStringLiteral("#ffb4ab")),
+           "the native badge paints the dark error surface on software");
+    window.setProperty("darkMode", originalDark);
+    const bool named = QQmlProperty::write(badge, QStringLiteral("Accessible.name"), QStringLiteral("Unread messages"), QQmlEngine::contextForObject(badge));
+    badge->setProperty("count", 9);
+    expect(named && accessible && accessible->text(QAccessible::Name) == QStringLiteral("Unread messages"),
+           "later caller accessible names retain ownership after count changes");
+    badge->setProperty("count", 8);
+    auto *dot = control(window, "comparison.badge.dot");
+    expect(dot && dot->width() == 6 && dot->height() == 6,
+           "a decorative dot uses QCM's 6px recipe");
+    auto *text = control(window, "comparison.badge.text");
+    if (text) {
+        text->setProperty("count", 120);
+        text->setProperty("callerText", QStringLiteral("new messages"));
+        expect(text->property("text").toString() == QStringLiteral("new messages"),
+               "live caller text keeps ownership over automatic count formatting");
+        expect(capsuleCoversLabel(text), "the badge surface covers the right edge of a long text label");
+        text->setProperty("count", -1);
+        text->setProperty("callerText", QStringLiteral("alarm"));
+    }
+}
+
 void checkCheckBoxes(QQuickWindow &window)
 {
     auto *binary = control(window, "comparison.checkbox.unchecked");
@@ -914,6 +980,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     checkFieldAccessories(window);
     checkInputSizes(window);
     checkChips(window);
+    checkBadges(window);
     checkCheckBoxes(window);
     checkProgress(window);
     checkRadioButtons(window);
