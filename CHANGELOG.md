@@ -94,3 +94,6 @@
 - Metal'de build-time `.qsb` ripple shader'ı; software/diğer backend'lerde painter
   fallback'i ve ortak native Qt focus halkası. Tema, hareket ve input mantığı
   renderer'dan bağımsız; ShaderTools yalnız source build gereksinimi.
+
+- Add native StyleKit date/time/color picker compositions, uncontained ListView
+  carousel and direct Qt file-selection example; preserve caller selection bindings.

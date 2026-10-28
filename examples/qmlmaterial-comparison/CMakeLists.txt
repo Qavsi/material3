@@ -21,13 +21,13 @@ foreach(unwanted IN ITEMS Merce::Theme MerceTheme MerceStyle QavsiRuntime)
 endforeach()
 
 qt_add_executable(qavsi-material3-comparison MACOSX_BUNDLE
-    main.cpp checks.cpp)
+    main.cpp checks.cpp pickerscarouselchecks.cpp)
 set_target_properties(qavsi-material3-comparison PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER dev.qavsi.material3.comparison)
 file(GLOB comparison_icons CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "icons/*.svg")
 qt_add_qml_module(qavsi-material3-comparison URI Qavsi.Material3.Comparison
     IMPORTS Qavsi.Icons.Material
-    QML_FILES Main.qml ComparisonPage.qml ComboBoxGallery.qml ComboBoxApiExamples.qml FieldsGallery.qml NavigationGallery.qml AppNavigationGallery.qml SwitchesGallery.qml ChipsGallery.qml CheckBoxesGallery.qml BadgesGallery.qml RadioButtonsGallery.qml SlidersGallery.qml ProgressGallery.qml ActionsGallery.qml DemoCard.qml FabMenuExamples.qml ComparisonMetrics.qml
+    QML_FILES Main.qml ComparisonPage.qml ComboBoxGallery.qml ComboBoxApiExamples.qml FieldsGallery.qml NavigationGallery.qml AppNavigationGallery.qml SwitchesGallery.qml ChipsGallery.qml CheckBoxesGallery.qml BadgesGallery.qml RadioButtonsGallery.qml SlidersGallery.qml ProgressGallery.qml PickersCarouselGallery.qml ActionsGallery.qml DemoCard.qml FabMenuExamples.qml ComparisonMetrics.qml
     RESOURCES ${comparison_icons}
     IMPORT_PATH "${QavsiMaterial3_QML_IMPORT_DIR}")
 target_compile_features(qavsi-material3-comparison PRIVATE cxx_std_20)

@@ -193,13 +193,21 @@ foreach(progress_file IN LISTS material3_progress_files)
     set_source_files_properties("${progress_file}" PROPERTIES
         QT_RESOURCE_ALIAS "${logical_name}" QT_QML_INTERNAL_TYPE TRUE)
 endforeach()
+set(material3_picker_files
+    internal/pickers/Material3PickerDialog.qml
+    internal/pickers/Material3PickerVariations.qml)
+foreach(picker_file IN LISTS material3_picker_files)
+    get_filename_component(logical_name "${picker_file}" NAME)
+    set_source_files_properties("${picker_file}" PROPERTIES
+        QT_RESOURCE_ALIAS "${logical_name}" QT_QML_INTERNAL_TYPE TRUE)
+endforeach()
 qt_add_qml_module(${module_target} SHARED
     URI Qavsi.Material3.Style
     PLUGIN_TARGET ${module_target}Plugin
     IMPORTS TARGET QavsiMaterial3Theme Qavsi.Icons
     IMPORT_PATH "${QavsiIcons_QML_IMPORT_DIR}"
     DEPENDENCIES QtQuick.Controls.impl QtQuick.Controls.Basic QtQuick.Layouts QtQuick.Shapes
-    QML_FILES internal/feedback/Material3Ripple.qml
+    QML_FILES Material3DatePicker.qml Material3TimePicker.qml Material3ColorPicker.qml Material3Carousel.qml ${material3_picker_files} internal/feedback/Material3Ripple.qml
         internal/menus/Material3MenuItemBackground.qml
         internal/menus/Material3MenuEnterTransition.qml
         internal/menus/Material3MenuExitTransition.qml

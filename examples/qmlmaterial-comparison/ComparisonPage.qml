@@ -84,6 +84,7 @@ ColumnLayout {
             RadioButtonsGallery { width: Math.min(parent.width, preferredWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
             SlidersGallery { width: Math.min(parent.width, root.metrics.sliderCardWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
             ProgressGallery { width: Math.min(parent.width, preferredWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
+            PickersCarouselGallery { width: parent.width; tokens: root.tokens }
             ActionsGallery { width: parent.width; tokens: root.tokens }
         }
     }

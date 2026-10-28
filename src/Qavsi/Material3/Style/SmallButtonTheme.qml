@@ -19,6 +19,8 @@ Material3TextFieldTheme {
     readonly property QtObject buttonVariations: ButtonVariations { sourceStyle: root.sourceStyle }
     readonly property QtObject advancedButtonVariations: Material3AdvancedButtonVariations { sourceStyle: root.sourceStyle }
 
+    readonly property QtObject pickerVariations: Material3PickerVariations { sourceStyle: root.sourceStyle }
+
     applicationWindow.background.color: tokens.surface
     button {
         leftPadding: root.tokens.smallHorizontalPadding

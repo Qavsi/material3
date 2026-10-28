@@ -14,6 +14,8 @@
 #include <QSignalSpy>
 #include <QTest>
 
+int checkPickersCarousel(QQuickWindow &window);
+
 namespace {
 int assertions = 0;
 int failures = 0;
@@ -1126,6 +1128,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     checkTextButtonPointerFocus(window);
     checkActionMenu(window);
     checkMenu(window);
+    expect(checkPickersCarousel(window) == 0, "picker and carousel public behavior");
     expect(!window.grabWindow().isNull(), "the comparison consumer renders with its imported kit and icons");
     expect(warnings.isEmpty(), "gallery interactions produce no QML warnings");
     qInfo() << "Qt" << qVersion() << "comparison assertions" << assertions << "failures" << failures;

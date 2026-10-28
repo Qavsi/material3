@@ -918,3 +918,13 @@ modal navigation and nonmodal details. Qt6.12 has no StyleKit Drawer; Basic.Draw
 is scoped to its implementation and does not change the application Controls style.
 Selection and text survive responsive presentation changes. SearchView overlays,
 QCM runtime integration and automatic application navigation are outside this API.
+
+### Pickers and uncontained carousel
+
+Native SK.Dialog compositions own date/time/color drafts and acceptance requests;
+Qt MonthGrid owns locale/calendar data, and native ComboBox/Slider/TextField own
+editing. Picker geometry and semantic ink live in Theme and immutable picker
+variations. Material3Carousel is a native ListView uncontained recipe with bounded
+selection and item snapping. FileDialog is a direct example-only QtQuick.Dialogs
+consumer. See [family contract](docs/families/pickers-carousel.md) for supported
+APIs and explicit gaps; six QCM carousel modes are not claimed.

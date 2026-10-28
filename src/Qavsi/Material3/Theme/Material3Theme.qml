@@ -62,6 +62,13 @@ QtObject {
     readonly property real radiusLarge: 16
     readonly property real radiusExtraLarge: 28
     readonly property real radiusExtraExtraLarge: 32
+    // QCM 0.6.1 calendar/header recipe; native Qt layout and date model.
+    readonly property real carouselWidth: 480
+    readonly property real carouselHeight: 196
+    readonly property real carouselItemWidth: 180
+    readonly property real pickerWidth: 360
+    readonly property real pickerPadding: 24
+    readonly property real pickerDaySize: 40
     readonly property real minimumTargetSize: 40
     readonly property real iconButtonInset: spacingUnit
     readonly property real iconButtonPadding: spacingSmall

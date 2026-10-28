@@ -112,3 +112,8 @@ are preserved in `third_party/shadow-reference/` and installed under
 `share/licenses/QavsiMaterial3/shadow-reference`. The QCM library and the full
 Skia engine are not linked. Material3 lighting, opacity and motion decisions
 remain in this kit's Theme/style adapter rather than the drawing primitive.
+
+Picker/dialog and uncontained-carousel recipes additionally reference QmlMaterial
+0.6.1 `191260585a829ee4ae2c99e6232b7145b5c34474`, `qml/picker/*.qml` and
+`qml/scrollable/Carousel.qml` (MIT). Qt native controls replace QCM runtime code;
+no Skia implementation or runtime dependency is included. The MIT notice above applies.
