@@ -1,13 +1,10 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import Qt.labs.StyleKit as SK
-import Qavsi.Material3.Theme
 
-SK.Theme {
+QtObject {
     id: root
-    required property Material3Theme tokens
     required property Material3Style sourceStyle
-    readonly property Material3ComboBoxVariations comboVariations: Material3ComboBoxVariations { sourceStyle: root.sourceStyle }
     readonly property Material3TextFieldVariation filledTextField: Material3TextFieldVariation {
         sourceStyle: root.sourceStyle
         name: "textFieldFilled"
@@ -75,34 +72,4 @@ SK.Theme {
         filled: true
     }
 
-    textField {
-        leftPadding: root.tokens.textFieldHorizontalPadding
-        rightPadding: root.tokens.textFieldHorizontalPadding
-        topPadding: root.tokens.textFieldVerticalPadding
-        bottomPadding: root.tokens.textFieldVerticalPadding
-        text {
-            color: root.tokens.surfaceForeground
-            alignment: Qt.AlignLeft | Qt.AlignVCenter
-        }
-        background {
-            width: root.tokens.textFieldMinimumWidth
-            height: root.tokens.textFieldHeight
-            radius: root.tokens.textFieldCornerRadius
-            color: root.tokens.transparent
-            gradient: null
-            margins: 0
-            border.width: root.tokens.textFieldOutlineWidth
-            border.color: root.tokens.outline
-            shadow.visible: false
-        }
-        hovered.background.border.color: root.tokens.surfaceForeground
-        focused {
-            background.border.width: root.tokens.textFieldFocusedOutlineWidth
-            background.border.color: root.tokens.primary
-        }
-        disabled {
-            text.color: root.tokens.disabledLabel
-            background.border.color: root.tokens.disabledContainer
-        }
-    }
 }

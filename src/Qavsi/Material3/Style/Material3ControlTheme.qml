@@ -1,9 +1,15 @@
 pragma ComponentBehavior: Bound
 import QtQuick
+import Qt.labs.StyleKit as SK
+import Qavsi.Material3.Theme
 import "Material3ButtonRecipe.js" as Recipe
 
-Material3TextFieldTheme {
+SK.Theme {
     id: root
+    required property Material3Theme tokens
+    required property Material3Style sourceStyle
+    readonly property Material3TextFieldVariations textFieldVariations: Material3TextFieldVariations { sourceStyle: root.sourceStyle }
+    readonly property Material3ComboBoxVariations comboVariations: Material3ComboBoxVariations { sourceStyle: root.sourceStyle }
     readonly property Material3BadgeVariations badgeVariations: Material3BadgeVariations {
         sourceStyle: root.sourceStyle
     }
@@ -29,6 +35,29 @@ Material3TextFieldTheme {
         sourceStyle: root.sourceStyle
         containerColor: root.tokens.transparent
         contentColor: root.tokens.inverseSurfaceForeground
+    }
+    readonly property Material3CarouselVariations carouselRecipes: Material3CarouselVariations { sourceStyle: root.sourceStyle }
+    pageIndicator {
+        padding: root.tokens.carouselPagePadding
+        spacing: root.tokens.carouselPageSpacing
+        background { width: 0; height: 0; visible: false; margins: 0 }
+        indicator {
+            visible: true
+            opacity: 1
+            fillWidth: false
+            fillHeight: false
+            gradient: null
+            width: root.tokens.carouselPageSize
+            height: root.tokens.carouselPageSize
+            radius: root.tokens.carouselPageSize / 2
+            margins: 0
+            color: Qt.alpha(root.tokens.surfaceForeground, root.tokens.carouselPageOpacity)
+            foreground.visible: false
+            border.width: 0
+            shadow.visible: false
+        }
+        checked.indicator.color: Qt.alpha(root.tokens.surfaceForeground, root.tokens.carouselPageSelectedOpacity)
+        hovered.indicator.color: Qt.alpha(root.tokens.surfaceForeground, root.tokens.carouselPageHoverOpacity)
     }
     applicationWindow.background.color: tokens.surface
     button {
@@ -92,6 +121,36 @@ Material3TextFieldTheme {
         disabled {
             background.color: root.tokens.transparent
             background.border.width: 0
+        }
+    }
+    textField {
+        leftPadding: root.tokens.textFieldHorizontalPadding
+        rightPadding: root.tokens.textFieldHorizontalPadding
+        topPadding: root.tokens.textFieldVerticalPadding
+        bottomPadding: root.tokens.textFieldVerticalPadding
+        text {
+            color: root.tokens.surfaceForeground
+            alignment: Qt.AlignLeft | Qt.AlignVCenter
+        }
+        background {
+            width: root.tokens.textFieldMinimumWidth
+            height: root.tokens.textFieldHeight
+            radius: root.tokens.textFieldCornerRadius
+            color: root.tokens.transparent
+            gradient: null
+            margins: 0
+            border.width: root.tokens.textFieldOutlineWidth
+            border.color: root.tokens.outline
+            shadow.visible: false
+        }
+        hovered.background.border.color: root.tokens.surfaceForeground
+        focused {
+            background.border.width: root.tokens.textFieldFocusedOutlineWidth
+            background.border.color: root.tokens.primary
+        }
+        disabled {
+            text.color: root.tokens.disabledLabel
+            background.border.color: root.tokens.disabledContainer
         }
     }
 }

@@ -9,6 +9,8 @@ Material3ProgressVisual {
     tokens: parameters.tokens
     reducedMotion: parameters.reducedMotion
     circular: parameters.circular
+    wavy: parameters.wavy
+    motionType: parameters.motionType
     busy: parameters.busy
     width: parent.width
     height: parent.height

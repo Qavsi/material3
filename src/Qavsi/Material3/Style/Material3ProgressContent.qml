@@ -4,6 +4,8 @@ import Qt.labs.StyleKit as SK
 
 Material3ProgressVisual {
     id: root
+    enum LinearMotion { Disjoint, Contiguous }
+    enum CircularMotion { Advance, Retreat }
     readonly property Material3Style materialStyle: control.SK.StyleKit.style as Material3Style
     tokens: materialStyle.tokens
     reducedMotion: materialStyle.effectiveReducedMotion

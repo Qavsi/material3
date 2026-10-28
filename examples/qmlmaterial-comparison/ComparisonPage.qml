@@ -43,7 +43,7 @@ ColumnLayout {
         contentHeight: gallery.height + root.tokens.spacingMedium * 2
         clip: true
         boundsBehavior: Flickable.StopAtBounds
-        SK.ScrollBar.vertical: SK.ScrollBar { }
+        SK.ScrollBar.vertical: SK.ScrollBar { objectName: "comparison.scrollbar.vertical" }
         Column {
             id: gallery
             x: root.tokens.spacingMedium

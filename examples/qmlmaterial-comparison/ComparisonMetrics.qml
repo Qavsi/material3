@@ -4,6 +4,9 @@
 import QtQml
 
 QtObject {
+    readonly property real colorPickerButtonWidth: 120
+    readonly property real carouselHeroHeight: 240
+    readonly property real carouselVerticalHeight: 420
     readonly property real appNavigationCompactWidth: 440
     readonly property real appNavigationNarrowWidth: 800
     readonly property real appNavigationExpandedWidth: 1280
@@ -13,6 +16,8 @@ QtObject {
     readonly property real chipCardWidth: 560
     readonly property real chipGallerySpacing: 12
     readonly property real chipLongWidth: 180
+
+    readonly property real progressValueWidth: 48
 
     readonly property real radioReadOnlySpacing: 5
 

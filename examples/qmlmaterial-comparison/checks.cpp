@@ -13,8 +13,13 @@
 #include <QQuickWindow>
 #include <QSignalSpy>
 #include <QTest>
+#include <QMetaEnum>
 
 int checkPickersCarousel(QQuickWindow &window);
+int checkCarousel(QQuickWindow &window);
+int checkProgressInactiveUpdates(QQuickWindow &window);
+int checkInlineDatePicker(QQuickWindow &window);
+int checkInlineColorPicker(QQuickWindow &window);
 
 namespace {
 int assertions = 0;
@@ -593,6 +598,28 @@ void checkChips(QQuickWindow &window)
            "a constrained chip preserves the source label for native accessibility");
 }
 
+void checkScrollBar(QQuickWindow &window)
+{
+    auto *bar = control(window, "comparison.scrollbar.vertical");
+    if (!bar) return;
+    const auto oldPolicy = bar->property("policy");
+    const auto oldPosition = bar->property("position");
+    const auto policy = bar->metaObject()->property(bar->metaObject()->indexOfProperty("policy")).enumerator();
+    bar->setProperty("policy", policy.keyToValue("AlwaysOn"));
+    const auto capture = bar->grabToImage();
+    const bool ready = capture && QTest::qWaitFor([&] { return !capture->image().isNull(); });
+    expect(qAbs(bar->width() - 8) < 0.1 && ready
+               && capture->image().pixelColor(0, capture->image().height() / 2).alpha() < 10,
+           "native scroll bar uses QCM's8px overlay without an opaque idle track");
+    bar->setProperty("position", 0);
+    const auto before = bar->property("position").toReal();
+    QMetaObject::invokeMethod(bar, "increase");
+    expect(bar->property("position").toReal() > before,
+           "styled scroll bar retains native scrolling");
+    bar->setProperty("position", oldPosition);
+    bar->setProperty("policy", oldPolicy);
+}
+
 void checkProgress(QQuickWindow &window)
 {
     const bool previousReducedMotion = window.property("reducedMotion").toBool();
@@ -602,6 +629,24 @@ void checkProgress(QQuickWindow &window)
     auto *busy = control(window, "comparison.progress.busy");
     if (!linear || !unknown || !circular || !busy)
         return;
+    auto *wavy = control(window, "comparison.progress.wavy");
+    auto *circularWavy = control(window, "comparison.progress.circularWavy");
+    if (!wavy || !circularWavy) return;
+    reveal(wavy);
+    const auto waveGrab = wavy->grabToImage();
+    expect(waveGrab && QTest::qWaitFor([&] { return !waveGrab->image().isNull(); }),
+           "QCM wavy progress renders in the native consumer");
+    bool outsideStraightStroke = false;
+    if (waveGrab) {
+        const auto image = waveGrab->image();
+        for (int y = 0; y < image.height(); ++y)
+            if (y < 2 || y >= image.height() - 2)
+                for (int x = 0; x < image.width(); ++x)
+                    outsideStraightStroke |= qAlpha(image.pixel(x, y)) > 0;
+    }
+    expect(qAbs(wavy->height() - 10) < 0.5 && qAbs(circularWavy->width() - 48) < 0.5
+               && qAbs(circularWavy->height() - 48) < 0.5 && outsideStraightStroke,
+           "QCM wavy progress has its 10px wave and 48px circular geometry");
     reveal(linear);
     expect(qAbs(linear->height() - 4) < 0.5 && qAbs(circular->width() - 40) < 0.5
                && qAbs(circular->height() - 40) < 0.5 && qAbs(busy->width() - 40) < 0.5,
@@ -627,6 +672,16 @@ void checkProgress(QQuickWindow &window)
     expect(!linear->property("indeterminate").toBool()
                && qAbs(linear->property("value").toReal() - 70) < 0.001,
            "switching progress modes retains the caller's value binding");
+    auto *play = control(window, "comparison.progress.play");
+    if (play) {
+        const auto previousPlaying = play->property("checked");
+        play->setProperty("checked", true);
+        const auto playing = capture(unknown);
+        play->setProperty("checked", false);
+        expect(!playing.isNull() && playing != capture(unknown),
+               "the QCM play control starts and stops native indeterminate feedback under reduced motion");
+        play->setProperty("checked", previousPlaying);
+    }
     reveal(busy);
     const auto spinning = capture(busy);
     bool painted = false;
@@ -1249,7 +1304,10 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     checkChips(window);
     checkBadges(window);
     checkCheckBoxes(window);
+    checkScrollBar(window);
     checkProgress(window);
+    reveal(control(window, "comparison.progress.linear"));
+    expect(checkProgressInactiveUpdates(window) == 0, "inactive progress keeps its public value visible");
     checkRadioButtons(window);
     checkSwitch(window);
     checkNavigation(window);
@@ -1260,6 +1318,9 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     checkTextButtonPointerFocus(window);
     checkActionMenu(window);
     checkMenu(window);
+    expect(checkInlineDatePicker(window) == 0, "inline date picker public behavior");
+    expect(checkInlineColorPicker(window) == 0, "inline color picker public behavior");
+    expect(checkCarousel(window) == 0, "carousel model lifetime and layout selection");
     expect(checkPickersCarousel(window) == 0, "picker and carousel public behavior");
     expect(!window.grabWindow().isNull(), "the comparison consumer renders with its imported kit and icons");
     expect(warnings.isEmpty(), "gallery interactions produce no QML warnings");

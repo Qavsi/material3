@@ -8,6 +8,7 @@ Column {
     required property Material3Theme tokens
     required property string title
     property string gapNote: ""
+    property real sampleSpacing: tokens.spacingSmall
     property real contentPadding: tokens.spacingMedium
     property real minimumContentWidth: 0
     default property alias samples: samplesColumn.data
@@ -74,7 +75,7 @@ Column {
                 x: samplesViewport.focusMargin
                 y: samplesViewport.focusMargin
                 width: samplesViewport.contentWidth - samplesViewport.focusMargin * 2
-                spacing: root.tokens.spacingSmall
+                spacing: root.sampleSpacing
             }
             SK.ScrollBar.horizontal: SK.ScrollBar {
                 id: sampleScrollBar

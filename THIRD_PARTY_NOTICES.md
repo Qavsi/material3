@@ -41,7 +41,8 @@ The optional `examples/qmlmaterial-comparison` consumer carries the prior
 QmlMaterial comparison layout. QmlMaterial is MIT licensed; its preserved
 [license](https://github.com/Qavsi/material3/blob/main/examples/qmlmaterial-comparison/QMLMATERIAL-LICENSE.txt) and
 [pinned provenance](https://github.com/Qavsi/material3/blob/main/docs/migration/upstream-reference.md) accompany the example.
-QmlMaterial is not a kit runtime/build dependency and is not vendored here.
+QmlMaterial is not a kit runtime/build dependency; the adapted rendering subsets
+are identified below.
 The native TextField recipe additionally references QmlMaterial 0.6.1
 (`191260585a829ee4ae2c99e6232b7145b5c34474`), its input layout, floating
 caption and filled/outlined geometry. The adaptation uses Qt's native TextField
@@ -57,13 +58,17 @@ The CheckBox indicator adapts the four SVG paths from QCM's `qml/input/CheckShap
 translating their origin without changing shape. The full upstream MIT notice is
 also installed as `share/licenses/QavsiMaterial3/ripple-reference/QMLMATERIAL-MIT-LICENSE.txt`.
 
-The standard progress painter adapts straight/arc geometry, disjoint/advance
-motion and cubic curves from the same pinned QCM revision's progress geometry,
-linear/circular updators and interpolator. The geometry is Copyright (C) 2020
-The Android Open Source Project, Apache-2.0; QCM is MIT. Local changes use one
-QPainter Image renderer, native Qt control state and full-at-completion behavior;
-wavy and morphing loading paths are excluded. Full Apache-2.0 and QCM MIT texts
-are installed in `share/licenses/QavsiMaterial3/ripple-reference/`.
+The progress painter adapts straight/wavy linear/circular geometry, measured cubic
+paths and Disjoint/Contiguous/Advance/Retreat motion from the same pinned QCM
+revision. Sources include progress_indicator_geometry.cpp, measured_path.cpp,
+Cubic::point/split, progress_indicator.cpp and the linear/circular updators.
+QCM is Copyright (c) 2024-2025 hypengw, MIT; progress geometry/motion additionally
+retain Copyright (C) 2020 The Android Open Source Project, Apache-2.0.
+Local changes isolate private geometry types, retain native Qt control ownership,
+map dimensions/colors/motion to Theme, and paint paths through QQuickPaintedItem
+instead of QCM's private Qt Shape renderer. Native completion stays full; the
+separate morphing loading shapes are excluded. Full Apache-2.0 and QCM MIT texts
+are installed in share/licenses/QavsiMaterial3/ripple-reference/.
 
 The example’s `icons/*.svg` are Google Material Symbols Rounded, pinned to
 material-design-icons `10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7`, under Apache-2.0.
@@ -128,3 +133,36 @@ List/Card geometry, content arrangement and state recipes derive from QmlMateria
 `qml/container/Card.qml` and `src/style/{list_item,card}_state.cpp`. The existing
 QmlMaterial MIT notice in `docs/migration/QMLMATERIAL-LICENSE.txt` applies.
 Native Qt control ownership and the kit's existing feedback/elevation are retained.
+
+The embedded date/color and ScrollBar adapters additionally reference the pinned
+QCM `qml/picker/{DatePicker,ColorPicker,ColorChannelRow}.qml` and
+`qml/scrollable/ScrollBar.qml` (MIT). Existing QCM attribution applies; native
+Qt controls replace QCM runtime ownership and drawing remains in this kit.
+
+The split color swatch button adapts QCM 0.6.1 `qml/picker/ColorPickerButton.qml`
+and `src/util/hct.cpp` palette-tone selection. It uses the already bundled Google
+Material Color Utilities TonalPalette/Hct functions; no new library is linked.
+The calendar action follows the same revision's `qml/picker/DateTextField.qml`.
+The upstream MIT notice preserved above applies to these adaptations.
+
+The full color picker also adapts QCM 0.6.1 `ColorWheel.qml`, `ColorTriangle.qml`,
+`ColorChannelRow.qml`, `StepperInput.qml`, and `control/color_input.hpp/.cpp`.
+Native public QQuickItem input replaces InteractiveItem; QtQuick.Shapes paints
+the same annular conical gradient and triangle gradients. The QCM MIT notice
+above remains distributed; QCM is not linked.
+
+Date navigation additionally follows QCM 0.6.1 `qml/picker/DatePicker.qml`,
+`src/input/date_picker_state.cpp` and CalendarDay keyboard behavior. The year and
+month views use native Qt grids/buttons and existing Material3 button recipes.
+
+## QmlMaterial carousel adaptation
+
+The six-layout carousel adapts QCM 0.6.1 `include/qml_material/carousel/*`,
+`src/carousel/{carousel_view,carousel_attached,carousel_strategies,keylines,scroll_strategy}.cpp`
+and `qml/scrollable/{Carousel,CarouselItem,CarouselImageDelegate,PageIndicator}.qml`.
+QCM is Copyright (c) 2024-2025 hypengw, MIT; the full MIT notice is already
+distributed and installed as described above. Local changes replace private Qt
+and QCM controls with public Flickable properties, QQuickTransform and native
+StyleKit controls, and connect motion/geometry to Theme. The optional comparison
+example also redistributes its ten `example/assets/carousel/*.jpg` images under
+the same QCM license; no images are installed by the runtime kit.

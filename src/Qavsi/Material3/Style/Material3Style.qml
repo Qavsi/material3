@@ -18,22 +18,7 @@ SK.Style {
 
 
     readonly property Material3ProgressDelegate progressFactory: Material3ProgressDelegate { }
-    readonly property SK.StyleVariation circularProgress: SK.StyleVariation {
-        name: "progressCircular"
-        progressBar {
-            indicator {
-                width: root.tokens.progressCircularSize
-                height: root.tokens.progressCircularSize
-                fillWidth: false
-                fillHeight: false
-                data: Material3ProgressParameters {
-                    tokens: root.tokens
-                    reducedMotion: root.effectiveReducedMotion
-                    circular: true
-                }
-            }
-        }
-    }
+    readonly property Material3ProgressVariations progressRecipes: Material3ProgressVariations { sourceStyle: root }
     progressBar {
         padding: 0
         background {
@@ -86,6 +71,31 @@ SK.Style {
     readonly property Material3NavigationDelegate navigationDelegate: Material3NavigationDelegate { }
     fonts.itemDelegate: root.tokens.bodyLarge
     fonts.tabBar: root.tokens.titleSmall
+    readonly property Material3ScrollBarDelegate scrollBarDelegate: Material3ScrollBarDelegate { }
+    scrollBar {
+        padding: root.tokens.scrollBarPadding
+        background {
+            width: root.tokens.scrollBarExtent
+            height: root.tokens.scrollBarExtent
+            margins: 0
+            border.width: 0
+            color: root.tokens.transparent
+            gradient: null
+            shadow.visible: false
+            delegate: root.scrollBarDelegate.background
+            data: Material3ScrollBarParameters { tokens: root.tokens; reducedMotion: root.effectiveReducedMotion }
+        }
+        indicator {
+            width: root.tokens.scrollBarThumbWidth
+            height: root.tokens.scrollBarThumbWidth
+            margins: 0
+            fillWidth: true
+            fillHeight: true
+            foreground.visible: false
+            delegate: root.scrollBarDelegate.indicator
+            data: root.scrollBar.background.data
+        }
+    }
     readonly property Material3SliderDelegate sliderDelegate: Material3SliderDelegate { }
     readonly property Material3SliderVariation mediumSlider: Material3SliderVariation {
         sourceStyle: root
@@ -555,6 +565,6 @@ SK.Style {
         }
     }
 
-    light: SmallButtonTheme { tokens: root.lightTokens; sourceStyle: root }
-    dark: SmallButtonTheme { tokens: root.darkTokens; sourceStyle: root }
+    light: Material3ControlTheme { tokens: root.lightTokens; sourceStyle: root }
+    dark: Material3ControlTheme { tokens: root.darkTokens; sourceStyle: root }
 }
