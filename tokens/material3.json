@@ -631,6 +631,11 @@
           }
         }
       },
+      "checkBox": {
+        "$description": "QCM 0.6.1 checkbox paint geometry. Theme owns semantic colors, typography and control padding; SVG glyph paths retain their source geometry.",
+        "indicatorSize": { "$type": "dimension", "$value": 18 },
+        "stateLayerDiameter": { "$type": "dimension", "$value": 40 }
+      },
       "radioButton": {
         "$description": "QCM radio indicator paint geometry; Theme owns semantic colors, motion and control spacing.",
         "indicatorDiameter": {

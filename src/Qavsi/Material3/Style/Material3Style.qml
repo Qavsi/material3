@@ -17,6 +17,7 @@ SK.Style {
     readonly property Material3TextFieldDelegate textFieldDelegate: Material3TextFieldDelegate { }
 
 
+    readonly property Material3CheckBoxDelegate checkBoxFactory: Material3CheckBoxDelegate { }
     readonly property Material3RadioButtonDelegate radioFactory: Material3RadioButtonDelegate { }
     readonly property Material3SwitchDelegate switchFactory: Material3SwitchDelegate { }
     readonly property Material3NavigationDelegate navigationDelegate: Material3NavigationDelegate { }
@@ -205,6 +206,54 @@ SK.Style {
             checked.background.color: root.tokens.secondaryContainer
         }
     }
+    checkBox {
+        leftPadding: root.tokens.checkBoxHorizontalPadding
+        rightPadding: root.tokens.checkBoxHorizontalPadding
+        topPadding: root.tokens.checkBoxVerticalPadding
+        bottomPadding: root.tokens.checkBoxVerticalPadding
+        spacing: root.tokens.checkBoxSpacing
+        text {
+            color: root.tokens.surfaceForeground
+            alignment: Qt.AlignLeft | Qt.AlignVCenter
+            padding: 0
+        }
+        background {
+            width: root.tokens.checkBoxMinimumWidth
+            height: root.tokens.checkBoxMinimumHeight
+            margins: 0
+            visible: false
+            shadow.visible: false
+        }
+        indicator {
+            width: root.tokens.checkBoxIndicatorSize
+            height: root.tokens.checkBoxIndicatorSize
+            visible: true
+            margins: 0
+            fillWidth: false
+            fillHeight: false
+            alignment: Qt.AlignLeft | Qt.AlignVCenter
+            color: root.tokens.transparent
+            gradient: null
+            border.width: 0
+            shadow.visible: false
+            foreground.visible: false
+            delegate: root.checkBoxFactory.indicator
+            data: Material3CheckBoxParameters {
+                tokens: root.tokens
+                reducedMotion: root.effectiveReducedMotion
+            }
+        }
+        checked.indicator.foreground.visible: false
+        hovered.indicator.foreground.visible: false
+        pressed.indicator.foreground.visible: false
+        focused.indicator.foreground.visible: false
+        disabled {
+            text.color: root.tokens.disabledLabel
+            indicator.foreground.visible: false
+            checked.indicator.foreground.visible: false
+        }
+    }
+
     radioButton {
         leftPadding: root.tokens.radioHorizontalPadding
         rightPadding: root.tokens.radioHorizontalPadding

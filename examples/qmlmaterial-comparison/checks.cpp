@@ -540,6 +540,50 @@ void checkChips(QQuickWindow &window)
            "a constrained chip preserves the source label for native accessibility");
 }
 
+void checkCheckBoxes(QQuickWindow &window)
+{
+    auto *binary = control(window, "comparison.checkbox.unchecked");
+    auto *tri = control(window, "comparison.checkbox.indeterminate");
+    auto *disabled = control(window, "comparison.checkbox.disabled");
+    if (!binary || !tri || !disabled)
+        return;
+    reveal(binary);
+    auto *indicator = tri->property("indicator").value<QQuickItem *>();
+    expect(indicator && qAbs(indicator->width() - 18) < 0.5 && qAbs(indicator->height() - 18) < 0.5,
+           "CheckBox uses QCM's 18 by 18 native indicator geometry");
+    binary->forceActiveFocus(Qt::TabFocusReason);
+    QTest::keyClick(&window, Qt::Key_Space);
+    expect(binary->property("checkState").toInt() == Qt::Checked,
+           "Space toggles a binary native CheckBox");
+    const auto capture = [&]() -> QImage {
+        const auto grab = indicator ? indicator->grabToImage() : nullptr;
+        return grab && QTest::qWaitFor([&] { return !grab->image().isNull(); }) ? grab->image() : QImage();
+    };
+    tri->forceActiveFocus(Qt::OtherFocusReason);
+    const auto partial = capture();
+    QTest::keyClick(&window, Qt::Key_Space);
+    const bool checked = tri->property("checkState").toInt() == Qt::Checked;
+    const auto checkedImage = capture();
+    QTest::keyClick(&window, Qt::Key_Space);
+    const bool unchecked = tri->property("checkState").toInt() == Qt::Unchecked;
+    const auto uncheckedImage = capture();
+    QTest::keyClick(&window, Qt::Key_Space);
+    expect(checked && unchecked && tri->property("checkState").toInt() == Qt::PartiallyChecked,
+           "native tristate keyboard activation cycles checked, unchecked and indeterminate");
+    expect(!partial.isNull() && !checkedImage.isNull() && !uncheckedImage.isNull()
+               && partial != checkedImage && partial != uncheckedImage && checkedImage != uncheckedImage,
+           "CheckBox renders distinct empty, tick and indeterminate indicators");
+    auto *accessible = QAccessible::queryAccessibleInterface(tri);
+    expect(accessible && accessible->state().checkStateMixed,
+           "the indeterminate native CheckBox exposes its mixed accessible state");
+    reveal(disabled);
+    const auto center = disabled->mapToScene(QPointF(disabled->width() / 2, disabled->height() / 2));
+    QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, center.toPoint());
+    expect(!disabled->property("enabled").toBool() && disabled->property("checkState").toInt() == Qt::Checked,
+           "a disabled CheckBox rejects pointer activation");
+    QTest::mouseMove(&window, QPoint(0, 0));
+}
+
 void checkRadioButtons(QQuickWindow &window)
 {
     auto *first = control(window, "comparison.radio.option1");
@@ -813,6 +857,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     checkFieldAccessories(window);
     checkInputSizes(window);
     checkChips(window);
+    checkCheckBoxes(window);
     checkRadioButtons(window);
     checkSwitch(window);
     checkNavigation(window);

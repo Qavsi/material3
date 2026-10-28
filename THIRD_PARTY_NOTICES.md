@@ -48,9 +48,12 @@ caption and filled/outlined geometry. The adaptation uses Qt's native TextField
 and Shape APIs; no QCM control or input runtime is linked.
 The native ComboBox recipes, floating caption and option-menu geometry use the
 same pinned QCM reference; Qt retains model, editing and selection ownership.
-The navigation bar/rail-item/tab, Switch, RadioButton, Chip and Slider/RangeSlider mappings also
+The navigation bar/rail-item/tab, Switch, CheckBox, RadioButton, Chip and Slider/RangeSlider mappings also
 reference this pinned revision and its included MIT license. Their native Qt
 input/selection and public ownership contracts remain in Qt; QCM is not linked.
+The CheckBox indicator adapts the four SVG paths from QCM's `qml/input/CheckShape.qml`,
+translating their origin without changing shape. The full upstream MIT notice is
+also installed as `share/licenses/QavsiMaterial3/ripple-reference/QMLMATERIAL-MIT-LICENSE.txt`.
 
 The example’s `icons/*.svg` are Google Material Symbols Rounded, pinned to
 material-design-icons `10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7`, under Apache-2.0.

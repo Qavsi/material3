@@ -5,7 +5,7 @@ behavior at these seams; they do not navigate the kit's private delegate tree.
 
 | Seam | Kept coverage | Outside the routine gate |
 |---|---|---|
-| Native SK.Button / SK.Menu / SK.TextField / SK.ComboBox / SK.TabBar / SK.Switch / SK.RadioButton / SK.Slider / SK.RangeSlider consumption | Pointer/keyboard activation, disabled/cancel behavior, selection, FAB display, menu activation/dismissal, floating caption/native editing, accessory space/rendering, message wrapping/accessible description and live caller bindings; ComboBox floating caption, first/last rows, native selection/acceptance and caller factories | Internal object names, loaders, ripple phase, shadow geometry, per-size/appearance permutations |
+| Native SK.Button / SK.Menu / SK.TextField / SK.ComboBox / SK.TabBar / SK.Switch / SK.CheckBox / SK.RadioButton / SK.Slider / SK.RangeSlider consumption | Pointer/keyboard activation, disabled/cancel behavior, selection, FAB display, menu activation/dismissal, floating caption/native editing, accessory space/rendering, message wrapping/accessible description and live caller bindings; ComboBox floating caption, first/last rows, native selection/acceptance and caller factories | Internal object names, loaders, ripple phase, shadow geometry, per-size/appearance permutations |
 | Theme and reduced motion | Independent color oracle, role overrides/invalid inputs, light/dark rendered primary, OS preference, static pressed feedback, immediate menu opening | Every renderer/color/timing combination and frame parity with QCM |
 | Source / installed consumption | Real example using the exported targets/URIs; relocated find_package consumer | Rebuilding every consumer after a styling-only edit |
 
@@ -92,3 +92,9 @@ native cursor hover. No private background items are inspected.
 Before scrolling a control into view, the consumer check renders pending layout.
 Scroll offsets must use settled geometry after a window resize; otherwise the
 floating-caption capture can fall above the Flickable clip despite correct focus.
+
+CheckBox has one native-consumer pass: the QCM18px public indicator, binary Space
+activation, the native three-state cycle, visibly distinct empty/tick/dash output,
+mixed accessibility state and disabled pointer gating. It runs with the existing
+reduced-motion/software consumer and is reused for installed consumption; no
+private shape/delegate selectors or per-frame comparison are added.

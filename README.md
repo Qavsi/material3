@@ -560,6 +560,27 @@ steps, snap modes, live updates and RangeSlider first/second values are unchange
 Use `sliderMedium` with SliderSupport.insetIcon for the thick inset-icon recipe.
 An enforced minimum span for native RangeSlider is not currently supported.
 
+### Checkboxes
+
+Native `SK.CheckBox` has a QCM0.6.1 18px indicator, tick/indeterminate paths,
+40px ripple and the kit's keyboard focus ring. Theme, disabled roles, native RTL,
+reduced motion and software rendering use the existing kit paths.
+
+```qml
+SK.CheckBox { text: qsTr("Selected"); checked: true }
+SK.CheckBox {
+    text: qsTr("Partial selection")
+    tristate: true
+    checkState: Qt.PartiallyChecked
+}
+```
+
+The ordinary default is unchecked. Native Qt owns binary/tristate keyboard and
+pointer activation; `nextCheckState` remains available to callers. The style
+mirrors the partial state to Accessible.checkStateMixed through public QML.
+No support attachment, wrapper or state variation is required. The comparison
+shows unchecked, indeterminate, checked and disabled examples.
+
 ### Radio buttons
 
 Use native StyleKit controls; sibling radios retain Qt's auto-exclusive selection.

@@ -765,6 +765,28 @@ Reference: QmlMaterial 0.6.1, `191260585a829ee4ae2c99e6232b7145b5c34474`:
   visibility and window state. Simple Qt Quick tracks/thumbs render on software;
   existing Material3Ripple/Material3Elevation retain their Metal/painter policies.
 
+### CheckBox
+
+The native `SK.CheckBox` mapping follows QCM0.6.1
+`191260585a829ee4ae2c99e6232b7145b5c34474`, `qml/input/CheckBox.qml`,
+`CheckShape.qml` and `src/style/check_box_state.cpp`. The generated recipe owns
+an18px indicator and40px state layer. Theme owns LabelLarge, padding8/15,
+spacing8, primary/onPrimary selected ink and onSurfaceVariant/onSurface outline.
+Disabled ink uses onSurface at0.38, with surface for the selected mark.
+
+One private Shape draws QCM's fill, hollow outline, tick and indeterminate dash;
+its source paths are translated from7..25 to0..18 without changing geometry.
+Curve rendering and Qt's software Shape renderer share the same paths. State
+marks switch immediately, as in QCM; existing Material3Ripple and the kit's
+keyboard-focus ring retain Theme/reduced-motion and Metal/software policies.
+
+Native Qt owns checked/checkState, tristate/nextCheckState, input, focus, labels
+and caller bindings. There is no CheckBox wrapper or selection variation list.
+The indicator uses a restoring public Binding from checkState to
+Accessible.checkStateMixed, omitted by stock Qt6.12 StyleKit; role, checked and
+name remain native. QCM's controlled request-signal API and error/read-only
+extensions are not introduced by this slice.
+
 ### RadioButton
 
 The native `SK.RadioButton` mapping follows the same QCM0.6.1 pin

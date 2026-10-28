@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add QCM CheckBox styling on native `SK.CheckBox`: unchecked, checked and indeterminate paths, native tristate input, mixed accessibility state, Theme/ripple/focus and software rendering.
+
 - TextField accessible descriptions preserve caller ownership when native placeholder descriptions are active; comparison checks enable accessibility before loading QML.
 - Add native navigation bar, rail-item and primary-tab recipes with package icons, Theme motion and software rendering.
 - Add QCM Switch track/thumb/icon styling while retaining native checked state, keyboard input and disabled behavior.

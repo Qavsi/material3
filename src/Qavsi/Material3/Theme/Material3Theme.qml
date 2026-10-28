@@ -1,6 +1,7 @@
 import QtQuick
 import "Material3SliderRecipe.js" as SliderRecipe
 import "Material3SwitchRecipe.js" as SwitchRecipe
+import "Material3CheckBoxRecipe.js" as CheckBoxRecipe
 import "Material3RadioButtonRecipe.js" as RadioRecipe
 import "Material3ChipRecipe.js" as ChipRecipe
 import "Material3NavigationRecipe.js" as NavigationRecipe
@@ -134,6 +135,22 @@ QtObject {
     readonly property color chipSelectedInk: secondaryContainerForeground
     readonly property color chipIconInk: primary
     readonly property color chipDisabledOutline: Qt.alpha(surfaceForeground, disabledContainerOpacity)
+
+    readonly property real checkBoxIndicatorSize: CheckBoxRecipe.indicatorSize
+    readonly property real checkBoxStateLayerDiameter: CheckBoxRecipe.stateLayerDiameter
+    readonly property real checkBoxHorizontalPadding: spacingSmall
+    readonly property real checkBoxVerticalPadding: 15
+    readonly property real checkBoxSpacing: spacingSmall
+    readonly property real checkBoxMinimumWidth: checkBoxIndicatorSize + 2 * checkBoxHorizontalPadding + checkBoxSpacing
+    readonly property real checkBoxMinimumHeight: checkBoxIndicatorSize + 2 * checkBoxVerticalPadding
+    readonly property color checkBoxOutline: surfaceVariantForeground
+    readonly property color checkBoxActiveOutline: surfaceForeground
+    readonly property color checkBoxSelectedIndicator: primary
+    readonly property color checkBoxSelectedGlyph: primaryForeground
+    readonly property color checkBoxDisabledIndicator: disabledLabel
+    readonly property color checkBoxDisabledGlyph: surface
+    readonly property color checkBoxStateLayer: surfaceForeground
+    readonly property color checkBoxSelectedStateLayer: primary
 
     readonly property real radioIndicatorDiameter: RadioRecipe.indicatorDiameter
     readonly property real radioOutlineWidth: RadioRecipe.outlineWidth
