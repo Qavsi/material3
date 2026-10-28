@@ -149,6 +149,44 @@ SK.Style {
             indicator.foreground.color: root.tokens.disabledLabel
         }
     }
+    readonly property Material3DialogDelegate dialogDelegate: Material3DialogDelegate { }
+    dialog {
+        leftPadding: root.tokens.dialogPadding
+        rightPadding: root.tokens.dialogPadding
+        topPadding: root.tokens.dialogVerticalPadding
+        bottomPadding: root.tokens.dialogVerticalPadding
+        spacing: 0
+        text {
+            color: root.tokens.surfaceForeground
+            leftPadding: root.tokens.dialogPadding
+            rightPadding: root.tokens.dialogPadding
+            topPadding: root.tokens.dialogPadding
+            bottomPadding: root.tokens.dialogVerticalPadding
+        }
+        background {
+            width: root.tokens.dialogMinimumWidth
+            radius: root.tokens.dialogCornerRadius
+            color: root.tokens.surfaceContainerHigh
+            gradient: null
+            border.width: 0
+            margins: 0
+            data: Material3MenuParameters { tokens: root.tokens; reducedMotion: root.effectiveReducedMotion }
+            shadow {
+                visible: true
+                color: root.tokens.shadow
+                opacity: root.tokens.elevationContainerOpacity
+                delegate: root.dialogDelegate.shadow
+            }
+        }
+    }
+    dialogButtonBox {
+        leftPadding: root.tokens.dialogPadding
+        rightPadding: root.tokens.dialogPadding
+        topPadding: root.tokens.dialogVerticalPadding
+        bottomPadding: root.tokens.dialogVerticalPadding
+        spacing: root.tokens.spacingSmall
+        background { color: root.tokens.transparent; gradient: null; border.width: 0; shadow.visible: false }
+    }
     popup {
         leftPadding: 0
         rightPadding: 0

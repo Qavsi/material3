@@ -24,6 +24,12 @@ Material3TextFieldTheme {
 
     readonly property QtObject pickerVariations: Material3PickerVariations { sourceStyle: root.sourceStyle }
 
+    readonly property ButtonVariation snackbarAction: ButtonVariation {
+        name: "snackbarAction"
+        sourceStyle: root.sourceStyle
+        containerColor: root.tokens.transparent
+        contentColor: root.tokens.inverseSurfaceForeground
+    }
     applicationWindow.background.color: tokens.surface
     button {
         leftPadding: root.tokens.smallHorizontalPadding

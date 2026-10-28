@@ -1123,6 +1123,81 @@ void checkAppNavigation(QQuickWindow &window)
     QTest::mouseMove(&window, QPoint(0, 0));
 }
 
+void checkDialogFeedback(QQuickWindow &window)
+{
+    auto *trigger = control(window, "comparison.dialog.open");
+    auto *dialog = window.findChild<QObject *>("comparison.dialog");
+    expect(dialog, "the consumer exposes a native dialog");
+    if (!trigger || !dialog)
+        return;
+    const auto originalDark = window.property("darkMode");
+    reveal(trigger);
+    trigger->forceActiveFocus(Qt::TabFocusReason);
+    QSignalSpy accepted(dialog, SIGNAL(accepted()));
+    QSignalSpy rejected(dialog, SIGNAL(rejected()));
+    QTest::keyClick(&window, Qt::Key_Space);
+    expect(dialog->property("opened").toBool(), "native dialog opens immediately with reduced motion");
+    auto *style = window.property("materialStyle").value<QObject *>();
+    for (bool dark : {false, true}) {
+        window.setProperty("darkMode", dark);
+        window.grabWindow();
+        auto *tokens = style ? style->property("tokens").value<QObject *>() : nullptr;
+        auto *background = dialog->property("background").value<QQuickItem *>();
+        const auto capture = background ? background->grabToImage() : nullptr;
+        const bool ready = capture && QTest::qWaitFor([&] { return !capture->image().isNull(); });
+        const auto image = ready ? capture->image() : QImage();
+        expect(ready && tokens && image.pixelColor(image.width() / 2, image.height() / 2)
+                   == tokens->property("surfaceContainerHigh").value<QColor>(),
+               "native dialog paints an opaque Theme surface in light and dark themes");
+    }
+    QTest::keyClick(&window, Qt::Key_Escape);
+    expect(!dialog->property("visible").toBool() && rejected.size() == 1 && trigger->hasActiveFocus(),
+           "Escape rejects the native dialog once and restores trigger focus");
+    QTest::keyClick(&window, Qt::Key_Space);
+    QMetaObject::invokeMethod(dialog, "accept");
+    expect(accepted.size() == 1 && !dialog->property("visible").toBool(),
+           "native dialog acceptance closes once");
+    window.setProperty("darkMode", originalDark);
+    auto *tipTrigger = control(window, "comparison.tooltip.open");
+    auto *tip = window.findChild<QObject *>("comparison.tooltip");
+    expect(tipTrigger && tip, "rich tooltip exposes a native popup consumer");
+    if (tipTrigger && tip) {
+        reveal(tipTrigger);
+        tipTrigger->forceActiveFocus(Qt::TabFocusReason);
+        QTest::keyClick(&window, Qt::Key_Space);
+        expect(tip->property("opened").toBool() && tip->property("activeFocus").toBool(),
+               "rich tooltip opens with keyboard focus for its action");
+        QTest::keyClick(&window, Qt::Key_Escape);
+        expect(!tip->property("visible").toBool() && tipTrigger->hasActiveFocus(),
+               "Escape closes rich tooltip and restores anchor focus");
+    }
+    auto *snackbar = window.findChild<QObject *>("comparison.snackbar");
+    auto *action = window.findChild<QObject *>("comparison.snackbar.action");
+    auto *actionButton = snackbar ? snackbar->property("actionControl").value<QQuickItem *>() : nullptr;
+    expect(snackbar && action && actionButton, "feedback exposes native popup and Action");
+    if (snackbar && action && actionButton) {
+        QSignalSpy triggered(action, SIGNAL(triggered(QObject*)));
+        snackbar->setProperty("timeout", 0);
+        QMetaObject::invokeMethod(snackbar, "open");
+        window.grabWindow();
+        actionButton->forceActiveFocus(Qt::TabFocusReason);
+        QTest::keyClick(&window, Qt::Key_Space);
+        expect(triggered.size() == 1 && !snackbar->property("visible").toBool(),
+               "snackbar keyboard action triggers once and closes");
+        snackbar->setProperty("timeout", 30);
+        QMetaObject::invokeMethod(snackbar, "open");
+        expect(QTest::qWaitFor([&] { return !snackbar->property("visible").toBool(); }, 1000),
+               "visible snackbar closes after its timeout");
+        snackbar->setProperty("timeout", 0);
+        QMetaObject::invokeMethod(snackbar, "open");
+        QTest::qWait(50);
+        expect(snackbar->property("visible").toBool(), "zero timeout keeps snackbar visible");
+        QMetaObject::invokeMethod(snackbar, "close");
+        snackbar->setProperty("timeout", 5000);
+    }
+    QTest::mouseMove(&window, QPoint(0, 0));
+}
+
 void checkMenu(QQuickWindow &window)
 {
     auto *trigger = control(window, "comparison.split.filled.menuButton");
@@ -1161,6 +1236,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     expect(QTest::qWaitForWindowActive(&window), "the comparison consumer gains native keyboard focus");
     window.setProperty("reducedMotion", true);
     checkAppNavigation(window);
+    checkDialogFeedback(window);
     checkComboBox(window);
     checkTextField(window);
     checkFieldAccessories(window);

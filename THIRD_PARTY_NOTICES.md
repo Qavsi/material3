@@ -46,6 +46,8 @@ The native TextField recipe additionally references QmlMaterial 0.6.1
 (`191260585a829ee4ae2c99e6232b7145b5c34474`), its input layout, floating
 caption and filled/outlined geometry. The adaptation uses Qt's native TextField
 and Shape APIs; no QCM control or input runtime is linked.
+Dialog, plain/rich tooltip and snackbar geometry also reference the same pinned
+QCM revision and MIT notice; native Qt popup/action behavior remains in Qt.
 The native ComboBox recipes, floating caption and option-menu geometry use the
 same pinned QCM reference; Qt retains model, editing and selection ownership.
 The navigation bar/rail-item/tab, Switch, CheckBox, RadioButton, Chip and Slider/RangeSlider mappings also

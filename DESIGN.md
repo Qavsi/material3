@@ -941,3 +941,10 @@ Immutable `cardFilled` / `cardElevated` / `cardOutlined` map native `SK.Pane`
 and interactive `SK.Button` / `SK.ItemDelegate` surfaces, with 12px corners,
 64px minimum and 16px padding. Existing ripple and elevation are reused;
 software shadows remain omitted. See [family contract](docs/families/list-card.md).
+
+## Dialog and feedback family
+
+Native Dialog slots, explicit header/footer/overlay/transition delegates, local
+Basic.ToolTip and native Popup snackbar contracts are specified in
+[dialog-feedback.md](docs/families/dialog-feedback.md). The native Dialog owns
+roles/focus/dismissal; all helper materials and dimensions resolve from Theme.

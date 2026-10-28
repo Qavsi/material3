@@ -101,3 +101,10 @@
 
 - Add native StyleKit date/time/color picker compositions, uncontained ListView
   carousel and direct Qt file-selection example; preserve caller selection bindings.
+
+### Dialog and feedback
+
+- Map native StyleKit Dialog surfaces and button-box spacing; offer explicit
+  headline, flat-button footer, modal scrim and reduced-motion transition delegates.
+- Add local native ToolTip plain/rich recipes and a native Popup snackbar with
+  Action, Close, accessible announcement and visible-only timeout.

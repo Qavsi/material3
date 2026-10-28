@@ -1,4 +1,5 @@
 set(module_target QavsiMaterial3Style)
+set_source_files_properties(Material3DialogShadow.qml Material3DialogDelegate.qml PROPERTIES QT_QML_INTERNAL_TYPE TRUE)
 set_source_files_properties(SmallButtonTheme.qml SmallButtonBackground.qml SmallButtonShadow.qml
     SmallButtonDelegate.qml SmallButtonParameters.qml
     ButtonVariation.qml ButtonSizeVariation.qml IconButtonVariation.qml
@@ -227,6 +228,8 @@ qt_add_qml_module(${module_target} SHARED
         Material3AppNavigation.qml ${material3_app_navigation_files}
         Material3ProgressContent.qml ${material3_progress_files}
         Material3ButtonContent.qml Material3ListItemContent.qml ${material3_listcard_files} Material3ChipContent.qml Material3MenuItemContent.qml Material3Badge.qml ${material3_badge_files} ${material3_advanced_files} ${material3_menu_files} ${material3_field_files} ${material3_combo_files}
+        Material3DialogEnterTransition.qml Material3DialogExitTransition.qml Material3DialogOverlay.qml
+        Material3DialogDelegate.qml Material3DialogShadow.qml Material3DialogHeader.qml Material3DialogButtonBox.qml Material3ToolTip.qml Material3Snackbar.qml
         ${material3_switch_files} ${material3_navigation_files} ${material3_slider_files} ${material3_radio_files} ${material3_checkbox_files} ${material3_chip_files}
         internal/shadows/Material3Elevation.qml
         Material3Style.qml SmallButtonTheme.qml SmallButtonBackground.qml SmallButtonShadow.qml

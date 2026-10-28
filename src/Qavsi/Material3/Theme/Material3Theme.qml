@@ -354,6 +354,20 @@ QtObject {
     readonly property color textFieldFilledContainer: surfaceContainerHighest
     readonly property color textFieldDisabledFilledContainer: Qt.alpha(surfaceForeground, 0.04)
     readonly property color textFieldIndicator: surfaceVariantForeground
+    readonly property int dialogEnterDuration: 250
+    readonly property int dialogFadeDuration: 150
+    readonly property real dialogClosedScale: 0.9
+    readonly property real dialogScrimOpacity: 0.32
+    readonly property real dialogMinimumWidth: 280
+    readonly property real dialogMaximumWidth: 560
+    readonly property real dialogPadding: 24
+    readonly property real dialogVerticalPadding: 12
+    readonly property real dialogCornerRadius: radiusExtraLarge
+    readonly property real feedbackCornerRadius: radiusExtraSmall
+    readonly property real snackbarMinimumHeight: 48
+    readonly property int snackbarTimeout: 5000
+    readonly property real tooltipMaximumWidth: 320
+    readonly property int tooltipDelay: 500
     readonly property real menuMinimumWidth: 200
     readonly property real menuMinimumHeight: 48
     readonly property real menuItemHeight: 48

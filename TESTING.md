@@ -124,3 +124,8 @@ checks transparent initial unselected output and the selected tonal fill.
 List/Card coverage uses native ItemDelegate/Button/Pane consumption: one Space
 selection, disabled pointer gating, one Card activation and a passive surface.
 No private delegates or appearance matrix are inspected.
+
+Dialog/feedback coverage stays at the public native-consumer seam: opaque
+light/dark Dialog output, accept/Escape/reject/focus return, native snackbar Action
+activation and visible timeout (including zero for persistent messages), plus
+rich-tooltip keyboard focus and Escape return to its anchor.
