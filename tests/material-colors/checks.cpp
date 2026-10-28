@@ -75,6 +75,20 @@ int main(int argc, char **argv)
     if (!theme || cases.isEmpty() || roles.isEmpty())
         return 2;
 
+    auto *toneSource = theme->property("colorScheme").value<QObject *>();
+    QColor lowTone, highTone, invalidTone;
+    double whiteTone = 0;
+    const QColor purple(0x67, 0x50, 0xa4);
+    const bool toneCalls = toneSource
+        && QMetaObject::invokeMethod(toneSource, "paletteTone", Q_RETURN_ARG(QColor, lowTone), Q_ARG(QColor, purple), Q_ARG(double, -10.0))
+        && QMetaObject::invokeMethod(toneSource, "paletteTone", Q_RETURN_ARG(QColor, highTone), Q_ARG(QColor, purple), Q_ARG(double, 110.0))
+        && QMetaObject::invokeMethod(toneSource, "toneOf", Q_RETURN_ARG(double, whiteTone), Q_ARG(QColor, QColor(Qt::white)));
+    expect(toneCalls && lowTone == QColor(Qt::black) && highTone == QColor(Qt::white) && qAbs(whiteTone - 100) < 0.001,
+           QStringLiteral("public MCU palette tones clamp to black/white endpoints and expose white L-star"));
+    const bool invalidCall = toneSource && QMetaObject::invokeMethod(toneSource, "paletteTone", Q_RETURN_ARG(QColor, invalidTone),
+        Q_ARG(QColor, purple), Q_ARG(double, std::numeric_limits<double>::quiet_NaN()));
+    expect(invalidCall && !invalidTone.isValid(), QStringLiteral("non-finite palette tones return no color"));
+
     expect(!theme->property("dynamicColors").toBool(), QStringLiteral("legacy palette remains the default"));
     expect(color(theme.get(), "primary") == QColor(QStringLiteral("#6750a4"))
                && color(theme.get(), "surface") == QColor(QStringLiteral("#fef7ff")),

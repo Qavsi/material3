@@ -25,6 +25,8 @@ public:
     Scheme scheme() const { return m_scheme; }
     double contrastLevel() const { return m_contrastLevel; }
     QVariantMap colors() const;
+    Q_INVOKABLE QColor paletteTone(QColor color, double tone) const;
+    Q_INVOKABLE double toneOf(QColor color) const;
     void setSeedColor(QColor value);
     void setDark(bool value);
     void setScheme(Scheme value);

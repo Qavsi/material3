@@ -1,4 +1,7 @@
 import QtQuick
+import "Material3CarouselRecipe.js" as CarouselRecipe
+import "Material3PickerRecipe.js" as PickerRecipe
+import "Material3ScrollBarRecipe.js" as ScrollBarRecipe
 import "Material3SliderRecipe.js" as SliderRecipe
 import "Material3SwitchRecipe.js" as SwitchRecipe
 import "Material3ProgressRecipe.js" as ProgressRecipe
@@ -64,12 +67,93 @@ QtObject {
     readonly property real radiusExtraLarge: 28
     readonly property real radiusExtraExtraLarge: 32
     // QCM 0.6.1 calendar/header recipe; native Qt layout and date model.
-    readonly property real carouselWidth: 480
-    readonly property real carouselHeight: 196
-    readonly property real carouselItemWidth: 180
-    readonly property real pickerWidth: 360
-    readonly property real pickerPadding: 24
-    readonly property real pickerDaySize: 40
+    readonly property real carouselWidth: CarouselRecipe.width
+    readonly property real carouselHeight: CarouselRecipe.height
+    readonly property real carouselItemWidth: CarouselRecipe.itemWidth
+    readonly property real carouselVerticalHeight: CarouselRecipe.verticalHeight
+    readonly property real carouselCrossPadding: CarouselRecipe.crossPadding
+    readonly property real carouselMinimumSmallWidth: CarouselRecipe.minimumSmallWidth
+    readonly property real carouselMaximumSmallWidth: CarouselRecipe.maximumSmallWidth
+    readonly property real carouselItemCorner: radiusExtraLarge
+    readonly property real carouselTitleFadeSpan: CarouselRecipe.titleFadeSpan
+    readonly property real carouselChromeHeight: CarouselRecipe.chromeHeight
+    readonly property real carouselChromeSpacing: CarouselRecipe.chromeSpacing
+    readonly property real carouselPagePadding: CarouselRecipe.pagePadding
+    readonly property real carouselPageSpacing: CarouselRecipe.pageSpacing
+    readonly property real carouselPageSize: CarouselRecipe.pageSize
+    readonly property real carouselPageOpacity: 0.45
+    readonly property real carouselPageHoverOpacity: 0.7
+    readonly property real carouselPageSelectedOpacity: 0.95
+    readonly property int carouselSnapDuration: 400
+    readonly property color carouselImageForeground: "#ffffff"
+    readonly property real pickerDateInputWidth: PickerRecipe.dateInputWidth
+    readonly property real pickerHeaderMinimumHeight: PickerRecipe.headerMinimumHeight
+    readonly property real pickerModeButtonInset: PickerRecipe.modeButtonInset
+    readonly property real pickerNavigationHeight: PickerRecipe.navigationHeight
+    readonly property real pickerNavigationPadding: PickerRecipe.navigationPadding
+    readonly property real pickerNavigationGap: PickerRecipe.navigationGap
+    readonly property int pickerNavigationColumns: 3
+    readonly property real pickerYearGridHeight: PickerRecipe.yearGridHeight
+    readonly property real pickerYearCellHeight: PickerRecipe.yearCellHeight
+    readonly property real pickerMonthCellHeight: PickerRecipe.monthCellHeight
+    readonly property real pickerWeekdayHeight: PickerRecipe.weekdayHeight
+    readonly property real pickerWeekdayPadding: PickerRecipe.weekdayPadding
+    readonly property real colorPickerButtonWidth: PickerRecipe.colorButtonWidth
+    readonly property real colorPickerButtonHeight: PickerRecipe.colorButtonHeight
+    readonly property real colorPickerButtonGap: PickerRecipe.colorButtonGap
+    readonly property real colorPickerButtonTrailingExtraWidth: PickerRecipe.colorButtonTrailingExtraWidth
+    readonly property real colorPickerButtonIconSize: PickerRecipe.colorButtonIconSize
+    readonly property real colorPickerButtonTrailingTone: dark ? 30 : 90
+    readonly property real colorPickerButtonIconTone: dark ? 80 : 30
+    readonly property real colorPickerPadding: PickerRecipe.colorPadding
+    readonly property real colorPickerSpacing: PickerRecipe.colorSpacing
+    readonly property real colorPickerChannelRowSpacing: PickerRecipe.colorChannelRowSpacing
+    readonly property real colorPickerWheelSize: PickerRecipe.colorWheelSize
+    readonly property real colorPickerTriangleSize: PickerRecipe.colorTriangleSize
+    readonly property real colorPickerWheelThickness: PickerRecipe.colorWheelThickness
+    readonly property real colorPickerWheelHandleExtension: PickerRecipe.colorWheelHandleExtension
+    readonly property real colorPickerWheelHandleHeight: PickerRecipe.colorWheelHandleHeight
+    readonly property real colorPickerWheelHandleRadius: PickerRecipe.colorWheelHandleRadius
+    readonly property real colorPickerTriangleHandleSize: PickerRecipe.colorTriangleHandleSize
+    readonly property real colorPickerTriangleHandleBorderWidth: PickerRecipe.colorTriangleHandleBorderWidth
+    readonly property color pickerHandleLight: "#ffffff"
+    readonly property color pickerHandleDark: "#000000"
+    readonly property real colorPickerChannelTrackWidth: PickerRecipe.colorChannelTrackWidth
+    readonly property real colorPickerChannelValueHeight: PickerRecipe.colorChannelValueHeight
+    readonly property real colorPickerChannelIndicatorWidth: PickerRecipe.colorChannelIndicatorWidth
+    readonly property real colorPickerChannelIndicatorHeight: PickerRecipe.colorChannelIndicatorHeight
+    readonly property real colorPickerChannelIndicatorBorderWidth: PickerRecipe.colorChannelIndicatorBorderWidth
+    readonly property real colorPickerStepperWidth: PickerRecipe.colorStepperWidth
+    readonly property real colorPickerStepperIconSize: PickerRecipe.colorStepperIconSize
+    readonly property real colorPickerStepperInset: PickerRecipe.colorStepperInset
+    readonly property real colorPickerStepperTextInset: PickerRecipe.colorStepperTextInset
+    readonly property color colorPickerCheckerLight: "#ffffff"
+    readonly property color colorPickerCheckerDark: "#cccccc"
+    readonly property color colorPickerChannelIndicatorBorder: pickerHandleLight
+    readonly property color colorPickerChannelIndicatorOutline: Qt.alpha(pickerHandleDark, 0.4)
+    readonly property color colorPickerSwatchOutline: Qt.alpha(surfaceForeground, 0.2)
+    readonly property real colorPickerSwatchSize: PickerRecipe.colorSwatchSize
+    readonly property real pickerWidth: PickerRecipe.width
+    readonly property real pickerPadding: PickerRecipe.padding
+    readonly property real pickerDaySize: PickerRecipe.daySize
+    readonly property real pickerDaySpacing: PickerRecipe.daySpacing
+    readonly property real pickerDayIndicatorSize: PickerRecipe.dayIndicatorSize
+    readonly property real pickerHeaderPadding: PickerRecipe.headerPadding
+    readonly property real pickerHeaderVerticalPadding: PickerRecipe.headerVerticalPadding
+    readonly property real colorPickerChannelTrackHeight: PickerRecipe.colorChannelTrackHeight
+    readonly property real colorPickerChannelValueWidth: PickerRecipe.colorChannelValueWidth
+    readonly property real colorPickerChannelLabelWidth: PickerRecipe.colorChannelLabelWidth
+    readonly property real colorPickerCheckerSize: PickerRecipe.colorCheckerSize
+    // QCM0.6.1 ScrollBar geometry and medium1/retention timing.
+    readonly property real scrollBarExtent: ScrollBarRecipe.extent
+    readonly property real scrollBarPadding: ScrollBarRecipe.padding
+    readonly property real scrollBarThumbWidth: ScrollBarRecipe.thumbWidth
+    readonly property real scrollBarExpandedThumbWidth: ScrollBarRecipe.expandedThumbWidth
+    readonly property real scrollBarThumbOpacity: 0.38
+    readonly property real scrollBarPressedOpacity: 0.8
+    readonly property real scrollBarTrackOpacity: 0.12
+    readonly property int scrollBarFadeDuration: 250
+    readonly property int scrollBarRetentionDuration: 2450
     readonly property real minimumTargetSize: 40
     readonly property real iconButtonInset: spacingUnit
     readonly property real iconButtonPadding: spacingSmall
@@ -175,6 +259,13 @@ QtObject {
     readonly property real progressLinearMinimumWidth: ProgressRecipe.linearMinimumWidth
     readonly property real progressCircularSize: ProgressRecipe.circularSize
     readonly property real progressCircularGapAngle: ProgressRecipe.circularGapAngle
+    readonly property real progressWavyLinearMinimumWidth: ProgressRecipe.wavyLinearMinimumWidth
+    readonly property real progressWavyCircularSize: ProgressRecipe.wavyCircularSize
+    readonly property real progressLinearWaveAmplitude: ProgressRecipe.linearWaveAmplitude
+    readonly property real progressCircularWaveAmplitude: ProgressRecipe.circularWaveAmplitude
+    readonly property real progressDeterminateWaveLength: ProgressRecipe.determinateWaveLength
+    readonly property real progressIndeterminateWaveLength: ProgressRecipe.indeterminateWaveLength
+    readonly property real progressCircularWaveLength: ProgressRecipe.circularWaveLength
     readonly property color progressIndicator: primary
     readonly property color progressTrack: secondaryContainer
     readonly property color progressCircularTrack: transparent
@@ -183,6 +274,11 @@ QtObject {
     readonly property int progressValueDuration: 150
     readonly property int progressLinearCycleDuration: 1800
     readonly property int progressCircularCycleDuration: 5400
+    readonly property int progressContiguousCycleDuration: 333
+    readonly property int progressRetreatCycleDuration: 6000
+    readonly property int progressWaveCycleDuration: 1000
+    readonly property int progressAmplitudeDuration: 500
+    readonly property int progressOpacityDuration: 100
 
     readonly property real checkBoxIndicatorSize: CheckBoxRecipe.indicatorSize
     readonly property real checkBoxStateLayerDiameter: CheckBoxRecipe.stateLayerDiameter
@@ -426,6 +522,8 @@ QtObject {
         pixelSize: 16, weight: Font.Medium, letterSpacing: 0.15 })
     readonly property font titleLarge: Qt.font({ family: root.effectiveFontFamily,
         pixelSize: 22, weight: Font.Normal, letterSpacing: 0 })
+    readonly property font headlineMedium: Qt.font({ family: root.effectiveFontFamily,
+        pixelSize: 28, weight: Font.Normal, letterSpacing: 0 })
     readonly property font headlineSmall: Qt.font({ family: root.effectiveFontFamily,
         pixelSize: 24, weight: Font.Normal, letterSpacing: 0 })
 

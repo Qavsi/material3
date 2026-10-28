@@ -728,6 +728,34 @@
         "circularGapAngle": {
           "$type": "number",
           "$value": 8
+        },
+        "wavyLinearMinimumWidth": {
+          "$type": "dimension",
+          "$value": 240
+        },
+        "wavyCircularSize": {
+          "$type": "dimension",
+          "$value": 48
+        },
+        "linearWaveAmplitude": {
+          "$type": "dimension",
+          "$value": 3
+        },
+        "circularWaveAmplitude": {
+          "$type": "dimension",
+          "$value": 1.6
+        },
+        "determinateWaveLength": {
+          "$type": "dimension",
+          "$value": 40
+        },
+        "indeterminateWaveLength": {
+          "$type": "dimension",
+          "$value": 20
+        },
+        "circularWaveLength": {
+          "$type": "dimension",
+          "$value": 15
         }
       },
       "listCard": {
@@ -779,6 +807,275 @@
         "cardPadding": {
           "$type": "dimension",
           "$value": 16
+        }
+      },
+      "carousel": {
+        "$description": "Pinned QCM 0.6.1 optical geometry. Semantic colors, typography, shape roles, motion and target policy remain in Material3Theme.",
+        "width": {
+          "$type": "dimension",
+          "$value": 480
+        },
+        "height": {
+          "$type": "dimension",
+          "$value": 196
+        },
+        "itemWidth": {
+          "$type": "dimension",
+          "$value": 180
+        },
+        "verticalHeight": {
+          "$type": "dimension",
+          "$value": 320
+        },
+        "crossPadding": {
+          "$type": "dimension",
+          "$value": 8
+        },
+        "minimumSmallWidth": {
+          "$type": "dimension",
+          "$value": 40
+        },
+        "maximumSmallWidth": {
+          "$type": "dimension",
+          "$value": 56
+        },
+        "titleFadeSpan": {
+          "$type": "dimension",
+          "$value": 80
+        },
+        "chromeHeight": {
+          "$type": "dimension",
+          "$value": 40
+        },
+        "chromeSpacing": {
+          "$type": "dimension",
+          "$value": 8
+        },
+        "pagePadding": {
+          "$type": "dimension",
+          "$value": 6
+        },
+        "pageSpacing": {
+          "$type": "dimension",
+          "$value": 6
+        },
+        "pageSize": {
+          "$type": "dimension",
+          "$value": 8
+        }
+      },
+      "picker": {
+        "$description": "Pinned QCM 0.6.1 optical geometry. Semantic colors, typography, shape roles, motion and target policy remain in Material3Theme.",
+        "dateInputWidth": {
+          "$type": "dimension",
+          "$value": 240
+        },
+        "headerMinimumHeight": {
+          "$type": "dimension",
+          "$value": 100
+        },
+        "modeButtonInset": {
+          "$type": "dimension",
+          "$value": 12
+        },
+        "navigationHeight": {
+          "$type": "dimension",
+          "$value": 48
+        },
+        "navigationPadding": {
+          "$type": "dimension",
+          "$value": 12
+        },
+        "navigationGap": {
+          "$type": "dimension",
+          "$value": 4
+        },
+        "yearGridHeight": {
+          "$type": "dimension",
+          "$value": 312
+        },
+        "yearCellHeight": {
+          "$type": "dimension",
+          "$value": 52
+        },
+        "monthCellHeight": {
+          "$type": "dimension",
+          "$value": 78
+        },
+        "weekdayHeight": {
+          "$type": "dimension",
+          "$value": 24
+        },
+        "weekdayPadding": {
+          "$type": "dimension",
+          "$value": 4
+        },
+        "colorButtonWidth": {
+          "$type": "dimension",
+          "$value": 80
+        },
+        "colorButtonHeight": {
+          "$type": "dimension",
+          "$value": 32
+        },
+        "colorButtonGap": {
+          "$type": "dimension",
+          "$value": 2
+        },
+        "colorButtonTrailingExtraWidth": {
+          "$type": "dimension",
+          "$value": 6
+        },
+        "colorButtonIconSize": {
+          "$type": "dimension",
+          "$value": 16
+        },
+        "colorPadding": {
+          "$type": "dimension",
+          "$value": 12
+        },
+        "colorSpacing": {
+          "$type": "dimension",
+          "$value": 12
+        },
+        "colorChannelRowSpacing": {
+          "$type": "dimension",
+          "$value": 6
+        },
+        "colorWheelSize": {
+          "$type": "dimension",
+          "$value": 240
+        },
+        "colorTriangleSize": {
+          "$type": "dimension",
+          "$value": 180
+        },
+        "colorWheelThickness": {
+          "$type": "dimension",
+          "$value": 22
+        },
+        "colorWheelHandleExtension": {
+          "$type": "dimension",
+          "$value": 8
+        },
+        "colorWheelHandleHeight": {
+          "$type": "dimension",
+          "$value": 4
+        },
+        "colorWheelHandleRadius": {
+          "$type": "dimension",
+          "$value": 2
+        },
+        "colorTriangleHandleSize": {
+          "$type": "dimension",
+          "$value": 14
+        },
+        "colorTriangleHandleBorderWidth": {
+          "$type": "dimension",
+          "$value": 2
+        },
+        "colorChannelTrackWidth": {
+          "$type": "dimension",
+          "$value": 220
+        },
+        "colorChannelValueHeight": {
+          "$type": "dimension",
+          "$value": 24
+        },
+        "colorChannelIndicatorWidth": {
+          "$type": "dimension",
+          "$value": 4
+        },
+        "colorChannelIndicatorHeight": {
+          "$type": "dimension",
+          "$value": 24
+        },
+        "colorChannelIndicatorBorderWidth": {
+          "$type": "dimension",
+          "$value": 2
+        },
+        "colorStepperWidth": {
+          "$type": "dimension",
+          "$value": 14
+        },
+        "colorStepperIconSize": {
+          "$type": "dimension",
+          "$value": 12
+        },
+        "colorStepperInset": {
+          "$type": "dimension",
+          "$value": 2
+        },
+        "colorStepperTextInset": {
+          "$type": "dimension",
+          "$value": 6
+        },
+        "colorSwatchSize": {
+          "$type": "dimension",
+          "$value": 20
+        },
+        "width": {
+          "$type": "dimension",
+          "$value": 360
+        },
+        "padding": {
+          "$type": "dimension",
+          "$value": 24
+        },
+        "daySize": {
+          "$type": "dimension",
+          "$value": 40
+        },
+        "daySpacing": {
+          "$type": "dimension",
+          "$value": 8
+        },
+        "dayIndicatorSize": {
+          "$type": "dimension",
+          "$value": 36
+        },
+        "headerPadding": {
+          "$type": "dimension",
+          "$value": 24
+        },
+        "headerVerticalPadding": {
+          "$type": "dimension",
+          "$value": 16
+        },
+        "colorChannelTrackHeight": {
+          "$type": "dimension",
+          "$value": 20
+        },
+        "colorChannelValueWidth": {
+          "$type": "dimension",
+          "$value": 60
+        },
+        "colorChannelLabelWidth": {
+          "$type": "dimension",
+          "$value": 14
+        },
+        "colorCheckerSize": {
+          "$type": "dimension",
+          "$value": 6
+        }
+      },
+      "scrollBar": {
+        "$description": "Pinned QCM 0.6.1 optical geometry. Semantic colors, typography, shape roles, motion and target policy remain in Material3Theme.",
+        "extent": {
+          "$type": "dimension",
+          "$value": 8
+        },
+        "padding": {
+          "$type": "dimension",
+          "$value": 1
+        },
+        "thumbWidth": {
+          "$type": "dimension",
+          "$value": 2
+        },
+        "expandedThumbWidth": {
+          "$type": "dimension",
+          "$value": 6
         }
       }
     }

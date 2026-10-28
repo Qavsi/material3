@@ -3,6 +3,7 @@
 #include "materialcolorscheme.h"
 
 #include "cpp/scheme/scheme_neutral.h"
+#include "cpp/palettes/tones.h"
 #include "cpp/scheme/scheme_tonal_spot.h"
 #include <QDebug>
 #include <algorithm>
@@ -97,4 +98,18 @@ QVariantMap MaterialColorScheme::colors() const
         { QStringLiteral("shadow"), QColor::fromRgba(generated.GetShadow()) }
     };
     return m_colors;
+}
+
+QColor MaterialColorScheme::paletteTone(QColor color, double tone) const
+{
+    if (!color.isValid() || !std::isfinite(tone))
+        return {};
+    const material_color_utilities::Hct hct(color.rgb());
+    const material_color_utilities::TonalPalette palette(hct);
+    return QColor::fromRgba(palette.get(std::clamp(tone, 0.0, 100.0)));
+}
+
+double MaterialColorScheme::toneOf(QColor color) const
+{
+    return color.isValid() ? material_color_utilities::Hct(color.rgb()).get_tone() : 0.0;
 }

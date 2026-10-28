@@ -16,10 +16,17 @@ try {
   const tokens = JSON.parse(await readFile(sourceFile, 'utf8'));
   await writeFile(source, JSON.stringify(tokens));
   await assert.rejects(generateRecipes({ source, directory, check: true }), /Missing generated/);
-  assert.equal(await generateRecipes({ source, directory }), 17);
-  assert.equal(await generateRecipes({ source, directory, check: true }), 17);
+  assert.equal(await generateRecipes({ source, directory }), 20);
+  assert.equal(await generateRecipes({ source, directory, check: true }), 20);
   assert.equal(await readFile(path.join(directory, 'Material3ChipRecipe.js'), 'utf8'),
     formatMaterial3ChipRecipe(resolveDictionary(tokens)));
+
+  for (const [family, field, value] of [
+    ['Carousel', 'itemWidth', 180], ['Picker', 'colorWheelSize', 240], ['ScrollBar', 'thumbWidth', 2],
+  ]) {
+    const generated = await readFile(path.join(directory, `Material3${family}Recipe.js`), 'utf8');
+    assert.ok(generated.includes(`const ${field} = ${value};`), `${family} retains pinned QCM geometry`);
+  }
 
   const button = path.join(directory, 'Material3ButtonRecipe.js');
   const expected = await readFile(button, 'utf8');
@@ -40,6 +47,18 @@ try {
 
   const originalOutputs = new Map(await Promise.all((await readdir(directory)).map(async (name) =>
     [name, await readFile(path.join(directory, name), 'utf8')])));
+  for (const [family, field, value] of [
+    ['carousel', 'maximumSmallWidth', 180],
+    ['picker', 'colorWheelThickness', 120],
+    ['scrollBar', 'thumbWidth', 7],
+  ]) {
+    const invalidGeometry = structuredClone(tokens);
+    invalidGeometry.style.material3[family][field].$value = value;
+    await writeFile(source, JSON.stringify(invalidGeometry));
+    await assert.rejects(generateRecipes({ source, directory }), /must fit/);
+    for (const [name, contents] of originalOutputs)
+      assert.equal(await readFile(path.join(directory, name), 'utf8'), contents);
+  }
   for (const invalidValue of [0, -1, '40', null]) {
     const invalid = structuredClone(tokens);
     invalid.style.material3.button.smallHeight.$value = invalidValue;
