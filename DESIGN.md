@@ -281,8 +281,8 @@ factory/data dosyaları ve C++ registration metadata'sı paketle taşınır.
 selection controls beyond the families documented below remain outside this slice. Split menü referans gibi
 sahne içi Popup.Item ve Qt fallback’ini kullanır.
 İki inline FAB action stack bu karşılaştırmaya dahildir; bütün Expressive FAB
-menu ailesinin eşliği iddia edilmez. Grouped neighbor-width redistribution ve
-font FILL morph açık kalır. Karşılaştırmada StyleKit transition seçimi effectiveReducedMotion’a bağlıdır;
+menu ailesinin eşliği iddia edilmez. Grouped neighbor-width redistribution ve font FILL geçişi artık native
+opt-in helper'larla sağlanır; [hareket/Chips sözleşmesi](docs/families/button-motion-chips.md). Karşılaştırmada StyleKit transition seçimi effectiveReducedMotion’a bağlıdır;
 ripple ve helper’ın kendi motion politikası aynı tercihi izler. Small doğrulama
 örneği için global StyleKit transition’ları kapalı kalır. Tam QmlMaterial veya güncel Expressive
 eşliği iddia edilmez. Qt SDK’sı değiştirilmez.
@@ -896,7 +896,9 @@ button. The Action's handler owns model removal; the style never destroys a chip
 or changes checked/enabled bindings. An unused trailing Action slot creates no
 extra button. Existing Material3Ripple and Material3Elevation supply shader/painter
 policies, Theme/reduced-motion/visibility gates and the kit focus ring.
-Elevated, editing/avatar input chips and drag interactions are deferred.
+Elevated, editing/avatar and native Drag.active inputs are supported; see
+[motion/chips](docs/families/button-motion-chips.md). The application owns editor
+commit/cancel and model changes. Input/Embed keep QCM's no-shadow rendering.
 
 ### Native Action menu ownership
 

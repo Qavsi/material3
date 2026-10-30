@@ -714,6 +714,11 @@
         "embedSpacing": {
           "$type": "dimension",
           "$value": 4
+        },
+        "avatarSize": {
+          "$type": "dimension",
+          "$value": 24,
+          "$description": "Opt-in comparison avatar size; leadingItem remains caller-sized."
         }
       },
       "progress": {

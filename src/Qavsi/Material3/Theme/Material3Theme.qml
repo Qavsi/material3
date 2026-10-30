@@ -235,6 +235,8 @@ QtObject {
     readonly property real listCardCardRadius: ListCardRecipe.cardRadius
     readonly property real listCardCardMinimumSize: ListCardRecipe.cardMinimumSize
     readonly property real listCardCardPadding: ListCardRecipe.cardPadding
+    readonly property real chipAvatarSize: ChipRecipe.avatarSize
+    readonly property real chipDraggedOpacity: 0.16
     readonly property real chipHeight: ChipRecipe.height
     readonly property real badgeDotDiameter: BadgeRecipe.dotDiameter
     readonly property real badgeLabelHeight: BadgeRecipe.labelHeight

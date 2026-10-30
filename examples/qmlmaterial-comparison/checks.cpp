@@ -18,6 +18,7 @@
 int checkPickersCarousel(QQuickWindow &window);
 int checkCarousel(QQuickWindow &window);
 int checkAppearancePanel(QQuickWindow &window);
+int checkAdvancedChips(QQuickWindow &window);
 int checkButtonGroupMotion(QQuickWindow &window);
 int checkProgressInactiveUpdates(QQuickWindow &window);
 int checkInlineDatePicker(QQuickWindow &window);
@@ -1304,6 +1305,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     checkInputSizes(window);
     checkListCards(window);
     checkChips(window);
+    expect(checkAdvancedChips(window) == 0, "advanced chips preserve native editing, selection and application drag ownership");
     checkBadges(window);
     checkCheckBoxes(window);
     checkScrollBar(window);

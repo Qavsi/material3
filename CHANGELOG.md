@@ -5,6 +5,7 @@
 - Add QCM spring corners and native group width feedback, retaining selection,
   RTL, caller sizing, reduced motion and software fallback.
 - Animate Material FILL in quarter steps through the Material icon provider.
+- Add elevated, avatar/editor and application-owned drag feedback to native chips.
 
 - Keep only the Appearance entry in the comparison header; theme selection stays
   in its drawer. Remove the debug motion toggle while retaining the reduced-motion

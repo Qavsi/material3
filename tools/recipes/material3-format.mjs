@@ -26,7 +26,7 @@ const SLIDER_FIELDS = [
 const LIST_CARD_FIELDS = ['oneLineHeight', 'twoLineHeight', 'threeLineHeight', 'minimumWidth', 'leadingPadding', 'trailingPadding', 'verticalPadding', 'spacing', 'iconSize', 'cardRadius', 'cardMinimumSize', 'cardPadding'];
 
 const CHIP_FIELDS = ['height', 'minimumWidth', 'radius', 'padding', 'iconPadding',
-  'spacing', 'iconSize', 'trailingTarget', 'embedSpacing'];
+  'spacing', 'iconSize', 'trailingTarget', 'embedSpacing', 'avatarSize'];
 
 const PROGRESS_FIELDS = ['thickness', 'gap', 'stopDiameter', 'linearMinimumWidth', 'circularSize', 'circularGapAngle', 'wavyLinearMinimumWidth', 'wavyCircularSize', 'linearWaveAmplitude', 'circularWaveAmplitude', 'determinateWaveLength', 'indeterminateWaveLength', 'circularWaveLength'];
 

@@ -6,9 +6,6 @@ families remain usable while these follow-ups are deferred.
 | ID | Area | Remaining work |
 |---|---|---|
 | BTN-001 | Busy buttons | Native-button loading content and determinate/indeterminate progress, including icon-only usage |
-| BTN-002 | Connected groups | Redistribute neighbour widths during press while retaining native selection/input |
-| BTN-003 | Icon motion | Animate intermediate Material FILL axis values; checked-to-filled selection already exists |
-| BTN-004 | Shape motion | Adapt QCM spring-based corner motion; current duration/easing behavior remains |
 
 Current slice: native SK.TextField, default outlined, textFieldFilled variation,
 placeholderText as floating caption, TextFieldSupport affixes/icons/messages,
@@ -32,7 +29,6 @@ Input-family investigations (not confirmed defects):
 
 | ID | Area | Follow-up |
 |---|---|---|
-| CHP-001 | Advanced chips | QCM elevated chips, editing/avatar Input chips and drag interactions; the first slice covers five reference kinds, native selection and separate trailing Action. |
 | TIME-001 | Time picker | Port the QCM analog dial and dial/input mode switching. The existing Dialog/ComboBox already supports 12/24-hour selection and canonical accepted values. |
 | DEMO-001 | Reference pages | Add the QCM Color, Typography and Shape comparison pages. |
 
@@ -47,3 +43,11 @@ Input-family investigations (not confirmed defects):
   consumer and left-screen Metal appearance checked.
 - See [the color contract](DESIGN.md#material-color-utilities) and
   [application navigation](docs/families/app-navigation.md).
+
+## Completed button motion/chips slice — 2026-10-30
+
+- QCM spring corners, opt-in native group width redistribution and quarter-step FILL.
+- Elevated, custom-leading/avatar, editDelegate and native drag chip feedback.
+- Native minimum targets and caller width/text/selection ownership retained.
+- Busy/loading remains BTN-001; model reorder/removal stays application-owned.
+- See [the public contract](docs/families/button-motion-chips.md).

@@ -170,3 +170,9 @@ the same QCM license; no images are installed by the runtime kit.
 The native `colorChoice` RadioButton variation and comparison palette/seed
 choices reference QCM 0.6.1 `qml/misc/ColorRadio.qml` and `example/Example.qml`
 under the MIT notice above. No QCM control or global token runtime is linked.
+
+Button motion/group allocation and advanced chip behavior additionally adapt
+QCM 0.6.1 anim/spring_motion, control/button_group_container, token/motion,
+qml/visual/Icon.qml, qml/chip and style/chip_state from the same pinned revision.
+The existing QCM MIT notice applies. Public Qt animation/input replaces QCM
+runtime ownership; no additional runtime dependency is linked.

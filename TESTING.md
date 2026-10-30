@@ -163,3 +163,9 @@ Theme notifications; lazy panel construction reproduced a crash in that reset.
 The exact list-mutating callback was not isolated. The app keeps the native popup
 alive, and Switch requests are deferred to the next event-loop turn. No SDK patch
 or generic reader workaround is installed.
+
+Button motion/advanced Chips extend only the approved native consumer seam:
+one group scenario covers conserved widths, selection, caller bindings and RTL;
+one chip scenario covers native editor commit and application-owned drag.
+Existing trailing Action checks remain. Icons public render coverage checks
+fractional FILL and invalid-axis fallback, without private nodes/timing probes.

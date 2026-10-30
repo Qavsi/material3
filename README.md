@@ -683,3 +683,8 @@ Qt's native MenuItemIconLabel for text, mnemonics, shortcuts and ordinary QIcons
 The native icon color binds to the helper's StyleReader color; an explicit caller
 assignment retains normal Qt binding ownership. QCM's three reference commands
 include the long label and its document icon.
+
+## Native button motion and advanced Chips
+
+See [usage and boundaries](docs/families/button-motion-chips.md) for spring
+corners, native group allocation, Material FILL and chip editing/avatar/drag.

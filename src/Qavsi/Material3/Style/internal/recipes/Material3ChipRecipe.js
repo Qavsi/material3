@@ -12,3 +12,4 @@ const spacing = 8;
 const iconSize = 18;
 const trailingTarget = 32;
 const embedSpacing = 4;
+const avatarSize = 24;

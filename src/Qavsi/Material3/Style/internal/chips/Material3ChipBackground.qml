@@ -11,6 +11,10 @@ Item {
     required property SK.DelegateStyle delegateStyle
     readonly property Material3ChipParameters parameters: delegateStyle.data as Material3ChipParameters
     readonly property Material3Theme tokens: parameters.tokens
+    readonly property Material3ChipContent styledContent: control.contentItem as Material3ChipContent
+    readonly property bool elevated: parameters.kind !== "dismiss" && (styledContent?.elevated ?? false)
+    readonly property bool hasElevation: parameters.kind === "assist" || parameters.kind === "filter"
+        || parameters.kind === "suggestion"
     readonly property bool selected: control.checked
         && (parameters.kind === "filter" || parameters.kind === "input" || parameters.kind === "embed")
     readonly property color ink: !control.enabled ? tokens.disabledLabel
@@ -24,6 +28,17 @@ Item {
         && control.SK.StyleKit.transitionsEnabled
     readonly property bool focusVisible: feedbackEnabled && control.visualFocus && !ripple.pointerFocus
     readonly property real focusOutset: tokens.focusRingGap + tokens.focusRingWidth
+    readonly property bool dragged: feedbackEnabled && control.Drag.active
+    readonly property color container: elevated && !selected && (control.enabled || parameters.kind !== "filter")
+        ? Qt.alpha(tokens.surfaceContainerLow, tokens.surfaceContainerLow.a * (control.enabled ? 1 : tokens.disabledContainerOpacity))
+        : delegateStyle.color
+    readonly property real targetElevation: !feedbackEnabled || !hasElevation ? tokens.elevationLevel0
+        : dragged ? tokens.elevationLevel4
+        : control.hovered && !control.pressed && !control.visualFocus
+            ? elevated ? tokens.elevationLevel2 : selected ? tokens.elevationLevel1 : tokens.elevationLevel0
+            : elevated ? tokens.elevationLevel1 : tokens.elevationLevel0
+
+    onDraggedChanged: if (dragged) ripple.resetRipple()
 
     objectName: "material3.chip.background"
     width: parent.width
@@ -40,15 +55,13 @@ Item {
         reducedMotion: !root.canAnimate
         color: root.tokens.shadow
         cornerRadii: root.cornerRadii
-        targetElevation: root.feedbackEnabled && root.selected && root.control.hovered
-            && !root.control.pressed && !root.control.visualFocus
-                ? root.tokens.elevationLevel1 : root.tokens.elevationLevel0
+        targetElevation: root.targetElevation
     }
     Rectangle {
         anchors.fill: parent
         radius: root.cornerRadius
-        color: root.delegateStyle.color
-        border.width: root.delegateStyle.border.width
+        color: root.container
+        border.width: root.elevated && root.parameters.kind === "suggestion" ? 0 : root.delegateStyle.border.width
         border.color: root.focusVisible && !root.selected ? root.ink : root.delegateStyle.border.color
         antialiasing: true
     }
@@ -62,7 +75,8 @@ Item {
         cornerRadius: root.cornerRadius
         cornerRadii: root.cornerRadii
         feedbackEnabled: root.feedbackEnabled
-        stateOpacity: root.focusVisible ? root.tokens.interactionOpacity
+        stateOpacity: root.dragged ? root.tokens.chipDraggedOpacity
+            : root.focusVisible ? root.tokens.interactionOpacity
             : root.control.hovered ? root.tokens.hoverOpacity : 0
         pressOpacity: root.tokens.interactionOpacity
         restartOnPress: true
