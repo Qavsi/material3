@@ -1,7 +1,7 @@
 # Material3 backlog
 
-Deferred after the QCM 0.6.1 button-family slice (2026-10-27).
-These items do not block the TextField family.
+Outstanding QCM parity work and focused investigations. Existing native control
+families remain usable while these follow-ups are deferred.
 
 | ID | Area | Remaining work |
 |---|---|---|
@@ -22,14 +22,28 @@ Input-family investigations (not confirmed defects):
 | ID | Area | Follow-up |
 |---|---|---|
 | INPUT-001 | Large option models | Profile popup width measurement for large short-label models before adding a cache; the current short-list path scans on open and stops at the maximum width |
-| SDK-001 | Qt 6.12 StyleKit startup | Cold launches can crash in QQStyleKitReader::resetReadersForStyle when caller popup/delegate readers are created during initial style completion. The comparison defers its caller-popup API examples and reference menus, keeping variation recipe galleries eager. Source repeated starts pass; the SDK root cause remains upstream work. |
+| SDK-001 | Qt 6.12 StyleKit startup | Qt 6.12 can crash in QQStyleKitReader::resetReadersForStyle if its raw reader list changes during startup or a live Theme reset. The comparison defers caller-popup API examples and reference menus, but creates appearance/variation controls with the window and retains them. Source and installed consumer checks pass with these guards; the unsafe SDK reader iteration remains upstream work. |
 | SDK-002 | Qt 6.12.0 ProgressBar mode changes | Default deferred content's Connections access properties on the wrong object. Dynamic modes explicitly use public Material3ProgressContent; static native controls remain supported. Remove the workaround only after an upstream fix and consumer mode-switch verification. |
 
 | ID | Area | Follow-up |
 |---|---|---|
 | RANGE-001 | Minimum span | Native Qt RangeSlider has no pre-accept minimum-span validator. The discrete example is20/80 initially, not an enforced20 gap; do not correct caller values after acceptance. |
-| NAV-001 | Rail motion | Exact QCM spring parity and a complete responsive rail/drawer are outside the isolated item slice; current rail selection uses Theme-based Qt easing. The comparison defers Navigation reader creation until Style completion to avoid SDK-001 in the isolated family build. |
+| NAV-001 | Rail motion | Exact QCM spring/drag reveal parity and the SearchView overlay remain. Responsive rail/drawer, toolbar/search, selection and side sheet are implemented; current motion uses Theme-based Qt easing. Navigation creation retains its SDK-001 startup guard. |
 
 | ID | Area | Follow-up |
 |---|---|---|
 | CHP-001 | Advanced chips | QCM elevated chips, editing/avatar Input chips and drag interactions; the first slice covers five reference kinds, native selection and separate trailing Action. |
+| TIME-001 | Time picker | Port the QCM analog dial and dial/input mode switching. The existing Dialog/ComboBox already supports 12/24-hour selection and canonical accepted values. |
+| DEMO-001 | Reference pages | Add the QCM Color, Typography and Shape comparison pages. |
+
+## Completed color/drawer slice — 2026-10-30
+
+- Nine MCU schemes and 34 semantic roles, with existing enum values, static
+  defaults and caller bindings preserved.
+- QCM palette/seed and brightness choices owned by Main.qml. Header exposes only
+  Appearance; the debug motion button is removed while OS/test APIs stay intact.
+- Shared native Material3Drawer skin and colorChoice SK.RadioButton variation.
+- Independent QCM evidence: 54 scenarios; source/software, relocated installed
+  consumer and left-screen Metal appearance checked.
+- See [the color contract](DESIGN.md#material-color-utilities) and
+  [application navigation](docs/families/app-navigation.md).

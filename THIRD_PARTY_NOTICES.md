@@ -92,7 +92,7 @@ records every original and local SHA-256.
 Local modifications: standard C++ aggregate initialization, standard C++20 pi,
 explicit optional header if needed, and replacing Abseil hexadecimal formatting
 with `std::to_chars`. Modified files carry notices. The color algorithm is unchanged.
-Only Neutral/TonalSpot and their transitive dependencies are compiled; image
+All nine scheme variants and their seed-only transitive dependencies are compiled; image
 quantization, image extraction and scoring are excluded. QmlMaterial is used
 only to record independent reference outputs and is not a kit dependency.
 The kit's own code remains MIT; this does not relicense Google's source files.
@@ -166,3 +166,7 @@ and QCM controls with public Flickable properties, QQuickTransform and native
 StyleKit controls, and connect motion/geometry to Theme. The optional comparison
 example also redistributes its ten `example/assets/carousel/*.jpg` images under
 the same QCM license; no images are installed by the runtime kit.
+
+The native `colorChoice` RadioButton variation and comparison palette/seed
+choices reference QCM 0.6.1 `qml/misc/ColorRadio.qml` and `example/Example.qml`
+under the MIT notice above. No QCM control or global token runtime is linked.

@@ -360,15 +360,21 @@ Material3Theme {
 ```
 
 Bu Theme'i `Material3Style.lightTokens` ve dark:true olan ayrı örneğini
-`darkTokens` girdisine verin. `TonalSpot` da desteklenir; kit varsayılanı
+`darkTokens` girdisine verin. Neutral, TonalSpot, Rainbow, Monochrome, Vibrant,
+Content, Fidelity, Expressive ve FruitSalad desteklenir; kit varsayılanı
 dynamicColors:false olduğundan mevcut uygulamaların rengi değişmez.
-Karşılaştırma uygulaması QCM'nin `#bee7fd / Neutral / contrast0` girdilerini
+Karşılaştırmanın Appearance düğmesi native Material3Drawer'ı açar;
+QCM'nin dokuz palet/seed seçimi ve açık-koyu kontrolü tek Main.qml durumuna
+bağlanır. Light/dark Theme nesneleri aynı canlı seed/scheme girdilerini kullanır.
+Kitteki `colorChoice` native RadioButton variation'ı renk girdisini
+`palette.button` üzerinden alır; normal RadioButton'ları değiştirmez.
+Karşılaştırma uygulaması başlangıçta QCM'nin `#bee7fd / Neutral / contrast0` girdilerini
 iki mod için eşitler. Qt6.12 source/installed tüketimi aynıdır; MCU yalnız Theme
 library'sine gömülen private implementation'dır, yeni runtime bağımlılığı yoktur.
 Örnek kurulumuna ve QCM reference checkout'una ihtiyaç duymadan çalışır.
 
 `QAVSI_MATERIAL3_BUILD_TESTS=ON` ile `material-colors` testi QCM'den bağımsız
-kaydedilmiş12 referans senaryoyu, canlı seed/tema geçişini ve override sahipliğini
+kaydedilmiş54 referans senaryoyu, canlı seed/tema geçişini ve override sahipliğini
 sınar. Renk girdileri ve kapsam sınırları [DESIGN.md](DESIGN.md#material-color-utilities)
 içindedir. MCU [Apache-2.0](third_party/material-color-utilities/LICENSE) lisanslıdır.
 

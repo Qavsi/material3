@@ -16,29 +16,45 @@ SK.ApplicationWindow {
     visible: true
     property bool darkMode: false
     property bool reducedMotion: false
+    property color seedColor: appearanceOptions.defaultSeedColor
+    property int colorScheme: MaterialColorScheme.Neutral
+    readonly property AppearanceOptions appearanceOptions: AppearanceOptions { }
     readonly property Material3Style materialStyle: Material3Style {
         themeName: root.darkMode ? "Dark" : "Light"
         reducedMotion: root.reducedMotion
         lightTokens: Material3Theme {
             dynamicColors: true
-            seedColor: "#bee7fd"
-            scheme: MaterialColorScheme.Neutral
+            seedColor: root.seedColor
+            scheme: root.colorScheme
         }
         darkTokens: Material3Theme {
             dark: true
             dynamicColors: true
-            seedColor: "#bee7fd"
-            scheme: MaterialColorScheme.Neutral
+            seedColor: root.seedColor
+            scheme: root.colorScheme
         }
     }
     SK.StyleKit.style: materialStyle
     SK.StyleKit.transitionsEnabled: !materialStyle.effectiveReducedMotion
+    // Qt 6.12: keep variation readers alive before the first Theme reset.
+    ThemePanel {
+        id: appearancePanel
+        parent: root.contentItem
+        width: Math.min(root.width, root.materialStyle.tokens.appNavigationSheetWidth)
+        height: root.height
+        tokens: root.materialStyle.tokens
+        reducedMotion: root.materialStyle.effectiveReducedMotion
+        choices: root.appearanceOptions
+        seedColor: root.seedColor
+        colorScheme: root.colorScheme
+        darkMode: root.darkMode
+        onSeedColorChangeRequested: value => root.seedColor = value
+        onColorSchemeChangeRequested: value => root.colorScheme = value
+        onDarkModeChangeRequested: value => root.darkMode = value
+    }
     ComparisonPage {
         anchors.fill: parent
         tokens: root.materialStyle.tokens
-        darkMode: root.darkMode
-        reducedMotion: root.materialStyle.effectiveReducedMotion
-        onToggleTheme: root.darkMode = !root.darkMode
-        onToggleMotion: root.reducedMotion = !root.reducedMotion
+        onAppearanceRequested: appearancePanel.open()
     }
 }

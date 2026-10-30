@@ -344,15 +344,40 @@ binding’lerine yazılmaz.
 
 ## Material Color Utilities
 
+Renk seçimi karşılaştırma uygulamasında Main.qml'nin `seedColor`, `colorScheme`
+ve `darkMode` durumudur; lightTokens/darkTokens aynı seed/scheme binding'lerini
+kullanır. ThemePanel native çekmeceyi pencereyle birlikte oluşturur ve
+pencere ömrünce korur; Qt 6.12'de geç variation reader yaratılması tema
+resetinin raw-reader dolaşımını bozabildiği için runtime Loader kullanılmaz. Kapatma sırasında StyleKit reader'larını yok edip sonra
+aynı stilin temasını yenilemez. Açma/kapatma ve klavye davranışı native Qt'dedir.
+
+`Material3Drawer`, StyleKit'in Drawer sunmadığı Qt 6.12 için native Basic.Drawer
+üzerine malzeme/hareket skin'idir; mevcut AppNavigation ve demo bunu paylaşır.
+Theme girdisi açıktır; Basic.Drawer QObject'inde StyleKit attached context açılmaz.
+`colorChoice` variation native SK.RadioButton'ın `palette.button` rengini
+swatch verisi olarak kullanır. Focus, exclusive selection, readonly ve input
+native kalır; 40px hedefte 28px QCM yüzeyi ve seçim halkası kanonik RadioButton
+recipe'indedir. Normal form RadioButton'ları değişmez.
+
+Demo AppearanceOptions.qml içindeki hex'ler QCM'nin seçilebilir başlangıç
+renkleri ve varsayılan seed girdisidir; kontrol boyama token'ları değildir.
+Palet seçenekleri açık enum değerleri taşır: Neutral=0 ve TonalSpot=1 korunur,
+UI sırası enum ordinal'i olarak kullanılmaz. Kontrast API'si korunur; drawer
+QCM gibi contrast=0 kullanır. Header yalnız Appearance açma ikonunu sunar;
+açık/koyu seçimi paneldedir. Global Motion düğmesi gösterilmez; reducedMotion
+API'si, OS tercihi ve test girdisi korunur.
+
+
 `Material3Theme.dynamicColors` varsayılan `false` olarak mevcut MDC-Android
-light/dark rol değerlerini korur. `true` olduğunda mevcut 20 semantik renk rolü,
+light/dark rol değerlerini korur. `true` olduğunda 34 semantik renk rolü,
 kit içindeki Google Material Color Utilities C++ hesaplayıcısına bağlanır.
 Geometri, typografi, disabled alpha, ripple/focus ve software painter sözleşmesi
 değişmez. Her rol normal QML binding'idir: caller'ın açık renk veya canlı binding
 override'ı seed/mode değişimi sırasında imperatif atamayla silinmez.
 
 Girdiler: `seedColor` (varsayılan `#6750a4`), `scheme`
-(`MaterialColorScheme.TonalSpot` varsayılan; ayrıca `Neutral`), `contrastLevel`
+(`MaterialColorScheme.TonalSpot` varsayılan; ayrıca `Neutral`, `Rainbow`,
+`Monochrome`, `Vibrant`, `Content`, `Fidelity`, `Expressive`, `FruitSalad`), `contrastLevel`
 (varsayılan0) ve mevcut `dark`. Seed/scheme/contrast, Theme'in instance-owned
 `colorScheme` hesaplayıcısına alias'tır. Geçersiz seed/enum ve non-finite contrast
 son geçerli değeri koruyarak diagnostic üretir; seed alpha opaque'a normalize
@@ -361,8 +386,9 @@ ayarlarına otomatik bağlantı iddiası değildir.
 
 MCU kaynağı `material-foundation/material-color-utilities`
 `ca894db8b6aebb2833f1805ae61573c92e3f1660` revizyonuna sabittir. QCM'nin aynı
-renk algoritmasıyla eşleşen Neutral/TonalSpot seed-only closure'ı kullanılır:
-29 upstream dosya,13 C++ translation unit. Image quantization, score, Abseil,
+renk algoritmasıyla eşleşen dokuz şemanın seed-only closure'ı kullanılır:
+47 upstream dosya,22 C++ translation unit. Content/Fidelity için TemperatureCache
+ve Lab dönüşümü gerekir; tam görüntü quantizer'ı dahil edilmez. Image quantization, score, Abseil,
 QCM control/window/global Theme altyapısı alınmaz. C++20 aggregate/pi/header
 taşınabilirlik düzeltmeleri ve HexFromArgb'ın `std::to_chars` karşılığı dışında
 renk algoritması değiştirilmez. Değiştirilen dosyalar ve upstream/local hash'ler
@@ -379,9 +405,9 @@ Karşılaştırma kompozisyonunda lightTokens ve darkTokens ayrı ayrı dynamicC
 açar; seed `#bee7fd`, scheme `Neutral`, contrast0 ile QCM'nin varsayılanına eşitlenir.
 QCM'nin palette üretimi contrast0 sabitler; farklı contrast seviyelerinde QCM
 eşliği iddia edilmez. Bağımsız fixture, gerçek derlenmiş `MdColorMgr` üzerinden
-üç seed ×iki scheme ×light/dark12 senaryo kaydeder; her senaryoda mevcut20 rol
-ARGB düzeyinde karşılaştırılır. Ham QCM çıktısı62 rol içerir; yeni kitin eksik
-42 rolünün taşındığı anlamına gelmez. [Referans kanıtı](evidence/material-color-reference.json).
+üç seed ×dokuz scheme ×light/dark54 senaryo kaydeder; her senaryoda 34 rol
+ARGB düzeyinde karşılaştırılır. Ham QCM çıktısı62 rol içerir; fixed/legacy/neutral
+palette örneklerinin tümünün kit rolü olarak sunulduğu anlamına gelmez. [Referans kanıtı](evidence/material-color-reference.json).
 
 ## Qavsi.Icons bağlantısı ve FILL politikası
 

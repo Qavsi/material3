@@ -17,6 +17,7 @@
 
 int checkPickersCarousel(QQuickWindow &window);
 int checkCarousel(QQuickWindow &window);
+int checkAppearancePanel(QQuickWindow &window);
 int checkProgressInactiveUpdates(QQuickWindow &window);
 int checkInlineDatePicker(QQuickWindow &window);
 int checkInlineColorPicker(QQuickWindow &window);
@@ -1322,6 +1323,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     expect(checkInlineColorPicker(window) == 0, "inline color picker public behavior");
     expect(checkCarousel(window) == 0, "carousel model lifetime and layout selection");
     expect(checkPickersCarousel(window) == 0, "picker and carousel public behavior");
+    expect(checkAppearancePanel(window) == 0, "appearance drawer preserves native controls and live Theme bindings");
     expect(!window.grabWindow().isNull(), "the comparison consumer renders with its imported kit and icons");
     expect(warnings.isEmpty(), "gallery interactions produce no QML warnings");
     qInfo() << "Qt" << qVersion() << "comparison assertions" << assertions << "failures" << failures;

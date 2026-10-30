@@ -147,3 +147,19 @@ native Button state, disabled native ProgressBar
 value changes update its rendered fill, date-bound changes retain a keyboard Tab
 entry and a read-only date field dismisses/rejects an already-open calendar.
 No private engine/attached-property probes or per-layout/frame matrix is added.
+
+
+Appearance coverage extends the existing native-consumer seam once: open the
+native drawer, choose a palette and seed through actual pointer/keyboard input,
+toggle brightness, preserve an existing TextField and caller text, then dismiss
+and reopen with the same selection. Control names belong to the comparison app.
+The existing Theme oracle covers 3 seeds x 9 schemes x light/dark at QCM's
+contrast=0, with exact ARGB for 34 roles. Fixed static-role references come from
+the pinned MDC XML. No per-control/palette/renderer timing matrix is introduced.
+
+The appearance popup and its variation readers are constructed with the window,
+before the first Theme reset. Qt 6.12 iterates its raw reader registry across
+Theme notifications; lazy panel construction reproduced a crash in that reset.
+The exact list-mutating callback was not isolated. The app keeps the native popup
+alive, and Switch requests are deferred to the next event-loop turn. No SDK patch
+or generic reader workaround is installed.

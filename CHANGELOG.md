@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Keep only the Appearance entry in the comparison header; theme selection stays
+  in its drawer. Remove the debug motion toggle while retaining the reduced-motion
+  API, OS accessibility preference and existing coverage.
+
+- Add all nine Material Color Utilities schemes and 11 missing semantic color
+  roles, preserving existing enum values, static defaults and caller bindings.
+- Add QCM-referenced palette/seed and brightness choices in a persistent native
+  appearance drawer; share Material3Drawer materials and motion with application
+  navigation. Color swatches use the native RadioButton colorChoice variation.
+- Expand independent QCM color evidence to 54 scenarios and retain source,
+  installed, reduced-motion and software consumer coverage.
+
 - Fix Carousel item-model destruction and runtime layout selection, inactive
   ProgressBar rendering, calendar Tab recovery after bound changes, and date
   popup editability when its field becomes read-only/disabled/hidden.
