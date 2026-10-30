@@ -16,6 +16,7 @@ SK.Theme {
     readonly property Material3ListCardVariations listCardVariations: Material3ListCardVariations {
         sourceStyle: root.sourceStyle
     }
+    readonly property Material3ColorChoiceVariation colorChoice: Material3ColorChoiceVariation { sourceStyle: root.sourceStyle }
     readonly property Material3ChipVariations chipVariations: Material3ChipVariations {
         sourceStyle: root.sourceStyle
     }

@@ -12,7 +12,8 @@ Item {
     readonly property Material3RadioButtonParameters parameters: delegateStyle.data as Material3RadioButtonParameters
     readonly property Material3Theme tokens: parameters.tokens
     readonly property bool active: control.hovered || control.pressed || control.visualFocus
-    readonly property color ink: !control.enabled ? tokens.radioDisabledIndicator
+    readonly property color ink: parameters.colorChoice ? control.palette.button
+        : !control.enabled ? tokens.radioDisabledIndicator
         : control.checked ? tokens.radioCheckedIndicator : active ? tokens.radioActiveIndicator : tokens.radioIndicator
     readonly property color stateLayerColor: control.pressed
         ? control.checked ? tokens.radioCheckedPressedStateLayer : tokens.radioPressedStateLayer
@@ -63,17 +64,21 @@ Item {
     Rectangle {
         anchors.fill: parent
         radius: width / 2
-        color: root.tokens.transparent
-        border.width: root.tokens.radioOutlineWidth
+        color: root.parameters.colorChoice ? root.ink : root.tokens.transparent
+        border.width: root.parameters.colorChoice ? 0 : root.tokens.radioOutlineWidth
         border.color: root.ink
         antialiasing: true
     }
     Rectangle {
         anchors.centerIn: parent
-        width: root.tokens.radioDotDiameter * root.selectionProgress
+        width: (root.parameters.colorChoice ? root.tokens.radioColorChoiceSelectedDiameter
+            : root.tokens.radioDotDiameter) * root.selectionProgress
         height: width
         radius: width / 2
         color: root.ink
+        border.width: root.parameters.colorChoice
+            ? root.tokens.radioColorChoiceSelectionRingWidth * root.selectionProgress : 0
+        border.color: root.tokens.surface
         antialiasing: true
     }
     Rectangle {
@@ -84,7 +89,7 @@ Item {
         color: root.tokens.transparent
         border.width: root.tokens.radioFocusIndicatorWidth
         border.color: root.ink
-        visible: root.feedbackEnabled && root.control.visualFocus
+        visible: !root.parameters.colorChoice && root.feedbackEnabled && root.control.visualFocus
         antialiasing: true
     }
     Material3Ripple {

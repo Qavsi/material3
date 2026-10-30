@@ -83,30 +83,13 @@ SK.Pane {
         }
     }
 
-    component Sheet: Basic.Drawer {
-        id: sheet
+    component Sheet: Material3Drawer {
         parent: root
         width: Math.min(root.tokens.appNavigationSheetWidth, root.width)
         height: root.height
-        padding: root.tokens.spacingMedium
-        focus: true
+        tokens: root.tokens
+        reducedMotion: root.effectiveReducedMotion
         interactive: modal ? root.navigationMode === "drawer" : root.sideSheetContent !== null
-        closePolicy: Basic.Popup.CloseOnEscape | Basic.Popup.CloseOnPressOutside
-        enter: Transition {
-            NumberAnimation { property: "position"; duration: root.motionDuration; easing.type: root.tokens.appNavigationMotionEasing }
-        }
-        exit: Transition {
-            NumberAnimation { property: "position"; duration: root.motionDuration; easing.type: root.tokens.appNavigationMotionEasing }
-        }
-        background: Rectangle {
-            color: root.tokens.surfaceContainer
-            topLeftRadius: sheet.edge === Qt.RightEdge ? root.tokens.radiusLarge : 0
-            bottomLeftRadius: topLeftRadius
-            topRightRadius: sheet.edge === Qt.LeftEdge ? root.tokens.radiusLarge : 0
-            bottomRightRadius: topRightRadius
-        }
-        Basic.Overlay.modal: Rectangle { color: Qt.alpha(root.tokens.shadow, root.tokens.appNavigationScrimOpacity) }
-        Basic.Overlay.modeless: Item { }
     }
     readonly property Basic.Drawer drawer: Sheet {
         id: drawerPopup

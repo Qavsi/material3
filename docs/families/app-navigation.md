@@ -93,6 +93,12 @@ The optional details drawer remains interactive: Qt documents nonmodal plus
 noninteractive Drawer as a persistent, non-closable panel
 ([Qt6.12 Drawer](https://doc.qt.io/qt-6/qml-qtquick-controls-drawer.html)).
 
+The exported `Material3Drawer` shares this native material/motion skin with the
+comparison appearance panel. It requires explicit `Material3Theme tokens`, keeps
+native Popup/Drawer APIs, and combines padding with Qt SafeArea margins.
+Its `reducedMotion` input, OS preference and parent StyleKit transitions control
+the motion; it creates no StyleKit attached context on the Basic.Drawer QObject.
+
 Qt 6.12 StyleKit has no Drawer type or style slot. Only the implementation imports
 `QtQuick.Controls.Basic` for native Drawer, with Theme-owned surfaces and scrim;
 public controls continue using StyleKit. Modal navigation uses a 0.32 scrim;

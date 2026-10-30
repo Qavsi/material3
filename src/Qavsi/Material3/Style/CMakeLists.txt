@@ -89,7 +89,8 @@ set(material3_badge_files
 set(material3_radio_files
     internal/radiobuttons/Material3RadioButtonDelegate.qml
     internal/radiobuttons/Material3RadioButtonParameters.qml
-    internal/radiobuttons/Material3RadioButtonIndicator.qml)
+    internal/radiobuttons/Material3RadioButtonIndicator.qml
+    internal/radiobuttons/Material3ColorChoiceVariation.qml)
 set(material3_switch_files
     internal/switches/Material3SwitchDelegate.qml
     internal/switches/Material3SwitchParameters.qml
@@ -185,7 +186,7 @@ qt_add_qml_module(${module_target} SHARED
         internal/menus/Material3MenuItemBackground.qml
         internal/menus/Material3MenuEnterTransition.qml
         internal/menus/Material3MenuExitTransition.qml
-        Material3AppNavigation.qml ${material3_app_navigation_files}
+        Material3Drawer.qml Material3AppNavigation.qml ${material3_app_navigation_files}
         Material3ProgressContent.qml ${material3_progress_files}
         Material3ButtonContent.qml Material3ListItemContent.qml ${material3_listcard_files} Material3ChipContent.qml Material3MenuItemContent.qml Material3Badge.qml ${material3_badge_files} ${material3_advanced_files} ${material3_menu_files} ${material3_field_files} ${material3_combo_files}
         Material3DialogEnterTransition.qml Material3DialogExitTransition.qml Material3DialogOverlay.qml
