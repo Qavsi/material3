@@ -34,6 +34,17 @@ QtObject {
     property color primaryForeground: root.dynamicColors ? root.colorScheme.colors.primaryForeground : (dark ? "#381e72" : "#ffffff")
     property color primaryContainer: root.dynamicColors ? root.colorScheme.colors.primaryContainer : (dark ? "#4f378b" : "#eaddff")
     property color primaryContainerForeground: root.dynamicColors ? root.colorScheme.colors.primaryContainerForeground : (dark ? "#eaddff" : "#21005d")
+    property color tertiary: root.dynamicColors ? root.colorScheme.colors.tertiary : (root.dark ? "#efb8c8" : "#7d5260")
+    property color tertiaryForeground: root.dynamicColors ? root.colorScheme.colors.tertiaryForeground : (root.dark ? "#492532" : "#ffffff")
+    property color tertiaryContainer: root.dynamicColors ? root.colorScheme.colors.tertiaryContainer : (root.dark ? "#633b48" : "#ffd8e4")
+    property color tertiaryContainerForeground: root.dynamicColors ? root.colorScheme.colors.tertiaryContainerForeground : (root.dark ? "#ffd8e4" : "#31111d")
+    property color errorContainer: root.dynamicColors ? root.colorScheme.colors.errorContainer : (root.dark ? "#8c1d18" : "#f9dedc")
+    property color errorContainerForeground: root.dynamicColors ? root.colorScheme.colors.errorContainerForeground : (root.dark ? "#f9dedc" : "#410e0b")
+    property color surfaceDim: root.dynamicColors ? root.colorScheme.colors.surfaceDim : (root.dark ? "#141218" : "#ded8e1")
+    property color surfaceBright: root.dynamicColors ? root.colorScheme.colors.surfaceBright : (root.dark ? "#3b383e" : "#fef7ff")
+    property color surfaceContainerLowest: root.dynamicColors ? root.colorScheme.colors.surfaceContainerLowest : (root.dark ? "#0f0d13" : "#ffffff")
+    property color inversePrimary: root.dynamicColors ? root.colorScheme.colors.inversePrimary : (root.dark ? "#6750a4" : "#d0bcff")
+    property color scrim: root.dynamicColors ? root.colorScheme.colors.scrim : (root.dark ? "#000000" : "#000000")
     property color secondary: root.dynamicColors ? root.colorScheme.colors.secondary : (dark ? "#ccc2dc" : "#625b71")
     property color secondaryForeground: root.dynamicColors ? root.colorScheme.colors.secondaryForeground : (dark ? "#332d41" : "#ffffff")
     property color secondaryContainer: root.dynamicColors ? root.colorScheme.colors.secondaryContainer : (dark ? "#4a4458" : "#e8def8")
@@ -296,6 +307,9 @@ QtObject {
     readonly property color checkBoxStateLayer: surfaceForeground
     readonly property color checkBoxSelectedStateLayer: primary
 
+    readonly property real radioColorChoiceDiameter: RadioRecipe.colorChoiceDiameter
+    readonly property real radioColorChoiceSelectedDiameter: RadioRecipe.colorChoiceSelectedDiameter
+    readonly property real radioColorChoiceSelectionRingWidth: RadioRecipe.colorChoiceSelectionRingWidth
     readonly property real radioIndicatorDiameter: RadioRecipe.indicatorDiameter
     readonly property real radioOutlineWidth: RadioRecipe.outlineWidth
     readonly property real radioDotDiameter: RadioRecipe.dotDiameter

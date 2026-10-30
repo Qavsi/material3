@@ -1,7 +1,7 @@
 {
   "repository": "https://github.com/material-foundation/material-color-utilities",
   "revision": "ca894db8b6aebb2833f1805ae61573c92e3f1660",
-  "scope": "Neutral and TonalSpot seed-only transitive C++ closure; no quantization, score, image extraction or Abseil",
+  "scope": "All nine seed-scheme transitive C++ closure; Lab conversion is required by temperature harmonies, no image quantizer, score, image extraction or Abseil",
   "files": {
     "cpp/cam/cam.cc": {
       "upstreamSha256": "a120f09dbe64512178905c73c1f3098e457ec6e6467f4b44aee4de38d7ec14df",
@@ -95,6 +95,54 @@
       "upstreamSha256": "710d877fc2d84987bb45e2a1d9ec51aec7e9138fb9b47baed157ed98073567a0",
       "sha256": "710d877fc2d84987bb45e2a1d9ec51aec7e9138fb9b47baed157ed98073567a0"
     },
+    "cpp/quantize/lab.cc": {
+      "upstreamSha256": "971c1255b3d335e52b8a130ce929a89486da179871e1acf40d596e4384a8ba47",
+      "sha256": "971c1255b3d335e52b8a130ce929a89486da179871e1acf40d596e4384a8ba47"
+    },
+    "cpp/quantize/lab.h": {
+      "upstreamSha256": "cd78859472a34ddf24b9e4c0f8475626cdec7d285d46afbba851d742b2f89b35",
+      "sha256": "cd78859472a34ddf24b9e4c0f8475626cdec7d285d46afbba851d742b2f89b35"
+    },
+    "cpp/scheme/scheme_content.cc": {
+      "upstreamSha256": "e7e8b7aaac3ba6a611f9583295e7ba186706047618dd9e5afabee593e2afc495",
+      "sha256": "e7e8b7aaac3ba6a611f9583295e7ba186706047618dd9e5afabee593e2afc495"
+    },
+    "cpp/scheme/scheme_content.h": {
+      "upstreamSha256": "a710eabaabef46e7a708aaf5f8bcc16b73645d6da69a18c88e5fc7e54b94c954",
+      "sha256": "a710eabaabef46e7a708aaf5f8bcc16b73645d6da69a18c88e5fc7e54b94c954"
+    },
+    "cpp/scheme/scheme_expressive.cc": {
+      "upstreamSha256": "43947c859acf7b0d7a9914f85702e406cc520f34708aafe22e384773cbd6ec94",
+      "sha256": "43947c859acf7b0d7a9914f85702e406cc520f34708aafe22e384773cbd6ec94"
+    },
+    "cpp/scheme/scheme_expressive.h": {
+      "upstreamSha256": "6037ca200b59cbf9bb4350a95feb453f6f9853e069246965f8c66094f938c5b5",
+      "sha256": "6037ca200b59cbf9bb4350a95feb453f6f9853e069246965f8c66094f938c5b5"
+    },
+    "cpp/scheme/scheme_fidelity.cc": {
+      "upstreamSha256": "cb509fc775730af8d358b06ef89ca7e2135d4bfb78925ee7bdedd3a0adc386f6",
+      "sha256": "cb509fc775730af8d358b06ef89ca7e2135d4bfb78925ee7bdedd3a0adc386f6"
+    },
+    "cpp/scheme/scheme_fidelity.h": {
+      "upstreamSha256": "a12b8e7c76d804cc99a568e4806e02fc0e4c0fd54c29d9d331c98a2ed36fa0c5",
+      "sha256": "a12b8e7c76d804cc99a568e4806e02fc0e4c0fd54c29d9d331c98a2ed36fa0c5"
+    },
+    "cpp/scheme/scheme_fruit_salad.cc": {
+      "upstreamSha256": "39f3bc67e4f55e3366671839facdeeeaf339916cfb33fae01f5fd41eb1b9b730",
+      "sha256": "39f3bc67e4f55e3366671839facdeeeaf339916cfb33fae01f5fd41eb1b9b730"
+    },
+    "cpp/scheme/scheme_fruit_salad.h": {
+      "upstreamSha256": "20af7b53d33510374c0a77ed8a130aff8a2b0eb946044920a2cf93332076b10b",
+      "sha256": "20af7b53d33510374c0a77ed8a130aff8a2b0eb946044920a2cf93332076b10b"
+    },
+    "cpp/scheme/scheme_monochrome.cc": {
+      "upstreamSha256": "7ed8e1934a435254d01a39172847304442bfba219523464023f9d5d0601af9e6",
+      "sha256": "7ed8e1934a435254d01a39172847304442bfba219523464023f9d5d0601af9e6"
+    },
+    "cpp/scheme/scheme_monochrome.h": {
+      "upstreamSha256": "013e65b152633e323c1141b58100b589b79bdc1b4adc99a4ef1ebba0ecd5f51b",
+      "sha256": "013e65b152633e323c1141b58100b589b79bdc1b4adc99a4ef1ebba0ecd5f51b"
+    },
     "cpp/scheme/scheme_neutral.cc": {
       "upstreamSha256": "2096bab85bfbfa11aba689988d27851c6c0b91bb3bba1b3f39ffb260b91fbc41",
       "sha256": "2096bab85bfbfa11aba689988d27851c6c0b91bb3bba1b3f39ffb260b91fbc41"
@@ -103,6 +151,14 @@
       "upstreamSha256": "8aab018a590e2deaa5228db4fcb75e665720d9f5bcdf826a0149ce3f8629c32a",
       "sha256": "8aab018a590e2deaa5228db4fcb75e665720d9f5bcdf826a0149ce3f8629c32a"
     },
+    "cpp/scheme/scheme_rainbow.cc": {
+      "upstreamSha256": "69613747bdd800e407302ce029dcef7f7727f21e18503cc2893a0e79c563798d",
+      "sha256": "69613747bdd800e407302ce029dcef7f7727f21e18503cc2893a0e79c563798d"
+    },
+    "cpp/scheme/scheme_rainbow.h": {
+      "upstreamSha256": "a3e2e745eecd9eec5ec708f4101204415fb95362ee6919c4fa9c1d79f7573cd3",
+      "sha256": "a3e2e745eecd9eec5ec708f4101204415fb95362ee6919c4fa9c1d79f7573cd3"
+    },
     "cpp/scheme/scheme_tonal_spot.cc": {
       "upstreamSha256": "c2e0b6ce706441bfde3cc9bf0c06523b097f63cdfc3238c2b21d644f0ced6e88",
       "sha256": "c2e0b6ce706441bfde3cc9bf0c06523b097f63cdfc3238c2b21d644f0ced6e88"
@@ -110,6 +166,22 @@
     "cpp/scheme/scheme_tonal_spot.h": {
       "upstreamSha256": "c2b62f305fbbd482a9ff78a4d6de53d1092aaa8637c5353128515c11132513d6",
       "sha256": "c2b62f305fbbd482a9ff78a4d6de53d1092aaa8637c5353128515c11132513d6"
+    },
+    "cpp/scheme/scheme_vibrant.cc": {
+      "upstreamSha256": "fab5a0eb840062d5f219f65d244aec18f2f9f303129167cc5e09fa88969e47b1",
+      "sha256": "fab5a0eb840062d5f219f65d244aec18f2f9f303129167cc5e09fa88969e47b1"
+    },
+    "cpp/scheme/scheme_vibrant.h": {
+      "upstreamSha256": "b829dd2aff44970db58e3bbca8d4d76e31c1088e22465700343bb33d6bed4158",
+      "sha256": "b829dd2aff44970db58e3bbca8d4d76e31c1088e22465700343bb33d6bed4158"
+    },
+    "cpp/temperature/temperature_cache.cc": {
+      "upstreamSha256": "87e27ceb3d83297d57aa91436f3413fa9910c7c6fb18857b9dfd852665501d46",
+      "sha256": "87e27ceb3d83297d57aa91436f3413fa9910c7c6fb18857b9dfd852665501d46"
+    },
+    "cpp/temperature/temperature_cache.h": {
+      "upstreamSha256": "8e65c42d6af46a008bff4a0b81db6cd27639e52c863fb1705c9bd965b555eaaf",
+      "sha256": "484e53aaffdd4974d043cb63eba0a18162da84d239afc588a69a0faaa7e211da"
     },
     "cpp/utils/utils.cc": {
       "upstreamSha256": "f85c6065d68c8b45220da9715167907bf0c298471ed848771d7974ef0e426c9a",

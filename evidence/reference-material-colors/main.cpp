@@ -1,4 +1,5 @@
 #include <QGuiApplication>
+#include <utility>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -14,8 +15,12 @@ int main(int argc, char **argv) {
     QJsonArray cases;
     for (const char *seed : {"#bee7fd", "#6750a4", "#006875"}) {
         colors.setAccentColor(QColor(QString::fromLatin1(seed)));
-        for (const auto scheme : {qml_material::Enum::PaletteType::PaletteNeutral,
-                                  qml_material::Enum::PaletteType::PaletteTonalSpot}) {
+        using Palette = qml_material::Enum::PaletteType;
+        for (const auto [name, scheme] : {std::pair{"Neutral", Palette::PaletteNeutral},
+                {"TonalSpot", Palette::PaletteTonalSpot}, {"Rainbow", Palette::PaletteRainbow},
+                {"Monochrome", Palette::PaletteMonochrome}, {"Vibrant", Palette::PaletteVibrant},
+                {"Content", Palette::PaletteContent}, {"Fidelity", Palette::PaletteFidelity},
+                {"Expressive", Palette::PaletteExpressive}, {"FruitSalad", Palette::PaletteFruitSalad}}) {
             colors.setPaletteType(scheme);
             for (const auto mode : {qml_material::Enum::ThemeMode::Light, qml_material::Enum::ThemeMode::Dark}) {
                 colors.setMode(mode);
@@ -33,7 +38,7 @@ int main(int argc, char **argv) {
                 if (roles.size() < 40) return 3;
                 cases.append(QJsonObject{
                     {"seed", QString::fromLatin1(seed)},
-                    {"scheme", scheme == qml_material::Enum::PaletteType::PaletteNeutral ? "Neutral" : "TonalSpot"},
+                    {"scheme", QString::fromLatin1(name)},
                     {"dark", mode == qml_material::Enum::ThemeMode::Dark},
                     {"contrastLevel", 0.0}, {"roles", roles}});
             }

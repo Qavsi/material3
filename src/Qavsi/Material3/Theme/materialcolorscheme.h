@@ -17,7 +17,17 @@ class MaterialColorScheme : public QObject
     Q_PROPERTY(double contrastLevel READ contrastLevel WRITE setContrastLevel NOTIFY contrastLevelChanged FINAL)
     Q_PROPERTY(QVariantMap colors READ colors NOTIFY colorsChanged FINAL)
 public:
-    enum Scheme { Neutral, TonalSpot };
+    enum Scheme {
+        Neutral = 0,
+        TonalSpot = 1,
+        Rainbow = 2,
+        Monochrome = 3,
+        Vibrant = 4,
+        Content = 5,
+        Fidelity = 6,
+        Expressive = 7,
+        FruitSalad = 8,
+    };
     Q_ENUM(Scheme)
     explicit MaterialColorScheme(QObject *parent = nullptr) : QObject(parent) {}
     QColor seedColor() const { return m_seedColor; }

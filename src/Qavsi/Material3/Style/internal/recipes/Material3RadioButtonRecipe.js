@@ -8,3 +8,6 @@ const outlineWidth = 2;
 const dotDiameter = 10;
 const stateLayerDiameter = 40;
 const focusWidth = 2.5;
+const colorChoiceDiameter = 28;
+const colorChoiceSelectedDiameter = 22.4;
+const colorChoiceSelectionRingWidth = 4.48;

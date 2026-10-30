@@ -9,6 +9,15 @@ add_library(QavsiMaterialColorUtilities OBJECT
     cpp/dynamiccolor/dynamic_scheme.cc
     cpp/dynamiccolor/material_dynamic_colors.cc
     cpp/palettes/tones.cc
+    cpp/scheme/scheme_rainbow.cc
+    cpp/scheme/scheme_monochrome.cc
+    cpp/scheme/scheme_vibrant.cc
+    cpp/scheme/scheme_content.cc
+    cpp/scheme/scheme_fidelity.cc
+    cpp/scheme/scheme_expressive.cc
+    cpp/scheme/scheme_fruit_salad.cc
+    cpp/temperature/temperature_cache.cc
+    cpp/quantize/lab.cc
     cpp/scheme/scheme_neutral.cc
     cpp/scheme/scheme_tonal_spot.cc
     cpp/utils/utils.cc

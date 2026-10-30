@@ -663,6 +663,18 @@
         "focusWidth": {
           "$type": "dimension",
           "$value": 2.5
+        },
+        "colorChoiceDiameter": {
+          "$type": "dimension",
+          "$value": 28
+        },
+        "colorChoiceSelectedDiameter": {
+          "$type": "dimension",
+          "$value": 22.4
+        },
+        "colorChoiceSelectionRingWidth": {
+          "$type": "dimension",
+          "$value": 4.48
         }
       },
       "chip": {

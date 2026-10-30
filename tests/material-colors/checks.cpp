@@ -7,6 +7,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QMetaEnum>
 #include <QQmlComponent>
 #include <QQmlEngine>
 #include <QSignalSpy>
@@ -93,24 +94,43 @@ int main(int argc, char **argv)
     expect(color(theme.get(), "primary") == QColor(QStringLiteral("#6750a4"))
                && color(theme.get(), "surface") == QColor(QStringLiteral("#fef7ff")),
            QStringLiteral("legacy light primary and surface stay unchanged"));
+    const auto staticRoles = evidence.value(QStringLiteral("staticMdcPalettes")).toObject();
+    const auto checkStatic = [&](const QString &mode) {
+        const auto expected = staticRoles.value(mode).toObject();
+        expect(expected.size() == 11, QStringLiteral("the static MDC extension contains eleven semantic roles"));
+        for (auto role = expected.begin(); role != expected.end(); ++role)
+            expect(color(theme.get(), role.key().toUtf8().constData()) == QColor(role.value().toString()),
+                   QStringLiteral("MDC static %1 %2").arg(mode, role.key()));
+    };
+    checkStatic(QStringLiteral("light"));
     theme->setProperty("dark", true);
+    checkStatic(QStringLiteral("dark"));
     expect(color(theme.get(), "primary") == QColor(QStringLiteral("#d0bcff"))
                && color(theme.get(), "surface") == QColor(QStringLiteral("#141218")),
            QStringLiteral("legacy dark primary and surface stay unchanged"));
+    const auto schemeIndex = toneSource ? toneSource->metaObject()->indexOfEnumerator("Scheme") : -1;
+    const auto schemeEnum = schemeIndex >= 0 ? toneSource->metaObject()->enumerator(schemeIndex) : QMetaEnum();
+    expect(schemeEnum.isValid() && schemeEnum.keyToValue("Neutral") == 0
+               && schemeEnum.keyToValue("TonalSpot") == 1,
+           QStringLiteral("existing public Neutral/TonalSpot enum values remain stable"));
+    expect(cases.size() == 54 && schemeEnum.keyCount() == 9,
+           QStringLiteral("the independent oracle covers all nine public schemes in both modes and three seeds"));
     theme->setProperty("dynamicColors", true);
     for (const auto &entry : cases) {
         const auto test = entry.toObject();
         const auto seed = test.value(QStringLiteral("seed")).toString();
         const auto scheme = test.value(QStringLiteral("scheme")).toString();
         const bool dark = test.value(QStringLiteral("dark")).toBool();
+        bool knownScheme = false;
+        const int schemeValue = schemeEnum.keyToValue(scheme.toUtf8().constData(), &knownScheme);
+        expect(knownScheme, QStringLiteral("oracle scheme %1 maps to its named public QML enum").arg(scheme));
+        if (!knownScheme) continue;
         expect(theme->setProperty("seedColor", QColor(seed))
-                   && theme->setProperty("scheme", scheme == QStringLiteral("Neutral") ? 0 : 1)
+                   && theme->setProperty("scheme", schemeValue)
                    && theme->setProperty("dark", dark)
                    && theme->setProperty("contrastLevel", 0.0),
                QStringLiteral("dynamic inputs update the same Theme instance"));
         const auto expected = test.value(QStringLiteral("roles")).toObject();
-        expect(color(theme.get(), "errorForeground") == QColor(expected.value(QStringLiteral("on_error")).toString()),
-               QStringLiteral("badge error foreground matches the independent QCM on_error role"));
         for (auto role = roles.begin(); role != roles.end(); ++role) {
             const auto name = role.key().toUtf8();
             const auto target = QColor(expected.value(role.value().toString()).toString());
@@ -126,6 +146,7 @@ int main(int argc, char **argv)
     theme->setProperty("dynamicColors", false);
     expect(color(theme.get(), "primary") == QColor(QStringLiteral("#d0bcff")),
            QStringLiteral("disabling dynamic colors restores the static dark palette"));
+    checkStatic(QStringLiteral("dark"));
     theme->setProperty("dynamicColors", true);
     expect(color(theme.get(), "primary") == dynamicColor,
            QStringLiteral("re-enabling dynamic colors restores the live scheme"));
@@ -164,13 +185,16 @@ int main(int argc, char **argv)
         QtObject {
             id: root
             property color requestedPrimary: "#123456"
+            property color requestedTertiaryContainer: "#234567"
             property Material3Theme bound: Material3Theme {
                 dynamicColors: true
                 primary: root.requestedPrimary
+                tertiaryContainer: root.requestedTertiaryContainer
             }
             property Material3Theme explicitRole: Material3Theme {
                 dynamicColors: true
                 primary: "#aabbcc"
+                surfaceBright: "#112233"
             }
         })");
     if (!overrideRoot)
@@ -187,10 +211,14 @@ int main(int argc, char **argv)
             fixture->setProperty("dynamicColors", true);
         }
         expect(color(bound, "primary") == QColor(QStringLiteral("#123456"))
-                   && color(explicitRole, "primary") == QColor(QStringLiteral("#aabbcc")),
+                   && color(explicitRole, "primary") == QColor(QStringLiteral("#aabbcc"))
+                   && color(bound, "tertiaryContainer") == QColor(QStringLiteral("#234567"))
+                   && color(explicitRole, "surfaceBright") == QColor(QStringLiteral("#112233")),
                QStringLiteral("seed, scheme, mode and dynamic toggle preserve explicit caller color ownership"));
         overrideRoot->setProperty("requestedPrimary", QColor(QStringLiteral("#654321")));
-        expect(color(bound, "primary") == QColor(QStringLiteral("#654321")),
+        overrideRoot->setProperty("requestedTertiaryContainer", QColor(QStringLiteral("#765432")));
+        expect(color(bound, "primary") == QColor(QStringLiteral("#654321"))
+                   && color(bound, "tertiaryContainer") == QColor(QStringLiteral("#765432")),
                QStringLiteral("the caller color binding remains live after dynamic updates"));
     }
 

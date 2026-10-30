@@ -32,7 +32,8 @@ const PROGRESS_FIELDS = ['thickness', 'gap', 'stopDiameter', 'linearMinimumWidth
 
 const CHECKBOX_FIELDS = ['indicatorSize', 'stateLayerDiameter'];
 
-const RADIO_FIELDS = ['indicatorDiameter', 'outlineWidth', 'dotDiameter', 'stateLayerDiameter', 'focusWidth'];
+const RADIO_FIELDS = ['indicatorDiameter', 'outlineWidth', 'dotDiameter', 'stateLayerDiameter', 'focusWidth',
+  'colorChoiceDiameter', 'colorChoiceSelectedDiameter', 'colorChoiceSelectionRingWidth'];
 
 const TAB_FIELDS = ['indicatorThickness', 'minimumIndicatorWidth'];
 const SWITCH_FIELDS = ['trackWidth', 'trackHeight', 'thumbUncheckedDiameter',

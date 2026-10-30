@@ -2,6 +2,13 @@
 // SPDX-License-Identifier: MIT
 #include "materialcolorscheme.h"
 
+#include "cpp/scheme/scheme_rainbow.h"
+#include "cpp/scheme/scheme_monochrome.h"
+#include "cpp/scheme/scheme_vibrant.h"
+#include "cpp/scheme/scheme_content.h"
+#include "cpp/scheme/scheme_fidelity.h"
+#include "cpp/scheme/scheme_expressive.h"
+#include "cpp/scheme/scheme_fruit_salad.h"
 #include "cpp/scheme/scheme_neutral.h"
 #include "cpp/palettes/tones.h"
 #include "cpp/scheme/scheme_tonal_spot.h"
@@ -36,7 +43,7 @@ void MaterialColorScheme::setDark(bool value)
 
 void MaterialColorScheme::setScheme(Scheme value)
 {
-    if (value != Neutral && value != TonalSpot) {
+    if (value < Neutral || value > FruitSalad) {
         qWarning("MaterialColorScheme: unsupported scheme ignored");
         return;
     }
@@ -69,10 +76,32 @@ QVariantMap MaterialColorScheme::colors() const
         return m_colors;
     namespace mcu = material_color_utilities;
     const mcu::Hct seed(m_seedColor.rgb());
-    const mcu::DynamicScheme generated = m_scheme == Neutral
-        ? mcu::DynamicScheme(mcu::SchemeNeutral(seed, m_dark, m_contrastLevel))
-        : mcu::DynamicScheme(mcu::SchemeTonalSpot(seed, m_dark, m_contrastLevel));
+    const auto generated = [&]() -> mcu::DynamicScheme {
+        switch (m_scheme) {
+        case Neutral: return mcu::SchemeNeutral(seed, m_dark, m_contrastLevel);
+        case TonalSpot: return mcu::SchemeTonalSpot(seed, m_dark, m_contrastLevel);
+        case Rainbow: return mcu::SchemeRainbow(seed, m_dark, m_contrastLevel);
+        case Monochrome: return mcu::SchemeMonochrome(seed, m_dark, m_contrastLevel);
+        case Vibrant: return mcu::SchemeVibrant(seed, m_dark, m_contrastLevel);
+        case Content: return mcu::SchemeContent(seed, m_dark, m_contrastLevel);
+        case Fidelity: return mcu::SchemeFidelity(seed, m_dark, m_contrastLevel);
+        case Expressive: return mcu::SchemeExpressive(seed, m_dark, m_contrastLevel);
+        case FruitSalad: return mcu::SchemeFruitSalad(seed, m_dark, m_contrastLevel);
+        }
+        Q_UNREACHABLE_RETURN(mcu::SchemeTonalSpot(seed, m_dark, m_contrastLevel));
+    }();
     m_colors = {
+        { QStringLiteral("tertiary"), QColor::fromRgba(generated.GetTertiary()) },
+        { QStringLiteral("tertiaryForeground"), QColor::fromRgba(generated.GetOnTertiary()) },
+        { QStringLiteral("tertiaryContainer"), QColor::fromRgba(generated.GetTertiaryContainer()) },
+        { QStringLiteral("tertiaryContainerForeground"), QColor::fromRgba(generated.GetOnTertiaryContainer()) },
+        { QStringLiteral("errorContainer"), QColor::fromRgba(generated.GetErrorContainer()) },
+        { QStringLiteral("errorContainerForeground"), QColor::fromRgba(generated.GetOnErrorContainer()) },
+        { QStringLiteral("surfaceDim"), QColor::fromRgba(generated.GetSurfaceDim()) },
+        { QStringLiteral("surfaceBright"), QColor::fromRgba(generated.GetSurfaceBright()) },
+        { QStringLiteral("surfaceContainerLowest"), QColor::fromRgba(generated.GetSurfaceContainerLowest()) },
+        { QStringLiteral("inversePrimary"), QColor::fromRgba(generated.GetInversePrimary()) },
+        { QStringLiteral("scrim"), QColor::fromRgba(generated.GetScrim()) },
         { QStringLiteral("primary"), QColor::fromRgba(generated.GetPrimary()) },
         { QStringLiteral("error"), QColor::fromRgba(generated.GetError()) },
         { QStringLiteral("errorForeground"), QColor::fromRgba(generated.GetOnError()) },
