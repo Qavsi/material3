@@ -18,6 +18,10 @@ Rectangle {
     property real plateHeight: parameters?.paintHeight ?? 0
     property vector4d cornerRadii: Qt.vector4d(delegateStyle.topLeftRadius,
         delegateStyle.topRightRadius, delegateStyle.bottomLeftRadius, delegateStyle.bottomRightRadius)
+    property bool geometryReady: false
+    readonly property bool canAnimateCorners: geometryReady && feedbackEnabled && !reduceMotion
+        && control.SK.StyleKit.transitionsEnabled && GraphicsInfo.api !== GraphicsInfo.Software
+    readonly property vector4d paintedCorners: shapeMotion.corners
     readonly property Material3ButtonContent styledContent: control.contentItem as Material3ButtonContent
     property bool foregroundReady: false
     readonly property color contentColor: styledContent ? styledContent.color
@@ -58,10 +62,10 @@ Rectangle {
     implicitHeight: delegateStyle.height
     color: delegateStyle.color
     radius: Math.max(0, Math.min(delegateStyle.radius, Math.min(width, height) / 2))
-    topLeftRadius: Math.max(0, Math.min(cornerRadii.x, Math.min(width, height) / 2))
-    topRightRadius: Math.max(0, Math.min(cornerRadii.y, Math.min(width, height) / 2))
-    bottomLeftRadius: Math.max(0, Math.min(cornerRadii.z, Math.min(width, height) / 2))
-    bottomRightRadius: Math.max(0, Math.min(cornerRadii.w, Math.min(width, height) / 2))
+    topLeftRadius: Math.max(0, Math.min(paintedCorners.x, Math.min(width, height) / 2))
+    topRightRadius: Math.max(0, Math.min(paintedCorners.y, Math.min(width, height) / 2))
+    bottomLeftRadius: Math.max(0, Math.min(paintedCorners.z, Math.min(width, height) / 2))
+    bottomRightRadius: Math.max(0, Math.min(paintedCorners.w, Math.min(width, height) / 2))
     border.width: delegateStyle.border.width
     border.color: delegateStyle.border.color
     opacity: delegateStyle.opacity
@@ -87,8 +91,26 @@ Rectangle {
     function resetRipple(): void { ripple.resetRipple() }
     function beginRipple(): void { ripple.beginRipple() }
     function finishRipple(): void { ripple.finishRipple() }
-    function finishForeground() { foregroundReady = true }
+    function finishForeground(): void {
+        foregroundReady = true
+        finishGeometry()
+    }
+    function finishGeometry(): void {
+        if (width > 0 && height > 0)
+            geometryReady = true
+    }
     Component.onCompleted: Qt.callLater(finishForeground)
+    onWidthChanged: { if (!geometryReady) Qt.callLater(finishGeometry) }
+    onHeightChanged: { if (!geometryReady) Qt.callLater(finishGeometry) }
+
+    Material3CornerSpring {
+        id: shapeMotion
+        enabled: root.canAnimateCorners
+        stiffness: root.tokens.buttonShapeSpringStiffness
+        dampingRatio: root.tokens.buttonShapeSpringDampingRatio
+        visibilityThreshold: root.tokens.buttonSpringVisibilityThreshold
+        targetCorners: root.cornerRadii
+    }
 
     Material3Ripple {
         id: ripple

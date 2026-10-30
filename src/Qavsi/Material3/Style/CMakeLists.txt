@@ -204,7 +204,9 @@ qt_add_qml_module(${module_target} SHARED
         internal/recipes/Material3ConnectedButtonRecipe.js
         internal/recipes/Material3SegmentedButtonRecipe.js
         internal/recipes/Material3SplitButtonRecipe.js
-    SOURCES internal/pickers/material3colorinput.h internal/pickers/material3colorinput.cpp
+    SOURCES internal/motion/material3spring.h internal/motion/material3spring.cpp
+        internal/actions/advanced/material3buttongroup.h internal/actions/advanced/material3buttongroup.cpp
+        internal/pickers/material3colorinput.h internal/pickers/material3colorinput.cpp
         internal/carousel/qcm_carousel_view.hpp
         internal/carousel/qcm_carousel_view.cpp
         internal/carousel/qcm_carousel_attached.hpp
@@ -240,6 +242,8 @@ set_target_properties(${module_target} PROPERTIES EXPORT_NAME Style VERSION ${PR
 set_target_properties(${module_target}Plugin PROPERTIES EXPORT_NAME StylePlugin)
 target_compile_features(${module_target} PUBLIC cxx_std_20)
 target_include_directories(${module_target} PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/internal/motion"
+    "${CMAKE_CURRENT_SOURCE_DIR}/internal/actions/advanced"
     "${CMAKE_CURRENT_SOURCE_DIR}/internal/carousel"
     "${CMAKE_CURRENT_SOURCE_DIR}/internal/pickers"
     "${CMAKE_CURRENT_SOURCE_DIR}/internal/shadows"

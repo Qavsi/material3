@@ -21,6 +21,8 @@ Item {
     readonly property bool stacked: control.display === T.AbstractButton.TextUnderIcon
     readonly property bool packagedIcon: control.icon.name.indexOf(":") > 0
     readonly property bool iconFilled: parameters?.fillIconWhenChecked === true && control.checked
+    readonly property bool materialIconFill: parameters?.fillIconWhenChecked === true
+        && control.icon.name.indexOf("material:") === 0
     readonly property bool hasIcon: control.icon.name.length > 0 || control.icon.source.toString().length > 0
     readonly property bool showIcon: selectedMark || control.display !== T.AbstractButton.TextOnly && hasIcon
     readonly property bool showText: control.display !== T.AbstractButton.IconOnly && control.text.length > 0
@@ -32,6 +34,20 @@ Item {
     readonly property bool canAnimate: ready && !reduceMotion && visible && control.visible
         && control.SK.StyleKit.transitionsEnabled && Window.window && Window.window.visible
         && Window.window.visibility !== Window.Minimized
+    readonly property bool canAnimateIconFill: canAnimate && materialIconFill && showIcon && !selectedMark
+    property real iconFillProgress: iconFilled ? 1 : 0
+    // QCM rounds toward the target in quarter-axis steps in both directions.
+    readonly property real iconFillValue: Math.max(0, Math.min(1,
+        (iconFilled ? Math.ceil(iconFillProgress * 4) : Math.floor(iconFillProgress * 4)) / 4))
+    readonly property QtObject filledIconAppearance: QtObject {
+        id: fillAppearance
+        readonly property var sourceAppearance: root.parameters?.iconAppearance
+        readonly property var weight: fillAppearance.sourceAppearance?.weight
+        readonly property var opticalSize: fillAppearance.sourceAppearance?.opticalSize
+        readonly property var grade: fillAppearance.sourceAppearance?.grade
+        readonly property var renderType: fillAppearance.sourceAppearance?.renderType
+        readonly property var axes: ({ "FILL": root.iconFillValue })
+    }
     property real expansionProgress: expanded ? 1 : 0
     property real iconRotation: splitTrailing && control.highlighted ? 180 : 0
     property real iconOffset: splitTrailing && control.highlighted ? advanced?.splitMetrics?.opticalOffset ?? 0 : 0
@@ -56,6 +72,7 @@ Item {
         offsetAnimation.complete()
     }
     onCanAnimateChanged: { if (!canAnimate) finishAnimations() }
+    onCanAnimateIconFillChanged: { if (!canAnimateIconFill) iconFillAnimation.complete() }
     Component.onCompleted: ready = true
 
     SK.StyleReader {
@@ -68,6 +85,14 @@ Item {
         hovered: root.control.hovered || root.control.pressed
         pressed: root.control.down
         highlighted: root.control.highlighted
+    }
+    Behavior on iconFillProgress {
+        enabled: root.canAnimateIconFill
+        NumberAnimation {
+            id: iconFillAnimation
+            duration: root.parameters?.tokens.iconFillMotionDuration ?? 0
+            easing.type: Easing.Linear
+        }
     }
     Behavior on expansionProgress {
         enabled: root.canAnimate
@@ -82,7 +107,7 @@ Item {
         NumberAnimation { id: iconOffsetAnimation; duration: root.parameters?.tokens.shapeDuration ?? 0 }
     }
     Behavior on contentOffset {
-        enabled: root.canAnimate
+        enabled: root.canAnimate && root.parameters?.contentRole !== "connected"
         NumberAnimation { id: offsetAnimation; duration: root.parameters?.tokens.shapeDuration ?? 0 }
     }
 
@@ -124,7 +149,8 @@ Item {
                     size: Math.min(root.iconWidth, root.iconHeight)
                     color: root.control.icon.color
                     filled: root.iconFilled
-                    appearance: root.parameters?.iconAppearance ?? null
+                    appearance: root.materialIconFill ? root.filledIconAppearance
+                        : root.parameters?.iconAppearance ?? null
                 }
             }
             Component {

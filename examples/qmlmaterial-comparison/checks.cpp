@@ -18,6 +18,7 @@
 int checkPickersCarousel(QQuickWindow &window);
 int checkCarousel(QQuickWindow &window);
 int checkAppearancePanel(QQuickWindow &window);
+int checkButtonGroupMotion(QQuickWindow &window);
 int checkProgressInactiveUpdates(QQuickWindow &window);
 int checkInlineDatePicker(QQuickWindow &window);
 int checkInlineColorPicker(QQuickWindow &window);
@@ -1315,6 +1316,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     checkSliders(window);
     checkSliderDestruction(engine, window);
     checkSelection(window);
+    expect(checkButtonGroupMotion(window) == 0, "button width motion preserves native selection, caller bindings and RTL");
     checkFab(window);
     checkTextButtonPointerFocus(window);
     checkActionMenu(window);

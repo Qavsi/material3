@@ -254,6 +254,14 @@ QtObject {
     readonly property real chipIconSize: ChipRecipe.iconSize
     readonly property real chipTrailingTarget: ChipRecipe.trailingTarget
     readonly property real chipEmbedSpacing: ChipRecipe.embedSpacing
+    // QCM 0.6.1: standard.defaultEffects, standard.fastSpatial and short3.
+    readonly property real buttonShapeSpringStiffness: 1600
+    readonly property real buttonShapeSpringDampingRatio: 1
+    readonly property real buttonSpringVisibilityThreshold: 0.01
+    readonly property real buttonGroupSpringStiffness: 1400
+    readonly property real buttonGroupSpringDampingRatio: 0.9
+    readonly property real buttonGroupExpandedRatio: 0.15
+    readonly property int iconFillMotionDuration: 150
     readonly property int chipSelectionDuration: 100
     readonly property int chipPaddingDuration: 50
     readonly property int chipSelectionEasing: Easing.Linear

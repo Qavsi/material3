@@ -35,7 +35,7 @@ recipe's optical size. To consume an explicit native icon-size binding, assign
 heuristic attempts to distinguish Qt's default 24 from an explicit caller value.
 The original control bindings are never replaced. Intentional additions are the segmented checkmark,
 connected optical offset, split arrow rotation and FAB collapsed/expanded content.
-There is no packaged-icon or font-provider layer: icons follow Qt's `QIcon` path.
+Packaged icons use AppIcon/Qavsi.Icons; unpackaged names/sources keep Qt's QIcon path.
 
 The helper uses `QtQuick.Controls.impl/IconLabel`, matching Qt 6.12's own
 `SK.Button.qml` icon renderer. This is a private QML API dependency, confined to
@@ -58,3 +58,31 @@ Text layout reserves the ceiling of the natural label advance. GridLayout rounds
 allocated pixels; rounding down a fractional advance can otherwise elide even a
 short label with sufficient native button space. Explicitly constrained buttons
 still elide normally, and FAB label width remains tied to expansion progress.
+
+`Material3ButtonGroup` is an opt-in layout for native buttons. Bind `tokens` to
+its Material3Theme and explicitly bind `reduceMotion` to the style policy; it
+defaults to true. For a standalone group under Material3Style, use the native StyleReader's
+buttonGroup spacing as groupStyle (see the public motion/chips contract), and:
+
+```qml
+Material3ButtonGroup {
+    tokens: materialStyle.tokens
+    reduceMotion: materialStyle.effectiveReducedMotion || !SK.StyleKit.transitionsEnabled
+    spacing: groupStyle.spacing
+    SK.Button {
+        text: qsTr("One")
+        Material3ButtonGroup.managed: true
+        width: Material3ButtonGroup.layoutWidth
+    }
+    SK.Button {
+        text: qsTr("Two")
+        Material3ButtonGroup.managed: true
+        width: Material3ButtonGroup.layoutWidth
+    }
+}
+```
+
+The OS ReducedMotion preference always wins, including live preference changes.
+Software and reduced motion snap width feedback to its endpoint; hidden or
+minimized groups stop it. Unmanaged widths keep their caller bindings. Invalid
+native dimensions count as zero only for allocation; caller fields are unchanged.

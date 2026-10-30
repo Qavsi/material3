@@ -22,8 +22,8 @@ SmallButtonParameters {
         const height = Math.min(background.height, Math.max(paintHeight,
             control.implicitContentHeight + control.topPadding + control.bottomPadding))
         const outer = Math.min(background.width, height) / 2
-        const inner = !control.down && control.checked ? outer
-            : Math.min(outer, control.down ? tokens.radiusSmall : tokens.radiusMedium)
+        const innerOnRight = leading && !control.mirrored || trailing && control.mirrored
+        const inner = innerOnRight ? background.topRightRadius : background.topLeftRadius
         const direction = (leading ? 1 : trailing ? -1 : 0) * (control.mirrored ? -1 : 1)
         return direction * (outer - inner) * 2 * JoinedRecipe.opticalBias
     }
