@@ -41,6 +41,61 @@ QtObject {
             }
         }
     }
+    readonly property SK.StyleVariation timeSurfaceRecipe: SK.StyleVariation {
+        name: "timePicker"
+        pane {
+            padding: root.tokens.timePadding
+            background {
+                fillWidth: true
+                fillHeight: true
+                width: 0
+                height: 0
+                color: root.tokens.surfaceContainerHigh
+                radius: root.tokens.radiusExtraLarge
+                margins: 0
+                border.width: 0
+                shadow.visible: false
+            }
+        }
+    }
+    // Clock geometry measures text directly; it does not include generic Label insets.
+    readonly property SK.StyleVariation timeLabelRecipe: SK.StyleVariation {
+        name: "timePickerLabel"
+        label.padding: 0
+    }
+    readonly property SK.StyleVariation timeFieldRecipe: SK.StyleVariation {
+        name: "timePickerField"
+        textField {
+            padding: 0
+            background {
+                width: root.tokens.timeFieldWidth
+                height: root.tokens.timeFieldHeight
+                margins: 0
+                shadow.visible: false
+                delegate: root.sourceStyle.timeDelegate.field
+                data: root.tokens
+            }
+        }
+    }
+    readonly property SK.StyleVariation timePeriodRecipe: SK.StyleVariation {
+        name: "timePickerPeriod"
+        button {
+            leftPadding: root.tokens.spacingUnit
+            rightPadding: root.tokens.spacingUnit
+            topPadding: 0
+            bottomPadding: 0
+            text.color: root.tokens.surfaceVariantForeground
+            checked.text.color: root.tokens.tertiaryContainerForeground
+            background {
+                width: root.tokens.timePeriodWidth
+                height: root.tokens.timeFieldHeight / 2
+                margins: 0
+                shadow.visible: false
+                delegate: root.sourceStyle.timeDelegate.period
+                data: root.tokens
+            }
+        }
+    }
     readonly property ButtonVariation navigationItemRecipe: ButtonVariation {
         name: "pickerNavigationItem"
         sourceStyle: root.sourceStyle

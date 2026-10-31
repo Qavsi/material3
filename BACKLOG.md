@@ -25,8 +25,18 @@ Input-family investigations (not confirmed defects):
 
 | ID | Area | Follow-up |
 |---|---|---|
-| TIME-001 | Time picker | Port the QCM analog dial and dial/input mode switching. The existing Dialog/ComboBox already supports 12/24-hour selection and canonical accepted values. |
 | DEMO-001 | Reference pages | Add the QCM Color, Typography and Shape comparison pages. |
+
+## Implemented time-picker slice — 2026-10-31
+
+- TIME-001: QCM analog dial, 12/24-hour presentation and Clock/Input switching
+  are adapted to an inline controlled `Material3TimePicker`.
+- `Material3TimePickerDialog` hosts the same editor, preserving the previous
+  Dialog draft/accept/cancel API and canonical 24-hour acceptance values.
+- Theme tokens, native editor focus and reduced-motion/software behavior remain
+  in the kit. Verification belongs to the existing public source/installed
+  consumer boundary.
+- See [time picker](docs/families/time-picker.md) for the Dialog-name migration.
 
 ## Completed color/drawer slice — 2026-10-30
 

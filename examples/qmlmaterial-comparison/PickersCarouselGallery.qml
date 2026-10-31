@@ -33,14 +33,21 @@ ColumnLayout {
         tokens: root.tokens
     }
     SK.Label { text: qsTr("Time picker"); color: root.tokens.surfaceForeground; font: root.tokens.titleLarge }
-    SK.Button { text: qsTr("Choose time"); onClicked: timePicker.open() }
+    SK.CheckBox {
+        text: qsTr("24-hour clock")
+        checked: root.use24Hour
+        onToggled: root.use24Hour = checked
+    }
     Material3TimePicker {
-        id: timePicker
-        objectName: "comparison.pickers.time"
+        objectName: "comparison.pickers.time.inline"
+        Layout.alignment: Qt.AlignHCenter
         use24Hour: root.use24Hour
         selectedHour: root.selectedHour
         selectedMinute: root.selectedMinute
-        onAcceptedTime: (hour, minute) => { root.selectedHour = hour; root.selectedMinute = minute; }
+        onSelectedTimeChangeRequested: (hour, minute) => {
+            root.selectedHour = hour
+            root.selectedMinute = minute
+        }
     }
     SK.Label { text: qsTr("File pickers"); color: root.tokens.surfaceForeground; font: root.tokens.titleLarge }
     SK.Button { text: qsTr("Choose files"); onClicked: filePicker.open() }

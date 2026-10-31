@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Port QCM's analog time dial, 12/24-hour selection and Clock/Input modes to an
+  embeddable StyleKit TimePicker with caller-owned values, native text editors
+  and Theme/reduced-motion/software behavior.
+- Move the previous TimePicker Dialog API to `Material3TimePickerDialog`, which
+  hosts the same editor and isolates draft edits. Existing Dialog callers must
+  rename their type; canonical `acceptedTime` and native Dialog behavior remain.
+
+- Keep time-picker text selection visible, native Escape dismissal intact,
+  accessible adjustment guarded, mirrored AM/PM order correct and clock-label
+  delegates stable while the value changes.
 - Align the application-navigation header with both rail widths and honor
   StyleKit text alignment in button content. Use consistent 24px checked-to-filled
   icons in collapsed and expanded destinations.

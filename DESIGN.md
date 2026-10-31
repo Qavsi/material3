@@ -1004,9 +1004,10 @@ QCM runtime integration and automatic application navigation are outside this AP
 
 ### Pickers and carousel
 
-Native SK.Dialog compositions own date/time/color drafts and acceptance requests;
-Qt MonthGrid owns locale/calendar data, and native ComboBox/Slider/TextField own
-editing. Picker geometry and semantic ink live in Theme and immutable picker
+Embedded Date/Time/Color pickers use caller-owned selection requests; their
+Dialog-suffixed hosts own drafts and accept/cancel flow. Qt MonthGrid owns locale/
+calendar data, and native Slider/TextField own editing. The TimePicker uses the
+pinned QCM229bc3e6 civil-time state and dial input engine, with no QCM runtime. Picker geometry and semantic ink live in Theme and immutable picker
 variations. Material3Carousel composes native StyleKit Pane/Button/PageIndicator
 with a public Qt Flickable and the pinned QCM keyline/snap engine. Uncontained,
 MultiBrowse, Hero, HeroCenter, FullScreen and UncontainedMultiAspect share Theme
@@ -1040,10 +1041,22 @@ roles/focus/dismissal; all helper materials and dimensions resolve from Theme.
 ### Embedded pickers and ScrollBar
 
 QCM 0.6.1 DatePicker and ColorPicker are embedded native StyleKit compositions.
-Their Dialog-suffixed types host the same controls and own only draft/accept/cancel
+TimePicker ports QCM229bc3e6 clock and direct-entry behavior. All three
+Dialog-suffixed types host the same controls and own only draft/accept/cancel
 state. Date Single/Range and Calendar/Input requests stay caller-owned; color
 HSV/RGB channels use QCM trailing-alpha RGBA8, not Qt ARGB string syntax. See
 [date picker](docs/families/date-picker.md) and [color picker](docs/families/color-picker.md).
+
+Time selection is canonical hour0..23/minute0..59; 12-hour AM/PM is presentation.
+Analog 24-hour mode has outer00..11 and inner12..23 rings. Minute taps snap to
+five minutes; dragging selects individual minutes. Arrow keys step, Home/End
+select bounds and Enter/Space switch hour/minute. Invalid text stays editable,
+blocks Clock mode and the user OK action, and never emits an invalid acceptedTime.
+The native Dialog accept/reject lifecycle remains intact. Clock and field surfaces,
+57px displayLarge typography, 256px dial, 48px selector, 96×80 fields and 24px padding
+come from Theme/canonical picker recipes. Clock hand motion follows Theme and
+reduced motion; the same native rectangles/text render on Metal and software.
+See [time picker](docs/families/time-picker.md).
 
 Native SK.ScrollBar input and attached Flickable synchronization remain intact.
 The StyleKit delegate paints the QCM8px overlay,2px idle/6px expanded thumb,

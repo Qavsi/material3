@@ -143,6 +143,24 @@ Dialog cancel/reopen checks exercise the same editor through its separate host.
 Native ScrollBar coverage checks the8px overlay without an opaque idle track and
 one actual native scroll request. No private delegate selectors or timing matrix.
 
+TimePicker additions stay in that same public consumer scenario: make one inline
+time request through the application-owned hour/minute bindings, then update the
+caller again to prove the bindings survive. Native editor input covers raw digits,
+focus advance, invalid text blocking Clock mode and a keyboard dial step. The
+Dialog cancel path uses a native clock tap through the public focus target,
+then reuses the existing cancel/reopen/accept flow and canonical 12-hour-to-24-hour expectations with
+`Material3TimePickerDialog`, created from the public module inside the existing
+consumer check. The gallery needs no extra launch button or hidden Dialog fixture.
+Native AT actions adjust the draft and respect disabled state; actual Escape
+from Clock and invalid Input focus must reject the native Dialog.
+Invalid editor text disables user OK; native
+programmatic `accept()` still closes the Dialog but must emit no invalid
+`acceptedTime`. Public `hourField`/`minuteField` aliases and picker signals are
+the integration boundary, not private state/dial objects or visual child names.
+Reuse the Theme/reduced-motion and software gates, plus the same relocated
+installed consumer after the new QML export. No extra renderer/size/timing matrix
+or assertion about private hand-animation phases is added.
+
 Review regressions remain at the existing consumer/render seams: destroying an
 item model safely clears a public Carousel, runtime layout change keeps the
 selected card under the public activation point without leaking model roles into

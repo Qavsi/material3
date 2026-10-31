@@ -1,10 +1,15 @@
-#include <QDateTime>
+#include <QAccessible>
 #include <QColor>
-#include <QQuickItem>
+#include <QDateTime>
 #include <QMetaObject>
+#include <QQmlComponent>
+#include <QQmlEngine>
+#include <QQuickItem>
 #include <QQuickWindow>
 #include <QSignalSpy>
 #include <QTest>
+
+#include <memory>
 
 int checkPickersCarousel(QQuickWindow &window)
 {
@@ -41,22 +46,146 @@ int checkPickersCarousel(QQuickWindow &window)
     QMetaObject::invokeMethod(date, "accept");
     expect(date->property("selectedDate").toDateTime().date() == QDate(2026, 2, 18) && acceptedDate.size() == 1,
            "date acceptance emits one valid date and keeps the caller binding live");
-    auto *time = window.findChild<QObject *>(QStringLiteral("comparison.pickers.time"));
-    expect(time, "time picker is available through the public consumer");
-    if (!time) return failures;
+    auto *inlineTime = window.findChild<QQuickItem *>(QStringLiteral("comparison.pickers.time.inline"));
+    expect(inlineTime, "a time picker can be embedded without opening a dialog");
+    if (inlineTime) {
+        QSignalSpy requested(inlineTime, SIGNAL(selectedTimeChangeRequested(int,int)));
+        QMetaObject::invokeMethod(inlineTime, "selectTime", Q_ARG(int, 10), Q_ARG(int, 45));
+        expect(requested.size() == 1 && gallery->property("selectedHour").toInt() == 10
+                   && gallery->property("selectedMinute").toInt() == 45,
+               "embedded time selection requests one canonical caller update");
+        gallery->setProperty("selectedHour", 9);
+        gallery->setProperty("selectedMinute", 30);
+        expect(inlineTime->property("selectedHour").toInt() == 9
+                   && inlineTime->property("selectedMinute").toInt() == 30,
+               "embedded time selection preserves live caller bindings");
+        inlineTime->setProperty("displayMode", 1);
+        auto *hour = qobject_cast<QQuickItem *>(inlineTime->property("hourField").value<QObject *>());
+        auto *minute = qobject_cast<QQuickItem *>(inlineTime->property("minuteField").value<QObject *>());
+        const bool editorsReady = hour && minute && QTest::qWaitFor([&] { return window.activeFocusItem() == hour; });
+        expect(editorsReady, "public time focus reaches the native hour editor");
+        if (editorsReady) {
+            QMetaObject::invokeMethod(hour, "selectAll");
+            QTest::keyClick(&window, Qt::Key_0);
+            QCoreApplication::processEvents();
+            expect(hour->property("text").toString() == QStringLiteral("0")
+                       && hour->property("selectionStart") == hour->property("selectionEnd"),
+                   "a raw hour digit stays unselected while caller acknowledgement keeps its binding");
+            QTest::keyClick(&window, Qt::Key_8);
+            expect(QTest::qWaitFor([&] { return window.activeFocusItem() == minute; })
+                       && gallery->property("selectedHour").toInt() == 8,
+                   "two valid hour digits advance keyboard focus to minutes");
+            QMetaObject::invokeMethod(minute, "selectAll");
+            QTest::keyClick(&window, Qt::Key_Backspace);
+            inlineTime->setProperty("displayMode", 0);
+            expect(!inlineTime->property("selectionValid").toBool()
+                       && inlineTime->property("displayMode").toInt() == 1
+                       && gallery->property("selectedMinute").toInt() == 30,
+                   "invalid text preserves the canonical time and blocks Clock mode");
+            QTest::keyClick(&window, Qt::Key_4);
+            QTest::keyClick(&window, Qt::Key_5);
+            expect(inlineTime->property("selectionValid").toBool()
+                       && gallery->property("selectedMinute").toInt() == 45,
+                   "native minute input restores a valid controlled time");
+            inlineTime->setProperty("displayMode", 0);
+            inlineTime->setProperty("selection", 0);
+            QMetaObject::invokeMethod(inlineTime, "focusSelection");
+            expect(QTest::qWaitFor([&] { return window.activeFocusItem()
+                       && inlineTime->isAncestorOf(window.activeFocusItem())
+                       && window.activeFocusItem() != hour && window.activeFocusItem() != minute; }),
+                   "Clock mode moves focus from editors to the dial");
+            QTest::keyClick(&window, Qt::Key_Right);
+            expect(gallery->property("selectedHour").toInt() == 9
+                       && gallery->property("selectedMinute").toInt() == 45,
+                   "the focused native dial steps hours without changing minutes");
+        }
+        inlineTime->setProperty("displayMode", 0);
+        gallery->setProperty("selectedHour", 9);
+        gallery->setProperty("selectedMinute", 30);
+    }
+    QQmlComponent timeConsumer(qmlEngine(&window));
+    timeConsumer.setData(R"qml(
+        import Qavsi.Material3.Style
+        Material3TimePickerDialog {
+            id: consumer
+            property int callerHour: 9
+            property int callerMinute: 30
+            use24Hour: true
+            selectedHour: consumer.callerHour
+            selectedMinute: consumer.callerMinute
+            onAcceptedTime: (hour, minute) => {
+                consumer.callerHour = hour
+                consumer.callerMinute = minute
+            }
+        }
+    )qml", QUrl());
+    const std::unique_ptr<QObject> timeFixture(timeConsumer.createWithInitialProperties({
+        {QStringLiteral("parent"), QVariant::fromValue(window.contentItem())}
+    }));
+    auto *time = timeFixture.get();
+    expect(time, "public time dialog can be consumed without a gallery launch button");
+    if (!time) { qCritical().noquote() << timeConsumer.errorString(); return failures; }
     QSignalSpy acceptedTime(time, SIGNAL(acceptedTime(int,int)));
+    QSignalSpy rejectedTime(time, SIGNAL(rejected()));
     QMetaObject::invokeMethod(time, "open");
-    QMetaObject::invokeMethod(time, "selectTime", Q_ARG(int, 23), Q_ARG(int, 59));
-    QMetaObject::invokeMethod(time, "reject");
-    expect(time->property("selectedHour").toInt() == 9 && acceptedTime.isEmpty(),
-           "time cancellation preserves the committed hour");
+    auto *dialogPicker = qobject_cast<QQuickItem *>(time->property("picker").value<QObject *>());
+    const bool dialReady = dialogPicker && QTest::qWaitFor([&] {
+        return window.activeFocusItem() && dialogPicker->isAncestorOf(window.activeFocusItem());
+    });
+    expect(dialReady, "opening the time dialog focuses its native clock");
+    if (dialReady) {
+        auto *dial = window.activeFocusItem();
+        auto *accessible = QAccessible::queryAccessibleInterface(dial);
+        auto *actions = accessible ? accessible->actionInterface() : nullptr;
+        const bool canAdjust = actions
+            && actions->actionNames().contains(QAccessibleActionInterface::increaseAction())
+            && actions->actionNames().contains(QAccessibleActionInterface::decreaseAction());
+        expect(canAdjust && !accessible->text(QAccessible::Description).isEmpty(),
+               "the clock exposes a localized time and accessible adjustment actions");
+        if (canAdjust) {
+            actions->doAction(QAccessibleActionInterface::increaseAction());
+            expect(time->property("currentHour").toInt() == 10,
+                   "accessible increase updates the canonical dialog draft");
+            dialogPicker->setEnabled(false);
+            actions->doAction(QAccessibleActionInterface::increaseAction());
+            expect(time->property("currentHour").toInt() == 10,
+                   "disabled picker rejects accessible adjustment");
+            dialogPicker->setEnabled(true);
+            actions->doAction(QAccessibleActionInterface::decreaseAction());
+        }
+        const auto east = dial->mapToScene(QPointF(dial->width() * 0.9, dial->height() / 2)).toPoint();
+        QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier, east);
+        expect(time->property("currentHour").toInt() == 3
+                   && gallery->property("selectedHour").toInt() == 9,
+               "a native clock tap changes only the dialog draft before acceptance");
+    }
+    QTest::keyClick(&window, Qt::Key_Escape);
+    expect(QTest::qWaitFor([&] { return !time->property("visible").toBool(); })
+               && rejectedTime.size() == 1 && time->property("selectedHour").toInt() == 9
+               && acceptedTime.isEmpty(),
+           "Escape from Clock mode rejects the dialog and preserves the committed time");
     QMetaObject::invokeMethod(time, "open");
     expect(time->property("currentHour").toInt() == 9 && time->property("currentMinute").toInt() == 30,
            "reopening restores the committed time");
     QMetaObject::invokeMethod(time, "selectTime", Q_ARG(int, 24), Q_ARG(int, 60));
     expect(time->property("currentHour").toInt() == 9 && time->property("currentMinute").toInt() == 30,
            "time selection rejects invalid hour and minute");
-    gallery->setProperty("use24Hour", false);
+    time->setProperty("displayMode", 1);
+    auto *dialogHour = qobject_cast<QQuickItem *>(dialogPicker->property("hourField").value<QObject *>());
+    const bool inputFocused = dialogHour && QTest::qWaitFor([&] { return window.activeFocusItem() == dialogHour; });
+    expect(inputFocused, "Input mode focuses the dialog's native hour editor");
+    if (inputFocused) {
+        QMetaObject::invokeMethod(dialogHour, "selectAll");
+        QTest::keyClick(&window, Qt::Key_Backspace);
+        expect(!time->property("selectionValid").toBool(), "empty dialog hour remains invalid until corrected");
+        QTest::keyClick(&window, Qt::Key_Escape);
+        expect(QTest::qWaitFor([&] { return !time->property("visible").toBool(); })
+                   && rejectedTime.size() == 2 && acceptedTime.isEmpty(),
+               "Escape from invalid Input mode reaches the native dialog rejection");
+    }
+    time->setProperty("displayMode", 0);
+    QMetaObject::invokeMethod(time, "open");
+    time->setProperty("use24Hour", false);
     QMetaObject::invokeMethod(time, "selectTime", Q_ARG(int, 23), Q_ARG(int, 59));
     QMetaObject::invokeMethod(time, "accept");
     expect(time->property("selectedHour").toInt() == 23 && time->property("selectedMinute").toInt() == 59

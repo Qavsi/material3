@@ -161,6 +161,24 @@ Date navigation additionally follows QCM 0.6.1 `qml/picker/DatePicker.qml`,
 `src/input/date_picker_state.cpp` and CalendarDay keyboard behavior. The year and
 month views use native Qt grids/buttons and existing Material3 button recipes.
 
+## QmlMaterial time picker adaptation
+
+The analog time picker and Clock/Input composition adapt QmlMaterial revision
+`229bc3e64ff71f1ac88cf73e976637ffbcf7e33c` (MIT), including `TimePicker.qml`,
+`TimeInput.qml` and its time-state/dial behavior. The local C++ adaptation is in
+`src/Qavsi/Material3/Style/internal/pickers/materialtimestate.h/.cpp` and
+`materialtimedial.h/.cpp`, with the corresponding Material3 QML composition.
+The sources retain Copyright (c) 2024-2025 hypengw and the MIT identifiers;
+local changes additionally identify Copyright (c) 2026 Enes Alp.
+
+Local changes replace QCM/private Qt runtime ownership with public native Qt
+input, locale handling and painting; selection emits caller-owned requests,
+Dialog edits use an isolated draft, and geometry/ink/motion resolve through
+Material3Theme and the kit's token recipe. No QCM runtime, Skia engine or new
+library is linked. The complete QCM MIT notice already distributed in
+`third_party/ripple-reference/QMLMATERIAL-MIT-LICENSE.txt` and installed under
+`share/licenses/QavsiMaterial3/ripple-reference/` applies to these adaptations.
+
 ## QmlMaterial carousel adaptation
 
 The six-layout carousel adapts QCM 0.6.1 `include/qml_material/carousel/*`,

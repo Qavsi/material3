@@ -12,6 +12,7 @@ SK.Style {
         || Application.styleHints.accessibility.motionPreference === Qt.MotionPreference.ReducedMotion
     readonly property Material3Theme tokens: themeName === "Dark" ? darkTokens : lightTokens
     readonly property Material3ComboBoxDelegate comboBoxDelegate: Material3ComboBoxDelegate { }
+    readonly property Material3TimeDelegate timeDelegate: Material3TimeDelegate {}
     readonly property SmallButtonDelegate buttonDelegate: SmallButtonDelegate { }
     readonly property Material3MenuDelegate menuDelegate: Material3MenuDelegate { }
     readonly property Material3TextFieldDelegate textFieldDelegate: Material3TextFieldDelegate { }
