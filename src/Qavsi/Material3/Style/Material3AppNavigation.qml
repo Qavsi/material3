@@ -22,6 +22,8 @@ SK.Pane {
     default property alias pageData: page.data
     readonly property string navigationMode: width < tokens.appNavigationCompactBreakpoint ? "drawer"
         : width < tokens.appNavigationExpandedBreakpoint ? "collapsed" : "expanded"
+    readonly property real railWidth: navigationMode === "expanded"
+        ? tokens.appNavigationExpandedWidth : tokens.navigationRailCollapsedWidth
     readonly property bool effectiveReducedMotion: reducedMotion || (sourceStyle?.effectiveReducedMotion ?? false)
         || !SK.StyleKit.transitionsEnabled
         || Application.styleHints.accessibility.motionPreference === Qt.MotionPreference.ReducedMotion
@@ -137,12 +139,20 @@ SK.Pane {
                     onClicked: root.openNavigation()
                 }
                 Text {
-                    visible: root.navigationMode !== "drawer" && root.title.length > 0
+                    visible: root.navigationMode !== "drawer"
+                    Layout.preferredWidth: root.railWidth
+                    Layout.minimumWidth: root.railWidth
+                    Layout.maximumWidth: root.railWidth
+                    Layout.fillHeight: true
                     text: root.title
+                    horizontalAlignment: root.navigationMode === "collapsed" ? Text.AlignHCenter : Text.AlignLeft
+                    verticalAlignment: Text.AlignVCenter
+                    leftPadding: root.navigationMode === "expanded"
+                        ? root.tokens.spacingSmall + root.tokens.navigationDestinationLeadingPadding : 0
+                    rightPadding: leftPadding
                     font: root.tokens.titleMedium
                     color: root.tokens.surfaceForeground
                     elide: Text.ElideRight
-                    Layout.maximumWidth: root.tokens.appNavigationExpandedWidth
                     Accessible.ignored: true
                 }
                 SK.TextField {
@@ -171,8 +181,7 @@ SK.Pane {
                 id: rail
                 shell: root
                 Layout.fillHeight: true
-                Layout.preferredWidth: root.navigationMode === "expanded"
-                    ? root.tokens.appNavigationExpandedWidth : root.tokens.navigationRailCollapsedWidth
+                Layout.preferredWidth: root.railWidth
                 visible: root.navigationMode !== "drawer"
                 // Keep native StyleKit contexts alive across responsive presentation changes.
                 collapsed: root.navigationMode === "collapsed"

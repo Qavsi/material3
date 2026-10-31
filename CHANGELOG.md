@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Align the application-navigation header with both rail widths and honor
+  StyleKit text alignment in button content. Use consistent 24px checked-to-filled
+  icons in collapsed and expanded destinations.
+
 - Fix application-navigation Drawer and Details bounds by using the native host
   window overlay. Demonstrate all three responsive modes in a retained resizable
   preview window, preserving search, selection, Theme and motion policy.

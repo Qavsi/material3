@@ -994,6 +994,11 @@ is scoped to its implementation and does not change the application Controls sty
 Native sheets and their scrim use the host window overlay and window bounds;
 they are not clipped to an embedded card. The gallery demonstrates this in a
 retained resizable application window, inheriting Style and motion policy.
+The header title reserves the same Theme-owned rail column as destinations. It
+centers in the collapsed column and uses the destination leading inset when
+expanded. Horizontal destination content follows StyleKit text alignment and
+mirrors its leading edge in RTL; checked state drives the same 400/24 filled icon
+policy in both rail modes.
 Selection and text survive responsive presentation changes. SearchView overlays,
 QCM runtime integration and automatic application navigation are outside this API.
 

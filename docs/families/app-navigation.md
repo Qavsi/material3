@@ -22,6 +22,10 @@ editor or replacement input router.
 `navigationDestination` styles native horizontal checkable Buttons with a 56px
 pill, 16/24px optical padding and secondaryContainer selection. The existing
 `navigationRailCollapsed` recipe and `Material3NavigationContent` remain intact.
+The title and destinations share one rail width; the collapsed title is centered,
+and expanded title/icon leading edges align. The button content delegate respects
+the variation text alignment, retaining native mirrored layout. Expanded and
+collapsed selections both request filled package icons at the Theme icon size.
 Each native instance receives one immutable variation list. Destination and rail
 recipes map the variation's generic control fields: Qt 6.12 initially left the
 button-specific nested fields at the base Filled mapping until a Theme reset.

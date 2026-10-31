@@ -19,6 +19,7 @@ Item {
     readonly property SmallButtonParameters parameters: reader.background.data as SmallButtonParameters
     readonly property Material3AdvancedButtonParameters advanced: parameters as Material3AdvancedButtonParameters
     readonly property color color: reader.text.color
+    readonly property bool mirrorAlignment: control.mirrored && !(reader.text.alignment & Qt.AlignAbsolute)
     readonly property bool fab: parameters?.contentRole === "fab"
     readonly property bool selectedMark: advanced?.segmented === true && control.checked
     readonly property bool splitTrailing: parameters?.contentRole === "splitTrailing"
@@ -142,7 +143,9 @@ Item {
     GridLayout {
         id: grid
         visible: !root.loading
-        x: (root.width - width) / 2 + root.contentOffset
+        x: (reader.text.alignment & Qt.AlignLeft ? root.mirrorAlignment ? root.width - width : 0
+            : reader.text.alignment & Qt.AlignRight ? root.mirrorAlignment ? 0 : root.width - width
+            : (root.width - width) / 2) + root.contentOffset
             + (root.fab && root.showIcon ? ((root.advanced?.leadingInset ?? 0)
                 - (root.advanced?.trailingInset ?? 0)) / 2 * root.expansionProgress
                 * (root.control.mirrored ? -1 : 1) : 0)

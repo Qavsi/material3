@@ -21,6 +21,12 @@ SK.StyleVariation {
             radius: root.tokens.navigationDestinationHeight / 2
             border.width: 0
             shadow.visible: false
+            data: SmallButtonParameters {
+                tokens: root.tokens
+                reduceMotion: root.sourceStyle.effectiveReducedMotion
+                minimumIconSize: root.tokens.navigationIconSize
+                fillIconWhenChecked: true
+            }
         }
         hovered.background.color: root.tokens.transparent
         focused.background.color: root.tokens.transparent
