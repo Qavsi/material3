@@ -110,6 +110,23 @@ QtObject {
     readonly property real pickerMonthCellHeight: PickerRecipe.monthCellHeight
     readonly property real pickerWeekdayHeight: PickerRecipe.weekdayHeight
     readonly property real pickerWeekdayPadding: PickerRecipe.weekdayPadding
+    readonly property real timeDialSize: PickerRecipe.timeDialSize
+    readonly property real timeSelectorSize: PickerRecipe.timeSelectorSize
+    readonly property real timeDialPadding: PickerRecipe.timeDialPadding
+    readonly property real timeFieldWidth: PickerRecipe.timeFieldWidth
+    readonly property real timeFieldHeight: PickerRecipe.timeFieldHeight
+    readonly property real timeSeparatorWidth: PickerRecipe.timeSeparatorWidth
+    readonly property real timePeriodWidth: PickerRecipe.timePeriodWidth
+    readonly property real timePeriodGap: PickerRecipe.timePeriodGap
+    readonly property real timePadding: PickerRecipe.timePadding
+    readonly property real timeDialGap: PickerRecipe.timeDialGap
+    readonly property real timeHandWidth: PickerRecipe.timeHandWidth
+    readonly property real timeCenterSize: PickerRecipe.timeCenterSize
+    readonly property real timeHeadingGap: PickerRecipe.timeHeadingGap
+    readonly property real timeSupportingHeight: PickerRecipe.timeSupportingHeight
+    readonly property real timeDialInnerRadiusRatio: 0.66
+    readonly property int timeHandDuration: shapeDuration
+    readonly property int timeHandEasing: shapeEasing
     readonly property real colorPickerButtonWidth: PickerRecipe.colorButtonWidth
     readonly property real colorPickerButtonHeight: PickerRecipe.colorButtonHeight
     readonly property real colorPickerButtonGap: PickerRecipe.colorButtonGap
@@ -548,6 +565,8 @@ QtObject {
     })
     readonly property font labelMedium: Qt.font({ family: root.effectiveFontFamily,
         pixelSize: 12, weight: Font.Medium, letterSpacing: 0.5 })
+    readonly property real labelMediumLineHeight: 16
+    readonly property real bodyLargeLineHeight: 24
     readonly property font bodyLarge: Qt.font({ family: root.effectiveFontFamily,
         pixelSize: 16, weight: Font.Normal, letterSpacing: 0.5 })
     readonly property font bodySmall: Qt.font({ family: root.effectiveFontFamily,
@@ -559,6 +578,9 @@ QtObject {
         pixelSize: 16, weight: Font.Medium, letterSpacing: 0.15 })
     readonly property font titleLarge: Qt.font({ family: root.effectiveFontFamily,
         pixelSize: 22, weight: Font.Normal, letterSpacing: 0 })
+    readonly property real displayLargeLineHeight: 64
+    readonly property font displayLarge: Qt.font({ family: root.effectiveFontFamily,
+        pixelSize: 57, weight: Font.Normal, letterSpacing: -0.25 })
     readonly property font headlineMedium: Qt.font({ family: root.effectiveFontFamily,
         pixelSize: 28, weight: Font.Normal, letterSpacing: 0 })
     readonly property font headlineSmall: Qt.font({ family: root.effectiveFontFamily,

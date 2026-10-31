@@ -890,7 +890,7 @@
         }
       },
       "picker": {
-        "$description": "Pinned QCM 0.6.1 optical geometry. Semantic colors, typography, shape roles, motion and target policy remain in Material3Theme.",
+        "$description": "Pinned QCM optical geometry: date/color 0.6.1; time 229bc3e6. Semantic colors, typography, shape, motion and target policy remain in Material3Theme.",
         "dateInputWidth": {
           "$type": "dimension",
           "$value": 240
@@ -1082,6 +1082,62 @@
         "colorCheckerSize": {
           "$type": "dimension",
           "$value": 6
+        },
+        "timeDialSize": {
+          "$type": "dimension",
+          "$value": 256
+        },
+        "timeSelectorSize": {
+          "$type": "dimension",
+          "$value": 48
+        },
+        "timeDialPadding": {
+          "$type": "dimension",
+          "$value": 24
+        },
+        "timeFieldWidth": {
+          "$type": "dimension",
+          "$value": 96
+        },
+        "timeFieldHeight": {
+          "$type": "dimension",
+          "$value": 80
+        },
+        "timeSeparatorWidth": {
+          "$type": "dimension",
+          "$value": 24
+        },
+        "timePeriodWidth": {
+          "$type": "dimension",
+          "$value": 52
+        },
+        "timePeriodGap": {
+          "$type": "dimension",
+          "$value": 12
+        },
+        "timePadding": {
+          "$type": "dimension",
+          "$value": 24
+        },
+        "timeDialGap": {
+          "$type": "dimension",
+          "$value": 28
+        },
+        "timeHandWidth": {
+          "$type": "dimension",
+          "$value": 2
+        },
+        "timeCenterSize": {
+          "$type": "dimension",
+          "$value": 8
+        },
+        "timeHeadingGap": {
+          "$type": "dimension",
+          "$value": 20
+        },
+        "timeSupportingHeight": {
+          "$type": "dimension",
+          "$value": 24
         }
       },
       "scrollBar": {

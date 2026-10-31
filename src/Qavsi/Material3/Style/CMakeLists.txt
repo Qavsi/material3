@@ -211,6 +211,8 @@ qt_add_qml_module(${module_target} SHARED
     SOURCES internal/motion/material3spring.h internal/motion/material3spring.cpp
         internal/actions/advanced/material3buttongroup.h internal/actions/advanced/material3buttongroup.cpp
         internal/pickers/material3colorinput.h internal/pickers/material3colorinput.cpp
+        internal/pickers/materialtimestate.h internal/pickers/materialtimestate.cpp
+        internal/pickers/materialtimedial.h internal/pickers/materialtimedial.cpp
         internal/carousel/qcm_carousel_view.hpp
         internal/carousel/qcm_carousel_view.cpp
         internal/carousel/qcm_carousel_attached.hpp
