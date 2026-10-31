@@ -8,6 +8,7 @@ import Qavsi.Material3.Style
 ColumnLayout {
     id: root
     required property Material3Theme tokens
+    required property rect previewArea
     readonly property ComparisonMetrics metrics: ComparisonMetrics { }
     signal appearanceRequested()
     spacing: tokens.spacingMedium
@@ -76,7 +77,7 @@ ColumnLayout {
                 id: appNavigationExamples
                 width: parent.width
                 active: false
-                sourceComponent: AppNavigationGallery { tokens: root.tokens }
+                sourceComponent: AppNavigationGallery { tokens: root.tokens; previewArea: root.previewArea }
                 Component.onCompleted: Qt.callLater(() => appNavigationExamples.active = true)
             }
             SwitchesGallery { width: Math.min(parent.width, root.tokens.referenceCardWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }

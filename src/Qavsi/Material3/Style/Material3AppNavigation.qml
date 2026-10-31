@@ -84,9 +84,10 @@ SK.Pane {
     }
 
     component Sheet: Material3Drawer {
-        parent: root
-        width: Math.min(root.tokens.appNavigationSheetWidth, root.width)
-        height: root.height
+        // Native Drawer positions and dims against the window overlay, not a nested pane.
+        parent: root.Basic.Overlay.overlay
+        width: Math.min(root.tokens.appNavigationSheetWidth, parent?.width ?? root.width)
+        height: parent?.height ?? root.height
         tokens: root.tokens
         reducedMotion: root.effectiveReducedMotion
         interactive: modal ? root.navigationMode === "drawer" : root.sideSheetContent !== null

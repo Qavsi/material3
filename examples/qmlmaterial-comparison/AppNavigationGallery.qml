@@ -9,9 +9,13 @@ Column {
     id: root
     objectName: "comparison.appNavigation"
     required property Material3Theme tokens
+    required property rect previewArea
     property int selection: 0
     readonly property ComparisonMetrics metrics: ComparisonMetrics { }
+    readonly property real previewWidth: [metrics.appNavigationCompactWidth,
+        metrics.appNavigationNarrowWidth, metrics.appNavigationExpandedWidth][Math.max(0, previewSize.currentIndex)]
     spacing: tokens.spacingMedium
+
     Text {
         width: parent.width
         text: qsTr("Application navigation")
@@ -21,13 +25,14 @@ Column {
     }
     Text {
         width: parent.width
-        text: qsTr("Choose a width to try the drawer, narrow rail or expanded rail. Search and caller selection stay live.")
+        text: qsTr("Choose a width and open the resizable preview to try the drawer, narrow rail or expanded rail.")
         font: root.tokens.bodyMedium
         color: root.tokens.surfaceVariantForeground
         wrapMode: Text.WordWrap
     }
     SK.ComboBox {
         id: previewSize
+        objectName: "comparison.appNavigation.size"
         width: parent.width
         model: [qsTr("Compact drawer"), qsTr("Narrow rail"), qsTr("Expanded rail")]
     }
@@ -35,14 +40,45 @@ Column {
         width: parent.width
         tokens: root.tokens
         title: qsTr("Responsive shell")
-        minimumContentWidth: [root.metrics.appNavigationCompactWidth,
-            root.metrics.appNavigationNarrowWidth, root.metrics.appNavigationExpandedWidth][previewSize.currentIndex]
+        Text {
+            width: parent.width
+            text: qsTr("Navigation and Details use the preview window's bounds. Search and selection stay live when its width changes.")
+            font: root.tokens.bodyMedium
+            color: root.tokens.surfaceVariantForeground
+            wrapMode: Text.WordWrap
+        }
+        SK.Button {
+            id: openPreview
+            objectName: "comparison.appNavigation.open"
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr("Open navigation preview")
+            contentItem: Material3ButtonContent { control: openPreview }
+            onClicked: {
+                previewWindow.show()
+                previewWindow.requestActivate()
+            }
+        }
+    }
+    // Keep StyleKit contexts alive when the native preview window is closed/reopened.
+    SK.ApplicationWindow {
+        id: previewWindow
+        objectName: "comparison.appNavigation.preview"
+        transientParent: root.Window.window
+        title: qsTr("Application navigation · Qavsi Material3")
+        visible: false
+        width: Math.min(root.previewWidth, root.previewArea.width)
+        height: Math.min(root.tokens.appNavigationMinimumHeight, root.previewArea.height)
+        minimumWidth: Math.min(root.metrics.appNavigationCompactWidth, root.previewArea.width)
+        minimumHeight: Math.min(root.tokens.appNavigationMinimumHeight, root.previewArea.height)
+        x: root.previewArea.x + Math.max(0, (root.previewArea.width - width) / 2)
+        y: root.previewArea.y + Math.max(0, (root.previewArea.height - height) / 2)
+        SK.StyleKit.style: root.SK.StyleKit.style
+        SK.StyleKit.transitionsEnabled: root.SK.StyleKit.transitionsEnabled
+
         Material3AppNavigation {
             id: shell
             objectName: "comparison.appNavigation.shell"
-            width: [root.metrics.appNavigationCompactWidth,
-                root.metrics.appNavigationNarrowWidth, root.metrics.appNavigationExpandedWidth][previewSize.currentIndex]
-            height: root.tokens.appNavigationMinimumHeight
+            anchors.fill: parent
             title: qsTr("Library")
             currentIndex: root.selection
             onActivated: index => root.selection = index
@@ -71,13 +107,14 @@ Column {
                 }
                 Text {
                     Layout.fillWidth: true
-                    text: shell.searchText.length > 0 ? qsTr("Results for “%1”").arg(shell.searchText) : qsTr("Choose a destination or search the library.")
+                    text: shell.searchText.length > 0 ? qsTr("Results for “%1”").arg(shell.searchText)
+                        : qsTr("Choose a destination or search the library.")
                     font: root.tokens.bodyLarge
                     color: root.tokens.surfaceVariantForeground
                     wrapMode: Text.WordWrap
                 }
                 Item { Layout.fillHeight: true }
-        }
+            }
         }
     }
 }

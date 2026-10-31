@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Fix application-navigation Drawer and Details bounds by using the native host
+  window overlay. Demonstrate all three responsive modes in a retained resizable
+  preview window, preserving search, selection, Theme and motion policy.
+
 - Fix Brightness stalls by scoping every Theme-local variation to its own token
   object instead of retargeting both outgoing and incoming recipe trees.
 - Add QCM morphing BusyIndicator geometry/motion and opt-in show/min-hide timing

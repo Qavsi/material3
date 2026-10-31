@@ -1059,28 +1059,47 @@ void checkActionMenu(QQuickWindow &window)
 
 void checkAppNavigation(QQuickWindow &window)
 {
-    auto *shell = control(window, "comparison.appNavigation.shell");
-    if (!shell)
+    auto *gallery = control(window, "comparison.appNavigation");
+    auto *open = control(window, "comparison.appNavigation.open");
+    auto *preset = control(window, "comparison.appNavigation.size");
+    auto *preview = window.findChild<QQuickWindow *>("comparison.appNavigation.preview");
+    expect(preview, "the navigation consumer owns a retained native preview window");
+    if (!gallery || !open || !preset || !preview)
         return;
-    reveal(shell);
-    const auto originalWidth = shell->width();
-    const auto originalWindowSize = window.size();
+    const auto originalPreset = preset->property("currentIndex");
+    const auto originalPreviewArea = gallery->property("previewArea");
+    const auto originalWindowSize = preview->size();
     const auto originalTheme = window.property("darkMode");
     const auto originalMotion = window.property("reducedMotion");
-    shell->setProperty("width", 1300);
-    auto *gallery = control(window, "comparison.appNavigation");
+    auto virtualArea = originalPreviewArea.toRectF();
+    virtualArea.setWidth((std::max)(virtualArea.width(), qreal(1300)));
+    gallery->setProperty("previewArea", virtualArea);
+    reveal(open);
+    QTest::mouseClick(&window, Qt::LeftButton, Qt::NoModifier,
+        open->mapToScene(QPointF(open->width()/2, open->height()/2)).toPoint());
+    expect(QTest::qWaitFor([&] { return preview->isVisible() && preview->isExposed(); }),
+           "the gallery preview action opens its application window");
+    auto *shell = findItem(preview->contentItem(), "comparison.appNavigation.shell");
+    expect(shell, "the navigation shell fills its own preview window");
+    if (!shell) { preview->close(); return; }
+    const auto chooseWidth = [&](int index) {
+        preset->setProperty("currentIndex", index);
+        QCoreApplication::processEvents();
+        preview->grabWindow();
+    };
+    chooseWidth(2);
     const auto originalSelection = gallery->property("selection");
     const auto originalSearchText = shell->property("searchText");
     gallery->setProperty("selection", 1);
     QCoreApplication::processEvents();
     expect(shell->property("navigationMode").toString() == QStringLiteral("expanded"),
            "wide application navigation presents an expanded rail");
-    shell->setProperty("width", 800);
+    chooseWidth(1);
     QCoreApplication::processEvents();
     expect(shell->property("navigationMode").toString() == QStringLiteral("collapsed")
                && shell->property("currentIndex").toInt() == 1,
            "narrow rail keeps the consumer selection across responsive modes");
-    shell->setProperty("width", 440);
+    chooseWidth(0);
     QCoreApplication::processEvents();
     auto *field = shell->property("searchField").value<QQuickItem *>();
     auto *drawer = shell->property("navigationDrawer").value<QObject *>();
@@ -1092,13 +1111,13 @@ void checkAppNavigation(QQuickWindow &window)
                    == navigationTokens->property("surfaceVariantForeground").value<QColor>(),
                "native search placeholder uses readable Theme ink");
         field->forceActiveFocus(Qt::TabFocusReason);
-        QTest::keyClick(&window, Qt::Key_B);
+        QTest::keyClick(preview, Qt::Key_B);
         expect(shell->property("searchText").toString() == QStringLiteral("b"),
                "native search editing updates the consumer search text live");
         QMetaObject::invokeMethod(shell, "openNavigation");
         expect(drawer->property("visible").toBool(), "compact navigation opens its native modal drawer");
-        QTest::keyClick(&window, Qt::Key_Tab);
-        auto *destination = window.activeFocusItem();
+        QTest::keyClick(preview, Qt::Key_Tab);
+        auto *destination = preview->activeFocusItem();
         expect(destination && destination->property("text").toString() == QStringLiteral("Explore"),
                "native Tab navigation focuses the first drawer destination");
         if (destination) {
@@ -1145,28 +1164,28 @@ void checkAppNavigation(QQuickWindow &window)
             destination->forceActiveFocus(Qt::TabFocusReason);
         const bool destinationFocused = destination && QTest::qWaitFor([&] { return destination->hasActiveFocus(); });
         QSignalSpy activated(shell, SIGNAL(activated(int)));
-        QTest::keyClick(&window, Qt::Key_Space);
+        QTest::keyClick(preview, Qt::Key_Space);
         expect(destinationFocused && activated.size() == 1 && gallery->property("selection").toInt() == 0
                    && shell->property("currentIndex").toInt() == 0
                    && destination->property("checked").toBool() && !destination->property("checkable").toBool(),
                "native destination checked styling follows the live caller selection without native toggles");
         gallery->setProperty("selection", 1);
         QMetaObject::invokeMethod(shell, "openNavigation");
-        QTest::keyClick(&window, Qt::Key_Tab);
-        destination = window.activeFocusItem();
+        QTest::keyClick(preview, Qt::Key_Tab);
+        destination = preview->activeFocusItem();
         const auto focusedText = destination ? destination->property("text").toString() : QString();
-        shell->setProperty("width", 800);
-        expect(QTest::qWaitFor([&] { return window.activeFocusItem()
-                   && window.activeFocusItem()->property("text").toString() == focusedText; }),
+        chooseWidth(1);
+        expect(QTest::qWaitFor([&] { return preview->activeFocusItem()
+                   && preview->activeFocusItem()->property("text").toString() == focusedText; }),
                "rail focus follows the same destination when the responsive presentation changes");
         field->forceActiveFocus(Qt::TabFocusReason);
-        shell->setProperty("width", 1300);
+        chooseWidth(2);
         QCoreApplication::processEvents();
-        expect(window.activeFocusItem() == field,
+        expect(preview->activeFocusItem() == field,
                "responsive navigation never steals focus from native search");
-        shell->setProperty("width", 440);
+        chooseWidth(0);
         QMetaObject::invokeMethod(shell, "openNavigation");
-        QTest::keyClick(&window, Qt::Key_Escape);
+        QTest::keyClick(preview, Qt::Key_Escape);
         expect(!drawer->property("visible").toBool() && shell->property("currentIndex").toInt() == 1,
                "Escape dismisses navigation without changing the consumer selection");
         auto *sheet = shell->property("sideSheet").value<QObject *>();
@@ -1175,19 +1194,27 @@ void checkAppNavigation(QQuickWindow &window)
                    && !sheet->property("dim").toBool(),
                "details opens a native nonmodal side sheet without dimming the page");
         if (sheet) {
+            preview->grabWindow();
+            auto *sheetBackground = sheet->property("background").value<QQuickItem *>();
+            expect(sheetBackground && QRectF(QPointF(), preview->size()).contains(
+                       sheetBackground->mapRectToScene(sheetBackground->boundingRect())),
+                   "the trailing side sheet remains inside its host application window");
             field->forceActiveFocus(Qt::TabFocusReason);
-            QTest::keyClick(&window, Qt::Key_C);
+            QTest::keyClick(preview, Qt::Key_C);
             expect(shell->property("searchText").toString() == QStringLiteral("bc"),
                    "native search remains editable beside the nonmodal side sheet");
             QMetaObject::invokeMethod(sheet, "forceActiveFocus");
-            QTest::keyClick(&window, Qt::Key_Escape);
+            QTest::keyClick(preview, Qt::Key_Escape);
             expect(!sheet->property("visible").toBool(), "Escape dismisses the focused nonmodal side sheet");
         }
     }
     gallery->setProperty("selection", originalSelection);
     shell->setProperty("searchText", originalSearchText);
-    shell->setProperty("width", originalWidth);
-    window.resize(originalWindowSize);
+    preset->setProperty("currentIndex", originalPreset);
+    gallery->setProperty("previewArea", originalPreviewArea);
+    preview->resize(originalWindowSize);
+    preview->close();
+    window.requestActivate();
     window.setProperty("darkMode", originalTheme);
     window.setProperty("reducedMotion", originalMotion);
     QTest::mouseMove(&window, QPoint(0, 0));

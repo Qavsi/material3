@@ -115,8 +115,9 @@ mixed accessibility state and disabled pointer gating. It runs with the existing
 reduced-motion/software consumer and is reused for installed consumption; no
 private shape/delegate selectors or per-frame comparison are added.
 
-Application navigation adds one public composition scenario: resize through
-expanded/collapsed/drawer modes without losing selection, edit native search
+Application navigation adds one public composition scenario: open its native
+preview window, choose expanded/collapsed/drawer presets without losing selection,
+verify the trailing side-sheet background stays inside its host window, edit native search
 with live searchText and dismiss the native drawer with Escape. Native controls
 are reached through exported shell aliases; private visual children are not tested.
 This scenario runs before other live Theme changes, so an initial variation-reader

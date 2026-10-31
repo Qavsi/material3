@@ -991,6 +991,9 @@ owns64px toolbar,56px search,96/220px rail,600/1200px breakpoints and sheet moti
 The shell composes existing rail recipes with native Buttons/TextField/ToolBar,
 modal navigation and nonmodal details. Qt6.12 has no StyleKit Drawer; Basic.Drawer
 is scoped to its implementation and does not change the application Controls style.
+Native sheets and their scrim use the host window overlay and window bounds;
+they are not clipped to an embedded card. The gallery demonstrates this in a
+retained resizable application window, inheriting Style and motion policy.
 Selection and text survive responsive presentation changes. SearchView overlays,
 QCM runtime integration and automatic application navigation are outside this API.
 

@@ -55,6 +55,7 @@ SK.ApplicationWindow {
     ComparisonPage {
         anchors.fill: parent
         tokens: root.materialStyle.tokens
+        previewArea: root.previewArea
         onAppearanceRequested: appearancePanel.open()
     }
 }

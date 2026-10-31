@@ -49,8 +49,9 @@ Material3AppNavigation {
 }
 ```
 
-Use an id to bind content to `shell.currentIndex` or `shell.searchText` in real
-applications. The default `pageData` slot fills the body beside the rail.
+Place the shell in the application window content area. Use an id to bind content
+to `shell.currentIndex` or `shell.searchText` in real applications. The default
+`pageData` slot fills the body beside the rail.
 The model is a JS array of objects with required `text` and optional `iconName`
 and `enabled` roles. Reassign the array to publish model changes. Models with
 sections, arbitrary delegates and proxy models are outside this small API.
@@ -74,9 +75,12 @@ The available composition width drives readonly `navigationMode`:
 Theme defaults to the selected Material3Style.tokens; an explicit tokens override is supported.
 Reduced motion includes the selected Style policy, OS preference and transitions flag.
 Theme owns all dimensions, breakpoints and motion. The default expanded width is
-QCM's 220px; the thresholds use its compact/large classes against the local available
-width, so nesting does not require window/platform APIs. The collapsed recipe
-keeps its existing desktop pointer target and does not claim kiosk sizing.
+QCM's 220px; the thresholds use its compact/large classes against the shell's
+available width. The native sheets belong to the host window overlay: their
+height, trailing edge and modal scrim follow that window, not a nested card.
+This matches native Drawer semantics; this composition is an application shell,
+not a clipped miniature app. It does not use private overlay APIs. The collapsed
+recipe keeps its existing desktop pointer target and does not claim kiosk sizing.
 
 `searchText` aliases `searchField.text`; `searchField` exposes the native SK.TextField
 for caller font, input hints, validators and text bindings. `searchPlaceholderText`
@@ -109,12 +113,19 @@ is introduced. QCM's spring/drag reveal and SearchView overlay are not claimed.
 
 ## Verification
 
-`AppNavigationGallery.qml` demonstrates native toolbar/search, caller content,
-selection and the nonmodal details sheet. The consumer check changes composition
-width through all three modes, retains selection, edits native search and closes
-the drawer and side sheet with Escape. It captures a native destination to check
+`AppNavigationGallery.qml` opens a retained, resizable native `SK.ApplicationWindow`
+for toolbar/search, caller content, selection and the nonmodal details sheet. The
+gallery owns that window; the exported shell still does not create one. Its three
+width presets drive the actual preview window, and `previewArea` keeps it on the
+left display. Style and transitions are forwarded from the comparison window;
+closing/reopening retains selection, search and StyleKit contexts.
+
+The consumer check opens the preview through its native button and changes the
+actual window width through all three presets, retains selection, edits native
+search and closes the drawer and side sheet with Escape. It captures a native destination to check
 selected-only fill and preserves explicit placeholder ink across state changes.
 The same scenario changes Theme while the compact drawer is open after resizing.
 This test uses the shell's public native aliases and no
-private delegate selectors. Source and relocated installed consumers use the same
-exported module.
+private delegate selectors. The public side-sheet background must remain inside
+the host window, including its trailing edge. Source and relocated installed
+consumers use the same exported module.
