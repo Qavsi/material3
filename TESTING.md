@@ -183,3 +183,9 @@ semantic fills coincide; the three samples remain stable across light/dark
 and have approximately 50 L-star. The existing independent 34-role oracle stays
 unchanged. Appearance's semantic and raw swatches are also checked through
 actual chooser/brightness input on Metal and software; no per-frame matrix.
+
+Brightness profiling uses an ignored transient full-gallery consumer, native
+mouse clicks, a GUI heartbeat and a separate readback measurement. It is diagnostic
+evidence, not a machine-specific timing assertion in CI. Theme-local variation
+token injection preserves public Light/Dark selection and existing theme/seed
+consumer checks.

@@ -12,27 +12,27 @@ Material3JoinedButtonVariation {
     minimumIconSize: metrics.iconSize
 
     button {
-        text.color: variation.sourceStyle.tokens.surfaceForeground
+        text.color: variation.tokens.surfaceForeground
         background {
-            color: variation.sourceStyle.tokens.transparent
-            border.color: variation.sourceStyle.tokens.outline
-            border.width: variation.sourceStyle.tokens.outlineWidth
+            color: variation.tokens.transparent
+            border.color: variation.tokens.outline
+            border.width: variation.tokens.outlineWidth
         }
-        hovered.background.color: variation.sourceStyle.tokens.transparent
-        pressed.background.color: variation.sourceStyle.tokens.transparent
-        focused.background.color: variation.sourceStyle.tokens.transparent
+        hovered.background.color: variation.tokens.transparent
+        pressed.background.color: variation.tokens.transparent
+        focused.background.color: variation.tokens.transparent
         checked {
-            text.color: variation.sourceStyle.tokens.secondaryContainerForeground
-            background.color: variation.sourceStyle.tokens.secondaryContainer
+            text.color: variation.tokens.secondaryContainerForeground
+            background.color: variation.tokens.secondaryContainer
         }
         disabled {
-            text.color: variation.sourceStyle.tokens.disabledLabel
+            text.color: variation.tokens.disabledLabel
             background {
-                color: variation.sourceStyle.tokens.transparent
-                border.color: Qt.alpha(variation.sourceStyle.tokens.surfaceForeground,
-                    variation.sourceStyle.tokens.disabledContainerOpacity)
+                color: variation.tokens.transparent
+                border.color: Qt.alpha(variation.tokens.surfaceForeground,
+                    variation.tokens.disabledContainerOpacity)
             }
-            checked.background.color: variation.sourceStyle.tokens.disabledContainer
+            checked.background.color: variation.tokens.disabledContainer
         }
     }
 }

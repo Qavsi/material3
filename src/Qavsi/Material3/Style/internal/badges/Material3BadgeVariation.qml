@@ -1,14 +1,16 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import Qt.labs.StyleKit as SK
+import Qavsi.Material3.Theme
 
 SK.StyleVariation {
     id: root
     required property var sourceStyle
+    property Material3Theme tokens: sourceStyle.tokens
     property string intent: "error"
     readonly property Material3BadgeDelegate factory: Material3BadgeDelegate { }
     readonly property Material3BadgeParameters parameters: Material3BadgeParameters {
-        tokens: root.sourceStyle.tokens
+        tokens: root.tokens
         intent: root.intent
     }
     label {

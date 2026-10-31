@@ -1,20 +1,22 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import Qt.labs.StyleKit as SK
+import Qavsi.Material3.Theme
 
 QtObject {
     id: root
     required property Material3Style sourceStyle
+    property Material3Theme tokens: sourceStyle.tokens
     readonly property SK.StyleVariation progressCircular: SK.StyleVariation {
         name: "progressCircular"
         progressBar {
             indicator {
-                width: root.sourceStyle.tokens.progressCircularSize
-                height: root.sourceStyle.tokens.progressCircularSize
+                width: root.tokens.progressCircularSize
+                height: root.tokens.progressCircularSize
                 fillWidth: false
                 fillHeight: false
                 data: Material3ProgressParameters {
-                    tokens: root.sourceStyle.tokens
+                    tokens: root.tokens
                     reducedMotion: root.sourceStyle.effectiveReducedMotion
                     circular: true
                     wavy: false
@@ -27,12 +29,12 @@ QtObject {
         name: "progressWavy"
         progressBar {
             indicator {
-                width: root.sourceStyle.tokens.progressWavyLinearMinimumWidth
-                height: root.sourceStyle.tokens.progressThickness + root.sourceStyle.tokens.progressLinearWaveAmplitude * 2
+                width: root.tokens.progressWavyLinearMinimumWidth
+                height: root.tokens.progressThickness + root.tokens.progressLinearWaveAmplitude * 2
                 fillWidth: true
                 fillHeight: true
                 data: Material3ProgressParameters {
-                    tokens: root.sourceStyle.tokens
+                    tokens: root.tokens
                     reducedMotion: root.sourceStyle.effectiveReducedMotion
                     circular: false
                     wavy: true
@@ -45,12 +47,12 @@ QtObject {
         name: "progressCircularWavy"
         progressBar {
             indicator {
-                width: root.sourceStyle.tokens.progressWavyCircularSize
-                height: root.sourceStyle.tokens.progressWavyCircularSize
+                width: root.tokens.progressWavyCircularSize
+                height: root.tokens.progressWavyCircularSize
                 fillWidth: false
                 fillHeight: false
                 data: Material3ProgressParameters {
-                    tokens: root.sourceStyle.tokens
+                    tokens: root.tokens
                     reducedMotion: root.sourceStyle.effectiveReducedMotion
                     circular: true
                     wavy: true
@@ -63,12 +65,12 @@ QtObject {
         name: "progressContiguous"
         progressBar {
             indicator {
-                width: root.sourceStyle.tokens.progressLinearMinimumWidth
-                height: root.sourceStyle.tokens.progressThickness
+                width: root.tokens.progressLinearMinimumWidth
+                height: root.tokens.progressThickness
                 fillWidth: true
                 fillHeight: true
                 data: Material3ProgressParameters {
-                    tokens: root.sourceStyle.tokens
+                    tokens: root.tokens
                     reducedMotion: root.sourceStyle.effectiveReducedMotion
                     circular: false
                     wavy: false
@@ -81,12 +83,12 @@ QtObject {
         name: "progressCircularRetreat"
         progressBar {
             indicator {
-                width: root.sourceStyle.tokens.progressCircularSize
-                height: root.sourceStyle.tokens.progressCircularSize
+                width: root.tokens.progressCircularSize
+                height: root.tokens.progressCircularSize
                 fillWidth: false
                 fillHeight: false
                 data: Material3ProgressParameters {
-                    tokens: root.sourceStyle.tokens
+                    tokens: root.tokens
                     reducedMotion: root.sourceStyle.effectiveReducedMotion
                     circular: true
                     wavy: false

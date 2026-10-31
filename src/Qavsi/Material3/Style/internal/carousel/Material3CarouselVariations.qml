@@ -1,10 +1,12 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import Qt.labs.StyleKit as SK
+import Qavsi.Material3.Theme
 
 QtObject {
     id: root
     required property Material3Style sourceStyle
+    property Material3Theme tokens: sourceStyle.tokens
     readonly property SK.StyleVariation carousel: SK.StyleVariation {
         name: "carousel"
         pane {
@@ -15,16 +17,17 @@ QtObject {
     readonly property ButtonVariation item: ButtonVariation {
         name: "carouselItem"
         sourceStyle: root.sourceStyle
-        containerColor: root.sourceStyle.tokens.transparent
-        contentColor: root.sourceStyle.tokens.carouselImageForeground
+        tokens: root.tokens
+        containerColor: root.tokens.transparent
+        contentColor: root.tokens.carouselImageForeground
         checkedContainerColor: containerColor
         checkedContentColor: contentColor
         button {
             padding: 0
-            background { width: 0; height: 0; margins: 0; radius: root.sourceStyle.tokens.carouselItemCorner }
-            hovered.background.radius: root.sourceStyle.tokens.carouselItemCorner
-            pressed.background.radius: root.sourceStyle.tokens.carouselItemCorner
-            checked.background.radius: root.sourceStyle.tokens.carouselItemCorner
+            background { width: 0; height: 0; margins: 0; radius: root.tokens.carouselItemCorner }
+            hovered.background.radius: root.tokens.carouselItemCorner
+            pressed.background.radius: root.tokens.carouselItemCorner
+            checked.background.radius: root.tokens.carouselItemCorner
         }
     }
 }

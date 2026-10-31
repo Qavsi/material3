@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Fix Brightness stalls by scoping every Theme-local variation to its own token
+  object instead of retargeting both outgoing and incoming recipe trees.
 - Show semantic primary/secondary/tertiary colors and their raw Tone 50 samples
   with live hex values in Appearance, retaining Content/Fidelity differences in
   both light and dark themes.

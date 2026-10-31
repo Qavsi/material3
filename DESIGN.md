@@ -36,6 +36,12 @@ açıp QCM'nin seed/scheme girdilerini açıkça eşitler; bu tercih kitin varsa
 - `Material3Style`: doğrudan `SK.Style`; Light/Dark seçimi, family font eşlemesi ve
   azaltılmış hareket politikası.
 - Internal `Material3ControlTheme`: direct `SK.Theme` composition root for native control mappings and theme-local family variations.
+  Each family receives that Theme's `tokens` explicitly and forwards it to every
+  child variation. Only standalone recipes default to `sourceStyle.tokens`.
+  Motion and delegate factories still come from `sourceStyle`. This keeps the
+  outgoing Theme on its original palette until Qt deletes it; switching Light/Dark
+  does not retarget both old and new variation trees or notify every reader again.
+  Seed/scheme and token property changes remain reactive.
 - Internal `Material3TextFieldVariations`: field recipe registration, separate from base control mappings.
 - Internal `SmallButtonDelegate` / `SmallButtonParameters`: background factory ve
   `DelegateStyle.data` üzerinden typed token/hareket aktarımı.

@@ -8,36 +8,37 @@ SK.Theme {
     id: root
     required property Material3Theme tokens
     required property Material3Style sourceStyle
-    readonly property Material3TextFieldVariations textFieldVariations: Material3TextFieldVariations { sourceStyle: root.sourceStyle }
-    readonly property Material3ComboBoxVariations comboVariations: Material3ComboBoxVariations { sourceStyle: root.sourceStyle }
+    readonly property Material3TextFieldVariations textFieldVariations: Material3TextFieldVariations { sourceStyle: root.sourceStyle; tokens: root.tokens }
+    readonly property Material3ComboBoxVariations comboVariations: Material3ComboBoxVariations { sourceStyle: root.sourceStyle; tokens: root.tokens }
     readonly property Material3BadgeVariations badgeVariations: Material3BadgeVariations {
-        sourceStyle: root.sourceStyle
+        sourceStyle: root.sourceStyle; tokens: root.tokens
     }
     readonly property Material3ListCardVariations listCardVariations: Material3ListCardVariations {
-        sourceStyle: root.sourceStyle
+        sourceStyle: root.sourceStyle; tokens: root.tokens
     }
-    readonly property Material3ColorChoiceVariation colorChoice: Material3ColorChoiceVariation { sourceStyle: root.sourceStyle }
+    readonly property Material3ColorChoiceVariation colorChoice: Material3ColorChoiceVariation { sourceStyle: root.sourceStyle; tokens: root.tokens }
     readonly property Material3ChipVariations chipVariations: Material3ChipVariations {
         sourceStyle: root.sourceStyle
+        tokens: root.tokens
     }
-    readonly property Material3DestinationVariation destinationVariation: Material3DestinationVariation { sourceStyle: root.sourceStyle }
-    readonly property Material3AppNavigationVariations appNavigationVariations: Material3AppNavigationVariations { sourceStyle: root.sourceStyle }
+    readonly property Material3DestinationVariation destinationVariation: Material3DestinationVariation { sourceStyle: root.sourceStyle; tokens: root.tokens }
+    readonly property Material3AppNavigationVariations appNavigationVariations: Material3AppNavigationVariations { sourceStyle: root.sourceStyle; tokens: root.tokens }
     readonly property Material3NavigationVariations navigationVariations: Material3NavigationVariations {
-        sourceStyle: root.sourceStyle
+        sourceStyle: root.sourceStyle; tokens: root.tokens
     }
     // Theme-local variations outrank the direct Theme button mapping in Qt 6.12.
-    readonly property QtObject buttonVariations: ButtonVariations { sourceStyle: root.sourceStyle }
-    readonly property QtObject advancedButtonVariations: Material3AdvancedButtonVariations { sourceStyle: root.sourceStyle }
+    readonly property QtObject buttonVariations: ButtonVariations { sourceStyle: root.sourceStyle; tokens: root.tokens }
+    readonly property QtObject advancedButtonVariations: Material3AdvancedButtonVariations { sourceStyle: root.sourceStyle; tokens: root.tokens }
 
-    readonly property QtObject pickerVariations: Material3PickerVariations { sourceStyle: root.sourceStyle }
+    readonly property QtObject pickerVariations: Material3PickerVariations { sourceStyle: root.sourceStyle; tokens: root.tokens }
 
     readonly property ButtonVariation snackbarAction: ButtonVariation {
         name: "snackbarAction"
-        sourceStyle: root.sourceStyle
+        sourceStyle: root.sourceStyle; tokens: root.tokens
         containerColor: root.tokens.transparent
         contentColor: root.tokens.inverseSurfaceForeground
     }
-    readonly property Material3CarouselVariations carouselRecipes: Material3CarouselVariations { sourceStyle: root.sourceStyle }
+    readonly property Material3CarouselVariations carouselRecipes: Material3CarouselVariations { sourceStyle: root.sourceStyle; tokens: root.tokens }
     pageIndicator {
         padding: root.tokens.carouselPagePadding
         spacing: root.tokens.carouselPageSpacing

@@ -7,7 +7,7 @@ SK.StyleVariation {
     id: root
     required property var sourceStyle
     required property int lines
-    readonly property Material3Theme tokens: sourceStyle.tokens
+    property Material3Theme tokens: sourceStyle.tokens
     readonly property Material3ListCardDelegate factory: Material3ListCardDelegate { }
     readonly property Material3ListCardParameters parameters: Material3ListCardParameters {
         tokens: root.tokens

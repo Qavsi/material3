@@ -7,7 +7,7 @@ SK.StyleVariation {
     id: root
     required property var sourceStyle
     required property string kind
-    readonly property Material3Theme tokens: sourceStyle.tokens
+    property Material3Theme tokens: sourceStyle.tokens
     readonly property color container: kind === "filled" ? tokens.surfaceContainerHighest
         : kind === "outlined" ? tokens.surface : tokens.surfaceContainerLow
     readonly property Material3ListCardDelegate factory: Material3ListCardDelegate { }

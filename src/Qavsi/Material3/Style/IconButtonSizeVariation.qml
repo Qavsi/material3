@@ -1,31 +1,33 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import Qt.labs.StyleKit as SK
+import Qavsi.Material3.Theme
 
 SK.StyleVariation {
     id: root
     required property Material3Style sourceStyle
+    property Material3Theme tokens: sourceStyle.tokens
     required property var metrics
     property real containerWidth: metrics.defaultWidth
-    property real pressedRadius: sourceStyle.tokens.radiusSmall
-    property real checkedRadius: sourceStyle.tokens.radiusMedium
+    property real pressedRadius: tokens.radiusSmall
+    property real checkedRadius: tokens.radiusMedium
     // QmlMaterial's XS zero dimensions mean content-size plus an optical inset.
     readonly property real opticalWidth: Math.max(containerWidth,
-        metrics.iconSize + sourceStyle.tokens.spacingUnit * 2)
+        metrics.iconSize + tokens.spacingUnit * 2)
     readonly property real opticalHeight: Math.max(metrics.containerHeight,
-        metrics.iconSize + sourceStyle.tokens.spacingUnit * 2)
-    readonly property real horizontalInset: Math.max(sourceStyle.tokens.iconButtonInset,
-        (sourceStyle.tokens.minimumTargetSize - opticalWidth) / 2)
-    readonly property real verticalInset: Math.max(sourceStyle.tokens.iconButtonInset,
-        (sourceStyle.tokens.minimumTargetSize - opticalHeight) / 2)
+        metrics.iconSize + tokens.spacingUnit * 2)
+    readonly property real horizontalInset: Math.max(tokens.iconButtonInset,
+        (tokens.minimumTargetSize - opticalWidth) / 2)
+    readonly property real verticalInset: Math.max(tokens.iconButtonInset,
+        (tokens.minimumTargetSize - opticalHeight) / 2)
     readonly property SmallButtonParameters parameters: SmallButtonParameters {
-        tokens: root.sourceStyle.tokens
+        tokens: root.tokens
         reduceMotion: root.sourceStyle.effectiveReducedMotion
         minimumIconSize: root.metrics.iconSize
         fillIconWhenChecked: true
     }
     control {
-        padding: root.sourceStyle.tokens.iconButtonPadding
+        padding: root.tokens.iconButtonPadding
         spacing: 0
         background {
             width: root.opticalWidth

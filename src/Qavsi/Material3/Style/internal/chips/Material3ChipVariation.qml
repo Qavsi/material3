@@ -8,7 +8,7 @@ SK.StyleVariation {
     id: variation
     required property var sourceStyle
     required property string kind
-    readonly property Material3Theme tokens: sourceStyle.tokens
+    property Material3Theme tokens: sourceStyle.tokens
     readonly property bool selectable: kind === "filter" || kind === "input" || kind === "embed"
     readonly property bool dismiss: kind === "dismiss"
     readonly property bool outlined: kind !== "embed" && !dismiss
