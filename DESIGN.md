@@ -283,7 +283,7 @@ factory/data dosyaları ve C++ registration metadata'sı paketle taşınır.
   ikonları Qavsi.Icons.Material üzerinden gerçek paketli Material Symbols adlarıdır;
   font ve katalog kitte kopyalanmaz.
 
-**Remaining scope:** morphing/wavy loading, the complete responsive navigation shell and
+**Remaining scope:** the complete responsive navigation shell and
 selection controls beyond the families documented below remain outside this slice. Split menü referans gibi
 sahne içi Popup.Item ve Qt fallback’ini kullanır.
 İki inline FAB action stack bu karşılaştırmaya dahildir; bütün Expressive FAB
@@ -299,8 +299,8 @@ Kabul kanıtı: [evidence/VERIFICATION.md](evidence/VERIFICATION.md).
 
 Native `SK.ProgressBar` has a 4 px rounded linear recipe, 4 px track gap and
 endpoint dot. `progressCircular` selects the QCM 40 px outer / 32 px path /
-4 px stroke circular recipe. Native `SK.BusyIndicator` uses the same circular
-advance motion and retains `running`. Primary/secondary-container and
+4 px stroke circular recipe. Native `SK.BusyIndicator` retains `running` and uses
+QCM's separate morphing loading shape. Primary/secondary-container and
 transparent circular track are semantic Theme roles; optical values come from
 the generated Progress recipe. QCM 0.6.1's disjoint 1800 ms / advance 5400 ms
 motion uses one software-compatible painter; reduced motion has visible static
@@ -318,7 +318,21 @@ owns QCM amplitude, phase, finish/fade and segment calculations; native Qt retai
 range/value/indeterminate and accessibility. The reference gallery uses one
 percentage slider and QCM's play/pause composition, with semantic track overrides
 for determinate circles. See the family document for exact source files and API.
-Morphing BusyIndicator/loading shapes remain separate from this progress port.
+BusyIndicator uses a transparent 48 px container with a 40 px shape, the seven QCM
+radial shapes and 650 ms normalized spring phases. Geometry overshoot and the long
+rotation cycle are preserved. Only the seven morph pairs are cached, independent
+of Theme. Public Qt/QPainterPath rendering works on Metal and software; it does
+not import QCM's private Shape adapter. ProgressBar and button progress retain
+separate renderers.
+
+`showDelay` and `minHideDelay` default to 0; the latter is capped at 1000 ms and starts
+when content actually appears. Short work never flashes. Stopping freezes the
+current frame until its minimum visibility budget expires; restarting cancels the
+pending hide. Reduced motion uses a visible static shape, retaining delay rules.
+Per-operation timing opts into `Material3BusyIndicatorContent` on native
+`SK.BusyIndicator.contentItem`. Timing changes only inner paint visibility and
+never assigns the native control's `visible` or `running` binding. Geometry,
+primary/disabled ink and duration come from Theme tokens.
 
 ## Qt 6.12 uygulama ayrıntıları
 

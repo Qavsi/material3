@@ -5,7 +5,9 @@ behavior at these seams; they do not navigate the kit's private delegate tree.
 
 Progress coverage stays at those seams: native range/value/mode bindings,
 accessible numeric progress, rendered fill and reduced-motion feedback, and
-BusyIndicator running. Dynamic modes use the public `Material3ProgressContent`
+BusyIndicator running, rendered static/animated morph feedback, and one native
+short/normal-operation scenario for show/min-hide timing and caller visibility.
+No private timer or geometry-cache inspection is added. Dynamic modes use the public `Material3ProgressContent`
 opt-in around the Qt 6.12.0 default-content defect. Source and relocated installed
 consumers exercise the same gallery; private animation phases are not asserted.
 

@@ -145,12 +145,74 @@ Column {
         width: parent.width
         tokens: root.tokens
         title: qsTr("Busy indicator")
-        SK.BusyIndicator {
-            objectName: "comparison.progress.busy"
-            property bool working: true
+        RowLayout {
             anchors.horizontalCenter: parent.horizontalCenter
-            running: working
-            Accessible.name: qsTr("Loading")
+            spacing: root.tokens.spacingLarge
+            Column {
+                spacing: root.tokens.spacingSmall
+                SK.Label {
+                    text: qsTr("Immediate")
+                    font: root.tokens.labelMedium
+                    color: root.tokens.surfaceForeground
+                }
+                SK.BusyIndicator {
+                    objectName: "comparison.progress.busy"
+                    property bool working: true
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    running: working
+                    Accessible.name: qsTr("Loading")
+                }
+            }
+            Column {
+                spacing: root.tokens.spacingSmall
+                SK.Label {
+                    text: qsTr("Delayed")
+                    font: root.tokens.labelMedium
+                    color: root.tokens.surfaceForeground
+                }
+                SK.BusyIndicator {
+                    id: delayedBusy
+                    objectName: "comparison.progress.busy.delayed"
+                    readonly property bool working: task.running
+                    property bool shown: true
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    running: working
+                    visible: shown
+                    Accessible.name: qsTr("Loading with a display delay")
+                    contentItem: Material3BusyIndicatorContent {
+                        control: delayedBusy
+                        showDelay: root.metrics.busyShowDelay
+                        minHideDelay: root.metrics.busyMinimumVisibleDuration
+                    }
+                }
+            }
         }
+        Row {
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: root.tokens.spacingSmall
+            SK.Button {
+                id: quickTask
+                objectName: "comparison.progress.busy.quickTask"
+                text: qsTr("Quick task")
+                SK.StyleVariation.variations: ["ghost"]
+                contentItem: Material3ButtonContent { control: quickTask }
+                onClicked: {
+                    task.interval = root.metrics.busyQuickTaskDuration
+                    task.restart()
+                }
+            }
+            SK.Button {
+                id: normalTask
+                objectName: "comparison.progress.busy.normalTask"
+                text: qsTr("Normal task")
+                SK.StyleVariation.variations: ["filledTonal"]
+                contentItem: Material3ButtonContent { control: normalTask }
+                onClicked: {
+                    task.interval = root.metrics.busyTaskDuration
+                    task.restart()
+                }
+            }
+        }
+        Timer { id: task }
     }
 }

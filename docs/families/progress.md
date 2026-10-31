@@ -117,18 +117,59 @@ no NumberAnimation clock or refresh-rate-dependent phase is used. Hidden/disable
 controls and hidden/minimized windows stop the kit clock. Theme reduced motion and
 StyleKit transitions disable the clock and retain QCM's fixed visible sample
 (linear75%, Advance12.5%, Retreat25%). A paused indicator is hidden immediately
-under reduced motion. Existing native BusyIndicator running/geometry remain intact.
-QCM's separate morphing BusyIndicator and show/min-hide delays are outside this port.
+under reduced motion. Native BusyIndicator retains running with its separate morphing content below.
 
 QQuickPaintedItem Image draws the same paths on Metal and software. This retains
 the software fallback and avoids private Qt Shape APIs; it has CPU/texture-upload
 cost, unlike QCM's CurveRenderer. No claim of equal renderer performance is made.
 
+## Morphing BusyIndicator
+
+The same pinned QCM 0.6.1 supplies `qml/indicator/BusyIndicator.qml`,
+`loading_indicator_updator.cpp`, `rounded_polygon.hpp/.cpp`, `morph.cpp` and the
+seven factories from `material_shapes.cpp`. Sequence:
+SoftBurst → Cookie9Sided → Pentagon → Pill → Sunny → Cookie4Sided → Oval → repeat.
+Each phase is 650 ms; spring stiffness 200/damping ratio 0.6, radial normalization,
+unclamped geometry overshoot and the rotation cycle are preserved. Phase does not
+wrap at seven, because rotation has a longer period. Only these seven shape/morph
+pairs are cached once. A transparent 48 px paint target surrounds the 40 px shape,
+so the overshoot isn't clipped. No full 35-shape catalog, Skia runtime or private
+Qt adapter is imported. The painter uses the primary/disabled Theme ink.
+
+Ordinary `SK.BusyIndicator` receives this delegate without extra properties.
+For per-operation timing use the public content helper:
+
+```qml
+SK.BusyIndicator {
+    id: busy
+    running: request.running
+    visible: page.showLoading
+    contentItem: Material3BusyIndicatorContent {
+        control: busy
+        showDelay: 150
+        minHideDelay: 500
+    }
+}
+```
+
+`showDelay` avoids flashing for short work. `minHideDelay` is the minimum shown
+time from the actual reveal, capped at 1000 ms; both default to 0. Stopping cancels
+a pending show and freezes the last shape during the remaining minimum budget.
+Restarting cancels a pending hide and starts the show policy again. The inner
+paint is hidden, not the native control: running/visible bindings remain owned
+by the caller. FrameAnimation uses monotonic elapsed time; reduced motion gives
+a static first shape while retaining the delays. Hidden/disabled/minimized views
+stop the animation clock. ProgressBar and button loading use their existing
+progress renderer.
+
 ## Verification
 
 The real source/installed gallery follows QCM's shared percentage slider, straight
 and wavy determinate rows, paired circles, playback button, three indeterminate
-lines and three indeterminate circles. BusyIndicator remains a separate sample.
+lines and three indeterminate circles. BusyIndicator shows immediate feedback and a delayed short/normal operation sample.
 The native-consumer check covers rendered wave extent, QCM10/48px geometry,
 play/stop under reduced motion, live range/value/mode bindings and accessible
-progress value. It does not inspect private path caches or animation phases.
+progress value. One public native BusyIndicator scenario verifies short-work
+suppression, minimum visibility and the caller's visible binding; existing
+rendered static/animated feedback checks cover reduced motion/software. It does
+not inspect private timers, path caches or animation phases.

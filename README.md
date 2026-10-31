@@ -516,7 +516,7 @@ default geometry is augmented/restored automatically by the delegate.
 ## Native progress
 
 `SK.ProgressBar` defaults to QCM linear styling; `progressCircular` selects the
-circular recipe. `SK.BusyIndicator` keeps native `running` with circular motion.
+circular recipe. `SK.BusyIndicator` keeps native `running` with QCM morphing shapes.
 For live indeterminate mode changes on Qt 6.12.0, opt into the content helper:
 
 ```qml
@@ -529,6 +529,25 @@ SK.ProgressBar {
 }
 SK.ProgressBar { SK.StyleVariation.variations: ["progressCircular"]; value: 0.6 }
 SK.BusyIndicator { running: application.loading; Accessible.name: qsTr("Loading") }
+```
+
+For operation-specific display timing, keep the native control and opt into its
+content helper. Work shorter than `showDelay` never flashes; `minHideDelay` counts
+from the actual reveal and is capped at 1000 ms. The caller's `visible` binding stays
+intact. Defaults are immediate. Theme/OS reduced motion retains a static shape;
+Metal and software use the same QCM geometry.
+
+```qml
+SK.BusyIndicator {
+    id: loading
+    running: job.running
+    visible: page.showLoading
+    contentItem: Material3BusyIndicatorContent {
+        control: loading
+        showDelay: 150
+        minHideDelay: 500
+    }
+}
 ```
 
 The helper follows the selected `Material3Style` Theme and reduced motion.

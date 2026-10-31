@@ -302,6 +302,16 @@ QtObject {
     readonly property int progressAmplitudeDuration: 500
     readonly property int progressOpacityDuration: 100
 
+    // QCM 0.6.1 loading shape geometry and timing, independent of circular progress.
+    readonly property real busyContainerSize: 48
+    readonly property real busyShapeSize: 40
+    readonly property int busyShapeDuration: 650
+    readonly property int busyShowDelay: 0
+    readonly property int busyMinimumHideDelay: 0
+    readonly property int busyMaximumHideDelay: 1000
+    readonly property color busyIndicator: primary
+    readonly property color busyDisabledIndicator: disabledLabel
+
     readonly property real checkBoxIndicatorSize: CheckBoxRecipe.indicatorSize
     readonly property real checkBoxStateLayerDiameter: CheckBoxRecipe.stateLayerDiameter
     readonly property real checkBoxHorizontalPadding: spacingSmall

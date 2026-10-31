@@ -39,27 +39,21 @@ SK.Style {
             foreground.visible: false
         }
     }
+    readonly property Material3BusyIndicatorDelegate busyFactory: Material3BusyIndicatorDelegate { }
     busyIndicator {
         padding: 0
-        background {
-            visible: false
-            width: 0
-            height: 0
-            margins: 0
-        }
+        background { visible: false; width: 0; height: 0; margins: 0 }
         indicator {
-            width: root.tokens.progressCircularSize
-            height: root.tokens.progressCircularSize
+            width: root.tokens.busyContainerSize
+            height: root.tokens.busyContainerSize
             margins: 0
             fillWidth: true
             fillHeight: true
             alignment: Qt.AlignCenter
-            delegate: root.progressFactory.indicator
-            data: Material3ProgressParameters {
+            delegate: root.busyFactory.indicator
+            data: Material3BusyIndicatorParameters {
                 tokens: root.tokens
                 reducedMotion: root.effectiveReducedMotion
-                circular: true
-                busy: true
             }
             foreground.visible: false
         }

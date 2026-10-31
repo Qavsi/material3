@@ -66,9 +66,15 @@ QCM is Copyright (c) 2024-2025 hypengw, MIT; progress geometry/motion additional
 retain Copyright (C) 2020 The Android Open Source Project, Apache-2.0.
 Local changes isolate private geometry types, retain native Qt control ownership,
 map dimensions/colors/motion to Theme, and paint paths through QQuickPaintedItem
-instead of QCM's private Qt Shape renderer. Native completion stays full; the
-separate morphing loading shapes are excluded. Full Apache-2.0 and QCM MIT texts
-are installed in share/licenses/QavsiMaterial3/ripple-reference/.
+instead of QCM's private Qt Shape renderer. Native completion stays full.
+
+The separate morphing BusyIndicator ports QCM's RoundedPolygon/Morph core,
+seven radial loading shape factories and loading_indicator_updator spring/rotation
+math from the same pinned revision (QCM MIT). It caches only the seven loading
+pairs and uses a public QQuickPaintedItem/QPainterPath adapter. Show/min-hide
+policy is adapted to inner content visibility; native Qt running/visible bindings
+remain caller-owned. Full Apache-2.0 and QCM MIT texts are installed in
+share/licenses/QavsiMaterial3/ripple-reference/.
 
 The example’s `icons/*.svg` are Google Material Symbols Rounded, pinned to
 material-design-icons `10ecc14790612ca8fd164e3f4ffe9c16fc50d5b7`, under Apache-2.0.

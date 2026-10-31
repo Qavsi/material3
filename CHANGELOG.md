@@ -4,6 +4,10 @@
 
 - Fix Brightness stalls by scoping every Theme-local variation to its own token
   object instead of retargeting both outgoing and incoming recipe trees.
+- Add QCM morphing BusyIndicator geometry/motion and opt-in show/min-hide timing
+  through `Material3BusyIndicatorContent`, preserving native running/visible,
+  Theme/reduced-motion and software rendering.
+
 - Show semantic primary/secondary/tertiary colors and their raw Tone 50 samples
   with live hex values in Appearance, retaining Content/Fidelity differences in
   both light and dark themes.

@@ -22,6 +22,7 @@ int checkAdvancedChips(QQuickWindow &window);
 int checkButtonGroupMotion(QQuickWindow &window);
 int checkBusyButtons(QQuickWindow &window);
 int checkProgressInactiveUpdates(QQuickWindow &window);
+int checkBusyIndicatorTiming(QQuickWindow &window);
 int checkInlineDatePicker(QQuickWindow &window);
 int checkInlineColorPicker(QQuickWindow &window);
 
@@ -653,7 +654,7 @@ void checkProgress(QQuickWindow &window)
            "QCM wavy progress has its 10px wave and 48px circular geometry");
     reveal(linear);
     expect(qAbs(linear->height() - 4) < 0.5 && qAbs(circular->width() - 40) < 0.5
-               && qAbs(circular->height() - 40) < 0.5 && qAbs(busy->width() - 40) < 0.5,
+               && qAbs(circular->height() - 40) < 0.5 && qAbs(busy->width() - 48) < 0.5,
            "native progress controls use QCM linear and circular geometry");
     const auto capture = [](QQuickItem *item) -> QImage {
         const auto grab = item->grabToImage();
@@ -706,6 +707,12 @@ void checkProgress(QQuickWindow &window)
     const auto animated = capture(busy);
     QTest::qWait(180);
     expect(animated != capture(busy), "native BusyIndicator animates when full motion is enabled");
+    window.setProperty("reducedMotion", true);
+    if (auto *quick = control(window, "comparison.progress.busy.quickTask")) {
+        reveal(quick);
+        expect(checkBusyIndicatorTiming(window) == 0,
+               "busy timing skips short work, holds feedback and preserves caller visibility");
+    }
     window.setProperty("reducedMotion", previousReducedMotion);
 }
 
