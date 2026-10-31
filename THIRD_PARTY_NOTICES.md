@@ -176,3 +176,8 @@ QCM 0.6.1 anim/spring_motion, control/button_group_container, token/motion,
 qml/visual/Icon.qml, qml/chip and style/chip_state from the same pinned revision.
 The existing QCM MIT notice applies. Public Qt animation/input replaces QCM
 runtime ownership; no additional runtime dependency is linked.
+
+Button loading additionally adapts QCM 0.6.1 qml/button/BusyButton.qml and
+BusyIconButton.qml from the same pin, under the MIT notice above. The native
+StyleKit content helper reuses the existing ported progress engine; no QCM
+control/runtime dependency is linked.

@@ -14,3 +14,5 @@ const largeIconSize = 24;
 const extraLargeHeight = 72;
 const extraLargeIconSize = 32;
 const minimumWidth = 64;
+const busyIndicatorInset = 6;
+const busyIndicatorStrokeWidth = 2;

@@ -12,6 +12,10 @@ import Qavsi.Icons
 Item {
     id: root
     required property T.Button control
+    enum BusyState { Idle, Busy, Progress }
+    property int busy: Material3ButtonContent.Idle
+    property real progress: 0
+    readonly property bool loading: busy !== Material3ButtonContent.Idle
     readonly property SmallButtonParameters parameters: reader.background.data as SmallButtonParameters
     readonly property Material3AdvancedButtonParameters advanced: parameters as Material3AdvancedButtonParameters
     readonly property color color: reader.text.color
@@ -34,7 +38,7 @@ Item {
     readonly property bool canAnimate: ready && !reduceMotion && visible && control.visible
         && control.SK.StyleKit.transitionsEnabled && Window.window && Window.window.visible
         && Window.window.visibility !== Window.Minimized
-    readonly property bool canAnimateIconFill: canAnimate && materialIconFill && showIcon && !selectedMark
+    readonly property bool canAnimateIconFill: canAnimate && !loading && materialIconFill && showIcon && !selectedMark
     property real iconFillProgress: iconFilled ? 1 : 0
     // QCM rounds toward the target in quarter-axis steps in both directions.
     readonly property real iconFillValue: Math.max(0, Math.min(1,
@@ -111,8 +115,33 @@ Item {
         NumberAnimation { id: offsetAnimation; duration: root.parameters?.tokens.shapeDuration ?? 0 }
     }
 
+    Loader {
+        anchors.centerIn: parent
+        active: root.loading && root.parameters !== null
+        // QCM's legacy circular path strokes outside its nominal diameter.
+        width: Math.max(0, Math.min(root.iconWidth, root.iconHeight)
+            - (root.parameters?.tokens.buttonBusyIndicatorInset ?? 0))
+            + (root.parameters?.tokens.buttonBusyIndicatorStrokeWidth ?? 0)
+        height: width
+        sourceComponent: Component {
+            Material3ProgressVisual {
+                control: root.control
+                tokens: root.parameters.tokens
+                reducedMotion: root.reduceMotion
+                circular: true
+                indeterminate: root.busy !== Material3ButtonContent.Progress
+                running: indeterminate
+                position: root.progress
+                color: root.color
+                trackColor: tokens.transparent
+                thickness: tokens.buttonBusyIndicatorStrokeWidth
+                padding: thickness / 2
+            }
+        }
+    }
     GridLayout {
         id: grid
+        visible: !root.loading
         x: (root.width - width) / 2 + root.contentOffset
             + (root.fab && root.showIcon ? ((root.advanced?.leadingInset ?? 0)
                 - (root.advanced?.trailingInset ?? 0)) / 2 * root.expansionProgress

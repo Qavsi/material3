@@ -16,6 +16,7 @@ class MaterialProgressPaint : public QQuickPaintedItem {
     Q_PROPERTY(int motionType MEMBER m_motionType NOTIFY appearanceChanged)
     Q_PROPERTY(qreal position MEMBER m_position NOTIFY appearanceChanged)
     Q_PROPERTY(qreal thickness MEMBER m_thickness NOTIFY appearanceChanged)
+    Q_PROPERTY(qreal padding MEMBER m_padding NOTIFY appearanceChanged)
     Q_PROPERTY(qreal gap MEMBER m_gap NOTIFY appearanceChanged)
     Q_PROPERTY(qreal gapAngle MEMBER m_gapAngle NOTIFY appearanceChanged)
     Q_PROPERTY(qreal stopDiameter MEMBER m_stopDiameter NOTIFY appearanceChanged)
@@ -53,6 +54,7 @@ private:
     int m_motionType = 0;
     qreal m_position = 0;
     qreal m_thickness = 4;
+    qreal m_padding = -1;
     qreal m_gap = 4;
     qreal m_gapAngle = 8;
     qreal m_stopDiameter = 4;

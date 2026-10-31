@@ -1,4 +1,5 @@
 import QtQuick
+import "Material3ButtonRecipe.js" as ButtonRecipe
 import "Material3CarouselRecipe.js" as CarouselRecipe
 import "Material3PickerRecipe.js" as PickerRecipe
 import "Material3ScrollBarRecipe.js" as ScrollBarRecipe
@@ -518,6 +519,8 @@ QtObject {
     readonly property real segmentedExtraLargePadding: 40
     readonly property real outlineWidth: 1
     readonly property real smallHeight: 40
+    readonly property real buttonBusyIndicatorInset: ButtonRecipe.busyIndicatorInset
+    readonly property real buttonBusyIndicatorStrokeWidth: ButtonRecipe.busyIndicatorStrokeWidth
     readonly property real smallIconSize: 18
     readonly property int iconWeight: 400
     readonly property real iconOpticalSize: 24

@@ -14,10 +14,15 @@ Item {
     property bool busy: false
     property bool running: true
     property int motionType: circular && wavy ? 1 : 0
-    property color trackColor: circular ? tokens.progressCircularTrack : tokens.progressTrack
+    property color trackColor: control.enabled
+        ? (circular ? tokens.progressCircularTrack : tokens.progressTrack) : tokens.progressDisabledTrack
     readonly property T.ProgressBar progressControl: control as T.ProgressBar
     readonly property T.BusyIndicator busyControl: control as T.BusyIndicator
-    readonly property bool indeterminate: busy || (progressControl && progressControl.indeterminate)
+    property bool indeterminate: busy || (progressControl && progressControl.indeterminate)
+    property real position: progressControl ? progressControl.position : 0
+    property real thickness: tokens.progressThickness
+    property real padding: circular && !wavy ? thickness : 0
+    property color color: control.enabled ? tokens.progressIndicator : tokens.progressDisabledIndicator
     readonly property bool working: !busy || (busyControl && busyControl.running)
     readonly property bool active: working && control.enabled && control.visible && control.opacity > 0
         && visible && opacity > 0 && Window.window && Window.window.visible
@@ -38,7 +43,7 @@ Item {
         animationsEnabled: root.active && !root.reducedMotion && root.SK.StyleKit.transitionsEnabled
         indeterminate: root.indeterminate
         mirrored: root.control.mirrored
-        position: root.progressControl ? root.progressControl.position : 0
+        position: root.position
         motionType: root.motionType
         waveLength: root.circular ? root.tokens.progressCircularWaveLength
             : root.indeterminate ? root.tokens.progressIndeterminateWaveLength : root.tokens.progressDeterminateWaveLength
@@ -49,12 +54,13 @@ Item {
         opacityDuration: root.tokens.progressOpacityDuration
         cycleDuration: root.circular ? (root.motionType === 0 ? root.tokens.progressCircularCycleDuration : root.tokens.progressRetreatCycleDuration)
             : root.motionType === 0 ? root.tokens.progressLinearCycleDuration : root.tokens.progressContiguousCycleDuration
-        thickness: root.tokens.progressThickness
+        thickness: root.thickness
+        padding: root.padding
         gap: root.tokens.progressGap
         gapAngle: root.tokens.progressCircularGapAngle
         stopDiameter: root.tokens.progressStopDiameter
-        color: root.control.enabled ? root.tokens.progressIndicator : root.tokens.progressDisabledIndicator
-        trackColor: root.control.enabled ? root.trackColor : root.tokens.progressDisabledTrack
+        color: root.color
+        trackColor: root.trackColor
     }
     FrameAnimation {
         id: animation

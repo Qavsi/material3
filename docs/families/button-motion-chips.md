@@ -66,3 +66,39 @@ One native group scenario covers activation, widths, caller bindings, RTL and
 reduced-motion switching; one chip scenario covers editor focus/commit and drag.
 Existing selection/Action checks are reused. The Icons public render fixture
 checks fractional FILL and fallback; no private/timing matrix is added.
+
+## Busy buttons
+
+The existing content helper adds the QCM BusyButton/BusyIconButton presentation:
+
+```qml
+SK.Button {
+    id: upload
+    text: qsTr("Upload")
+    icon.name: "material:upload"
+    contentItem: Material3ButtonContent {
+        control: upload
+        busy: !job.running ? Material3ButtonContent.Idle
+              : job.indeterminate ? Material3ButtonContent.Busy : Material3ButtonContent.Progress
+        progress: job.progress
+    }
+    onClicked: { if (!job.running) job.start() }
+}
+```
+
+Use the same helper with native display: SK.Button.IconOnly and an icon role.
+Busy hides icon and text while retaining implicit size; Progress uses the same
+ring with the 0–1 progress value. Button text/accessibility and caller sizing,
+selection and enabled bindings are retained. No separate spinner background
+is painted; ring ink follows the resolved variation foreground.
+
+QCM's nominal diameter is resolved icon size minus6, with stroke2 and padding0.
+Its legacy circular path paints half a stroke outside that nominal size. Our
+painter allocates this extra area to retain the full stroke. Optical values
+come through the canonical Button recipe/Theme. Motion uses the already
+ported progress engine: determinate150ms, advance5400ms; reduced motion remains
+static and visible, hidden/minimized windows stop the frame clock. Software
+uses the same painter. QCM does not automatically disable busy buttons; guard
+work requests in application code, or bind native enabled when disabled
+semantics are wanted. The comparison demonstrates a2s normal job and an
+icon-only Busy→Progress→Idle job, without another button API.

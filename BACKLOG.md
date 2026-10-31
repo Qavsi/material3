@@ -3,10 +3,6 @@
 Outstanding QCM parity work and focused investigations. Existing native control
 families remain usable while these follow-ups are deferred.
 
-| ID | Area | Remaining work |
-|---|---|---|
-| BTN-001 | Busy buttons | Native-button loading content and determinate/indeterminate progress, including icon-only usage |
-
 Current slice: native SK.TextField, default outlined, textFieldFilled variation,
 placeholderText as floating caption, TextFieldSupport affixes/icons/messages,
 Theme, accessibility motion and software. Native outlined ComboBox now includes
@@ -51,3 +47,10 @@ Input-family investigations (not confirmed defects):
 - Native minimum targets and caller width/text/selection ownership retained.
 - Busy/loading remains BTN-001; model reorder/removal stays application-owned.
 - See [the public contract](docs/families/button-motion-chips.md).
+
+## Completed busy-button slice — 2026-10-31
+
+- BTN-001: Idle/Busy/Progress content on native SK.Button and icon-only buttons.
+- QCM ring size/stroke, preserved intrinsic width and existing progress engine.
+- The comparison guards repeated work requests as QCM does; enabled bindings
+  remain caller-owned. See [button loading](docs/families/button-motion-chips.md#busy-buttons).

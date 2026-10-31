@@ -1052,3 +1052,29 @@ visible day when one exists. Inactive Progress transitions settle to the current
 public value without waiting for a stopped clock. Carousel owns model lifecycle
 and retains logical selection when layout geometry changes. Unused QCM ring
 broadcast and Progress compatibility state are excluded from the native adapters.
+
+## Busy buttons
+
+QCM 0.6.1 `qml/button/BusyButton.qml` and `BusyIconButton.qml` supply the
+presentation contract. Native `SK.Button` opts into `Material3ButtonContent`:
+`busy` selects Idle/Busy/Progress and `progress` supplies a 0–1 fraction.
+Busy and Progress hide the icon and label without discarding their intrinsic
+measurements; a centered circular indicator replaces them. Button text remains
+available to native accessibility. No separate spinner background is painted.
+
+Canonical Button recipe values supply the 6px diameter reduction from the
+resolved icon size and 2px stroke. The shared progress painter accepts explicit
+padding. QCM's zero-padding legacy circular path strokes outside its nominal
+bounds; the button painter reserves half a stroke per edge in a larger image
+so the ring stays unclipped. Ordinary ProgressBar/BusyIndicator retain their
+existing padding. Theme owns motion and semantic ink. Both normal and icon-only rings
+use the resolved button foreground for contrast; this intentionally improves
+on QCM BusyIconButton's implicit primary color. Software uses the same painter;
+reduced motion freezes indeterminate feedback visibly, and hidden/minimized
+windows stop its clock. Completed determinate progress remains visible until
+busy returns to Idle, matching the button job state.
+
+The helper never writes enabled, text, checked or dimensions. As in QCM, the
+consumer guards repeated job requests; applications wanting native disabled
+semantics bind enabled to their own job/availability state. Variation roles stay
+immutable and no button wrapper or Qt SDK patch is introduced.

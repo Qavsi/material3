@@ -223,6 +223,14 @@
         "minimumWidth": {
           "$type": "dimension",
           "$value": 64
+        },
+        "busyIndicatorInset": {
+          "$type": "dimension",
+          "$value": 6
+        },
+        "busyIndicatorStrokeWidth": {
+          "$type": "dimension",
+          "$value": 2
         }
       },
       "iconButton": {

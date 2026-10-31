@@ -192,8 +192,10 @@ void MaterialProgressPaint::paint(QPainter *painter) {
                     curves[i * 2 + 1].valueForProgress(fraction(phase * 1800, delays[i * 2 + 1], durations[i * 2 + 1])), m_color});
         }
     }
-    const qreal padding = m_circular && !m_wavy ? m_thickness : 0;
-    const auto &paths = d->geometry.render(state, {width() - padding * 2, height() - padding * 2});
+    const qreal padding = m_padding < 0 ? (m_circular && !m_wavy ? m_thickness : 0) : m_padding;
+    if (!std::isfinite(padding)) return;
+    const auto &paths = d->geometry.render(state,
+        {std::max<qreal>(0, width() - padding * 2), std::max<qreal>(0, height() - padding * 2)});
     painter->setRenderHint(QPainter::Antialiasing);
     painter->setOpacity(d->opacity.value);
     painter->translate(padding, padding);

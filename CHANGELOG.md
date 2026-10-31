@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Add QCM-referenced Idle/Busy/Progress presentation to Material3ButtonContent,
+  including icon-only buttons, preserved intrinsic width, transparent indicator
+  track and Theme/reduced-motion/software behavior.
+
 - Add QCM spring corners and native group width feedback, retaining selection,
   RTL, caller sizing, reduced motion and software fallback.
 - Animate Material FILL in quarter steps through the Material icon provider.

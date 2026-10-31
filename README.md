@@ -687,4 +687,9 @@ include the long label and its document icon.
 ## Native button motion and advanced Chips
 
 See [usage and boundaries](docs/families/button-motion-chips.md) for spring
-corners, native group allocation, Material FILL and chip editing/avatar/drag.
+corners, native group allocation, Material FILL, button loading and chip editing/avatar/drag.
+
+`Material3ButtonContent.busy` accepts `Idle`, `Busy` and `Progress`;
+`progress` is the determinate fraction from 0 to 1. Loading replaces the visible
+icon/label with a centered ring while preserving the native button's dimensions.
+The comparison's Button indicators card matches QCM's normal and icon-only jobs.

@@ -44,7 +44,7 @@ const NAVIGATION_FIELDS = ['collapsedWidth', 'indicatorWidth', 'indicatorHeight'
 const FAB_FIELDS = ['smallHeight', 'height', 'largeHeight', 'minimumExpandedWidth', 'iconSize', 'largeIconSize', 'trailingInset', 'leadingInset', 'spacing'];
 
 const BUTTON_SIZES = ['extraSmall', 'small', 'medium', 'large', 'extraLarge'];
-const BUTTON_FIELDS = [...BUTTON_SIZES.flatMap(name => [`${name}Height`, `${name}IconSize`]), 'minimumWidth'];
+const BUTTON_FIELDS = [...BUTTON_SIZES.flatMap(name => [`${name}Height`, `${name}IconSize`]), 'minimumWidth', 'busyIndicatorInset', 'busyIndicatorStrokeWidth'];
 
 const SPLIT_METRICS = ["containerHeight", "leadingIconSize", "leadingPadding", "trailingPadding", "trailingIconSize", "trailingIconPadding", "idleRadius", "hoverRadius", "pressedRadius", "opticalOffset"];
 const SPLIT_FIELDS = BUTTON_SIZES.flatMap(size => SPLIT_METRICS.map(field => `${size}.${field}`));

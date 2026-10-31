@@ -19,6 +19,11 @@ QtObject {
 
     readonly property real progressValueWidth: 48
 
+    // QCM demonstration job timing, separate from the kit motion tokens.
+    readonly property int busyButtonDelay: 2000
+    readonly property int busyButtonProgressInterval: 300
+    readonly property real busyButtonProgressStep: 0.05
+
     readonly property real radioReadOnlySpacing: 5
 
     readonly property real sliderGalleryMinimumWidth: 520

@@ -20,6 +20,7 @@ int checkCarousel(QQuickWindow &window);
 int checkAppearancePanel(QQuickWindow &window);
 int checkAdvancedChips(QQuickWindow &window);
 int checkButtonGroupMotion(QQuickWindow &window);
+int checkBusyButtons(QQuickWindow &window);
 int checkProgressInactiveUpdates(QQuickWindow &window);
 int checkInlineDatePicker(QQuickWindow &window);
 int checkInlineColorPicker(QQuickWindow &window);
@@ -1310,6 +1311,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     checkCheckBoxes(window);
     checkScrollBar(window);
     checkProgress(window);
+    expect(checkBusyButtons(window) == 0, "busy buttons preserve native ownership and show public progress");
     reveal(control(window, "comparison.progress.linear"));
     expect(checkProgressInactiveUpdates(window) == 0, "inactive progress keeps its public value visible");
     checkRadioButtons(window);

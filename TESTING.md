@@ -169,3 +169,10 @@ one group scenario covers conserved widths, selection, caller bindings and RTL;
 one chip scenario covers native editor commit and application-owned drag.
 Existing trailing Action checks remain. Icons public render coverage checks
 fractional FILL and invalid-axis fallback, without private nodes/timing probes.
+
+Busy buttons extend the existing gallery consumer seam: actual normal-button
+activation/completion, icon Idle→Busy→Progress→Idle, visible static reduced-motion
+feedback, a rendered fraction change and preserved intrinsic dimensions/native
+state/icon restoration. Gallery job state drives the public content helper;
+existing caller-binding checks are reused. No private renderer nodes,
+late-created style fixtures or per-frame matrix.
