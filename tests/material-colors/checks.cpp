@@ -7,6 +7,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QList>
 #include <QMetaEnum>
 #include <QQmlComponent>
 #include <QQmlEngine>
@@ -54,6 +55,62 @@ QVariantMap palette(QObject *theme, const QJsonObject &roles)
 QByteArray themeSource()
 {
     return "import QtQuick\nimport Qavsi.Material3.Theme\nMaterial3Theme {}";
+}
+
+void checkSchemeToneSamples(QQmlEngine &engine)
+{
+    auto samples = create(engine, R"(
+        import QtQuick
+        import Qavsi.Material3.Theme
+        QtObject {
+            id: root
+            property MaterialColorScheme source: MaterialColorScheme {
+                seedColor: "#bee7fd"
+                scheme: MaterialColorScheme.Content
+            }
+            readonly property var samples: ({
+                seedColor: source.seedColor, scheme: source.scheme, dark: source.dark,
+                primary: source.schemeTone(MaterialColorScheme.PrimaryPalette, 50),
+                secondary: source.schemeTone(MaterialColorScheme.SecondaryPalette, 50),
+                tertiary: source.schemeTone(MaterialColorScheme.TertiaryPalette, 50)
+            })
+            readonly property color primarySample: samples.primary
+            readonly property color secondarySample: samples.secondary
+            readonly property color tertiarySample: samples.tertiary
+            readonly property color semanticTertiary: source.colors.tertiary
+        })");
+    if (!samples) return;
+    auto *source = samples->property("source").value<QObject *>();
+    expect(source, QStringLiteral("raw scheme tones are consumed through the public QML source"));
+    if (!source) return;
+    const auto tones = [&] {
+        return QList<QColor>{color(samples.get(), "primarySample"),
+            color(samples.get(), "secondarySample"), color(samples.get(), "tertiarySample")};
+    };
+    const auto contentLight = tones();
+    source->setProperty("dark", true);
+    const auto contentDark = tones();
+    const auto contentSemanticDark = color(samples.get(), "semanticTertiary");
+    const auto schemeMeta = source->metaObject()->enumerator(source->metaObject()->indexOfEnumerator("Scheme"));
+    source->setProperty("scheme", schemeMeta.keyToValue("Fidelity"));
+    const auto fidelityDark = tones();
+    const auto fidelitySemanticDark = color(samples.get(), "semanticTertiary");
+    source->setProperty("dark", false);
+    const auto fidelityLight = tones();
+    expect(contentLight == contentDark && fidelityLight == fidelityDark,
+           QStringLiteral("raw Tone 50 palette samples remain stable across light and dark themes"));
+    expect(contentLight[0] == fidelityLight[0] && contentLight[1] == fidelityLight[1]
+               && contentLight[2] != fidelityLight[2] && contentSemanticDark == fidelitySemanticDark,
+           QStringLiteral("Content/Fidelity retain distinct raw tertiary tones when their dark semantic fills coincide"));
+    bool nearFifty = true;
+    for (const auto &values : {contentLight, fidelityLight}) {
+        for (const auto &sample : values) {
+            double tone = 0;
+            nearFifty = QMetaObject::invokeMethod(source, "toneOf", Q_RETURN_ARG(double, tone),
+                           Q_ARG(QColor, sample)) && qAbs(tone - 50.0) < 0.2 && nearFifty;
+        }
+    }
+    expect(nearFifty, QStringLiteral("raw Tone 50 samples retain the requested perceptual lightness"));
 }
 } // namespace
 
@@ -236,6 +293,8 @@ int main(int argc, char **argv)
                QStringLiteral("separate engines and Theme instances do not share mutable palettes"));
     }
     expect(!palette(theme.get(), roles).isEmpty(), QStringLiteral("destroying another engine leaves the surviving Theme usable"));
+
+    checkSchemeToneSamples(engine);
 
     expect(warnings.isEmpty(), QStringLiteral("no QML warnings during dynamic color transitions"));
     qInfo() << "Material colors:" << "assertions" << assertions << "failures" << failures;

@@ -3,6 +3,7 @@ import QtQuick
 import QtQuick.Layouts
 import Qt.labs.StyleKit as SK
 import Qavsi.Material3.Style
+import Qavsi.Material3.Theme
 
 Material3Drawer {
     id: root
@@ -11,6 +12,25 @@ Material3Drawer {
     required property color seedColor
     required property int colorScheme
     required property bool darkMode
+    readonly property ComparisonMetrics metrics: ComparisonMetrics { }
+    readonly property var tone50Samples: {
+        const source = root.tokens.colorScheme
+        // Snapshot inputs too: invokable calls do not expose C++ dependencies.
+        return {
+            seedColor: source.seedColor,
+            scheme: source.scheme,
+            colors: {
+                primary: source.schemeTone(MaterialColorScheme.PrimaryPalette, root.metrics.palettePreviewTone),
+                secondary: source.schemeTone(MaterialColorScheme.SecondaryPalette, root.metrics.palettePreviewTone),
+                tertiary: source.schemeTone(MaterialColorScheme.TertiaryPalette, root.metrics.palettePreviewTone)
+            },
+            foregrounds: {
+                primary: source.schemeTone(MaterialColorScheme.PrimaryPalette, root.metrics.palettePreviewInkTone),
+                secondary: source.schemeTone(MaterialColorScheme.SecondaryPalette, root.metrics.palettePreviewInkTone),
+                tertiary: source.schemeTone(MaterialColorScheme.TertiaryPalette, root.metrics.palettePreviewInkTone)
+            }
+        }
+    }
     signal seedColorChangeRequested(color value)
     signal colorSchemeChangeRequested(int value)
     signal darkModeChangeRequested(bool value)
@@ -79,6 +99,23 @@ Material3Drawer {
                         onClicked: root.colorSchemeChangeRequested(schemeValue)
                     }
                 }
+            }
+            AppearanceColorSamples {
+                Layout.fillWidth: true
+                tokens: root.tokens
+                title: qsTr("Semantic colors")
+                previewPrefix: "comparison.appearance.preview"
+                colors: ({ primary: root.tokens.primary, secondary: root.tokens.secondary, tertiary: root.tokens.tertiary })
+                foregrounds: ({ primary: root.tokens.primaryForeground, secondary: root.tokens.secondaryForeground,
+                    tertiary: root.tokens.tertiaryForeground })
+            }
+            AppearanceColorSamples {
+                Layout.fillWidth: true
+                tokens: root.tokens
+                title: qsTr("Tone %1").arg(root.metrics.palettePreviewTone)
+                previewPrefix: "comparison.appearance.tone50"
+                colors: root.tone50Samples.colors
+                foregrounds: root.tone50Samples.foregrounds
             }
             Rectangle {
                 Layout.fillWidth: true

@@ -66,6 +66,8 @@ int checkAppearancePanel(QQuickWindow &window)
                 && primary().isValid() && primary() != before;
         }), "keyboard seed and palette selection update the live Theme");
 
+        // Palette bindings resize controls before RowLayout's next polish; click rendered geometry.
+        window.grabWindow();
         auto *brightness = item("comparison.appearance.brightness");
         click(brightness);
         expect(QTest::qWaitFor([&] { return window.property("darkMode").toBool() != dark.toBool(); }),

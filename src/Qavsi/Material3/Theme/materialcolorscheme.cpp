@@ -16,6 +16,14 @@
 #include <algorithm>
 #include <cmath>
 
+struct MaterialColorScheme::GeneratedScheme
+{
+    material_color_utilities::DynamicScheme value;
+};
+
+MaterialColorScheme::MaterialColorScheme(QObject *parent) : QObject(parent) {}
+MaterialColorScheme::~MaterialColorScheme() = default;
+
 void MaterialColorScheme::setSeedColor(QColor value)
 {
     if (!value.isValid()) {
@@ -26,6 +34,7 @@ void MaterialColorScheme::setSeedColor(QColor value)
     if (value == m_seedColor)
         return;
     m_seedColor = value;
+    m_generated.reset();
     m_colors.clear();
     emit seedColorChanged();
     emit colorsChanged();
@@ -36,6 +45,7 @@ void MaterialColorScheme::setDark(bool value)
     if (value == m_dark)
         return;
     m_dark = value;
+    m_generated.reset();
     m_colors.clear();
     emit darkChanged();
     emit colorsChanged();
@@ -50,6 +60,7 @@ void MaterialColorScheme::setScheme(Scheme value)
     if (value == m_scheme)
         return;
     m_scheme = value;
+    m_generated.reset();
     m_colors.clear();
     emit schemeChanged();
     emit colorsChanged();
@@ -65,31 +76,41 @@ void MaterialColorScheme::setContrastLevel(double value)
     if (value == m_contrastLevel)
         return;
     m_contrastLevel = value;
+    m_generated.reset();
     m_colors.clear();
     emit contrastLevelChanged();
     emit colorsChanged();
+}
+
+const MaterialColorScheme::GeneratedScheme &MaterialColorScheme::generatedScheme() const
+{
+    if (!m_generated) {
+        namespace mcu = material_color_utilities;
+        const mcu::Hct seed(m_seedColor.rgb());
+        const auto generated = [&]() -> mcu::DynamicScheme {
+            switch (m_scheme) {
+            case Neutral: return mcu::SchemeNeutral(seed, m_dark, m_contrastLevel);
+            case TonalSpot: return mcu::SchemeTonalSpot(seed, m_dark, m_contrastLevel);
+            case Rainbow: return mcu::SchemeRainbow(seed, m_dark, m_contrastLevel);
+            case Monochrome: return mcu::SchemeMonochrome(seed, m_dark, m_contrastLevel);
+            case Vibrant: return mcu::SchemeVibrant(seed, m_dark, m_contrastLevel);
+            case Content: return mcu::SchemeContent(seed, m_dark, m_contrastLevel);
+            case Fidelity: return mcu::SchemeFidelity(seed, m_dark, m_contrastLevel);
+            case Expressive: return mcu::SchemeExpressive(seed, m_dark, m_contrastLevel);
+            case FruitSalad: return mcu::SchemeFruitSalad(seed, m_dark, m_contrastLevel);
+            }
+            Q_UNREACHABLE_RETURN(mcu::SchemeTonalSpot(seed, m_dark, m_contrastLevel));
+        }();
+        m_generated = std::make_unique<GeneratedScheme>(GeneratedScheme{generated});
+    }
+    return *m_generated;
 }
 
 QVariantMap MaterialColorScheme::colors() const
 {
     if (!m_colors.isEmpty())
         return m_colors;
-    namespace mcu = material_color_utilities;
-    const mcu::Hct seed(m_seedColor.rgb());
-    const auto generated = [&]() -> mcu::DynamicScheme {
-        switch (m_scheme) {
-        case Neutral: return mcu::SchemeNeutral(seed, m_dark, m_contrastLevel);
-        case TonalSpot: return mcu::SchemeTonalSpot(seed, m_dark, m_contrastLevel);
-        case Rainbow: return mcu::SchemeRainbow(seed, m_dark, m_contrastLevel);
-        case Monochrome: return mcu::SchemeMonochrome(seed, m_dark, m_contrastLevel);
-        case Vibrant: return mcu::SchemeVibrant(seed, m_dark, m_contrastLevel);
-        case Content: return mcu::SchemeContent(seed, m_dark, m_contrastLevel);
-        case Fidelity: return mcu::SchemeFidelity(seed, m_dark, m_contrastLevel);
-        case Expressive: return mcu::SchemeExpressive(seed, m_dark, m_contrastLevel);
-        case FruitSalad: return mcu::SchemeFruitSalad(seed, m_dark, m_contrastLevel);
-        }
-        Q_UNREACHABLE_RETURN(mcu::SchemeTonalSpot(seed, m_dark, m_contrastLevel));
-    }();
+    const auto &generated = generatedScheme().value;
     m_colors = {
         { QStringLiteral("tertiary"), QColor::fromRgba(generated.GetTertiary()) },
         { QStringLiteral("tertiaryForeground"), QColor::fromRgba(generated.GetOnTertiary()) },
@@ -127,6 +148,20 @@ QVariantMap MaterialColorScheme::colors() const
         { QStringLiteral("shadow"), QColor::fromRgba(generated.GetShadow()) }
     };
     return m_colors;
+}
+
+QColor MaterialColorScheme::schemeTone(Palette palette, double tone) const
+{
+    if (!std::isfinite(tone) || palette < PrimaryPalette || palette > TertiaryPalette)
+        return {};
+    const auto &generated = generatedScheme().value;
+    const double boundedTone = std::clamp(tone, 0.0, 100.0);
+    switch (palette) {
+    case PrimaryPalette: return QColor::fromRgba(generated.primary_palette.get(boundedTone));
+    case SecondaryPalette: return QColor::fromRgba(generated.secondary_palette.get(boundedTone));
+    case TertiaryPalette: return QColor::fromRgba(generated.tertiary_palette.get(boundedTone));
+    }
+    Q_UNREACHABLE_RETURN(QColor());
 }
 
 QColor MaterialColorScheme::paletteTone(QColor color, double tone) const

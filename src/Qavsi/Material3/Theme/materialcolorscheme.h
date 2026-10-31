@@ -7,6 +7,8 @@
 #include <QVariantMap>
 #include <QtQmlIntegration/qqmlintegration.h>
 
+#include <memory>
+
 class MaterialColorScheme : public QObject
 {
     Q_OBJECT
@@ -29,13 +31,17 @@ public:
         FruitSalad = 8,
     };
     Q_ENUM(Scheme)
-    explicit MaterialColorScheme(QObject *parent = nullptr) : QObject(parent) {}
+    enum Palette : int { PrimaryPalette, SecondaryPalette, TertiaryPalette };
+    Q_ENUM(Palette)
+    explicit MaterialColorScheme(QObject *parent = nullptr);
+    ~MaterialColorScheme() override;
     QColor seedColor() const { return m_seedColor; }
     bool dark() const { return m_dark; }
     Scheme scheme() const { return m_scheme; }
     double contrastLevel() const { return m_contrastLevel; }
     QVariantMap colors() const;
     Q_INVOKABLE QColor paletteTone(QColor color, double tone) const;
+    Q_INVOKABLE QColor schemeTone(Palette palette, double tone) const;
     Q_INVOKABLE double toneOf(QColor color) const;
     void setSeedColor(QColor value);
     void setDark(bool value);
@@ -48,6 +54,9 @@ signals:
     void contrastLevelChanged();
     void colorsChanged();
 private:
+    struct GeneratedScheme;
+    const GeneratedScheme &generatedScheme() const;
+    mutable std::unique_ptr<GeneratedScheme> m_generated;
     QColor m_seedColor { 0x67, 0x50, 0xa4 };
     bool m_dark = false;
     Scheme m_scheme = TonalSpot;

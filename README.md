@@ -693,3 +693,16 @@ corners, native group allocation, Material FILL, button loading and chip editing
 `progress` is the determinate fraction from 0 to 1. Loading replaces the visible
 icon/label with a centered ring while preserving the native button's dimensions.
 The comparison's Button indicators card matches QCM's normal and icon-only jobs.
+
+## Appearance palette samples
+
+Appearance shows current semantic primary/secondary/tertiary roles and raw
+Tone 50 samples. The second row stays stable across light/dark, so very light
+semantic colors do not hide Content/Fidelity's tertiary-palette difference.
+All samples show their hex values and retain readable foregrounds.
+
+`Material3Theme.colorScheme.schemeTone(MaterialColorScheme.TertiaryPalette, 50)`
+samples the generated palette directly. PrimaryPalette and SecondaryPalette are
+also available. Existing paletteTone(QColor,tone) remains the color-derived
+utility. For live QML bindings, explicitly read the source seedColor/scheme
+properties before calling the sampler, as ThemePanel does.

@@ -409,6 +409,25 @@ eşliği iddia edilmez. Bağımsız fixture, gerçek derlenmiş `MdColorMgr` üz
 ARGB düzeyinde karşılaştırılır. Ham QCM çıktısı62 rol içerir; fixed/legacy/neutral
 palette örneklerinin tümünün kit rolü olarak sunulduğu anlamına gelmez. [Referans kanıtı](evidence/material-color-reference.json).
 
+Appearance distinguishes current semantic roles from a second, fixed Tone 50
+row. Semantic samples retain their Theme foreground pairs. Tone samples read
+primary/secondary/tertiary directly from the generated MCU palettes; deriving
+these from already-resolved semantic RGB would lose hue/chroma at near-white
+or gamut-limited tones. Sample geometry/fonts use existing Theme tokens; tone
+levels 50 and 0 are comparison data in ComparisonMetrics, not new style roles.
+Tone 0 supplies dark text on the fixed mid-tone plates in both themes.
+
+Public `MaterialColorScheme.schemeTone(Palette, double)` samples those three
+palettes. It shares one private lazy DynamicScheme with semantic `colors()`;
+seed, scheme, dark and contrast invalidate the scheme/map together. The older
+`paletteTone(QColor, double)` color-derived utility remains unchanged. Invalid
+palette/nonfinite tone returns an invalid QColor; finite tones clamp to 0–100.
+No MCU type/header is exported. Fixed palette tones are independent of dark
+mode/contrast in the pinned MCU revision. QML bindings explicitly read seed and
+scheme inputs before invoking the point sampler; invokable calls do not expose
+C++ property dependencies automatically. Preview delegates remain alive while
+Theme colors change, retaining the Qt 6.12 reader-registry bootstrap guard.
+
 ## Qavsi.Icons bağlantısı ve FILL politikası
 
 Material3 Style yalnız bağımsız `QavsiIcons::Core` target'ına bağlıdır. Native

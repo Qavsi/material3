@@ -176,3 +176,10 @@ feedback, a rendered fraction change and preserved intrinsic dimensions/native
 state/icon restoration. Gallery job state drives the public content helper;
 existing caller-binding checks are reused. No private renderer nodes,
 late-created style fixtures or per-frame matrix.
+
+Raw palette sampling adds one public Theme scenario with a pale seed:
+Content/Fidelity retain distinct tertiary Tone 50 samples when their dark
+semantic fills coincide; the three samples remain stable across light/dark
+and have approximately 50 L-star. The existing independent 34-role oracle stays
+unchanged. Appearance's semantic and raw swatches are also checked through
+actual chooser/brightness input on Metal and software; no per-frame matrix.

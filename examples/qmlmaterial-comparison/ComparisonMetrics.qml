@@ -5,6 +5,8 @@ import QtQml
 
 QtObject {
     readonly property real colorPickerButtonWidth: 120
+    readonly property real palettePreviewTone: 50
+    readonly property real palettePreviewInkTone: 0
     readonly property real carouselHeroHeight: 240
     readonly property real carouselVerticalHeight: 420
     readonly property real appNavigationCompactWidth: 440

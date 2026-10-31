@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Show semantic primary/secondary/tertiary colors and their raw Tone 50 samples
+  with live hex values in Appearance, retaining Content/Fidelity differences in
+  both light and dark themes.
+- Add MaterialColorScheme.schemeTone for direct MCU palette sampling, sharing
+  the cached scheme with semantic roles and preserving the existing color API.
+
 - Add QCM-referenced Idle/Busy/Progress presentation to Material3ButtonContent,
   including icon-only buttons, preserved intrinsic width, transparent indicator
   track and Theme/reduced-motion/software behavior.
