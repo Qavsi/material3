@@ -12,6 +12,8 @@ QtObject {
     readonly property real appNavigationCompactWidth: 440
     readonly property real appNavigationNarrowWidth: 800
     readonly property real appNavigationExpandedWidth: 1280
+    readonly property real buttonGroupWidth: 340
+    readonly property real buttonGroupSpacing: 20
     readonly property real commonSizeSpacing: 12
     readonly property real iconAppearanceSpacing: 36
 

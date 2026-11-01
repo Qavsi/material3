@@ -150,7 +150,7 @@ Item {
                 - (root.advanced?.trailingInset ?? 0)) / 2 * root.expansionProgress
                 * (root.control.mirrored ? -1 : 1) : 0)
         y: (root.height - height) / 2
-        width: Math.min(implicitWidth, root.width)
+        width: root.control.Material3ButtonGroup.managed ? implicitWidth : Math.min(implicitWidth, root.width)
         height: Math.min(implicitHeight, root.height)
         columns: root.stacked ? 1 : 2
         rows: root.stacked ? 2 : 1

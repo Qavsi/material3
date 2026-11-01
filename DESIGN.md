@@ -1188,6 +1188,17 @@ actual LayoutMirroring geometry, without selecting private delegate nodes.
 
 ### QCM alignment refinements
 
+Connected-button optical offsets and painted inner corners use the same private
+state calculation. Managed group content keeps its intrinsic text width during
+compression, matching QCM instead of eliding a label inside symmetric padding.
+The opt-in content helper must not read corner properties from
+Qt's BackgroundDelegate container: those properties do not exist there. Native
+RTL and checked/pressed shape rules remain shared with the surface delegate.
+The reference action/navigation cards are limited to400px; carousel cards keep
+their intrinsic carousel width plus themed card padding. Button groups use340px content,
+20px sample spacing and the existing themed card/focus padding. These layout
+metrics belong to the comparison consumer, not a new control variation.
+
 SpinBox minimum width follows QCM's measured three-digit LabelSmall reference,
 28px value allowance and22px optical chrome. Its editor-to-stepper gap is2px.
 The provider-independent arrow triangles use the4.3x2.35px ink bounds measured

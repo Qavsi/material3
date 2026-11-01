@@ -934,7 +934,19 @@ void checkSelection(QQuickWindow &window)
     QTest::keyClick(&window, Qt::Key_Space);
     expect(second->property("checked").toBool() && !first->property("checked").toBool(),
            "selecting a connected action preserves exclusive selection");
-
+    for (const auto *name : {"comparison.connected.weighted.leading", "comparison.connected.weighted.trailing"}) {
+        auto *button = control(window, name);
+        if (!button)
+            continue;
+        auto *ink = findItem(button, QStringLiteral("material3.button.icon"));
+        const auto centered = [&] {
+            return ink && qAbs(ink->mapToItem(button, ink->boundingRect().center()).x() - button->width() / 2) < 4;
+        };
+        expect(centered(), "stretched connected icon stays optically centered");
+        QQmlProperty::write(button, QStringLiteral("LayoutMirroring.enabled"), true, qmlContext(button));
+        expect(centered(), "mirrored stretched connected icon stays optically centered");
+        QQmlProperty::write(button, QStringLiteral("LayoutMirroring.enabled"), false, qmlContext(button));
+    }
 }
 
 void checkFab(QQuickWindow &window)

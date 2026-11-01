@@ -76,7 +76,8 @@ ColumnLayout {
             }
             Loader {
                 id: appNavigationExamples
-                width: parent.width
+                width: Math.min(parent.width, root.tokens.referenceCardWidth)
+                anchors.horizontalCenter: parent.horizontalCenter
                 active: false
                 sourceComponent: AppNavigationGallery { tokens: root.tokens; previewArea: root.previewArea }
                 Component.onCompleted: Qt.callLater(() => appNavigationExamples.active = true)
@@ -90,9 +91,9 @@ ColumnLayout {
             SlidersGallery { width: Math.min(parent.width, root.metrics.sliderCardWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
             ProgressGallery { width: Math.min(parent.width, preferredWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
             ButtonIndicatorsGallery { width: Math.min(parent.width, preferredWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
-            PickersCarouselGallery { width: parent.width; tokens: root.tokens }
+            PickersCarouselGallery { width: Math.min(parent.width, root.tokens.carouselWidth + root.tokens.spacingMedium * 2); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
             DialogFeedbackGallery { width: Math.min(parent.width, root.tokens.referenceCardWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
-            ActionsGallery { width: parent.width; tokens: root.tokens }
+            ActionsGallery { width: Math.min(parent.width, root.tokens.referenceCardWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
         }
     }
 }

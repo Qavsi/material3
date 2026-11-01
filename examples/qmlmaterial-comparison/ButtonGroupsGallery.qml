@@ -8,6 +8,9 @@ import Qavsi.Material3.Style
 DemoCard {
     id: root
     required property bool styleScopeReady
+    readonly property ComparisonMetrics metrics: ComparisonMetrics {}
+    contentPadding: tokens.spacingLarge
+    sampleSpacing: metrics.buttonGroupSpacing
     readonly property Material3Style materialStyle: SK.StyleKit.style as Material3Style
     readonly property bool reduceMotion: (materialStyle?.effectiveReducedMotion ?? true)
         || !SK.StyleKit.transitionsEnabled
@@ -21,7 +24,7 @@ DemoCard {
     }
     width: parent.width
     title: qsTr("Button groups")
-    minimumContentWidth: Math.max(standardIcons.implicitWidth, standardMixed.implicitWidth,
+    minimumContentWidth: Math.max(metrics.buttonGroupWidth, standardIcons.implicitWidth, standardMixed.implicitWidth,
         standardChoices.implicitWidth, filesGroup.implicitWidth, starsGroup.implicitWidth,
         multipleGroup.implicitWidth, weightedGroup.implicitWidth)
     gapNote: qsTr("Press a group action to expand it within the same total width. Exclusive and multiple selection remain independent.")
@@ -77,7 +80,8 @@ DemoCard {
         tokens: root.tokens
         reduceMotion: root.reduceMotion
         id: filesGroup
-        width: parent.width
+        width: Math.min(root.metrics.buttonGroupWidth, parent.width)
+        anchors.horizontalCenter: parent.horizontalCenter
         spacing: root.styleScopeReady ? root.buttonGroupStyle.spacing : 0
         Repeater {
             id: fileChoices
@@ -146,10 +150,11 @@ DemoCard {
         tokens: root.tokens
         reduceMotion: root.reduceMotion
         id: weightedGroup
-        width: parent.width
+        width: Math.min(root.metrics.buttonGroupWidth, parent.width)
+        anchors.horizontalCenter: parent.horizontalCenter
         spacing: root.styleScopeReady ? root.buttonGroupStyle.spacing : 0
-        SK.Button { Material3ButtonGroup.managed: true; width: Material3ButtonGroup.layoutWidth; contentItem: Material3ButtonContent { control: parent as T.Button } id: weightedLeading; SK.StyleVariation.variations: ["connectedIconLeading", "connectedLeading"]; Material3ButtonGroup.weight: 1; icon.name: "material:star"; display: SK.Button.IconOnly; checkable: true; Accessible.name: qsTr("Star") }
+        SK.Button { Material3ButtonGroup.managed: true; width: Material3ButtonGroup.layoutWidth; contentItem: Material3ButtonContent { control: parent as T.Button } id: weightedLeading; objectName: "comparison.connected.weighted.leading"; SK.StyleVariation.variations: ["connectedIconLeading", "connectedLeading"]; Material3ButtonGroup.weight: 1; icon.name: "material:star"; display: SK.Button.IconOnly; checkable: true; Accessible.name: qsTr("Star") }
         SK.Button { Material3ButtonGroup.managed: true; width: Material3ButtonGroup.layoutWidth; contentItem: Material3ButtonContent { control: parent as T.Button } SK.StyleVariation.variations: ["connectedMiddle"]; Material3ButtonGroup.weight: 1; text: qsTr("Label"); icon.name: "material:star"; checkable: true; checked: true }
-        SK.Button { Material3ButtonGroup.managed: true; width: Material3ButtonGroup.layoutWidth; contentItem: Material3ButtonContent { control: parent as T.Button } SK.StyleVariation.variations: ["connectedIconTrailing", "connectedTrailing"]; Material3ButtonGroup.weight: 1; icon.name: "material:star"; display: SK.Button.IconOnly; checkable: true; Accessible.name: qsTr("Star") }
+        SK.Button { Material3ButtonGroup.managed: true; width: Material3ButtonGroup.layoutWidth; contentItem: Material3ButtonContent { control: parent as T.Button } objectName: "comparison.connected.weighted.trailing"; SK.StyleVariation.variations: ["connectedIconTrailing", "connectedTrailing"]; Material3ButtonGroup.weight: 1; icon.name: "material:star"; display: SK.Button.IconOnly; checkable: true; Accessible.name: qsTr("Star") }
     }
 }

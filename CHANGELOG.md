@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Fix connected icon centering by sharing corner-state geometry with its surface;
+  constrain action panels and Button groups to the QCM reference layout.
 - Align compact SpinBox arrow/value geometry and BottomSheet handle, padding and
   entry/exit motion with QCM; keep separate modal/standard sheet examples.
 
