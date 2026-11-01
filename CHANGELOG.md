@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Preserve segmented-button selection fill during hover, keyboard focus and press
+  across all sizes, Themes and renderers.
+
 - Fix connected icon centering by sharing corner-state geometry with its surface;
   constrain action panels and Button groups to the QCM reference layout.
 - Align compact SpinBox arrow/value geometry and BottomSheet handle, padding and

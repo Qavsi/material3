@@ -934,6 +934,22 @@ void checkSelection(QQuickWindow &window)
     QTest::keyClick(&window, Qt::Key_Space);
     expect(second->property("checked").toBool() && !first->property("checked").toBool(),
            "selecting a connected action preserves exclusive selection");
+    auto *segment = control(window, "comparison.segmented.period.1");
+    if (segment) {
+        const auto originalDark = window.property("darkMode");
+        for (const bool dark : {false, true}) {
+            window.setProperty("darkMode", dark);
+            reveal(segment);
+            segment->forceActiveFocus(Qt::TabFocusReason);
+            const auto capture = segment->grabToImage();
+            const bool ready = capture && QTest::qWaitFor([&] { return !capture->image().isNull(); });
+            expect(ready && segment->property("checked").toBool()
+                       && capture->image().pixelColor(capture->image().width() / 2,
+                           capture->image().height() * 9 / 10).alpha() == 255,
+                   "selected segment keeps its opaque fill during keyboard focus in either Theme");
+        }
+        window.setProperty("darkMode", originalDark);
+    }
     for (const auto *name : {"comparison.connected.weighted.leading", "comparison.connected.weighted.trailing"}) {
         auto *button = control(window, name);
         if (!button)

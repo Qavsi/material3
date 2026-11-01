@@ -24,6 +24,9 @@ Material3JoinedButtonVariation {
         checked {
             text.color: variation.tokens.secondaryContainerForeground
             background.color: variation.tokens.secondaryContainer
+            hovered.background.color: variation.tokens.secondaryContainer
+            focused.background.color: variation.tokens.secondaryContainer
+            pressed.background.color: variation.tokens.secondaryContainer
         }
         disabled {
             text.color: variation.tokens.disabledLabel

@@ -1216,3 +1216,12 @@ QCM exposes a plain TextEdit primitive, not a framed multiline TextArea control.
 Qavsi's outlined/filled TextArea deliberately keeps the existing Material3 field
 surface, BodyLarge and floating-label contract; native PlainText, wrapping,
 selection and read-only editing are preserved rather than claiming a pixel copy.
+
+### Segmented selection and interaction
+
+Segmented selected containers stay secondaryContainer with secondaryContainerForeground
+ink during hover, keyboard focus and press. The immutable family variation explicitly
+maps the combined checked states, so transient transparent containers cannot erase
+selection. Hover/focus/press indication remains in the existing feedback layer;
+it does not replace the persistent selected surface. Disabled selection keeps its
+existing disabledContainer policy. This contract applies to every segmented size.
