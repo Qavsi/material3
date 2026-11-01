@@ -15,6 +15,7 @@
 #include <QTest>
 #include <QMetaEnum>
 
+int checkOtherControls(QQuickWindow &window);
 int checkPickersCarousel(QQuickWindow &window);
 int checkCarousel(QQuickWindow &window);
 int checkAppearancePanel(QQuickWindow &window);
@@ -933,6 +934,7 @@ void checkSelection(QQuickWindow &window)
     QTest::keyClick(&window, Qt::Key_Space);
     expect(second->property("checked").toBool() && !first->property("checked").toBool(),
            "selecting a connected action preserves exclusive selection");
+
 }
 
 void checkFab(QQuickWindow &window)
@@ -1337,6 +1339,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     checkTextField(window);
     checkFieldAccessories(window);
     checkInputSizes(window);
+    expect(checkOtherControls(window) == 0, "other native controls preserve editing, stepping and bottom-sheet behavior");
     checkListCards(window);
     checkChips(window);
     expect(checkAdvancedChips(window) == 0, "advanced chips preserve native editing, selection and application drag ownership");

@@ -205,3 +205,14 @@ Button loading additionally adapts QCM 0.6.1 qml/button/BusyButton.qml and
 BusyIconButton.qml from the same pin, under the MIT notice above. The native
 StyleKit content helper reuses the existing ported progress engine; no QCM
 control/runtime dependency is linked.
+
+## QmlMaterial other native-control references
+
+SpinBox optical tokens follow QCM revision `229bc3e64ff71f1ac88cf73e976637ffbcf7e33c`
+`qml/input/NumberStepper.qml` and `StepperInput.qml`; TextArea appearance follows
+its text/editor and field roles. BottomSheet width/top-clearance/handle geometry,
+upper corners and surface/elevation roles follow `qml/popup/BottomSheet.qml` and
+`src/style/bottom_sheet_state.cpp`. All are MIT, Copyright (c) 2024-2025 hypengw.
+Native Qt controls retain input, validation, gesture and popup behavior; no QCM
+runtime or private Qt API is linked. The full QCM MIT notice already shipped in
+`third_party/ripple-reference/QMLMATERIAL-MIT-LICENSE.txt` applies to these references.

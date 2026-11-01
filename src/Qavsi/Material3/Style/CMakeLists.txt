@@ -37,6 +37,11 @@ set(material3_menu_files
     internal/menus/Material3MenuDelegate.qml
     internal/menus/Material3MenuParameters.qml
     internal/menus/Material3MenuShadow.qml)
+set(material3_other_control_files
+    internal/spinbox/Material3SpinBoxBackground.qml
+    internal/spinbox/Material3SpinBoxDelegate.qml
+    internal/spinbox/Material3SpinBoxIndicator.qml
+    internal/sheets/Material3SheetVariations.qml)
 set(material3_field_files
     internal/fields/Material3TextFieldVariations.qml
     internal/fields/Material3TextFieldVariation.qml
@@ -161,6 +166,7 @@ set(material3_scrollbar_files
     internal/scrollbars/Material3ScrollBarVisual.qml)
 foreach(family_file IN LISTS
     material3_menu_files
+    material3_other_control_files
     material3_field_files
     material3_combo_files
     material3_advanced_files
@@ -192,7 +198,7 @@ qt_add_qml_module(${module_target} SHARED
     IMPORTS TARGET QavsiMaterial3Theme Qavsi.Icons
     IMPORT_PATH "${QavsiIcons_QML_IMPORT_DIR}"
     DEPENDENCIES QtQuick.Controls.impl QtQuick.Controls.Basic QtQuick.Layouts QtQuick.Shapes
-    QML_FILES internal/pickers/Material3DateMath.js ${material3_scrollbar_files} Material3DatePicker.qml Material3DatePickerDialog.qml Material3DateTextField.qml Material3TimePicker.qml Material3TimePickerDialog.qml Material3ColorPicker.qml Material3ColorPickerDialog.qml Material3ColorPickerButton.qml Material3Carousel.qml Material3CarouselItem.qml Material3CarouselImageDelegate.qml ${material3_carousel_files} ${material3_picker_files} internal/feedback/Material3Ripple.qml
+    QML_FILES internal/pickers/Material3DateMath.js ${material3_scrollbar_files} Material3DatePicker.qml Material3DatePickerDialog.qml Material3DateTextField.qml Material3TimePicker.qml Material3TimePickerDialog.qml Material3BottomSheet.qml Material3ColorPicker.qml Material3ColorPickerDialog.qml Material3ColorPickerButton.qml Material3Carousel.qml Material3CarouselItem.qml Material3CarouselImageDelegate.qml ${material3_carousel_files} ${material3_picker_files} ${material3_other_control_files} internal/feedback/Material3Ripple.qml
         internal/menus/Material3MenuItemBackground.qml
         internal/menus/Material3MenuEnterTransition.qml
         internal/menus/Material3MenuExitTransition.qml

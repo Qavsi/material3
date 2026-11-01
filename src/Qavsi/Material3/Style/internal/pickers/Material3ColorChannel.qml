@@ -4,7 +4,6 @@ import QtQuick
 import QtQuick.Layouts
 import Qt.labs.StyleKit as SK
 import Qavsi.Material3.Theme
-import Qavsi.Icons
 
 RowLayout {
     id: root
@@ -132,15 +131,6 @@ RowLayout {
         value: Math.round(root.value)
         wrap: root.channel === 0
         editable: true
-        leftPadding: root.tokens.colorPickerStepperTextInset
-        rightPadding: root.tokens.colorPickerStepperWidth + root.tokens.colorPickerStepperInset * 2
-        topPadding: 0
-        bottomPadding: 0
-        leftInset: 0
-        rightInset: 0
-        topInset: 0
-        bottomInset: 0
-        font: root.tokens.labelSmall
         Accessible.name: qsTr("%1 value").arg(root.label)
         onValueModified: root.changeRequested(value)
         contentItem: TextInput {
@@ -156,38 +146,6 @@ RowLayout {
             inputMethodHints: Qt.ImhDigitsOnly
             selectByMouse: true
             clip: true
-        }
-        background: Rectangle {
-            color: root.tokens.surfaceContainerHighest
-            radius: root.tokens.radiusExtraSmall
-        }
-        up.indicator: Rectangle {
-            x: number.width - width - root.tokens.colorPickerStepperInset
-            y: root.tokens.colorPickerStepperInset
-            width: root.tokens.colorPickerStepperWidth
-            height: (number.height - root.tokens.colorPickerStepperInset * 2) / 2
-            color: Qt.rgba(root.tokens.surfaceForeground.r, root.tokens.surfaceForeground.g, root.tokens.surfaceForeground.b, number.up.pressed ? root.tokens.rippleOpacity : number.up.hovered ? root.tokens.hoverOpacity : 0)
-            radius: root.tokens.radiusExtraSmall
-            AppIcon {
-                anchors.centerIn: parent
-                name: "material:arrow_drop_up"
-                size: root.tokens.colorPickerStepperIconSize
-                color: root.tokens.surfaceVariantForeground
-            }
-        }
-        down.indicator: Rectangle {
-            x: number.width - width - root.tokens.colorPickerStepperInset
-            y: number.height / 2
-            width: root.tokens.colorPickerStepperWidth
-            height: (number.height - root.tokens.colorPickerStepperInset * 2) / 2
-            color: Qt.rgba(root.tokens.surfaceForeground.r, root.tokens.surfaceForeground.g, root.tokens.surfaceForeground.b, number.down.pressed ? root.tokens.rippleOpacity : number.down.hovered ? root.tokens.hoverOpacity : 0)
-            radius: root.tokens.radiusExtraSmall
-            AppIcon {
-                anchors.centerIn: parent
-                name: "material:arrow_drop_down"
-                size: root.tokens.colorPickerStepperIconSize
-                color: root.tokens.surfaceVariantForeground
-            }
         }
     }
 }

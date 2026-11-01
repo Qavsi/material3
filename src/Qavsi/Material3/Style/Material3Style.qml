@@ -15,6 +15,7 @@ SK.Style {
     readonly property Material3TimeDelegate timeDelegate: Material3TimeDelegate {}
     readonly property SmallButtonDelegate buttonDelegate: SmallButtonDelegate { }
     readonly property Material3MenuDelegate menuDelegate: Material3MenuDelegate { }
+    readonly property Material3SpinBoxDelegate spinBoxDelegate: Material3SpinBoxDelegate {}
     readonly property Material3TextFieldDelegate textFieldDelegate: Material3TextFieldDelegate { }
 
 
@@ -100,6 +101,8 @@ SK.Style {
     themeName: "Light"
     fonts.system: root.tokens.labelLarge
     fonts.button: root.tokens.labelLarge
+    fonts.textArea: root.tokens.bodyLarge
+    fonts.spinBox: root.tokens.labelSmall
     fonts.textField: root.tokens.bodyLarge
     fonts.comboBox: root.tokens.bodyLarge
     comboBox {
@@ -212,6 +215,19 @@ SK.Style {
                 opacity: root.tokens.elevationContainerOpacity
                 delegate: root.menuDelegate.shadow
             }
+        }
+    }
+    textArea {
+        background {
+            delegate: root.textFieldDelegate.background
+            data: Material3TextFieldParameters { tokens: root.tokens; reducedMotion: root.effectiveReducedMotion }
+        }
+    }
+    spinBox {
+        background.delegate: root.spinBoxDelegate.background
+        indicator {
+            first { delegate: root.spinBoxDelegate.up; foreground.visible: false }
+            second { delegate: root.spinBoxDelegate.down; foreground.visible: false }
         }
     }
     textField {

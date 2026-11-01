@@ -6,12 +6,15 @@ import Qavsi.Material3.Theme
 
 Item {
     id: root
-    required property T.TextField control
+    // Native TextField and TextArea have different Qt base types.
+    required property var control
+    readonly property T.TextField textField: control as T.TextField
+    readonly property bool multiline: control instanceof T.TextArea
     required property SK.DelegateStyle delegateStyle
     readonly property Material3TextFieldParameters parameters: delegateStyle.data as Material3TextFieldParameters
     readonly property Material3Theme tokens: parameters.tokens
     readonly property bool filled: parameters.filled
-    readonly property bool invalid: control.enabled && control.TextFieldSupport.error
+    readonly property bool invalid: control.enabled && textField !== null && textField.TextFieldSupport.error
     readonly property Material3TextFieldDecorations decorations: accessories.item as Material3TextFieldDecorations
     readonly property bool labelEnabled: managesPlaceholder && control.placeholderText.length > 0
     readonly property bool floating: labelEnabled
@@ -73,6 +76,18 @@ Item {
         value: root.parameters.metrics.font
         requested: root.parameters.metrics !== root.tokens.textFieldMedium
     }
+    Material3TextFieldBinding {
+        target: root.control; property: "selectionColor"
+        defaultValue: root.control.palette.highlight
+        value: root.tokens.primary
+        requested: root.multiline
+    }
+    Material3TextFieldBinding {
+        target: root.control; property: "selectedTextColor"
+        defaultValue: root.control.palette.highlightedText
+        value: root.tokens.primaryForeground
+        requested: root.multiline
+    }
     Behavior on floatProgress {
         enabled: root.canAnimate
         NumberAnimation {
@@ -87,12 +102,12 @@ Item {
         id: accessories
         z: 1
         anchors.fill: parent
-        active: root.control.TextFieldSupport.prefix.length > 0 || root.control.TextFieldSupport.suffix.length > 0
-            || root.control.TextFieldSupport.leadingIcon.length > 0 || root.control.TextFieldSupport.trailingIcon.length > 0
-            || root.control.TextFieldSupport.supportingText.length > 0 || root.control.TextFieldSupport.errorText.length > 0
+        active: root.textField !== null && (root.textField.TextFieldSupport.prefix.length > 0 || root.textField.TextFieldSupport.suffix.length > 0
+            || root.textField.TextFieldSupport.leadingIcon.length > 0 || root.textField.TextFieldSupport.trailingIcon.length > 0
+            || root.textField.TextFieldSupport.supportingText.length > 0 || root.textField.TextFieldSupport.errorText.length > 0)
         sourceComponent: Component {
             Material3TextFieldDecorations {
-                control: root.control
+                control: root.textField
                 tokens: root.tokens
                 metrics: root.parameters.metrics
                 filled: root.filled
@@ -136,7 +151,7 @@ Item {
         readonly property real restX: leadingX
             + (root.control.effectiveHorizontalAlignment === TextInput.AlignRight ? root.contentWidth - visualWidth
                : root.control.effectiveHorizontalAlignment === TextInput.AlignHCenter ? (root.contentWidth - visualWidth) / 2 : 0)
-        readonly property real restY: root.filled ? (root.height - height * scale) / 2
+        readonly property real restY: root.filled ? (root.multiline ? root.tokens.textFieldVerticalPadding : (root.height - height * scale) / 2)
             : root.control.topPadding - root.surfaceOrigin.y
               + (root.control.verticalAlignment === TextInput.AlignBottom ? root.contentHeight - height * scale
                  : root.control.verticalAlignment === TextInput.AlignVCenter ? (root.contentHeight - height * scale) / 2 : 0)

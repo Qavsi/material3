@@ -1138,3 +1138,70 @@ The helper never writes enabled, text, checked or dimensions. As in QCM, the
 consumer guards repeated job requests; applications wanting native disabled
 semantics bind enabled to their own job/availability state. Variation roles stay
 immutable and no button wrapper or Qt SDK patch is introduced.
+
+## Native SpinBox, TextArea and BottomSheet
+
+Reference: QCM229bc3e64ff7 `qml/input/{NumberStepper,StepperInput}.qml`,
+`qml/text/TextEdit.qml`, `qml/popup/BottomSheet.qml` and its state roles.
+This slice adapts appearance to native Qt contracts; it does not import QCM.
+
+- Native `SK.SpinBox` owns integer values, range, wrap, validation and keyboard/
+  pointer stepping. Its compact 24px container, LabelSmall11 and 14px vertical
+  stepper geometry are Theme/recipe tokens. Per-indicator hover/press feedback
+  follows the native up/down state. Native integer API remains unchanged; QCM's
+  real-valued StepperInput is not copied as a second value model.
+- Native `SK.TextArea` owns multiline editing, wrapping, cursor, selection and
+  readOnly. Outlined is default; `textAreaFilled` is the immutable filled recipe.
+  Its frame, floating caption and Theme/reduced-motion behavior share the existing
+  TextField delegate. These Qt types have different bases, so the private shared
+  presentation uses their common properties; TextField-only adornments remain
+  scoped to TextField. Native text and caller font/color ownership are retained.
+- `Material3BottomSheet` composes the existing scoped Basic.Drawer with a StyleKit
+  `bottomSheetSurface`, because Qt6.12 has no StyleKit Drawer. Native open/close,
+  bottom-edge swipe and modal/nonmodal behavior are kept. QCM's 640px maximum
+  width, 56px wide margin, 72px top clearance, 48px handle target and 48x4px idle handle
+  are canonical optical recipe tokens. SurfaceContainerLow, onSurfaceVariant,
+  top-only ExtraLarge corners and level1 elevation come from Theme. The host
+  window overlay owns placement; tall content scrolls within available bounds.
+  Modal sheets have a scrim/Escape/outside dismissal; standard sheets leave the
+  application interactive. Native Drawer position/motion honors effective reduced
+  motion; software keeps the same surface with existing elevation fallback.
+- BottomSheet's default content is its `content` list; existing native Drawer
+  properties remain available. QCM's detents, velocity projection and nested-scroll
+  handoff are outside this mapping; native Drawer gestures are used.
+- Input selection uses primary/onPrimary through the existing restoring binding
+  helper. Explicit nondefault caller colors opt out. An initial explicit value
+  equal to the native default shares the helper's documented ownership limit.
+- The ColorPicker channel now consumes the shared SpinBox skin instead of painting
+  a second background/stepper. Its native editor and select-by-mouse remain intact.
+
+Default native SK.Label ink maps to onSurface (disabled: onSurface opacity), so
+sheet headings and field-adjacent labels inherit Light/Dark without local paint.
+Existing semantic Label variations, including Badge, keep their own ink pairs.
+
+Qt6.12 StyleKit lays right-aligned indicator items out horizontally and keeps
+margin sides physical under mirroring. The default down indicator overlaps the
+same column through derived margins; a scoped/restoring native x binding aligns
+that same column in RTL. Custom indicator replacement releases this delegate.
+The public consumer checks nonempty hit regions, native pointer stepping and
+actual LayoutMirroring geometry, without selecting private delegate nodes.
+
+### QCM alignment refinements
+
+SpinBox minimum width follows QCM's measured three-digit LabelSmall reference,
+28px value allowance and22px optical chrome. Its editor-to-stepper gap is2px.
+The provider-independent arrow triangles use the4.3x2.35px ink bounds measured
+from QCM's bundled12px Material Symbols arrows; their14px native hit column stays
+unchanged. The primitive triangles do not reproduce the font's rounded contours.
+
+BottomSheet body padding defaults to0; the caller owns content spacing. Its handle
+uses outline at48x4px, onSurface at52x12px during native dragging and the reference
+hover layer. Geometry uses100ms linear motion; native entry/exit uses250ms emphasized
+curves. Reduced motion removes subsequent transitions and settles handle animation;
+a transition already running under Qt's native Drawer may finish its current250ms
+job. Modal and standard examples have separate native instances, as in QCM.
+
+QCM exposes a plain TextEdit primitive, not a framed multiline TextArea control.
+Qavsi's outlined/filled TextArea deliberately keeps the existing Material3 field
+surface, BodyLarge and floating-label contract; native PlainText, wrapping,
+selection and read-only editing are preserved rather than claiming a pixel copy.

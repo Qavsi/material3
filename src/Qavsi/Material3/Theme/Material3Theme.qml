@@ -1,4 +1,6 @@
 import QtQuick
+import "Material3SpinBoxRecipe.js" as SpinBoxRecipe
+import "Material3SheetRecipe.js" as SheetRecipe
 import "Material3ButtonRecipe.js" as ButtonRecipe
 import "Material3CarouselRecipe.js" as CarouselRecipe
 import "Material3PickerRecipe.js" as PickerRecipe
@@ -480,6 +482,27 @@ QtObject {
     readonly property real comboBoxPopupMaximumWidth: 280
     readonly property real comboBoxPopupMargin: 12
     readonly property real comboBoxPopupGap: 4
+    readonly property TextMetrics spinBoxReferenceText: TextMetrics { font: root.labelSmall; text: "999" }
+    readonly property real spinBoxMinimumWidth: Math.ceil(spinBoxReferenceText.advanceWidth) + SpinBoxRecipe.valueWidth
+        + spinBoxTextInset + spinBoxIndicatorWidth + spinBoxIndicatorInset
+    readonly property real spinBoxHeight: SpinBoxRecipe.height
+    readonly property real spinBoxIndicatorWidth: SpinBoxRecipe.indicatorWidth
+    readonly property real spinBoxIndicatorInset: SpinBoxRecipe.indicatorInset
+    readonly property real spinBoxTextInset: SpinBoxRecipe.textInset
+    readonly property real spinBoxGlyphWidth: SpinBoxRecipe.glyphWidth
+    readonly property real spinBoxGlyphHeight: SpinBoxRecipe.glyphHeight
+    readonly property real bottomSheetMaximumWidth: SheetRecipe.maximumWidth
+    readonly property real bottomSheetWideMargin: SheetRecipe.wideMargin
+    readonly property real bottomSheetTopMargin: SheetRecipe.topMargin
+    readonly property real bottomSheetHandleTarget: SheetRecipe.handleTarget
+    readonly property real bottomSheetHandleWidth: SheetRecipe.handleWidth
+    readonly property real bottomSheetHandleHeight: SheetRecipe.handleHeight
+    readonly property real bottomSheetHandlePressedWidth: SheetRecipe.handlePressedWidth
+    readonly property real bottomSheetHandlePressedHeight: SheetRecipe.handlePressedHeight
+    readonly property int bottomSheetMotionDuration: 250
+    readonly property int bottomSheetHandleMotionDuration: 100
+    readonly property list<real> bottomSheetEnterEasingCurve: menuEnterEasingCurve
+    readonly property list<real> bottomSheetExitEasingCurve: menuExitEasingCurve
     readonly property real textFieldMinimumWidth: 64
     readonly property real textFieldHeight: 56
     readonly property real textFieldHorizontalPadding: spacingMedium

@@ -3,6 +3,9 @@
 
 import { requiredValue, resolveValue, tokenKey } from './token-value-utils.mjs';
 
+const SPINBOX_FIELDS = ['valueWidth', 'height', 'indicatorWidth', 'indicatorInset', 'textInset', 'glyphWidth', 'glyphHeight'];
+const SHEET_FIELDS = ['maximumWidth', 'wideMargin', 'topMargin', 'handleTarget', 'handleWidth', 'handleHeight', 'handlePressedWidth', 'handlePressedHeight'];
+
 const CAROUSEL_FIELDS = ["width", "height", "itemWidth", "verticalHeight", "crossPadding", "minimumSmallWidth", "maximumSmallWidth", "titleFadeSpan", "chromeHeight", "chromeSpacing", "pagePadding", "pageSpacing", "pageSize"];
 const PICKER_FIELDS = ["timeDialSize", "timeSelectorSize", "timeDialPadding", "timeFieldWidth", "timeFieldHeight", "timeSeparatorWidth", "timePeriodWidth", "timePeriodGap", "timePadding", "timeDialGap", "timeHandWidth", "timeCenterSize", "timeHeadingGap", "timeSupportingHeight", "dateInputWidth", "headerMinimumHeight", "modeButtonInset", "navigationHeight", "navigationPadding", "navigationGap", "yearGridHeight", "yearCellHeight", "monthCellHeight", "weekdayHeight", "weekdayPadding", "colorButtonWidth", "colorButtonHeight", "colorButtonGap", "colorButtonTrailingExtraWidth", "colorButtonIconSize", "colorPadding", "colorSpacing", "colorChannelRowSpacing", "colorWheelSize", "colorTriangleSize", "colorWheelThickness", "colorWheelHandleExtension", "colorWheelHandleHeight", "colorWheelHandleRadius", "colorTriangleHandleSize", "colorTriangleHandleBorderWidth", "colorChannelTrackWidth", "colorChannelValueHeight", "colorChannelIndicatorWidth", "colorChannelIndicatorHeight", "colorChannelIndicatorBorderWidth", "colorStepperWidth", "colorStepperIconSize", "colorStepperInset", "colorStepperTextInset", "colorSwatchSize", "width", "padding", "daySize", "daySpacing", "dayIndicatorSize", "headerPadding", "headerVerticalPadding", "colorChannelTrackHeight", "colorChannelValueWidth", "colorChannelLabelWidth", "colorCheckerSize"];
 const SCROLLBAR_FIELDS = ["extent", "padding", "thumbWidth", "expandedThumbWidth"];
@@ -59,6 +62,8 @@ const ICON_BUTTON_FIELDS = BUTTON_SIZES.flatMap(size => ICON_BUTTON_METRICS.map(
 function recipeTokens(dictionary) {
   const values = new Map(dictionary.allTokens.map((token) => [tokenKey(token), resolveValue(token)]));
   const expected = new Set([
+    ...SPINBOX_FIELDS.map(name => `style.material3.spinBox.${name}`),
+    ...SHEET_FIELDS.map(name => `style.material3.sheet.${name}`),
     ...CAROUSEL_FIELDS.map(name => `style.material3.carousel.${name}`),
     ...PICKER_FIELDS.map(name => `style.material3.picker.${name}`),
     ...SCROLLBAR_FIELDS.map(name => `style.material3.scrollBar.${name}`),
@@ -112,6 +117,13 @@ function formatOpticalRecipe(dictionary, family, fields) {
 
 ${fields.map(name => `const ${name} = ${recipe[name]};`).join('\n')}
 `;
+}
+
+export function formatMaterial3SpinBoxRecipe(dictionary) {
+  return formatOpticalRecipe(dictionary, 'spinBox', SPINBOX_FIELDS);
+}
+export function formatMaterial3SheetRecipe(dictionary) {
+  return formatOpticalRecipe(dictionary, 'sheet', SHEET_FIELDS);
 }
 
 export function formatMaterial3CarouselRecipe(dictionary) {

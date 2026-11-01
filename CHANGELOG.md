@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Align compact SpinBox arrow/value geometry and BottomSheet handle, padding and
+  entry/exit motion with QCM; keep separate modal/standard sheet examples.
+
+- Add QCM-referenced native StyleKit SpinBox and outlined/filled TextArea mappings,
+  plus a themed native Drawer-based Material3BottomSheet with modal/standard
+  behavior, scrolling, motion policy and software elevation fallback.
+- Share SpinBox paint with ColorPicker channels and TextArea floating-label paint
+  with TextField, preserving native input and caller values. Map default Label ink
+  to the selected Theme for readable sheet headings.
+
 - Port QCM's analog time dial, 12/24-hour selection and Clock/Input modes to an
   embeddable StyleKit TimePicker with caller-owned values, native text editors
   and Theme/reduced-motion/software behavior.

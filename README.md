@@ -725,3 +725,9 @@ samples the generated palette directly. PrimaryPalette and SecondaryPalette are
 also available. Existing paletteTone(QColor,tone) remains the color-derived
 utility. For live QML bindings, explicitly read the source seedColor/scheme
 properties before calling the sampler, as ThemePanel does.
+
+### Other native controls
+
+Material3 now maps native `SK.SpinBox` and `SK.TextArea` (outlined or immutable
+`textAreaFilled`) and exports a scoped native-Drawer `Material3BottomSheet`.
+See [API, QCM adaptation and native boundaries](docs/families/other-controls.md).

@@ -1158,6 +1158,72 @@
           "$type": "dimension",
           "$value": 6
         }
+      },
+      "spinBox": {
+        "$description": "QCM 229bc3e6 optical geometry, adapted to native Qt controls. Semantic roles and motion stay in Material3Theme.",
+        "height": {
+          "$type": "dimension",
+          "$value": 24
+        },
+        "indicatorWidth": {
+          "$type": "dimension",
+          "$value": 14
+        },
+        "indicatorInset": {
+          "$type": "dimension",
+          "$value": 2
+        },
+        "textInset": {
+          "$type": "dimension",
+          "$value": 6
+        },
+        "glyphWidth": {
+          "$type": "dimension",
+          "$value": 4.3
+        },
+        "glyphHeight": {
+          "$type": "dimension",
+          "$value": 2.35
+        },
+        "valueWidth": {
+          "$type": "dimension",
+          "$value": 28
+        }
+      },
+      "sheet": {
+        "$description": "QCM 229bc3e6 optical geometry, adapted to native Qt controls. Semantic roles and motion stay in Material3Theme.",
+        "maximumWidth": {
+          "$type": "dimension",
+          "$value": 640
+        },
+        "wideMargin": {
+          "$type": "dimension",
+          "$value": 56
+        },
+        "topMargin": {
+          "$type": "dimension",
+          "$value": 72
+        },
+        "handleTarget": {
+          "$type": "dimension",
+          "$value": 48
+        },
+        "handleWidth": {
+          "$type": "dimension",
+          "$value": 48
+        },
+        "handleHeight": {
+          "$type": "dimension",
+          "$value": 4
+        },
+        "handlePressedWidth": {
+          "$type": "dimension",
+          "$value": 52
+        },
+        "handlePressedHeight": {
+          "$type": "dimension",
+          "$value": 12
+        }
       }
     }
   }

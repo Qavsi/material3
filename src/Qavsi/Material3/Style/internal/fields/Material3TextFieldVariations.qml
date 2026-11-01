@@ -7,6 +7,19 @@ QtObject {
     id: root
     required property Material3Style sourceStyle
     property Material3Theme tokens: sourceStyle.tokens
+    readonly property SK.StyleVariation filledTextArea: SK.StyleVariation {
+        name: "textAreaFilled"
+        textArea {
+            topPadding: root.tokens.textFieldFilledTopPadding
+            bottomPadding: root.tokens.textFieldFilledBottomPadding
+            background {
+                color: root.tokens.textFieldFilledContainer
+                border.color: root.tokens.textFieldIndicator
+                data: Material3TextFieldParameters { tokens: root.tokens; reducedMotion: root.sourceStyle.effectiveReducedMotion; filled: true }
+            }
+            disabled.background.color: root.tokens.textFieldDisabledFilledContainer
+        }
+    }
     readonly property Material3TextFieldVariation filledTextField: Material3TextFieldVariation {
         sourceStyle: root.sourceStyle
         tokens: root.tokens

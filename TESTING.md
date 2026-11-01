@@ -216,3 +216,13 @@ mouse clicks, a GUI heartbeat and a separate readback measurement. It is diagnos
 evidence, not a machine-specific timing assertion in CI. Theme-local variation
 token injection preserves public Light/Dark selection and existing theme/seed
 consumer checks.
+
+## Other native controls
+
+The existing comparison consumer checks compact SpinBox geometry/LabelSmall,
+keyboard/pointer stepping and a nonempty public indicator hit area, wrap, edited
+value commit and disabled input; multiline
+TextArea editing/readOnly/caller text and Theme selection colors; native modal
+bottom-sheet host bounds/full-window scrim, Theme/Label ink, Escape/outside
+dismissal, then modeless editing beside
+an open sheet. This uses the same source/installed seam and no new test target.

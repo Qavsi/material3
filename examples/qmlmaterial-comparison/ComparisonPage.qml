@@ -55,6 +55,7 @@ ColumnLayout {
             spacing: root.tokens.spacingLarge
             ComboBoxGallery { width: Math.min(parent.width, preferredWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
             FieldsGallery { width: Math.min(parent.width, root.tokens.referenceCardWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
+            OtherControlsGallery { width: Math.min(parent.width, root.tokens.referenceCardWidth); anchors.horizontalCenter: parent.horizontalCenter; tokens: root.tokens }
             Loader {
                 id: apiExamples
                 width: Math.min(parent.width, root.tokens.referenceCardWidth)
