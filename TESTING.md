@@ -38,6 +38,12 @@ Use the relevant label after a control or Theme change. Run all three CTest
 entries when both boundaries change. No unconditional Metal/pixel matrix is
 part of the default gate.
 
+The comparison sends QTest input to explicit QWindow targets and waits for
+exposure. Control focus, editing, popup focus return and keyboard activation
+remain checked at those public seams. OS-global foreground ownership is outside
+this control gate: macOS can deny it while the same control checks still pass.
+Performance benchmarks retain their strict visibility/activation prerequisites.
+
 After CMake, export, QML registration or dependency changes, also build and run
 one example without QAVSI_MATERIAL3_SOURCE, using a relocated installed prefix
 through CMAKE_PREFIX_PATH. The example must consume find_package targets only.

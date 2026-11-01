@@ -1329,8 +1329,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
 {
     QSignalSpy warnings(&engine, &QQmlEngine::warnings);
     expect(QTest::qWaitForWindowExposed(&window), "the comparison consumer exposes");
-    window.requestActivate();
-    expect(QTest::qWaitForWindowActive(&window), "the comparison consumer gains native keyboard focus");
+    // QTest input targets this window; desktop activation is not a control-test precondition.
     window.setProperty("reducedMotion", true);
     checkAppNavigation(window);
     checkDialogFeedback(window);
