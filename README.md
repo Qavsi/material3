@@ -31,7 +31,7 @@ cmake/                     relocatable paket ve QML export'ları
 evidence/                  gerçek çalıştırma kanıtları
 ```
 
-Önkoşul: Qavsi.Icons Core kurulu olmalı veya kaynak build için kardeş `../icons`
+Önkoşul: Qavsi Icons 0.2 Core kurulu olmalı veya kaynak build için kardeş `../icons`
 checkout’u bulunmalıdır. Aşağıdaki komutlar ikinci yolu kullanır.
 
 ## QML tüketimi
@@ -85,7 +85,8 @@ Metal'de ripple tek shader ile seçilen tarifin dört köşe yarıçapına göre
 göredir; shader hatası loglanıp painter'a düşer. Focus halkası iki yolda da native
 Qt çizimidir. Source build Qt ShaderTools ister; shader pakete gömülür, installed
 tüketici ShaderTools veya runtime shader derleyicisi istemez.
-Loading bu aktarımın dışındadır. Paketli font provider bağımsız Qavsi.Icons.Material modülündedir.
+Loading bu aktarımın dışındadır. Font provider bağımsız Qavsi.Icons.Material modülündedir;
+Material fontlarını son executable kendi kaynaklarına ekler.
 
 ## Merce’den taşınan buton ailesi
 
@@ -190,7 +191,7 @@ yapılır. Önceki benchmark ve piksel ölçümleri kendi **`229bc3e64ff7`** kay
 pinlerini korur. Güncel referans ayrı checkout/build olarak kullanılır;
 kitin dependency’si veya alt modülü olmaz. Örnek ikonları bağımsız Qavsi.Icons.Material sağlayıcısından gelir.
 Galeride paketli isimler sabittir; selected FILL kararını stilin parameters
-politikası belirler. Font ve katalog Icons sağlayıcısına aittir.
+politikası belirler. Katalog Icons sağlayıcısına aittir; fontları galeri uygulaması paketler.
 
 Dot/count/capped/text badge’ler ayrı [Badge ailesindedir](docs/families/badge.md).
 Rail/drawer, fields, slider ve tabs bu ekranın kit kapsamı
@@ -400,8 +401,27 @@ SK.Button {
 }
 ```
 
-Uygulama `QavsiIcons::Material` target'ını bağlar; module IMPORTS metadata'sı da
-aynı sağlayıcıyı seçebilir. Paketli adın stock SK.Button içeriğinde otomatik
+Qavsi Icons 0.2'de provider modülü font gömmez. Kaynak ve kurulu tüketimde
+uygulama `QavsiIcons::Material` target'ını bağlar ve fontları son executable'a ekler:
+
+```cmake
+# add_subdirectory ile Icons eklenmişse find_package gerekmez.
+find_package(QavsiIcons 0.2 CONFIG REQUIRED COMPONENTS Core Material)
+target_link_libraries(my_app PRIVATE QavsiMaterial3::Style QavsiIcons::Material)
+qavsi_icons_add_material_fonts(my_app ALL VARIABLE)
+# qt_add_qml_module(my_app ...) içine:
+# IMPORT_PATH "${QavsiMaterial3_QML_IMPORT_DIR}" "${QavsiIcons_QML_IMPORT_DIR}"
+```
+
+Fonksiyonu her executable için bir kez çağırın. `ALL` tam kataloğu Python
+gerektirmeden paketler. Küçük ve bilinen bir küme için `ICONS settings home VARIABLE`
+kullanılabilir; bu yol configure/build sırasında Python 3 ve fontTools ister.
+`VARIABLE`, checked ikonun ara FILL değerleriyle animasyonu için gereklidir;
+olmazsa FILL 0/1'e yuvarlanır. Fonksiyon çağrılmazsa ikonlar missing mark çizer
+ve sağlayıcı ad başına bir kez uyarır.
+
+Module IMPORTS metadata'sı da aynı sağlayıcıyı seçebilir; fontları ekleme çağrısının
+yerini almaz. Paketli adın stock SK.Button içeriğinde otomatik
 çalıştığı iddia edilmez: açık content delegate gerekir. AppIcon'ın bağımsız
 doğrudan kullanımı `import Qavsi.Icons` üzerinden yapılır; size/color caller'a,
 font ve FILL çizimi sağlayıcıya, checked→filled politikası stile aittir.

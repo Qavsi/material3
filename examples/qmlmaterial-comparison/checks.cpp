@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QAccessible>
 #include <QImage>
+#include <QList>
 #include <QMetaObject>
 #include <QMetaEnum>
 #include <QMetaProperty>
@@ -929,6 +930,25 @@ void checkSelection(QQuickWindow &window)
     QTest::keyClick(&window, Qt::Key_Space);
     expect(icon->property("checked").toBool() && toggled.size() == 1,
            "Space toggles an icon button through its native checked API");
+    auto *content = icon->property("contentItem").value<QQuickItem *>();
+    expect(content && content->property("iconFillValue").isValid(),
+           "the public button content exposes its Material FILL request");
+    if (content) {
+        const auto originalMotion = window.property("reducedMotion");
+        window.setProperty("reducedMotion", false);
+        for (const bool checked : {false, true}) {
+            QList<qreal> fills;
+            icon->setProperty("checked", checked);
+            const bool completed = QTest::qWaitFor([&] {
+                const qreal fill = content->property("iconFillValue").toReal();
+                fills.append(fill);
+                return fill == (checked ? 1 : 0);
+            }, 1000);
+            expect(completed && fills.contains(0.25) && fills.contains(0.5) && fills.contains(0.75),
+                   "checked-icon animation requests intermediate FILL values in both directions");
+        }
+        window.setProperty("reducedMotion", originalMotion);
+    }
     reveal(second);
     second->forceActiveFocus(Qt::TabFocusReason);
     QTest::keyClick(&window, Qt::Key_Space);

@@ -12,7 +12,7 @@ if(NOT TARGET QavsiMaterial3::Style)
     find_package(QavsiMaterial3 0.1 CONFIG REQUIRED)
 endif()
 if(NOT TARGET QavsiIcons::Material)
-    find_package(QavsiIcons 0.1 CONFIG REQUIRED COMPONENTS Material)
+    find_package(QavsiIcons 0.2 CONFIG REQUIRED COMPONENTS Material)
 endif()
 foreach(unwanted IN ITEMS Merce::Theme MerceTheme MerceStyle QavsiRuntime)
     if(TARGET ${unwanted})
@@ -30,10 +30,11 @@ qt_add_qml_module(qavsi-material3-comparison URI Qavsi.Material3.Comparison
     IMPORTS Qavsi.Icons.Material
     QML_FILES OtherControlsGallery.qml ButtonIndicatorsGallery.qml ButtonGroupsGallery.qml AppearanceOptions.qml AppearanceColorSamples.qml ThemePanel.qml CarouselGallery.qml CarouselDemoData.qml DatePickersGallery.qml ColorPickersGallery.qml DialogFeedbackGallery.qml Main.qml ComparisonPage.qml ComboBoxGallery.qml ComboBoxApiExamples.qml FieldsGallery.qml NavigationGallery.qml AppNavigationGallery.qml SwitchesGallery.qml ChipsGallery.qml ListCardsGallery.qml CheckBoxesGallery.qml BadgesGallery.qml RadioButtonsGallery.qml SlidersGallery.qml ProgressGallery.qml PickersCarouselGallery.qml ActionsGallery.qml DemoCard.qml FabMenuExamples.qml ComparisonMetrics.qml
     RESOURCES ${comparison_icons} ${comparison_carousel_images}
-    IMPORT_PATH "${QavsiMaterial3_QML_IMPORT_DIR}")
+    IMPORT_PATH "${QavsiMaterial3_QML_IMPORT_DIR}" "${QavsiIcons_QML_IMPORT_DIR}")
 target_compile_features(qavsi-material3-comparison PRIVATE cxx_std_20)
 target_compile_definitions(qavsi-material3-comparison PRIVATE $<$<CONFIG:Debug>:QT_QML_DEBUG>)
 target_link_libraries(qavsi-material3-comparison PRIVATE Qt6::Quick Qt6::Test QavsiMaterial3::Style QavsiIcons::Material)
+qavsi_icons_add_material_fonts(qavsi-material3-comparison ALL VARIABLE)
 enable_testing()
 add_test(NAME comparison-software COMMAND qavsi-material3-comparison --check)
 set_tests_properties(comparison-software PROPERTIES

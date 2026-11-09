@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Require Qavsi Icons 0.2. Applications now package Material fonts with
+  `qavsi_icons_add_material_fonts`; the comparison uses `ALL VARIABLE` to retain
+  checked-icon FILL animation. Document source and installed consumer migration.
+
 - Preserve segmented-button selection fill during hover, keyboard focus and press
   across all sizes, Themes and renderers.
 

@@ -17,7 +17,7 @@ if(NOT TARGET QavsiIcons::Core)
         set(QAVSI_ICONS_BUILD_TESTS OFF)
         add_subdirectory("${QAVSI_ICONS_SOURCE}" qavsi-icons)
     else()
-        find_package(QavsiIcons 0.1 CONFIG REQUIRED COMPONENTS Core)
+        find_package(QavsiIcons 0.2 CONFIG REQUIRED COMPONENTS Core)
     endif()
 endif()
 
