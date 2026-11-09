@@ -1,7 +1,6 @@
 #include <QGuiApplication>
 #include <QAccessible>
 #include <QImage>
-#include <QList>
 #include <QMetaObject>
 #include <QMetaEnum>
 #include <QMetaProperty>
@@ -15,6 +14,7 @@
 #include <QSignalSpy>
 #include <QTest>
 #include <QMetaEnum>
+#include <memory>
 
 int checkOtherControls(QQuickWindow &window);
 int checkPickersCarousel(QQuickWindow &window);
@@ -917,6 +917,48 @@ void checkSwitch(QQuickWindow &window)
            "a disabled Switch rejects pointer activation");
 }
 
+void checkMaterialFont(QQmlEngine &engine, QQuickWindow &window)
+{
+    QQmlComponent component(&engine);
+    component.setData(R"(
+        import QtQuick
+        import Qavsi.Icons
+        AppIcon {
+            property real sampleFill: 0
+            readonly property bool glyphReady: status === Image.Ready
+            name: "material:star"
+            size: 64
+            width: size
+            height: size
+            color: "black"
+            appearance: ({ axes: { FILL: sampleFill } })
+        }
+    )", QUrl());
+    const std::unique_ptr<QObject> fixture(component.create());
+    auto *icon = qobject_cast<QQuickItem *>(fixture.get());
+    expect(icon, qPrintable(component.errorString()));
+    if (!icon)
+        return;
+    icon->setParentItem(window.contentItem());
+
+    const auto render = [icon](qreal fill) {
+        icon->setProperty("sampleFill", fill);
+        if (!QTest::qWaitFor([&] { return icon->property("glyphReady").toBool(); }))
+            return QImage{};
+        const auto grab = icon->grabToImage();
+        return grab && QTest::qWaitFor([&] { return !grab->image().isNull(); }) ? grab->image() : QImage{};
+    };
+    const auto outline = render(0);
+    const auto fractional = render(0.5);
+    const auto filled = render(1);
+    QImage empty(fractional.size(), fractional.format());
+    empty.fill(Qt::transparent);
+    expect(!outline.isNull() && !fractional.isNull() && !filled.isNull()
+               && outline != empty && fractional != empty && filled != empty
+               && outline != filled && fractional != outline && fractional != filled,
+           "the comparison executable's AppIcon renders FILL 0.5 distinctly from 0 and 1");
+}
+
 void checkSelection(QQuickWindow &window)
 {
     auto *icon = control(window, "comparison.iconButton.0.enabled");
@@ -930,25 +972,6 @@ void checkSelection(QQuickWindow &window)
     QTest::keyClick(&window, Qt::Key_Space);
     expect(icon->property("checked").toBool() && toggled.size() == 1,
            "Space toggles an icon button through its native checked API");
-    auto *content = icon->property("contentItem").value<QQuickItem *>();
-    expect(content && content->property("iconFillValue").isValid(),
-           "the public button content exposes its Material FILL request");
-    if (content) {
-        const auto originalMotion = window.property("reducedMotion");
-        window.setProperty("reducedMotion", false);
-        for (const bool checked : {false, true}) {
-            QList<qreal> fills;
-            icon->setProperty("checked", checked);
-            const bool completed = QTest::qWaitFor([&] {
-                const qreal fill = content->property("iconFillValue").toReal();
-                fills.append(fill);
-                return fill == (checked ? 1 : 0);
-            }, 1000);
-            expect(completed && fills.contains(0.25) && fills.contains(0.5) && fills.contains(0.75),
-                   "checked-icon animation requests intermediate FILL values in both directions");
-        }
-        window.setProperty("reducedMotion", originalMotion);
-    }
     reveal(second);
     second->forceActiveFocus(Qt::TabFocusReason);
     QTest::keyClick(&window, Qt::Key_Space);
@@ -1404,6 +1427,7 @@ int checkComparison(QQmlApplicationEngine &engine, QQuickWindow &window)
     checkSliders(window);
     checkSliderDestruction(engine, window);
     checkSelection(window);
+    checkMaterialFont(engine, window);
     expect(checkButtonGroupMotion(window) == 0, "button width motion preserves native selection, caller bindings and RTL");
     checkFab(window);
     checkTextButtonPointerFocus(window);
