@@ -413,6 +413,8 @@ qavsi_icons_add_material_fonts(my_app ALL VARIABLE)
 # IMPORT_PATH "${QavsiMaterial3_QML_IMPORT_DIR}" "${QavsiIcons_QML_IMPORT_DIR}"
 ```
 
+Statik Icons kullanırken executable'a `QavsiIconsMaterialPlugin` hedefini de bağlayın.
+
 Fonksiyonu her executable için bir kez çağırın. `ALL` tam kataloğu Python
 gerektirmeden paketler. Küçük ve bilinen bir küme için `ICONS settings home VARIABLE`
 kullanılabilir; bu yol configure/build sırasında Python 3 ve fontTools ister.
