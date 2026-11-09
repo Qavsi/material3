@@ -14,11 +14,23 @@ endif()
 
 if(NOT TARGET QavsiIcons::Core)
     if(QAVSI_ICONS_SOURCE)
-        set(QAVSI_ICONS_BUILD_TESTS OFF)
-        add_subdirectory("${QAVSI_ICONS_SOURCE}" qavsi-icons)
+        block(PROPAGATE QavsiIcons_QML_IMPORT_DIR)
+            # Icons declares a cache option. Keep its default local to this dependency.
+            if(NOT DEFINED BUILD_SHARED_LIBS)
+                set(BUILD_SHARED_LIBS ON)
+            endif()
+            set(QAVSI_ICONS_BUILD_TESTS OFF)
+            add_subdirectory("${QAVSI_ICONS_SOURCE}" qavsi-icons)
+        endblock()
     else()
-        find_package(QavsiIcons 0.1 CONFIG REQUIRED COMPONENTS Core)
+        find_package(QavsiIcons 0.2 CONFIG REQUIRED COMPONENTS Core)
     endif()
+endif()
+
+include(cmake/QavsiMaterial3IconsVersion.cmake)
+qavsi_material3_icons_version_error(qavsi_icons_error)
+if(qavsi_icons_error)
+    message(FATAL_ERROR "${qavsi_icons_error}")
 endif()
 
 add_subdirectory(third_party/material-color-utilities)
@@ -38,6 +50,7 @@ write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/QavsiMaterial3Conf
     VERSION "${PROJECT_VERSION}" COMPATIBILITY SameMinorVersion)
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/QavsiMaterial3Config.cmake"
     "${CMAKE_CURRENT_BINARY_DIR}/QavsiMaterial3ConfigVersion.cmake"
+    cmake/QavsiMaterial3IconsVersion.cmake
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/QavsiMaterial3")
 install(EXPORT QavsiMaterial3Targets NAMESPACE QavsiMaterial3::
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/QavsiMaterial3")

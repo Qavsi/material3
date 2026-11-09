@@ -83,7 +83,11 @@ Their [full license](https://github.com/Qavsi/material3/blob/main/examples/qmlma
 [hash manifest](https://github.com/Qavsi/material3/blob/main/examples/qmlmaterial-comparison/icons/manifest.json) are retained.
 The runtime kit does not install these archived example assets or expose a font provider.
 The live gallery now selects the independent Qavsi.Icons.Material provider;
-its matching Google font/catalog and Apache-2.0 notices belong to that package.
+its matching Google font/catalog and Apache-2.0 notices belong to Qavsi Icons 0.2.
+The provider module embeds no fonts. Applications package them with
+`qavsi_icons_add_material_fonts(<exe> ALL VARIABLE)` (or `ICONS <names...> VARIABLE`)
+and preserve the font's applicable notices when redistributing them. `VARIABLE`
+retains intermediate FILL animation; without fonts icons show the missing mark.
 
 ## Google Material Color Utilities
 

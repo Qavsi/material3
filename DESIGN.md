@@ -485,10 +485,17 @@ kalır. Ortak save/settings eşdeğer ad tablosu veya font paketleri arasında o
 isim eşleme yoktur. Eski SVG dosyaları referans varlığı olarak korunur; galeri
 FILL davranışının implementasyonu değildir.
 
-Qavsi.Icons.Material resmî Google Rounded2.978 font ve4304 isimlik matching katalog
+Qavsi.Icons.Material resmî Google Rounded2.978 font için4304 isimlik matching katalog
 paketler (sabit10ecc147 revizyonu); Core'a font/tema/tasarım token'ı taşınmaz.
+Qavsi Icons 0.2 provider modülü font gömmez. Uygulama son executable üzerinde
+`qavsi_icons_add_material_fonts(<exe> ALL VARIABLE)` çağırır. `ALL` Python
+gerektirmeden tam fontları ekler; `ICONS <names...> VARIABLE` yalnız seçili
+glyph'leri build sırasında Python 3/fontTools ile üretir. Fonksiyon executable
+başına bir kez çağrılır. `VARIABLE` checked ikonun ara FILL adımlarını korur;
+olmazsa FILL 0/1'e yuvarlanır. Fontlar eklenmezse missing mark ve ad başına
+bir uyarı üretilir. Katalog/font lisansları Icons paketine aittir.
 Kaynak tüketimi `QAVSI_ICONS_SOURCE` ile önce Icons add_subdirectory yapabilir;
-installed paket `find_dependency(QavsiIcons COMPONENTS Core)` kullanır. Material
+installed paket `find_dependency(QavsiIcons 0.2 CONFIG COMPONENTS Core)` kullanır. Material
 provider seçimi uygulamada kalır. QT_QML_OUTPUT_DIRECTORY parent'a uyar; zorunlu
 provider eklentisi standart QML modül dizininde bulunur. Source/installed aynı
 target/API'leri kullanır. SDK, Merce/MButton veya diğer stiller değiştirilmez.

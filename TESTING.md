@@ -194,8 +194,10 @@ or generic reader workaround is installed.
 Button motion/advanced Chips extend only the approved native consumer seam:
 one group scenario covers conserved widths, selection, caller bindings and RTL;
 one chip scenario covers native editor commit and application-owned drag.
-Existing trailing Action checks remain. Icons public render coverage checks
-fractional FILL and invalid-axis fallback, without private nodes/timing probes.
+Existing trailing Action checks remain. The comparison executable checks its
+packaged variable font by rendering the public AppIcon at FILL 0, 0.5 and 1.
+The fractional image must differ from both endpoints. Icons covers invalid-axis
+fallback in its own render tests.
 
 Busy buttons extend the existing gallery consumer seam: actual normal-button
 activation/completion, icon Idle→Busy→Progress→Idle, visible static reduced-motion
